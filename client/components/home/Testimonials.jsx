@@ -128,7 +128,7 @@ export default function Testimonials() {
               <div className="absolute top-0 left-0 h-full w-full">
                 <Image
                   src={Assets.Group492}
-                  alt=""
+                  alt="Group 492"
                   className="h-full w-full object-cover"
                 />
               </div>
