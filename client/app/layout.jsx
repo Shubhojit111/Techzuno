@@ -4,7 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 const roboto = Roboto({
-  weight: ['300', '400', '500', '700', '900'],
+  weight: ["300", "400", "500", "700", "900"],
   subsets: ["latin"],
   variable: "--font-roboto",
 });
@@ -28,15 +28,14 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col font-sans">
         <Navbar />
-        <main className="">
-          {children}
-        </main>
+        <main className="">{children}</main>
+        <Footer />
+        {/*
         <Footer />
         <Footer />
         <Footer />
         <Footer />
-        <Footer />
-        {/* 
+         
          */}
       </body>
     </html>

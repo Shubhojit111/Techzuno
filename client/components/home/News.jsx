@@ -32,33 +32,37 @@ export default function News() {
   ];
 
   return (
-    <section className="pb-24 pt-12 bg-black">
-      <div className="px-62 mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-semibold mb-4">NEWS</h2>
-        <p className="text-zinc-400 mb-8 text-sm">Insights, Trends And Updates From Our Tech Innovators & Industry</p>
-        
-        <div className="mb-16">
-          <KnowMoreBtn text="View All Insights From Blog" />
+    <section className="pb-24 pt-12 bg-black relative">
+      <div className="px-6 sm:px-10 lg:px-62 mx-auto">
+        <div className="text-center px-0 md:px-8 mx-auto mb-12 md:mb-16">
+          <h2 className="text-[30px] sm:text-[38px] lg:text-[50px] font-bold leading-tight lg:leading-[1.1] tracking-wider mb-4 text-white">
+            NEWS
+          </h2>
+          <p className="text-zinc-400 text-[14px] sm:text-[14px] leading-tight mb-8">Insights, Trends And Updates From Our Tech Innovators & Industry</p>
+          
+          <div className="mb-8">
+            <KnowMoreBtn text="View All Insights From Blog" />
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-4">
           {news.map((item, idx) => (
             <div
               key={item.id}
-              className={`overflow-hidden text-left group hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-shadow ${idx % 2 === 0 ? "rounded-tl-3xl" : "rounded-tr-3xl"}`}
+              className={`flex flex-col md:h-[280px] md:h-auto overflow-hidden text-left group hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-shadow ${idx % 2 === 0 ? "rounded-tl-4xl" : "rounded-tr-4xl"}`}
             >
-              <div className="h-[65%] overflow-hidden">
+              <div className="h-[60%] md:h-[65%] overflow-hidden">
                 <Image 
                   src={item.image} 
                   alt={item.title} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="max-h-[35%] w-full p-4 pb-8 bg-cyan-50">
-                <h3 className=" w-[80%] font-medium text-gray-900 text-[13px] leading-tight underline underline-offset-1 mb-2 line-clamp-2 hover:text-cyan-600 transition-colors cursor-pointer">
+              <div className="flex-1 w-full p-3 md:p-4 pb-6 md:pb-8 bg-cyan-50">
+                <h3 className="w-full md:w-[85%] font-medium text-gray-900 text-[12px] md:text-[18px] lg:text-[14px] leading-tight underline underline-offset-[1.5px] mb-2 line-clamp-2 md:line-clamp-2 hover:text-cyan-600 transition-colors cursor-pointer">
                   {item.title}
                 </h3>
-                <p className="text-cyan-800 text-xs">{item.date}</p>
+                <p className="text-cyan-800 text-[10px] md:text-[14px] lg:text-xs">{item.date}</p>
               </div>
             </div>
           ))}

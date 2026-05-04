@@ -28,11 +28,11 @@ export default function Hero() {
         </p>
 
         {/* Central Graphic Area */}
-        <div className="relative w-full max-w-[380px] sm:max-w-[520px] md:max-w-[680px] flex flex-col items-center self-center md:self-auto">
+        <div className="relative w-full max-w-[380px] sm:max-w-[520px] md:max-w-[680px] flex flex-col items-center self-center md:self-auto before:absolute before:top-[45px] before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-[120px] before:h-[120px] before:bg-[#38FFF2] before:blur-[35px] before:opacity-50 before:z-0">
           {/* Top connecting lines (horizontal) */}
 
           {/* Center Brain Icon */}
-          <div className="relative z-10 w-[90px] shadow-sm h-[90px] mb-6">
+          <div className="relative z-10 w-[90px] h-[90px] mb-6">
             <Image
               src={Assets.HomeIcon}
               alt="Logo"
