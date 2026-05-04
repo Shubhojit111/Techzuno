@@ -34,27 +34,53 @@ export default function SliderArrowBtn({ children }) {
     };
   }, []);
 
-  const getScrollAmount = () => {
-    const slider = sliderRef.current;
-    if (!slider) return 0;
-
-    const firstCard = slider.querySelector("[data-slide]");
-    if (!firstCard) return slider.clientWidth;
-
-    const cardStyles = window.getComputedStyle(firstCard);
-    const marginRight = parseFloat(cardStyles.marginRight) || 0;
-
-    return firstCard.offsetWidth + marginRight;
-  };
-
   const scroll = (direction) => {
     const slider = sliderRef.current;
     if (!slider) return;
 
-    const scrollAmount = getScrollAmount();
+    // Get the container that holds the cards (first child of the slider)
+    const container = slider.children[0];
+    if (!container) return;
+
+    // Get all card elements
+    const cards = Array.from(container.children);
+    if (cards.length === 0) return;
+
+    const sliderRect = slider.getBoundingClientRect();
+    const sliderCenter = sliderRect.left + sliderRect.width / 2;
+
+    // Find the index of the currently centered card
+    let closestIdx = 0;
+    let minDistance = Infinity;
+
+    cards.forEach((card, idx) => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const distance = Math.abs(sliderCenter - cardCenter);
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIdx = idx;
+      }
+    });
+
+    // Determine the target card to scroll to
+    let targetIdx = closestIdx;
+    if (direction === "left") {
+      targetIdx = Math.max(0, closestIdx - 1);
+    } else {
+      targetIdx = Math.min(cards.length - 1, closestIdx + 1);
+    }
+
+    const targetCard = cards[targetIdx];
+    
+    // Calculate how much we need to scroll to center the target card
+    const targetCardRect = targetCard.getBoundingClientRect();
+    const targetCardCenter = targetCardRect.left + targetCardRect.width / 2;
+    const scrollDiff = targetCardCenter - sliderCenter;
 
     slider.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
+      left: scrollDiff,
       behavior: "smooth",
     });
   };
@@ -93,7 +119,7 @@ export default function SliderArrowBtn({ children }) {
       {/* Slider */}
       <div
         ref={sliderRef}
-        className="overflow-x-auto md:overflow-visible scrollbar-hide scroll-smooth"
+        className="overflow-x-auto md:overflow-visible scrollbar-hide scroll-smooth snap-x snap-mandatory"
       >
         {children}
       </div>

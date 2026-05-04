@@ -143,7 +143,7 @@ export default function Testimonials() {
         <div className="mx-auto px-6 md:px-10 lg:px-62 mb-6 md:mb-16 relative z-[60]">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
             <HeaderBtn text="CLIENT TESTIMONIALS" />
-            <h2 className="text-[26px] sm:text-[38px] lg:text-[50px] font-bold leading-tight  lg:leading-[1.1] tracking-wider mb-4">
+            <h2 className="text-[30px] sm:text-[38px] lg:text-[50px] font-bold leading-tight  lg:leading-[1.1] tracking-wider mb-4">
               WHAT OUR CLIENT <br /> SAY ABOUT{" "}
               <span className="text-[#38FFF2]">TECHZUNO</span>
             </h2>
@@ -156,15 +156,16 @@ export default function Testimonials() {
         </div>
 
         {/* Cards Container */}
-        <div className="overflow-hidden w-full relative z-10 ">
-          <div
-            ref={cardsContainerRef}
-            className="flex gap-4 md:gap-6 w-max pb-8 pr-6 md:pr-10 lg:pr-62 transition-transform duration-300 ease-out pl-6 md:pl-0"
-          >
+        <div className="overflow-hidden  w-full relative z-10 ">
+          <SliderArrowBtn>
+            <div
+              ref={cardsContainerRef}
+              className="flex gap-4 md:gap-6 w-max pb-8 pr-6 md:pr-10 lg:pr-62 transition-transform duration-300 ease-out pl-6 md:pl-0"
+            >
             {testimonials.map((testimonial, idx) => (
               <div
                 key={idx}
-                className={`bg-[#daf2f8] border rounded-[16px] p-6 md:p-8 pb-8 md:pb-10 relative overflow-hidden flex flex-col justify-between h-[380px] md:h-[420px] w-[calc(100vw-48px)] md:w-[440px] shrink-0 shadow-lg ${idx === 0 ? "md:ml-10 lg:ml-62" : ""}`}
+                className={`snap-center bg-[#daf2f8] border rounded-[16px] p-6 md:p-8 pb-8 md:pb-10 relative overflow-hidden flex flex-col justify-between h-[380px] md:h-[420px] w-[calc(100vw-48px)] md:w-[500px] lg:w-[440px] shrink-0 shadow-lg ${idx === 0 ? "md:ml-10 lg:ml-62" : ""}`}
               >
                 <div className="absolute top-0 left-0 h-full w-full">
                   <Image
@@ -219,6 +220,7 @@ export default function Testimonials() {
               </div>
             ))}
           </div>
+          </SliderArrowBtn>
         </div>
       </section>
     </div>

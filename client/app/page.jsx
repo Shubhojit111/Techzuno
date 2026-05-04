@@ -15,19 +15,19 @@ export default function Home() {
     <div className="flex flex-col h-full">
       <Hero />
       {/*       
+      */}
       <About />
       <Steps />
       <Services />
       <Newsletter />
       <Marquee />
-      */}
       {/* 
       <CEO />
+      */}
       <WhyChooseUs />
-       */}
       <Testimonials /> 
-      {/* 
       <News />
+      {/* 
       <CTA /> 
       */}
     </div>
