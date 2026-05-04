@@ -16,17 +16,17 @@ export default function Home() {
       <Hero />
       {/*       
       <About />
-      */}
       <Steps />
       <Services />
       <Newsletter />
       <Marquee />
+      */}
       {/* 
       <CEO />
-       */}
       <WhyChooseUs />
-      {/* 
+       */}
       <Testimonials /> 
+      {/* 
       <News />
       <CTA /> 
       */}
