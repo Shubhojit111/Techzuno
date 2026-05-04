@@ -100,7 +100,7 @@ export default function Testimonials() {
     <div ref={triggerRef} className="w-full shrink-0 ">
       <section className="bg-black overflow-hidden w-full" ref={sectionRef}>
         <div className="mx-auto px-62 mb-16">
-          <div className="max-w-[100%] md:max-w-[70%] lg:max-w-[55%]">
+          <div className="max-w-full md:max-w-[70%] lg:max-w-[55%]">
             <HeaderBtn text="CLIENT TESTIMONIALS" />
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white uppercase tracking-wide">
               WHAT OUR CLIENT

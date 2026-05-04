@@ -251,7 +251,7 @@ export default function About() {
           <KnowMoreBtn text="Find More About Techzuno" />
         </div>
       </div>
-      <div className="about-floating-img absolute -bottom-30 md:bottom-15 lg:-bottom-20 -right-10 md:-right-10 lg:right-0 z-[60] h-[160px] w-[160px] md:h-[240px] md:w-[240px] lg:h-[260px] lg:w-[260px] pointer-events-none">
+      <div className="about-floating-img absolute -bottom-30 md:bottom-15 lg:-bottom-20 -right-10 md:-right-10 lg:right-0 z-60 h-[160px] w-[160px] md:h-[240px] md:w-[240px] lg:h-[260px] lg:w-[260px] pointer-events-none">
         <Image
           alt=""
           src={Assets.HomeFigure}

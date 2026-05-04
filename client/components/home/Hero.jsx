@@ -53,12 +53,12 @@ export default function Hero() {
           </div>
 
           {/* Vertical connecting line */}
-          <div className="absolute top-[64px] left-1/2 -translate-x-1/2 w-[1px] h-[160px] md:h-[60px] bg-white/20 z-0" />
+          <div className="absolute top-[64px] left-1/2 -translate-x-1/2 w-px h-[160px] md:h-[60px] bg-white/20 z-0" />
 
           {/* Main Stats Box */}
-          <div className="relative z-10 w-full max-w-[380px] sm:max-w-[520px] md:max-w-[680px] bg-gradient-to-b from-white/30 to-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex flex-col md:flex-row shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+          <div className="relative z-10 w-full max-w-[380px] sm:max-w-[520px] md:max-w-[680px] bg-linear-to-b from-white/30 to-white/10 backdrop-blur-md border border-white/20 rounded-2xl flex flex-col md:flex-row shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
             {/* Left Stat */}
-            <div className="flex-1 flex flex-col items-center justify-center text-center md:border-r md:border-white/10 bg-gradient-to-b from-white/5 to-transparent py-6">
+            <div className="flex-1 flex flex-col items-center justify-center text-center md:border-r md:border-white/10 bg-linear-to-b from-white/5 to-transparent py-6">
               <h3 className="text-5xl md:text-[50px] font-toxigenesis text-white mb-2 tracking-tight drop-shadow-md">
                 <CountUpNumber end={98} suffix="%" />
               </h3>
@@ -68,7 +68,7 @@ export default function Hero() {
             </div>
 
             {/* Right Stat */}
-            <div className="flex-1 flex flex-col items-center justify-center text-center bg-gradient-to-b from-white/5 to-transparent py-6">
+            <div className="flex-1 flex flex-col items-center justify-center text-center bg-linear-to-b from-white/5 to-transparent py-6">
               <h3 className="text-5xl md:text-[50px] font-toxigenesis text-white mb-2 tracking-tight drop-shadow-md">
                 <CountUpNumber end={50} suffix="+" />
               </h3>
