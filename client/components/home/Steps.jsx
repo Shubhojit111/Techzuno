@@ -86,19 +86,21 @@ export default function Steps() {
           trigger: techRef.current,
           start: "top 80%",
           end: "top 60%",
+          // markers: true,
           toggleActions: "play none none none",
         },
       });
 
-      // Desktop and Tablet
-      mm.add("(min-width: 768px)", () => {
+      // Desktop
+      mm.add("(min-width: 1024px)", () => {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 55%",
+            start: "top 50%",
             end: "top 10%",
-            // markers: true,
+            markers: true,
             scrub: 2,
+            
             
           },
         });
@@ -118,6 +120,7 @@ export default function Steps() {
                 y: 150,
                 opacity: 0,
                 duration: 1.2,
+                stagger: 0.12,
                 ease: "power3.out",
               },
               0,
@@ -157,6 +160,65 @@ export default function Steps() {
         });
       });
 
+      // Tablet
+      mm.add("(min-width: 768px) and (max-width: 1023px)", () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 60%",
+            end: "top 20%",
+            markers: false,
+            scrub: 2,
+          },
+        });
+
+        // Use stagger to cascade animations since cards are side-by-side in tablet
+        tl.from(
+          ".step-card-content",
+          {
+            y: 100,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.3,
+            ease: "power3.out",
+          },
+          0,
+        )
+        .from(
+          ".step-number",
+          {
+            y: 100,
+            opacity: 0,
+            duration: 1.5,
+            stagger: 0.3,
+            ease: "power3.out",
+          },
+          0,
+        )
+        .from(
+          ".step-title",
+          {
+            x: -30,
+            opacity: 0,
+            duration: 0.4,
+            stagger: 0.3,
+            ease: "power3.out",
+          },
+          0.4,
+        )
+        .from(
+          ".step-plus",
+          {
+            scale: 0,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.3,
+            ease: "back.out(2)",
+          },
+          0.6,
+        );
+      });
+
       // Mobile: Individual triggers with alternating directions
       mm.add("(max-width: 767px)", () => {
         const wrappers = gsap.utils.toArray(".step-wrapper");
@@ -186,7 +248,7 @@ export default function Steps() {
       ref={containerRef}
     >
       <div className="px-6 sm:px-10 md:px-6 lg:px-62 mx-auto">
-        <div className="relative flex flex-col items-center gap-32 md:gap-4 lg:gap-8 md:flex-row md:items-start md:justify-center">
+        <div className="relative flex flex-col items-center gap-28 md:gap-4 lg:gap-8 md:flex-row md:items-start md:justify-center">
           {steps.map((step, index) => {
             const offset =
               index === 0
@@ -202,11 +264,11 @@ export default function Steps() {
                 >
                   {step.id}
                 </div>
-                <div className="step-card-content relative h-[220px] w-[280px] md:h-[190px] md:w-[215px] lg:h-[260px] lg:w-[320px] overflow-hidden rounded-[22px] bg-white shadow-[0_30px_90px_rgba(0,0,0,0.75)]">
+                <div className="step-card-content relative h-[220px] w-[280px] md:h-[190px] md:w-[215px] lg:h-65 lg:w-[320px] overflow-hidden rounded-[22px] bg-white shadow-[0_30px_90px_rgba(0,0,0,0.75)]">
                   <Image
                     src={step.image}
                     alt={step.title}
-                    className="absolute inset-0 rounded-b-[16px] w-full object-cover h-[210px] md:h-[180px] lg:h-[250px]"
+                    className="absolute inset-0 rounded-b-[16px] w-full object-cover h-52.5 md:h-45 lg:h-62.5"
                   />
 
                   <div className="step-title absolute bottom-6 left-6 text-[32px] md:text-[32px] lg:text-[44px] leading-none text-white font-toxigenesis">

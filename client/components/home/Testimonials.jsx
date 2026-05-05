@@ -97,7 +97,8 @@ export default function Testimonials() {
         ScrollTrigger.create({
           trigger: triggerRef.current,
           pin: sectionRef.current,
-          start: "top 20%", // Pin lower on tablet
+          start: "top 30%", // Pin lower on tablet
+          // markers: true,
           end: () =>
             `+=${Math.max(0, container.scrollWidth - window.innerWidth)}`,
           animation: tween,
@@ -121,8 +122,8 @@ export default function Testimonials() {
         ScrollTrigger.create({
           trigger: triggerRef.current,
           pin: sectionRef.current,
-          start: "top 2%", // Pinned a little lower for desktop
-          markers: true,
+          start: "top 7%", // Pinned a little lower for desktop
+          // markers: true,
           end: () =>
             `+=${Math.max(0, container.scrollWidth - window.innerWidth)}`,
           animation: tween,

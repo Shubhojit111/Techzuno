@@ -92,7 +92,7 @@ export default function WhyChooseUs() {
           <KnowMoreBtn text="Find More About Techzuno" />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {reasons.map((reason, idx) => (
             <div
               key={idx}
