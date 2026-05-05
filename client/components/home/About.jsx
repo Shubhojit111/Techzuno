@@ -15,7 +15,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function About() {
+export default function About({image, title,  description, buttonText}) {
   const containerRef = useRef(null);
 
   useGSAP(
@@ -224,31 +224,23 @@ export default function About() {
 
         <div className="about-image w-full md:w-2/3 lg:w-1/2 relative">
           <Image
-            src={Assets.RoboticHead}
+            src={image || Assets.RoboticHead}
             alt=""
+            priority
             className="w-full h-full object-cover"
           />
         </div>
 
         <div className="about-content-wrapper w-full lg:w-1/2 z-40">
           <HeaderBtn text="OUR COMPANY" />
-          <h2 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] font-bold mb-4 md:mb-6 tracking-wider leading-[1.2]">
-            THE{" "}
-            <span className="text-[#38FFF2]">
-              KOLKATA'S <br /> LEADING{" "}
-            </span>
-            WEBSITE <br /> DEVELOPMENT & <br /> DESIGN COMPANY.
+          <h2 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[46px] font-bold mb-4 md:mb-6 tracking-wider leading-[1.2]">
+            {title}
           </h2>
           <p className="text-white/80 mb-6 md:mb-8 text-[15px] sm:text-[14px] leading-[1.3] max-w-full md:max-w-[75%] lg:max-w-[99%]">
-            Searching for the top web development company in Kolkata? Our expert
-            team delivers modern, responsive and user-friendly websites tailored
-            to your business needs. From e-commerce stores to corporate sites,
-            we provide complete website design services in Kolkata that boost
-            your brand presence. Partner with us today to build a powerful
-            online identity and reach more customers.
+            {description || "Searching for the top web development company in Kolkata? Our expert team delivers modern, responsive and user-friendly websites tailored to your business needs. From e-commerce stores to corporate sites, we provide complete website design services in Kolkata that boost your brand presence. Partner with us today to build a powerful online identity and reach more customers."}
           </p>
 
-          <KnowMoreBtn text="Find More About Techzuno" />
+          <KnowMoreBtn text={buttonText || "Find More About Techzuno"} />
         </div>
       </div>
       <div className="about-floating-img absolute -bottom-30 md:bottom-15 lg:-bottom-20 -right-10 md:-right-10 lg:right-0 z-60 h-[160px] w-[160px] md:h-[240px] md:w-[240px] lg:h-[260px] lg:w-[260px] pointer-events-none">

@@ -30,6 +30,9 @@ import CTAImage from "./images/CTAImage.png";
 import CTABG from "./images/CTABG.png";
 import CTAArrow from "./images/CTAArrow.png";
 
+import About2 from "./images/About2.png";
+
+
 
 const Assets = {
   logo,
@@ -60,6 +63,8 @@ const Assets = {
   Step1,
   Step2,
   Step3,
+
+  About2,
 
 };
 

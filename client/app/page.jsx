@@ -9,14 +9,30 @@ import WhyChooseUs from "@/components/home/WhyChooseUs";
 import Testimonials from "@/components/home/Testimonials";
 import News from "@/components/home/News";
 import CTA from "@/components/home/CTA";
+import Assets from "@/Assets/Assets";
 
 export default function Home() {
   return (
     <div className="flex flex-col h-full">
       <Hero />
-      {/*       
-      */}
-      <About />
+      {/*
+       */}
+      <About
+        image={Assets.RoboticHead}
+        title={
+          <>
+            THE{" "}
+            <span className="text-[#38FFF2]">
+              KOLKATA'S <br /> LEADING{" "}
+            </span>
+            WEBSITE <br /> DEVELOPMENT & <br /> DESIGN COMPANY.
+          </>
+        }
+        description={
+          "Searching for the top web development company in Kolkata? Our expert team delivers modern, responsive and user-friendly websites tailored to your business needs. From e-commerce stores to corporate sites, we provide complete website design services in Kolkata that boost your brand presence. Partner with us today to build a powerful online identity and reach more customers."
+        }
+        buttonText="Find More About Techzuno"
+      />
       <Steps />
       <Services />
       <Newsletter />
@@ -25,7 +41,7 @@ export default function Home() {
       <CEO />
       */}
       <WhyChooseUs />
-      <Testimonials /> 
+      <Testimonials />
       <News />
       {/* 
       <CTA /> 
