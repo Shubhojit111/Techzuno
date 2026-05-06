@@ -6,6 +6,8 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import KnowMoreBtn from "../buttons/KnowMoreBtn";
 import HeaderBtn from "../buttons/HeaderBtn";
+import SectionTitle from "../buttons/SectionTitle";
+import SectionDescription from "../buttons/SectionDescription";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -233,12 +235,12 @@ export default function About({image, title,  description, buttonText}) {
 
         <div className="about-content-wrapper w-full lg:w-1/2 z-40">
           <HeaderBtn text="OUR COMPANY" />
-          <h2 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[46px] font-bold mb-4 md:mb-6 tracking-wider leading-[1.2]">
+          <SectionTitle>
             {title}
-          </h2>
-          <p className="text-white/80 mb-6 md:mb-8 text-[15px] sm:text-[14px] leading-[1.3] max-w-full md:max-w-[75%] lg:max-w-[99%]">
+          </SectionTitle>
+          <SectionDescription>
             {description || "Searching for the top web development company in Kolkata? Our expert team delivers modern, responsive and user-friendly websites tailored to your business needs. From e-commerce stores to corporate sites, we provide complete website design services in Kolkata that boost your brand presence. Partner with us today to build a powerful online identity and reach more customers."}
-          </p>
+          </SectionDescription>
 
           <KnowMoreBtn text={buttonText || "Find More About Techzuno"} />
         </div>

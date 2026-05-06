@@ -98,7 +98,7 @@ export default function Steps() {
             trigger: containerRef.current,
             start: "top 50%",
             end: "top 10%",
-            markers: true,
+            // markers: true,
             scrub: 2,
             
             
@@ -167,7 +167,7 @@ export default function Steps() {
             trigger: containerRef.current,
             start: "top 60%",
             end: "top 20%",
-            markers: false,
+            // markers: true,
             scrub: 2,
           },
         });

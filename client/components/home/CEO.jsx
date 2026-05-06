@@ -1,6 +1,7 @@
 import Assets from "@/Assets/Assets";
 import Image from "next/image";
 import HeaderBtn from "../buttons/HeaderBtn";
+import SectionTitle from "../buttons/SectionTitle";
 import AnimatedText from "./AnimatedText";
 
 export default function CEO() {
@@ -33,11 +34,11 @@ export default function CEO() {
           <div className="relative z-20   mb-24 w-full md:w-[55%] ">
             <HeaderBtn text="A WORD FROM OUR CEO" />
             {/* MAIN HEADING */}
-            <h2 className="mt-3 text-3xl md:text-[46px] font-semibold leading-tight tracking-wider text-white ">
+            <SectionTitle className="mt-3 text-white">
               A BRIEF MESSAGE FROM
               <br />
               OUR <span className="text-[#38FFF2]">FOUNDER & CEO</span>
-            </h2>
+            </SectionTitle>
 
             {/* DESCRIPTION */}
             <p className="mt-4  ">

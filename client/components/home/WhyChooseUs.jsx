@@ -4,6 +4,8 @@ import Assets from "@/Assets/Assets";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import KnowMoreBtn from "../buttons/KnowMoreBtn";
+import SectionTitle from "../buttons/SectionTitle";
+import SectionDescription from "../buttons/SectionDescription";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -81,12 +83,12 @@ export default function WhyChooseUs() {
       </div>
 
       <div className="px-6 sm:px-10 lg:px-62 mx-auto text-center">
-        <h2 className="text-[34px] sm:text-[38px] lg:text-[50px] font-bold leading-tight  lg:leading-[1.1] tracking-wider mb-3">
+        <SectionTitle>
           WHY CHOOSE <span className="text-[#38FFF2]">TECHZUNO?</span>
-        </h2>
-        <p className="text-zinc-400 mb-6 text-[16px]">
+        </SectionTitle>
+        <SectionDescription className="mx-auto">
           Below are 4 reasons that make us different
-        </p>
+        </SectionDescription>
 
         <div className="mb-10 md:mb-16">
           <KnowMoreBtn text="Find More About Techzuno" />

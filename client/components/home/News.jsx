@@ -2,6 +2,8 @@ import Link from 'next/link';
 import KnowMoreBtn from '../buttons/KnowMoreBtn';
 import Assets from '@/Assets/Assets';
 import Image from 'next/image';
+import SectionTitle from '../buttons/SectionTitle';
+import SectionDescription from '../buttons/SectionDescription';
 
 export default function News() {
   const news = [
@@ -35,10 +37,12 @@ export default function News() {
     <section className="pb-24 pt-12 bg-black relative">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="text-center px-0 md:px-8 mx-auto mb-12 md:mb-16">
-          <h2 className="text-[30px] sm:text-[38px] lg:text-[50px] font-bold leading-tight lg:leading-[1.1] tracking-wider mb-4 text-white">
+          <SectionTitle className="text-center mx-auto text-white">
             NEWS
-          </h2>
-          <p className="text-zinc-400 text-[14px] sm:text-[14px] leading-tight mb-8">Insights, Trends And Updates From Our Tech Innovators & Industry</p>
+          </SectionTitle>
+          <SectionDescription className="text-center mx-auto">
+            Insights, Trends And Updates From Our Tech Innovators & Industry
+          </SectionDescription>
           
           <div className="mb-8">
             <KnowMoreBtn text="View All Insights From Blog" />

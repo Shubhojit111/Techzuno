@@ -9,6 +9,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import SliderArrowBtn from "../buttons/SliderArrowBtn";
+import SectionTitle from "../buttons/SectionTitle";
+import SectionDescription from "../buttons/SectionDescription";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -144,15 +146,15 @@ export default function Testimonials() {
         <div className="mx-auto px-6 md:px-10 lg:px-62 mb-6 md:mb-16 relative z-[60]">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
             <HeaderBtn text="CLIENT TESTIMONIALS" />
-            <h2 className="text-[30px] sm:text-[38px] lg:text-[50px] font-bold leading-tight  lg:leading-[1.1] tracking-wider mb-4">
+            <SectionTitle>
               WHAT OUR CLIENT <br /> SAY ABOUT{" "}
               <span className="text-[#38FFF2]">TECHZUNO</span>
-            </h2>
-            <p className="text-zinc-400 text-[14px] sm:text-[14px] leading-tight">
+            </SectionTitle>
+            <SectionDescription>
               We Go Beyond Maintaining Operations We Empower Businesses With
               Data, Insights, And Best Practices To Stay Ahead In An
               Ever-Evolving Digital Landscape.
-            </p>
+            </SectionDescription>
           </div>
         </div>
 

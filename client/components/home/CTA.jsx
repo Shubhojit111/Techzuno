@@ -2,6 +2,8 @@ import Assets from '@/Assets/Assets';
 import Image from 'next/image';
 import Link from 'next/link';
 import HeaderBtn from '../buttons/HeaderBtn';
+import SectionTitle from '../buttons/SectionTitle';
+import SectionDescription from '../buttons/SectionDescription';
 import GlowBtn from '../buttons/GlowBtn';
 
 export default function CTA() {
@@ -25,15 +27,15 @@ export default function CTA() {
         
         <div className="w-full md:w-1/2 h-full text-center md:text-left">
           <HeaderBtn text="Let's make great things" />
-          <h2 className="text-4xl md:text-5xl font-semibold mb-6 text-white leading-14 tracking-wider">
+          <SectionTitle className="text-white">
             HAVE A PROJECT?<br />
             SPEAK WITH<br />
             OUR <span className="text-[#38FFF2]">EXPERTS</span>
-          </h2>
-          <p className=" text-[24px] leading-tight text-white/75 mb-10">
+          </SectionTitle>
+          <SectionDescription>
             Leave Your Contact Details To Get A Free<br />
             Consultation With A Techzuno Experts.
-          </p>
+          </SectionDescription>
           
           <div className="flex flex-col sm:flex-row relative items-center  gap-6">
             <GlowBtn text="Get Started" />

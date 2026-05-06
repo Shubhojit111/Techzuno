@@ -3,6 +3,8 @@
 import Assets from "@/Assets/Assets";
 import Image from "next/image";
 import HeaderBtn from "../buttons/HeaderBtn";
+import SectionTitle from "../buttons/SectionTitle";
+import SectionDescription from "../buttons/SectionDescription";
 import { Icon } from "@iconify/react";
 
 export default function Services() {
@@ -29,14 +31,14 @@ export default function Services() {
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="text-left md:text-center px-0 md:px-8 mx-auto mb-12 md:mb-16">
           <HeaderBtn text="OUR SERVICES" />
-          <h2 className="text-[34px] sm:text-[38px] lg:text-[50px] font-bold leading-tight  lg:leading-[1.1] tracking-wider mb-4">
+          <SectionTitle>
             PROVIDES FULL-CYCLE{" "}
             <span className="text-[#38FFF2]">
               CUSTOM <br /> WEBSITE
             </span> DESIGN SERVICES IN <br className="hidden md:block" />
             KOLKATA.
-          </h2>
-          <p className="text-zinc-400 text-[16px] sm:text-[14px] leading-tight ">
+          </SectionTitle>
+          <SectionDescription className="md:mx-auto">
             Looking for professional website design services in Kolkata? At
             Techzuno, we specialise in building modern, responsive and
             SEO-friendly websites that help your business grow online. Being a
@@ -47,7 +49,7 @@ export default function Services() {
             well and ranks higher on Google, we concentrate on search engine
             optimization, mobile compatibility, clean layouts, and quick loading
             times.
-          </p>
+          </SectionDescription>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

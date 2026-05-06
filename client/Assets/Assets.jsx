@@ -31,7 +31,7 @@ import CTABG from "./images/CTABG.png";
 import CTAArrow from "./images/CTAArrow.png";
 
 import About2 from "./images/About2.png";
-
+import AboutBg from "./images/AboutBg.png";
 
 
 const Assets = {
@@ -65,6 +65,7 @@ const Assets = {
   Step3,
 
   About2,
+  AboutBg
 
 };
 

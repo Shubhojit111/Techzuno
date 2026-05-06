@@ -30,6 +30,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="">{children}</main>
         <Footer />
+        
         {/*
         <Footer />
         <Footer />
