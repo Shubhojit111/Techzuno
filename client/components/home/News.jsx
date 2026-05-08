@@ -37,12 +37,8 @@ export default function News() {
     <section className="pb-24 pt-12 bg-black relative">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="text-center px-0 md:px-8 mx-auto mb-12 md:mb-16">
-          <SectionTitle className="text-center mx-auto text-white">
-            NEWS
-          </SectionTitle>
-          <SectionDescription className="text-center mx-auto">
-            Insights, Trends And Updates From Our Tech Innovators & Industry
-          </SectionDescription>
+          <SectionTitle className="text-center mx-auto text-white mb-4 md:mb-6" title="NEWS" />
+          <SectionDescription className="text-center mx-auto" description="Insights, Trends And Updates From Our Tech Innovators & Industry" />
           
           <div className="mb-8">
             <KnowMoreBtn text="View All Insights From Blog" />

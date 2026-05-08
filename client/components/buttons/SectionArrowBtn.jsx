@@ -3,13 +3,12 @@
 import { useRef, useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 
-export default function SliderArrowBtn({ children }) {
-  const sliderRef = useRef(null);
+export default function SectionArrowBtn({ btnText, sliderRef }) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   const updateScrollState = () => {
-    const slider = sliderRef.current;
+    const slider = sliderRef?.current;
     if (!slider) return;
 
     setCanScrollLeft(slider.scrollLeft > 5);
@@ -22,7 +21,7 @@ export default function SliderArrowBtn({ children }) {
   useEffect(() => {
     updateScrollState();
 
-    const slider = sliderRef.current;
+    const slider = sliderRef?.current;
     if (!slider) return;
 
     slider.addEventListener("scroll", updateScrollState);
@@ -32,14 +31,14 @@ export default function SliderArrowBtn({ children }) {
       slider.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
     };
-  }, []);
+  }, [sliderRef]);
 
   const scroll = (direction) => {
-    const slider = sliderRef.current;
+    const slider = sliderRef?.current;
     if (!slider) return;
 
     // Get the container that holds the cards (first child of the slider)
-    const container = slider.children[0];
+    const container = slider.children[0] || slider;
     if (!container) return;
 
     // Get all card elements
@@ -86,9 +85,13 @@ export default function SliderArrowBtn({ children }) {
   };
 
   return (
-    <div className="w-full relative">
-      {/* Mobile Only Arrows */}
-      <div className="flex md:hidden justify-end gap-3 px-6 mb-6">
+    <div className="w-full flex md:hidden justify-between items-center gap-3 px-6 mb-6">
+      {btnText && (
+        <span className="text-white/80 text-[15px] sm:text-[13px] leading-[1.3] font-medium mr-auto">
+          {btnText }
+        </span>
+      )}
+      <div className="flex gap-3">
         <button
           onClick={() => scroll("left")}
           disabled={!canScrollLeft}
@@ -114,14 +117,6 @@ export default function SliderArrowBtn({ children }) {
         >
           <Icon icon="mdi:chevron-right" className="text-xl" />
         </button>
-      </div>
-
-      {/* Slider */}
-      <div
-        ref={sliderRef}
-        className="overflow-x-auto md:overflow-visible scrollbar-hide scroll-smooth snap-x snap-mandatory"
-      >
-        {children}
       </div>
     </div>
   );

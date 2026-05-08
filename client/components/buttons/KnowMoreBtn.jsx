@@ -1,15 +1,16 @@
+import { Icon } from "@iconify/react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-const KnowMoreBtn = ({ text }) => {
+const KnowMoreBtn = ({ text, className }) => {
   return (
     <div>
       <Link
         href="/about"
-        className="inline-flex gap-2 border-2 tracking-wider border-[#03B8B8] hover:border-[#03B8B8] hover:text-[#03B8B8] items-center px-5 md:px-10 py-1  text-[18px] sm:text-[24px] lg:text-[20px] rounded-full font-medium transition-colors"
+        className={`inline-flex gap-2 border-2 tracking-widest border-[#03B8B8] hover:border-[#03B8B8] hover:text-[#03B8B8] items-center px-5 md:px-10 py-1  text-[18px] sm:text-[24px] lg:text-[20px] rounded-full font-medium transition-colors ${className}`}
       >
-        {text} <ArrowRight size={20} />
+        {text} <Icon icon="solar:arrow-right-outline" className="h-5 w-5" />
       </Link>
     </div>
   );

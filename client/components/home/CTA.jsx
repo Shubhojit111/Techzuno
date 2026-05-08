@@ -27,15 +27,15 @@ export default function CTA() {
         
         <div className="w-full md:w-1/2 h-full text-center md:text-left">
           <HeaderBtn text="Let's make great things" />
-          <SectionTitle className="text-white">
+          <SectionTitle className="text-white mb-4 md:mb-6" title={<>
             HAVE A PROJECT?<br />
             SPEAK WITH<br />
             OUR <span className="text-[#38FFF2]">EXPERTS</span>
-          </SectionTitle>
-          <SectionDescription>
+          </>} />
+          <SectionDescription description={<>
             Leave Your Contact Details To Get A Free<br />
             Consultation With A Techzuno Experts.
-          </SectionDescription>
+          </>} />
           
           <div className="flex flex-col sm:flex-row relative items-center  gap-6">
             <GlowBtn text="Get Started" />

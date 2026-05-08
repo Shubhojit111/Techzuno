@@ -8,7 +8,7 @@ import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import SliderArrowBtn from "../buttons/SliderArrowBtn";
+import SectionArrowBtn from "../buttons/SectionArrowBtn";
 import SectionTitle from "../buttons/SectionTitle";
 import SectionDescription from "../buttons/SectionDescription";
 
@@ -20,6 +20,7 @@ export default function Testimonials() {
   const triggerRef = useRef(null);
   const sectionRef = useRef(null);
   const cardsContainerRef = useRef(null);
+  const mobileSliderRef = useRef(null);
 
   const testimonials = [
     {
@@ -124,7 +125,7 @@ export default function Testimonials() {
         ScrollTrigger.create({
           trigger: triggerRef.current,
           pin: sectionRef.current,
-          start: "top 7%", // Pinned a little lower for desktop
+          start: "top 6%", // Pinned a little lower for desktop
           // markers: true,
           end: () =>
             `+=${Math.max(0, container.scrollWidth - window.innerWidth)}`,
@@ -146,21 +147,25 @@ export default function Testimonials() {
         <div className="mx-auto px-6 md:px-10 lg:px-62 mb-6 md:mb-16 relative z-[60]">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
             <HeaderBtn text="CLIENT TESTIMONIALS" />
-            <SectionTitle>
+            <SectionTitle className="mb-4 md:mb-6" title={<>
               WHAT OUR CLIENT <br /> SAY ABOUT{" "}
               <span className="text-[#38FFF2]">TECHZUNO</span>
-            </SectionTitle>
-            <SectionDescription>
+            </>} />
+            <SectionDescription description={<>
               We Go Beyond Maintaining Operations We Empower Businesses With
               Data, Insights, And Best Practices To Stay Ahead In An
               Ever-Evolving Digital Landscape.
-            </SectionDescription>
+            </>} />
           </div>
         </div>
 
         {/* Cards Container */}
         <div className="overflow-hidden  w-full relative z-10 ">
-          <SliderArrowBtn>
+          <SectionArrowBtn sliderRef={mobileSliderRef} />
+          <div
+            ref={mobileSliderRef}
+            className="overflow-x-auto md:overflow-visible scrollbar-hide scroll-smooth snap-x snap-mandatory"
+          >
             <div
               ref={cardsContainerRef}
               className="flex gap-4 md:gap-6 w-max pb-8 pr-6 md:pr-10 lg:pr-62 transition-transform duration-300 ease-out pl-6 md:pl-0"
@@ -223,7 +228,7 @@ export default function Testimonials() {
               </div>
             ))}
           </div>
-          </SliderArrowBtn>
+          </div>
         </div>
       </section>
     </div>

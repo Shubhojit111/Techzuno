@@ -83,12 +83,10 @@ export default function WhyChooseUs() {
       </div>
 
       <div className="px-6 sm:px-10 lg:px-62 mx-auto text-center">
-        <SectionTitle>
+        <SectionTitle className="mb-4 md:mb-6" title={<>
           WHY CHOOSE <span className="text-[#38FFF2]">TECHZUNO?</span>
-        </SectionTitle>
-        <SectionDescription className="mx-auto">
-          Below are 4 reasons that make us different
-        </SectionDescription>
+        </>} />
+        <SectionDescription className="mx-auto" description="Below are 4 reasons that make us different" />
 
         <div className="mb-10 md:mb-16">
           <KnowMoreBtn text="Find More About Techzuno" />

@@ -30,9 +30,11 @@ import CTAImage from "./images/CTAImage.png";
 import CTABG from "./images/CTABG.png";
 import CTAArrow from "./images/CTAArrow.png";
 
-import About2 from "./images/About2.png";
 import AboutBg from "./images/AboutBg.png";
-
+import Milestone from "./images/Milestone.png";
+import Aboutimg from "./images/Aboutimg.jpeg";
+import AboutVision from "./images/AboutVision.png";
+import AboutMission from "./images/AboutMission.png";
 
 const Assets = {
   logo,
@@ -64,8 +66,11 @@ const Assets = {
   Step2,
   Step3,
 
-  About2,
-  AboutBg
+  AboutBg,
+  Milestone,
+  Aboutimg,
+  AboutVision,
+  AboutMission,
 
 };
 

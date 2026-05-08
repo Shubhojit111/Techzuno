@@ -1,8 +1,8 @@
 import React from "react";
 
-const HeaderBtn = ({ text }) => {
+const HeaderBtn = ({ text, className }) => {
   return (
-    <p className="text-[#B8FAFF] font-semibold mb-4 tracking-[0.3em] text-lg uppercase">
+    <p className={`text-[#B8FAFF] font-medium tracking-[0.25em] text-lg uppercase ${className? className : "mb-4"}`}>
       {text}
     </p>
   );
