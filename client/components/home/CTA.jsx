@@ -1,49 +1,49 @@
-import Assets from '@/Assets/Assets';
-import Image from 'next/image';
-import Link from 'next/link';
-import HeaderBtn from '../buttons/HeaderBtn';
-import SectionTitle from '../buttons/SectionTitle';
-import SectionDescription from '../buttons/SectionDescription';
-import GlowBtn from '../buttons/GlowBtn';
+import Assets from "@/Assets/Assets";
+import Image from "next/image";
+import Link from "next/link";
+import HeaderBtn from "../buttons/HeaderBtn";
+import SectionTitle from "../buttons/SectionTitle";
+import SectionDescription from "../buttons/SectionDescription";
+import GlowBtn from "../buttons/GlowBtn";
 
 export default function CTA() {
   return (
-    <section className="py-8  relative overflow-hidden ">
-      
+    <section className=" h-[650px] relative overflow-hidden ">
       <div className="absolute top-0 left-0 w-full h-full z-0">
-        <Image src={Assets.CTABG} alt="image" className='w-full h-full object-cover' />
+        <Image
+          src={Assets.CTABG}
+          alt="image"
+          className="w-full h-full object-cover"
+        />
       </div>
-      
-      <div className="px-62 mx-auto flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
-        <div className="w-full md:w-1/2 flex justify-center md:justify-start">
-          <div className="relative h-full w-full">
-             <Image 
-               src={Assets.CTAImage}
-               alt="Team members" 
-               className="w-full h-full object-cover object-top rounded-3xl"
-             />
-          </div>
+
+      <div className="px-62 mx-auto flex flex-col md:flex-row items-end h-full justify-center gap-12 relative z-10 w-full">
+        <div className="h-[700px] absolute top-0 ">
+          <Image
+            src={Assets.CTAImage}
+            alt="Comma"
+            className="object-cover w-full h-full "
+          />
         </div>
-        
-        <div className="w-full md:w-1/2 h-full text-center md:text-left">
+
+        <div className="textarea  flex flex-col items-center mb-20 z-40">
           <HeaderBtn text="Let's make great things" />
-          <SectionTitle className="text-white mb-4 md:mb-6" title={<>
-            HAVE A PROJECT?<br />
-            SPEAK WITH<br />
-            OUR <span className="text-[#38FFF2]">EXPERTS</span>
-          </>} />
-          <SectionDescription description={<>
-            Leave Your Contact Details To Get A Free<br />
-            Consultation With A Techzuno Experts.
-          </>} />
-          
-          <div className="flex flex-col sm:flex-row relative items-center  gap-6">
-            <GlowBtn text="Get Started" />
-            
-            <div className="hidden sm:block  absolute bottom-0 -right-10">
-              <Image src={Assets.CTAArrow} alt="image" className='w-40 object-cover' />
-            </div>
-          </div>
+          <SectionTitle
+            title={
+              <>
+                Have a project? Speak
+                <br />
+                With our <span className="text-[#03B8B8]">experts</span>
+              </>
+            }
+            className="uppercase text-center"
+          />
+          <p className="text-[26px] mt-6 leading-tight text-center">
+            Leave Your Contact Details To Get A Free
+            <br />
+            Consultation With A Techzuno Expert.
+          </p>
+          <GlowBtn text="Get Started" className=" mt-10" />
         </div>
       </div>
     </section>

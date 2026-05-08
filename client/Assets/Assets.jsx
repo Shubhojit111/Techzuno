@@ -16,6 +16,7 @@ import Frame4 from "./images/Frame4.png";
 import Frame5 from "./images/Frame5.png";
 import Human1 from "./images/Human1.png";
 import CommaIcon from "./images/CommaIcon.png";
+import CommaIconSharp from "./images/CommaIconSharp.png";
 
 import Step1 from "./images/Step1.png";
 import Step2 from "./images/Step2.png";
@@ -55,6 +56,7 @@ const Assets = {
   Group492,
   Human1,
   CommaIcon,
+  CommaIconSharp,
   CTAImage,
   CTABG,
   CTAArrow,
