@@ -29,7 +29,7 @@ export default function Services() {
   return (
     <section className="pb-12 relative">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
-        <div className="text-left md:text-center px-0 md:px-8 mx-auto mb-12 md:mb-16">
+        <div className="text-left md:text-center mx-auto mb-12 md:mb-16">
           <HeaderBtn text="OUR SERVICES" />
           <SectionTitle className="mb-4 md:mb-6" title={<>
             PROVIDES FULL-CYCLE{" "}

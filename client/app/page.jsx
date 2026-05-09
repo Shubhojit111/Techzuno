@@ -35,20 +35,20 @@ export default function Home() {
         }
         buttonText="Find More About Techzuno"
       />
-      
+
       <Steps />
       <TechStack />
       <Services />
       <Newsletter />
       <Marquee />
-     
+
       <CEO />
       <WhyChooseUs />
-      
+
       <Testimonials />
       <News />
-     
-      <CTA /> 
+
+      <CTA />
     </div>
   );
 }

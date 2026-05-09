@@ -4,8 +4,8 @@ import SectionDescription from "../buttons/SectionDescription";
 
 export default function Newsletter() {
   return (
-    <section className="bg-black text-center px-6 sm:px-10 lg:px-62 py-20 mx-auto">
-      <div className=" mx-auto text-left md:text-center px-0 md:px-8 ">
+    <section className="bg-black text-center px-6 sm:px-10 lg:px-62 py-20 mx-auto ">
+      <div className=" mx-auto text-left  md:text-center ">
         <HeaderBtn text="OUR EXPERTISE" />
         <SectionTitle className="mb-4 md:mb-6" title={<>
           RELIABLE <span className="text-[#38FFF2]">WEBSITE DESIGN </span>COMPANY <br />IN KOLKATA
