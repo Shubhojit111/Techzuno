@@ -35,7 +35,7 @@ const galleryImages = [
 
 export default function MilestonesSection() {
   return (
-    <section className="bg-black py-20">
+    <section className="bg-black pb-20">
       <div className="w-full mx-auto px-6 md:px-10 lg:px-62 mb-6 md:mb-16 ">
         {/* Header */}
         <div className="mx-auto relative mb-10">

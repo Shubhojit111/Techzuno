@@ -5,6 +5,7 @@ import MilestonesSection from "@/components/about/MilestonesSection";
 import SliderSection from "@/components/about/SliderSection";
 import ValuesSection from "@/components/about/ValuesSection";
 import About from "@/components/home/About";
+import CTA from "@/components/home/CTA";
 import TechStack from "@/components/home/TechStack";
 import React from "react";
 
@@ -31,7 +32,7 @@ const page = () => {
       <ValuesSection />
       <TechStack />
       <MilestonesSection />
-
+      <CTA />
       
     </div>
   );
