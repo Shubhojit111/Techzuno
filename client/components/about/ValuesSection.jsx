@@ -48,27 +48,32 @@ const values = [
 
 export default function ValuesSection() {
   return (
-    <section className="bg-black pt-20">
-      <div className="h-full w-full mx-auto px-6 sm:px-10 lg:px-62 ">
+    <section className="bg-black pt-16 md:pt-20">
+      <div className="h-full w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-left md:text-center mb-10 md:mb-14 flex flex-col items-start md:items-center">
           <HeaderBtn text="Welcome to our company" />
           <SectionTitle
-            className="text-[28px] md:text-[38px] font-black mt-3 leading-tight"
+            className="text-[28px] md:text-[32px] lg:text-[38px] font-black mt-3 leading-tight text-left md:text-center w-full"
             title={
               <>
                 CULTURE &amp; VALUES BASED
-                <br />
+                <br className="hidden md:block" />{" "}
                 ON <span className="text-[#B8FAFF]">SIX FUNDAMENTAL</span>{" "}
                 PRINCIPLES.
               </>
             }
           />
-          <KnowMoreBtn className="mt-6" text="Always Ready To Craft Your Next Big Idea" />
+          <div className="hidden md:block w-full ">
+            <KnowMoreBtn className="mt-4 md:mt-6" text="Always Ready To Craft Your Next Big Idea" />
+          </div>
+          <div className=" md:hidden w-full justify-end flex" >
+            <KnowMoreBtn className="mt-4" text="Ready To Craft?" />
+          </div>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-7">
           {values.map((value, idx) => (
             <div
               key={idx}
