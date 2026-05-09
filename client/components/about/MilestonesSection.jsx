@@ -36,17 +36,16 @@ const galleryImages = [
 export default function MilestonesSection() {
   return (
     <section className="bg-black pb-20">
-      <div className="w-full mx-auto px-6 md:px-10 lg:px-62 mb-6 md:mb-16 ">
+      <div className="w-full mx-auto px-6 sm:px-10 lg:px-62 mb-6 md:mb-16 ">
         {/* Header */}
         <div className="mx-auto relative mb-10">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
-            <HeaderBtn text="CLIENT TESTIMONIALS" />
+            <HeaderBtn text="OUR HISTORY" />
             <SectionTitle
-              className="mb-4 md:mb-6"
+              className="mb-4 md:mb-6 uppercase"
               title={
                 <>
-                  WHAT OUR CLIENT <br /> SAY ABOUT{" "}
-                  <span className="text-[#38FFF2]">TECHZUNO</span>
+                 some of the <span className="text-[#38FFF2]">biggest <br /> milestones</span> we’ve <span className="md:whitespace-nowrap">crossed along the way</span> 
                 </>
               }
             />
@@ -64,41 +63,41 @@ export default function MilestonesSection() {
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col lg:flex-row gap-12 items-start  w-full h-[550px]">
+        <div className="flex flex-col lg:flex-row gap-12 items-start w-full h-auto lg:h-[550px]">
           {/* Left - Image Gallery */}
-          <div className="relative w-[55%] shrink-0">
-            <Image src={Assets.Milestone} alt="Milestone" />
+          <div className="relative w-full lg:w-[55%] shrink-0">
+            <Image src={Assets.Milestone} alt="Milestone" className="w-full h-auto object-cover rounded-2xl" />
           </div>
 
           {/* Right - Timeline */}
-          <div className="w-[45%] h-full flex items-center justify-center">
-            <div className="max-h-[80%] w-full flex relative items-center justify-center">
-              {/* Vertical Dashed Line */}
-              <div
-                className="absolute left-[7.8px] top-0 bottom-0 w-[0.5px]"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(to bottom, rgba(255,255,255,0.9) 0px, rgba(255,255,255,0.9) 5px, transparent 5px, transparent 10px)",
-                }}
-              />
+          <div className="w-full md:max-w-[75%] lg:max-w-none lg:w-[45%] h-full flex items-center justify-center mx-auto lg:mx-0">
+            <div className="max-h-full lg:max-h-[80%] w-full flex items-center justify-start lg:justify-center">
+              <div className="relative flex flex-col gap-[58px] md:gap-[30px] py-8 ">
+                {/* Vertical Dashed Line */}
+                <div
+                  className="absolute left-[9px] md:left-[9.1px] lg:left-[8.5px] top-[10px] bottom-[40px] w-[1px] md:w-[0.5px] -translate-x-1/2"
+                  style={{
+                    backgroundImage:
+                      "repeating-linear-gradient(to bottom, rgba(255,255,255,0.9) 0px, rgba(255,255,255,0.9) 5px, transparent 5px, transparent 10px)",
+                  }}
+                />
 
-              <div className="flex flex-col gap-[58px] md:gap-[30px] py-8">
                 {milestones.map((item, index) => (
                   <div key={index} className="relative flex items-start">
                     {/* Dot */}
-                    <div className="relative z-10 flex-shrink-0 rounded-full">
-                      <div className="w-[16px] h-[16px] rounded-full bg-white border-[2px] border-black" />
+                    <div className="relative mt-0.5 z-10 shrink-0 rounded-full">
+                      <div className="w-[18px] h-[18px] md:w-[18px] md:h-[18px] lg:w-[16px] lg:h-[16px] rounded-full bg-white border-[2px] border-black" />
                     </div>
 
                     {/* Content */}
                     <div className="ml-10 md:ml-12 max-w-[640px] ">
                       {/* Year */}
-                      <h3 className="text-white font-semibold text-[32px] md:text-[20px] leading-none tracking-[-0.02em]">
+                      <h3 className="text-white font-semibold text-[26px] md:text-[30px] lg:text-[20px] leading-none tracking-[-0.02em]">
                         {item.year}
                       </h3>
 
                       {/* Description */}
-                      <p className="mt-3 text-white/80 text-[20px] md:text-[13px] leading-[1.32] max-w-[95%] ">
+                      <p className="mt-3 text-white/80 md:text-[16px] lg:text-[13px] leading-[1.32] max-w-[95%] ">
                         {item.text}
                       </p>
                     </div>
