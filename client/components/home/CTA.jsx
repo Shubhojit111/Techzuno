@@ -18,7 +18,7 @@ export default function CTA() {
       </div>
 
       <div className="px-62 mx-auto flex flex-col md:flex-row items-end h-full justify-center gap-12 relative z-10 w-full">
-        <div className="h-[700px] absolute top-0 ">
+        <div className="h-full p-10 absolute top-0 ">
           <Image
             src={Assets.CTAImage}
             alt="Comma"

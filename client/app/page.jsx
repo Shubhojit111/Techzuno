@@ -15,7 +15,7 @@ import AboutHome from "@/components/home/AboutHome";
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full ">
       <Hero />
       {/*
        */}
@@ -25,7 +25,7 @@ export default function Home() {
           <>
             THE{" "}
             <span className="text-[#38FFF2]">
-              KOLKATA'S <br /> LEADING{" "}
+              KOLKATA&apos;S <br /> LEADING{" "}
             </span>
             WEBSITE <br /> DEVELOPMENT & <br /> DESIGN COMPANY.
           </>

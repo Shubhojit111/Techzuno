@@ -75,7 +75,7 @@ export default function MilestonesSection() {
               <div className="relative flex flex-col gap-[58px] md:gap-[30px] py-8 ">
                 {/* Vertical Dashed Line */}
                 <div
-                  className="absolute left-[9px] md:left-[9.1px] lg:left-[8.5px] top-[10px] bottom-[40px] w-[1px] md:w-[0.5px] -translate-x-1/2"
+                  className="absolute left-[9px] md:left-[9.1px] lg:left-[8.4px] top-[10px] bottom-[40px] w-[1px] md:w-[0.5px] "
                   style={{
                     backgroundImage:
                       "repeating-linear-gradient(to bottom, rgba(255,255,255,0.9) 0px, rgba(255,255,255,0.9) 5px, transparent 5px, transparent 10px)",
