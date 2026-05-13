@@ -9,21 +9,21 @@ import SectionDescription from "../buttons/SectionDescription";
 export default function ContactServices() {
   const services = [
     {
-      icon: "mdi:wifi",
+      icon: "iconoir:wifi",
       title: "Let's Chat",
       description:
         "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialise In Building Modern",
       linkText: "Email us: info@techzuno.com",
     },
     {
-      icon: "mdi:chat-processing-outline",
+      icon: "hugeicons:message-multiple-01",
       title: "FAQS",
       description:
         "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialise In Building Modern",
       linkText: "Help Center",
     },
     {
-      icon: "mdi:clock-outline",
+      icon: "bytesize:clock",
       title: "Working Hours",
       description:
         "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialise In Building Modern",
