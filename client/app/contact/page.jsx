@@ -11,9 +11,10 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <main className="flex flex-col bg-black min-h-screen">
-      {/* <ContactHero />
-      <ContactFormSection />
+      {/* 
       */}
+      <ContactHero />
+      <ContactFormSection />
       <ContactServices /> 
       <CTA />
     </main>
