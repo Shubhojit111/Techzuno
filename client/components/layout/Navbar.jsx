@@ -17,7 +17,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="fixed top-0 w-full z-50 ">
+    <nav className="fixed top-0 w-full z-[9999] ">
       <div className="mx-auto bg-black/60 backdrop-blur-md pointer-events-auto">
         <div className="px-6 sm:px-10 lg:px-60 py-3 sm:py-6 lg:pt-4 lg:pb-4 flex items-center justify-between">
           <Link

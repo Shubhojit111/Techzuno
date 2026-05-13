@@ -71,32 +71,38 @@ const FAQ = () => {
       <div className="w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-16">
-          <h1 className="text-white text-5xl md:text-7xl lg:text-[96px] font-bold tracking-widest mb-4">
+          <h1 className="text-white text-[70px] md:text-[72px] lg:text-[96px] font-bold tracking-widest mb-4">
             FAQS
           </h1>
-          <p className="text-white/70 text-xs mx-auto mb-10">
-            An FAQ Page Is A Webpage Of The Questions Most Often Asked By Your{" "}
-            <br /> Prospective And Current Customers
+          <p className="text-white/70 text-xl lg:text-xs mx-auto mb-10">
+            An FAQ Page Is A Webpage Of The Questions Most Often Asked <span className="hidden lg:inline-block">By Your{" "}
+            <br /> Prospective And Current Customers</span>
           </p>
 
           {/* Search Bar */}
-          <div
-            className="relative w-full mb-12 p-3 bg-[#121919] rounded-full
-           border-linear-to-b from-[#0be4e4] to-transparent border-2"
-          >
-            <div className="flex items-center w-full bg-linear-to-b from-[#2F4545] to-[#282C2C] border border-white/10 rounded-full ">
-              <div className="w-full flex items-center justify-center pl-8 ">
-                <Icon icon="mdi:magnify" className="text-white/50 h-6 w-6" />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="w-full bg-transparent border-none outline-none text-white text-lg px-2 placeholder-white/50"
-                />
+          <div className="w-full mb-12 flex flex-col md:block gap-4">
+            <div
+              className="relative w-full p-2 md:p-3 bg-[#121919] rounded-full
+             border-linear-to-b from-white/30 md:from-[#0be4e4] to-transparent border-2"
+            >
+              <div className="flex items-center w-full bg-linear-to-b from-[#2F4545] to-[#282C2C] border border-white/10 rounded-full py-3 md:py-0">
+                <div className="w-full flex items-center justify-center pl-6 md:pl-8 ">
+                  <Icon icon="mdi:magnify" className="text-white/50 h-6 w-6" />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="w-full bg-transparent border-none outline-none text-white text-lg px-2 placeholder-white/50"
+                  />
+                </div>
+                <button className="hidden md:block bg-[#03B8B8] hover:bg-cyan-400 transition-colors text-white px-12 py-4 rounded-full text-xl tracking-widest font-medium shrink-0">
+                  Search
+                </button>
               </div>
-              <button className="bg-[#03B8B8] hover:bg-cyan-400 transition-colors text-white px-12 py-4 rounded-full text-xl tracking-widest font-medium">
-                Search
-              </button>
             </div>
+            
+            <button className="md:hidden w-full bg-[#03B8B8] hover:bg-cyan-400 transition-colors text-white py-3.5 rounded-full text-xl tracking-widest font-bold">
+              Search
+            </button>
           </div>
 
           <p className="text-white/60 text-xs">
@@ -116,8 +122,8 @@ const FAQ = () => {
         </div>
 
         {/* Section Title */}
-        <div className="flex flex-col items-center text-center mb-12">
-          <HeaderBtn text="FREQUENTLY ASKED QUESTIONS" />
+        <div className="flex flex-col items-center  text-left lg:text-center mb-12">
+          <HeaderBtn text="FREQUENTLY ASKED QUESTIONS" className="mb-0" />
           <SectionTitle
             className="mt-6"
             title={
@@ -132,7 +138,7 @@ const FAQ = () => {
         </div>
 
         {/* FAQ Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-16 max-w-6xl mx-auto ">
+        <div className="grid grid-cols-1 md:grid-cols-1 gap-4 lg:gap-6 mb-16 w-full mx-auto ">
           {faqs.map((faq, index) => (
             <div
               key={index}
@@ -162,7 +168,7 @@ const FAQ = () => {
                     : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="px-5 md:px-6 pb-6 text-white/80 text-[14px] md:text-[16px] leading-relaxed mx-0">
+                <div className="px-5 md:px-6 pb-6 max-w-[95%] text-white/80 text-[14px] md:text-[14px] leading-relaxed mx-0">
                   {faq.answer}
                 </div>
               </div>

@@ -37,6 +37,10 @@ import Aboutimg from "./images/Aboutimg.jpeg";
 import AboutVision from "./images/AboutVision.png";
 import AboutMission from "./images/AboutMission.png";
 
+import ContactBg from "./images/ContactBg.png";
+import ContactRight from "./images/ContactRight.png";
+import ContactFormRight from "./images/ContactFormRight.png";
+
 const Assets = {
   logo,
   HomeBg,
@@ -44,26 +48,33 @@ const Assets = {
   RoboticHead,
   HomeFigure,
   HomeFigure2,
+
   CEO,
   CEObg,
+
   Frame1,
   Frame2,
   Frame3,
   Frame4,
   Frame5,
+
   Group490,
   Group491,
   Group492,
   Human1,
+
   CommaIcon,
   CommaIconSharp,
+
   CTAImage,
   CTABG,
   CTAArrow,
+
   NewsImage1,
   NewsImage2,
   NewsImage3,
   NewsImage4,
+
   Step1,
   Step2,
   Step3,
@@ -73,6 +84,10 @@ const Assets = {
   Aboutimg,
   AboutVision,
   AboutMission,
+
+  ContactBg,
+  ContactRight,
+  ContactFormRight,
 
 };
 
