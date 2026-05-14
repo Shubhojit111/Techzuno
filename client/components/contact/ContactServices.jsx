@@ -44,7 +44,7 @@ export default function ContactServices() {
                 <span className="text-[#B8FAFF]">
                   Your  <br className="hidden md:block" /> Counrtry
                 </span>{" "}
-                 Via <br className="hidden md:block" />Email.
+                 Via <br className="hidden md:block lg:hidden" />Email.
               </>
             }
           />
