@@ -82,46 +82,48 @@ export default function ServicesGrid({ data }) {
                 ))}
               </ol>
             </div>
-
-            {data.testimonial ? (
-              <div className="mt-10 md:mt-12 relative overflow-hidden rounded-[18px] md:rounded-[22px] border border-white/10 bg-gradient-to-br from-[#141414] via-[#0f0f0f] to-[#0a0a0a] px-6 py-7 md:px-8 md:py-9">
-                <div className="absolute top-4 left-4 md:top-6 md:left-6 h-10 w-auto pointer-events-none">
-                  <Image
-                    src={Assets.CommaIconSharp}
-                    alt=""
-                    width={72}
-                    height={44}
-                    className="h-full w-auto object-contain opacity-70"
-                  />
-                </div>
-
-                <p className="relative z-10 text-white/90 text-[14px] md:text-[15px] italic font-medium leading-[1.5] pt-6">
-                  &ldquo;{data.testimonial.quote}&rdquo;
-                </p>
-
-                <div className="relative z-10 flex items-center gap-3 mt-6">
-                  <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden border border-white/10 shrink-0">
-                    <Image
-                      src={data.testimonial.avatar}
-                      alt={data.testimonial.author}
-                      fill
-                      sizes="44px"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <h4 className="text-white font-semibold text-[13px] tracking-wide truncate">
-                      {data.testimonial.author}
-                    </h4>
-                    <p className="text-white/45 text-[12px] mt-0.5 truncate">
-                      {data.testimonial.role}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ) : null}
           </aside>
         </div>
+
+        {data.testimonial ? (
+          <div className="mt-12 md:mt-14 flex justify-center">
+            <div className="w-full max-w-[560px] relative overflow-hidden rounded-[18px] md:rounded-[22px] border border-white/10 bg-gradient-to-br from-[#141414] via-[#0f0f0f] to-[#0a0a0a] px-6 py-7 md:px-8 md:py-9">
+              <div className="absolute top-4 left-4 md:top-6 md:left-6 h-10 w-auto pointer-events-none">
+                <Image
+                  src={Assets.CommaIconSharp}
+                  alt=""
+                  width={72}
+                  height={44}
+                  className="h-full w-auto object-contain opacity-70"
+                />
+              </div>
+
+              <p className="relative z-10 text-white/90 text-[14px] md:text-[15px] italic font-medium leading-[1.5] pt-6">
+                &ldquo;{data.testimonial.quote}&rdquo;
+              </p>
+
+              <div className="relative z-10 flex items-center gap-3 mt-6">
+                <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden border border-white/10 shrink-0">
+                  <Image
+                    src={data.testimonial.avatar}
+                    alt={data.testimonial.author}
+                    fill
+                    sizes="44px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-white font-semibold text-[13px] tracking-wide truncate">
+                    {data.testimonial.author}
+                  </h4>
+                  <p className="text-white/45 text-[12px] mt-0.5 truncate">
+                    {data.testimonial.role}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import { Montserrat, Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import GoToTop from "@/components/layout/GoToTop";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="">{children}</main>
         <Footer />
+        <GoToTop />
         
         {/*
         <Footer />

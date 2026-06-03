@@ -2,7 +2,6 @@
 
 import React from "react";
 import BusinessHero from "@/components/business-solutions/BusinessHero";
-import TechMarquee from "@/components/business-solutions/TechMarquee";
 import ServicesGrid from "@/components/business-solutions/ServicesGrid";
 import WhatYouGet from "@/components/business-solutions/WhatYouGet";
 import WhyChoose from "@/components/business-solutions/WhyChoose";
@@ -10,6 +9,7 @@ import ClientSuccess from "@/components/business-solutions/ClientSuccess";
 import FAQ from "@/components/pricing/FAQ";
 import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
+import TechStack from "@/components/home/TechStack";
 
 const heroData = {
   header: "IT BUSINESS SOLUTIONS",
@@ -133,9 +133,16 @@ const faqData = [
 
 export default function BusinessSolutionsPage() {
   return (
-    <main className="bg-black min-h-screen text-white overflow-hidden">
+    <main className="flex flex-col bg-black min-h-screen text-white overflow-hidden">
       <BusinessHero data={heroData} />
-      <TechMarquee stack={techStack} />
+      <div className="relative z-30 -mt-8 md:-mt-10 lg:-mt-12">
+        <TechStack
+          // variant="bar"
+          // title="The Technologies We Use for Digital Solutions"
+          // items={techStack}
+          // className="pt-0 pb-0"
+        />
+      </div>
       <div className="pt-12 md:pt-16">
         <ServicesGrid data={servicesData} />
       </div>
@@ -149,9 +156,7 @@ export default function BusinessSolutionsPage() {
         <FAQ data={faqData} />
       </div>
       <ClientSuccess />
-      <div className="mt-20">
-        <CTA />
-      </div>
+      <CTA />
     </main>
   );
 }

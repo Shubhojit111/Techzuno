@@ -25,9 +25,9 @@ export default function BusinessHero({ data }) {
           <HeaderBtn text={data.header} />
 
           <h1 className="mt-2 font-toxigenesis uppercase text-white tracking-[0.12em] text-[32px] sm:text-[40px] md:text-[44px] lg:text-[54px] leading-[1.06]">
-            YOUR LOCAL <span className="text-[#03B8B8]">IT</span>
+            YOUR LOCAL
             <br />
-            SPECIALIST
+            <span className="text-[#03B8B8]">IT</span> SPECIALIST
           </h1>
 
           <SectionDescription
