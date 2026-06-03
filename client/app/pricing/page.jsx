@@ -10,7 +10,7 @@ const pricingData = [
     subtitle: "Scalable Digital Strategy for Brands",
     price: "24,999",
     isPopular: false,
-    icon: "mdi:tablet-cellphone",
+    icon: "akar-icons:dashboard",
     features: [
       "Business consultation/digital planning",
       "WorkFlow Automated creation",
@@ -24,7 +24,7 @@ const pricingData = [
     subtitle: "Scalable Digital Strategy for Brands",
     price: "19,999",
     isPopular: true,
-    icon: "mdi:monitor-dashboard",
+    icon: "fluent:card-ui-portrait-flip-20-regular",
     features: [
       "Business consultation/digital planning",
       "WorkFlow Automated creation",
@@ -38,7 +38,7 @@ const pricingData = [
     subtitle: "Scalable Digital Strategy for Brands",
     price: "24,999",
     isPopular: false,
-    icon: "mdi:cellphone-cog",
+    icon: "material-symbols-light:mobile-hand-outline",
     features: [
       "Business consultation/digital planning",
       "WorkFlow Automated creation",
@@ -52,7 +52,7 @@ const pricingData = [
     subtitle: "Scalable Digital Strategy for Brands",
     price: "24,999",
     isPopular: false,
-    icon: "mdi:transit-connection-variant",
+    icon: "streamline-ultimate:web-hook",
     features: [
       "Business consultation/digital planning",
       "WorkFlow Automated creation",
@@ -66,7 +66,7 @@ const pricingData = [
     subtitle: "Scalable Digital Strategy for Brands",
     price: "19,999",
     isPopular: true,
-    icon: "mdi:monitor-eye",
+    icon: "streamline-ultimate:e-commerce-apparel",
     features: [
       "Business consultation/digital planning",
       "WorkFlow Automated creation",
@@ -80,7 +80,7 @@ const pricingData = [
     subtitle: "Scalable Digital Strategy for Brands",
     price: "24,999",
     isPopular: false,
-    icon: "mdi:cloud-sync-outline",
+    icon: "hugeicons:seo",
     features: [
       "Business consultation/digital planning",
       "WorkFlow Automated creation",

@@ -41,6 +41,10 @@ import ContactBg from "./images/ContactBg.png";
 import ContactRight from "./images/ContactRight.png";
 import ContactFormRight from "./images/ContactFormRight.png";
 
+import BlogsBg from "./images/BlogsBg.png";
+
+import BusinessSolutions1 from "./images/BusinessSolutions1.png";
+
 const Assets = {
   logo,
   HomeBg,
@@ -88,6 +92,10 @@ const Assets = {
   ContactBg,
   ContactRight,
   ContactFormRight,
+
+  BlogsBg,
+
+  BusinessSolutions1,
 
 };
 

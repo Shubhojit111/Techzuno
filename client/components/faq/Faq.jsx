@@ -71,11 +71,11 @@ const FAQ = () => {
       <div className="w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-16">
-          <h1 className="text-white text-[70px] md:text-[72px] lg:text-[96px] font-bold tracking-widest mb-4">
+          <h1 className="text-white text-[70px] md:text-[72px] lg:text-[96px] font-bold tracking-widest">
             FAQS
           </h1>
-          <p className="text-white/70 text-xl lg:text-xs mx-auto mb-10">
-            An FAQ Page Is A Webpage Of The Questions Most Often Asked <span className="hidden lg:inline-block">By Your{" "}
+          <p className="text-white/70 text-xl lg:text-xs mx-auto mb-16">
+            An FAQ Page Is A Webpage Of The Questions Most Often Asked <span className="">By Your{" "}
             <br /> Prospective And Current Customers</span>
           </p>
 
@@ -138,7 +138,7 @@ const FAQ = () => {
         </div>
 
         {/* FAQ Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-4 lg:gap-6 mb-16 w-full mx-auto ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-16 w-full mx-auto">
           {faqs.map((faq, index) => (
             <div
               key={index}
@@ -149,7 +149,11 @@ const FAQ = () => {
               }`}
             >
               <button
-                onClick={() => toggleAccordion(index)}
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleAccordion(index);
+                }}
                 className="w-full flex items-center justify-between p-5 md:p-6 text-left group"
               >
                 <h3 className="text-white font-medium text-[16px] md:text-[20px] pr-4">
@@ -157,7 +161,7 @@ const FAQ = () => {
                 </h3>
                 <Icon
                   icon={openIndex === index ? "mdi:minus" : "mdi:plus"}
-                  className={`text-white text-2xl shrink-0 transition-colors`}
+                  className="text-white text-2xl shrink-0 transition-colors"
                 />
               </button>
 
@@ -168,7 +172,10 @@ const FAQ = () => {
                     : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="px-5 md:px-6 pb-6 max-w-[95%] text-white/80 text-[14px] md:text-[14px] leading-relaxed mx-0">
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="px-5 md:px-6 pb-6 max-w-[95%] text-white/80 text-[14px] md:text-[14px] leading-relaxed mx-0"
+                >
                   {faq.answer}
                 </div>
               </div>

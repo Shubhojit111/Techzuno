@@ -45,8 +45,14 @@ export default function Navbar() {
             <Link href="/services" className="hover:text-cyan-400 transition-colors">
               Services
             </Link>
-            <Link href="/blog" className="hover:text-cyan-400 transition-colors">
-              Blog
+            <Link href="/blogs" className="hover:text-cyan-400 transition-colors">
+              Blogs
+            </Link>
+            <Link href="/contact" className="hover:text-cyan-400 transition-colors">
+              Contact
+            </Link>
+            <Link href="/business-solutions" className="hover:text-cyan-400 transition-colors">
+              Business Solutions
             </Link>
           </div>
 
