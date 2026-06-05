@@ -5,21 +5,22 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import SectionTitle from "../buttons/SectionTitle";
 import Assets from "@/Assets/Assets";
+import HeaderBtn from "../buttons/HeaderBtn";
 
 function ServiceItem({ title }) {
   return (
-    <div className="group">
-      <div className="flex items-center gap-4 pb-5">
+    <div className="group pb-4">
+      <div className="flex items-start gap-4 pb-1.5">
         <Icon
-          icon="solar:clipboard-check-bold"
-          className="w-6 h-6 shrink-0 text-[#03B8B8]"
+          icon="teenyicons:clipboard-tick-outline"
+          className=" lg:w-5 lg:h-5 shrink-0 text-[#38FFF2]"
         />
-        <h3 className="text-white text-[15px] sm:text-[16px] font-medium leading-snug">
+        <h3 className="text-white text-[15px] leading-none sm:text-[16px]  tracking-wide lg:whitespace-nowrap ">
           {title}
         </h3>
       </div>
       <div
-        className="h-px w-full max-w-[calc(100%-2.5rem)] ml-10 bg-gradient-to-r from-white/25 via-white/10 to-transparent"
+        className="mt-1 h-px w-full max-w-[calc(100%-6rem)] lg:max-w-[calc(100%-8rem)] ml-2 lg:ml-10 bg-linear-to-r from-white/10 via-white/45 via-white/35 via-white/25 to-white/10"
         aria-hidden
       />
     </div>
@@ -34,96 +35,92 @@ export default function ServicesGrid({ data }) {
   return (
     <section id="services-we-provide" className="pb-20">
       <div className="px-6 md:px-10 lg:px-62 mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          <div className="lg:col-span-8">
+        <div className="flex flex-col gap-10 lg:gap-14 items-start">
+          <div className="w-full">
             <SectionTitle
               className="uppercase"
               title={
                 <>
-                  SERVICES
-                  <br />
-                  <span className="text-[#03B8B8]">WE PROVIDE</span>
+                  SERVICES <br className="hidden lg:block" />
+                  <span className="highlightedTextColor">WE PROVIDE</span>
                 </>
               }
             />
 
-            <div className="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16 xl:gap-x-24">
-              <div className="flex flex-col">
-                {leftColumn.map((service, index) => (
-                  <ServiceItem key={index} title={service.title} />
-                ))}
+            <div className="mt-10 md:mt-8 flex flex-col lg:flex-row items-start justify-between w-full ">
+              <div className="flex flex-col sm:flex-row w-fit gap-x-10 lg:gap-x-8 ">
+                <div className="flex flex-col">
+                  {leftColumn.map((service, index) => (
+                    <ServiceItem key={index} title={service.title} />
+                  ))}
+                </div>
+                <div className="flex flex-col">
+                  {rightColumn.map((service, index) => (
+                    <ServiceItem key={index} title={service.title} />
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col">
-                {rightColumn.map((service, index) => (
-                  <ServiceItem key={index} title={service.title} />
-                ))}
+
+              <div className="w-fit ">
+                <HeaderBtn text="QUICK LINKS" />
+                <ol className="flex flex-col gap-2">
+                  {data.quickLinks.map((link, index) => (
+                    <li key={index}>
+                      <a
+                        href={link.href}
+                        className="inline-flex items-baseline gap-2 text-white hover:underline transition-colors text-[16px] tracking-wide"
+                      >
+                        <span className="text-white text-[16px] font-medium tabular-nums highlightedTextColorLight">
+                          {index + 1}.
+                        </span>
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
               </div>
             </div>
           </div>
-
-          <aside className="lg:col-span-4">
-            <div className="lg:pt-2">
-              <h4 className="text-white text-[13px] font-semibold uppercase tracking-[0.22em] mb-6 lg:mb-8">
-                QUICK LINKS
-              </h4>
-              <ol className="space-y-4 lg:space-y-5">
-                {data.quickLinks.map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.href}
-                      className="inline-flex items-baseline gap-2 text-white/90 hover:text-[#03B8B8] transition-colors text-[15px] font-medium"
-                    >
-                      <span className="text-white/50 text-[13px] font-normal tabular-nums">
-                        {index + 1}.
-                      </span>
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </aside>
         </div>
 
-        {data.testimonial ? (
-          <div className="mt-12 md:mt-14 flex justify-center">
-            <div className="w-full max-w-[560px] relative overflow-hidden rounded-[18px] md:rounded-[22px] border border-white/10 bg-gradient-to-br from-[#141414] via-[#0f0f0f] to-[#0a0a0a] px-6 py-7 md:px-8 md:py-9">
-              <div className="absolute top-4 left-4 md:top-6 md:left-6 h-10 w-auto pointer-events-none">
+        <div className="mt-12 md:mt-14 flex justify-center">
+          <div className="w-full max-w-[480px] relative overflow-hidden rounded-[12px] card-bg-gradient py-7 px-7">
+            <div
+              className="h-px w-full bg-linear-to-r from-white/20 via-white/65 via-white/75 via-white/65 to-white/20"
+              aria-hidden
+            />
+            <div className="w-auto pointer-events-none">
+              <Icon
+                icon="sidekickicons:quotation-mark-solid"
+                className="w-16 h-16 shrink-0"
+              />
+            </div>
+
+            <p className="relative z-10 text-white/90 text-[14px] md:text-[13px] italic font-medium leading-[1.3] pt-6">
+              &ldquo;{data.saying.quote}&rdquo;
+            </p>
+
+            <div className="relative z-10 flex items-center gap-3 mt-6">
+              <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden border border-white/10 shrink-0">
                 <Image
-                  src={Assets.CommaIconSharp}
-                  alt=""
-                  width={72}
-                  height={44}
-                  className="h-full w-auto object-contain opacity-70"
+                  src={data.saying.avatar}
+                  alt={data.saying.author}
+                  fill
+                  sizes="44px"
+                  className="object-cover"
                 />
               </div>
-
-              <p className="relative z-10 text-white/90 text-[14px] md:text-[15px] italic font-medium leading-[1.5] pt-6">
-                &ldquo;{data.testimonial.quote}&rdquo;
-              </p>
-
-              <div className="relative z-10 flex items-center gap-3 mt-6">
-                <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden border border-white/10 shrink-0">
-                  <Image
-                    src={data.testimonial.avatar}
-                    alt={data.testimonial.author}
-                    fill
-                    sizes="44px"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="min-w-0">
-                  <h4 className="text-white font-semibold text-[13px] tracking-wide truncate">
-                    {data.testimonial.author}
-                  </h4>
-                  <p className="text-white/45 text-[12px] mt-0.5 truncate">
-                    {data.testimonial.role}
-                  </p>
-                </div>
+              <div className="min-w-0">
+                <h4 className="text-white text-[13px] tracking-wide truncate">
+                  {data.saying.author}
+                </h4>
+                <p className="text-white/75 text-[12px] mt-0.5 truncate">
+                  {data.saying.role}
+                </p>
               </div>
             </div>
           </div>
-        ) : null}
+        </div>
       </div>
     </section>
   );

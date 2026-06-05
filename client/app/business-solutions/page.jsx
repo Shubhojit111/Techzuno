@@ -14,7 +14,8 @@ import TechStack from "@/components/home/TechStack";
 const heroData = {
   header: "IT BUSINESS SOLUTIONS",
   title: "YOUR LOCAL IT SPECIALIST",
-  description: "At Techzuno, we help your business thrive with tailored IT solutions.",
+  description:
+    "We provide a fully customised service, designed to meet your specific IT requirements, business set up and budget.",
   buttonText: "Let's Discuss Your Needs",
   image: Assets.BusinessSolutions1,
 };
@@ -46,7 +47,7 @@ const servicesData = {
     { label: "Why Choose Techzuno", href: "#why-choose-techzuno" },
     { label: "FAQ's For Service", href: "#faq-service" },
   ],
-  testimonial: {
+  saying: {
     quote:
       "At Techzuno, Diverse Experiences And A Passion For Innovation Shape Everything We Build — And That's Something We're Truly Proud Of.",
     author: "Bishal Kayal",
@@ -58,105 +59,107 @@ const servicesData = {
 const whatYouGetData = [
   {
     title: "Project Documentation",
-    description: "We provide comprehensive documentation for every project, ensuring that you have all the information you need to manage and maintain your software.",
-    icon: "mdi:file-document-outline"
+    description:
+      "We provide comprehensive documentation for every project, ensuring that you have all the information you need to manage and maintain your software.",
+    icon: "mdi:file-document-outline",
   },
   {
     title: "Integration Tests Satisfaction",
-    description: "Our rigorous testing process ensures that your software is robust, reliable, and meets your exact requirements, giving you peace of mind.",
-    icon: "mdi:cog-outline"
+    description:
+      "Our rigorous testing process ensures that your software is robust, reliable, and meets your exact requirements, giving you peace of mind.",
+    icon: "mdi:cog-outline",
   },
   {
     title: "Added Business Value",
-    description: "We focus on delivering solutions that add real value to your business, helping you streamline operations and increase efficiency.",
-    icon: "mdi:briefcase-outline"
+    description:
+      "We focus on delivering solutions that add real value to your business, helping you streamline operations and increase efficiency.",
+    icon: "mdi:briefcase-outline",
   },
   {
     title: "Post-Launch Support",
-    description: "We provide ongoing support and maintenance after your project is launched, ensuring that your software continues to perform at its best.",
-    icon: "mdi:heart-outline"
+    description:
+      "We provide ongoing support and maintenance after your project is launched, ensuring that your software continues to perform at its best.",
+    icon: "mdi:heart-outline",
   },
   {
     title: "Transparent & Detailed delivery",
-    description: "We believe in transparency and keep you informed at every stage of the project, providing detailed reports on progress and milestones.",
-    icon: "mdi:package-variant-closed"
+    description:
+      "We believe in transparency and keep you informed at every stage of the project, providing detailed reports on progress and milestones.",
+    icon: "mdi:package-variant-closed",
   },
   {
     title: "Intellectual Property Protection",
-    description: "We take intellectual property protection seriously and ensure that your software and data are secure and protected at all times.",
-    icon: "mdi:shield-lock-outline"
-  }
+    description:
+      "We take intellectual property protection seriously and ensure that your software and data are secure and protected at all times.",
+    icon: "mdi:shield-lock-outline",
+  },
 ];
 
 const whyChooseData = [
   {
-    number: "01",
-    title: "Partnership Focus",
-    description: "We believe in building long-term partnerships with our clients, working closely with you to understand your needs and deliver solutions that help you succeed.",
-    icon: "mdi:handshake-outline",
-    image: Assets.BusinessSolutions1,
+    index: "01",
+    title: "Experienced Team",
+    description:
+      "With years of hands-on experience across web, mobile, and cloud technologies, we bring deep technical expertise and strategic thinking to every project.",
+    icon: "hugeicons:work",
+    image: Assets.BusinessSolutions2,
   },
   {
-    number: "02",
-    title: "More Than Just Code",
-    description: "Our team of experts brings a wealth of experience and expertise to every project, providing strategic advice and consulting to help you make informed decisions.",
-    icon: "mdi:eye-outline",
-    image: Assets.BusinessSolutions1,
+    index: "02",    
+    title: "Client-First Approach",
+    description:
+      "We prioritize your business goals, ensuring our solutions are not just technologically advanced but also perfectly aligned with your objectives.",
+    icon: "streamline-flex:customer-support-7",
+    image: Assets.BusinessSolutions3,
   },
   {
-    number: "03",
+    index: "03",
     title: "Reliable Support",
-    description: "We are committed to providing reliable support and maintenance, ensuring that your software is always up-to-date and performing optimally.",
-    icon: "mdi:headset",
-    image: Assets.BusinessSolutions1,
-  }
+    description:
+      "Our commitment extends beyond delivery with robust post-launch support and maintenance, ensuring your systems run smoothly 24/7.",
+    icon: "icon-park-outline:message",
+    image: Assets.BusinessSolutions4,
+  },
 ];
 
 const faqData = [
   {
     question: "How long does it take to complete a project?",
-    answer: "The timeline depends on the scope and complexity of the project. A standard website might take 2-4 weeks, while complex applications can take several months. We will provide a detailed timeline during the consultation.",
+    answer:
+      "The timeline depends on the scope and complexity of the project. A standard website might take 2-4 weeks, while complex applications can take several months. We will provide a detailed timeline during the consultation.",
   },
   {
     question: "Do you provide post-launch support and maintenance?",
-    answer: "Yes, we offer comprehensive post-launch support and maintenance packages to ensure your digital product remains secure, updated, and performs optimally over time.",
+    answer:
+      "Yes, we offer comprehensive post-launch support and maintenance packages to ensure your digital product remains secure, updated, and performs optimally over time.",
   },
   {
     question: "Can I customize my package or combine multiple services?",
-    answer: "Absolutely! We understand that every business has unique needs. You can mix and match services to create a custom package that perfectly aligns with your goals.",
+    answer:
+      "Absolutely! We understand that every business has unique needs. You can mix and match services to create a custom package that perfectly aligns with your goals.",
   },
   {
     question: "Can I customize my package or combine multiple services?",
-    answer: "Absolutely! We understand that every business has unique needs. You can mix and match services to create a custom package that perfectly aligns with your goals.",
+    answer:
+      "Absolutely! We understand that every business has unique needs. You can mix and match services to create a custom package that perfectly aligns with your goals.",
   },
 ];
 
 export default function BusinessSolutionsPage() {
   return (
-    <main className="flex flex-col bg-black min-h-screen text-white overflow-hidden">
+    <main className="flex flex-col bg-black min-h-screen text-white overflow-">
       <BusinessHero data={heroData} />
-      <div className="relative z-30 -mt-8 md:-mt-10 lg:-mt-12">
-        <TechStack
-          // variant="bar"
-          // title="The Technologies We Use for Digital Solutions"
-          // items={techStack}
-          // className="pt-0 pb-0"
-        />
-      </div>
-      <div className="pt-12 md:pt-16">
-        <ServicesGrid data={servicesData} />
-      </div>
-      <div id="what-you-get">
-        <WhatYouGet data={whatYouGetData} />
-      </div>
-      <div id="why-choose-techzuno">
-        <WhyChoose data={whyChooseData} />
-      </div>
-      <div id="faq-service">
-        <FAQ data={faqData} />
-      </div>
+      {/* 
+      */}
+      <TechStack />
+      <ServicesGrid data={servicesData} />
+      <WhatYouGet data={whatYouGetData} />
+      <WhyChoose data={whyChooseData} />
+      <FAQ data={faqData} />
       <ClientSuccess />
       <CTA />
+      {/*
+        */}
     </main>
   );
 }

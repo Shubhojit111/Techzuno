@@ -44,6 +44,10 @@ import ContactFormRight from "./images/ContactFormRight.png";
 import BlogsBg from "./images/BlogsBg.png";
 
 import BusinessSolutions1 from "./images/BusinessSolutions1.png";
+import BusinessSolutions2 from "./images/BusinessSolutions2.png";
+import BusinessSolutions3 from "./images/BusinessSolutions3.png";
+import BusinessSolutions4 from "./images/BusinessSolutions4.png";
+
 
 const Assets = {
   logo,
@@ -96,7 +100,9 @@ const Assets = {
   BlogsBg,
 
   BusinessSolutions1,
-
+  BusinessSolutions2,
+  BusinessSolutions3,
+  BusinessSolutions4,
 };
 
 export default Assets;

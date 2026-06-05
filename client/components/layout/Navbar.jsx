@@ -89,6 +89,8 @@ export default function Navbar() {
                 { href: "/learn-more", label: "Learn More" },
                 { href: "/services", label: "Services" },
                 { href: "/blog", label: "Blog" },
+                { href: "/contact", label: "Contact" },
+                { href: "/business-solutions", label: "Business Solutions" },
               ].map((item) => (
                 <Link
                   key={item.href}

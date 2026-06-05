@@ -63,3 +63,20 @@ body {
   animation: marquee-reverse 50s linear infinite;
   width: fit-content;
 }
+
+.highlightedTextColor {
+  color: #38FFF2;
+}
+
+.highlightedTextColorLight {
+  color: #B8FAFF;
+}
+
+.card-bg-gradient {
+  background: linear-gradient(to bottom, #1e2d2d, #0f1010);
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 0;
+}
+
