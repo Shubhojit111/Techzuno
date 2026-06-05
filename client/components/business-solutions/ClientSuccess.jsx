@@ -13,7 +13,7 @@ export default function ClientSuccess() {
   }));
 
   return (
-    <section className="py-20 bg-[#050505]/50">
+    <section className="pb-20 bg-black">
       <div className="px-6 md:px-10 lg:px-62 mx-auto w-full text-center">
         <SectionTitle 
           title={<>CASE STUDIES - <span className="highlightedTextColor">CLIENT <br /> SUCCESS</span> STORIES</>} 

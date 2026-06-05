@@ -12,23 +12,31 @@ import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
 
 
-export default function WebDevelopmentPage() {
+
+
+export default function EcomIntegrationPage() {
   return (
     <main className="flex flex-col bg-black min-h-screen text-white overflow-">
       <BusinessHero
-        headerbtn={"Web Development"}
-        title={  
+        headerbtn={"Ecommerce Integration"}
+        title={
           <>
-            Top{" "}
+            Make{" "}
             <span className="highlightedTextColor">
-              Web 
+              Data-
               <br />
-              Application
+              Driven
             </span>{" "}
-             Development
+            And
+            <br />
+            Drives Hi
           </>
         }
+        description={
+          "We provide a fully customised service, designed to meet your specific IT requirements, business set up and budget."
+        }
         image={Assets.BusinessSolutions1}
+        buttonText={"Let's Discuss Your Needs"}
       />
 
       {/*
@@ -37,7 +45,7 @@ export default function WebDevelopmentPage() {
       <ServicesGrid />
       <WhatYouGet />
       <WhyChoose />
-      <FAQ />
+      <FAQ  />
       <ClientSuccess />
       <CTA />
       {/*

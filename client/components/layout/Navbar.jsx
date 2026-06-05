@@ -54,6 +54,21 @@ export default function Navbar() {
             <Link href="/business-solutions" className="hover:text-cyan-400 transition-colors">
               Business Solutions
             </Link>
+            <Link href="/ui-ux-design" className="hover:text-cyan-400 transition-colors">
+              UI/UX
+            </Link>
+            <Link href="/app-development" className="hover:text-cyan-400 transition-colors">
+              App
+            </Link>
+            <Link href="/web-development" className="hover:text-cyan-400 transition-colors">
+              Web
+            </Link>
+            <Link href="/ecom-integration" className="hover:text-cyan-400 transition-colors">
+              Ecom
+            </Link>
+            <Link href="/seo" className="hover:text-cyan-400 transition-colors">
+              SEO
+            </Link>
           </div>
 
           <div className="hidden lg:flex items-center gap-6">
@@ -91,6 +106,11 @@ export default function Navbar() {
                 { href: "/blog", label: "Blog" },
                 { href: "/contact", label: "Contact" },
                 { href: "/business-solutions", label: "Business Solutions" },
+                { href: "/ui-ux-design", label: "UI/UX" },
+                { href: "/app-development", label: "App" },
+                { href: "/web-development", label: "Web" },
+                { href: "/ecom-integration", label: "Ecom" },
+                { href: "/seo", label: "SEO" },
               ].map((item) => (
                 <Link
                   key={item.href}

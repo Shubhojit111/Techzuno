@@ -27,10 +27,41 @@ function ServiceItem({ title }) {
   );
 }
 
-export default function ServicesGrid({ data }) {
-  const midpoint = Math.ceil(data.services.length / 2);
-  const leftColumn = data.services.slice(0, midpoint);
-  const rightColumn = data.services.slice(midpoint);
+
+
+
+export default function ServicesGrid() {
+
+  const serviceData = {
+  services: [
+    { title: "Custom ERP Solutions" },
+    { title: "CRM Development" },
+    { title: "E-Commerce Solutions" },
+    { title: "Inventory & Warehouse Management Systems" },
+    { title: "SaaS Product Development" },
+    { title: "Project Management Platforms" },
+    { title: "Booking & Appointment Systems" },
+    { title: "Learning Management Systems (LMS)" },
+    { title: "Billing & Invoicing Systems" },
+    { title: "Job Portals & Marketplace Solutions" },
+  ],
+  quickLinks: [
+    { label: "Services We Provide", href: "#services-we-provide" },
+    { label: "What You Get", href: "#what-you-get" },
+    { label: "Why Choose Techzuno", href: "#why-choose-techzuno" },
+    { label: "FAQ's For Service", href: "#faq-service" },
+  ],
+  saying: {
+    quote:
+      "At Techzuno, Diverse Experiences And A Passion For Innovation Shape Everything We Build — And That's Something We're Truly Proud Of.",
+    author: "Bishal Kayal",
+    role: "CEO",
+    avatar: Assets.CEO,
+  },
+};
+  const midpoint = Math.ceil(serviceData.services.length / 2);
+  const leftColumn = serviceData.services.slice(0, midpoint);
+  const rightColumn = serviceData.services.slice(midpoint);
 
   return (
     <section id="services-we-provide" className="pb-20">
@@ -64,7 +95,7 @@ export default function ServicesGrid({ data }) {
               <div className="w-fit ">
                 <HeaderBtn text="QUICK LINKS" />
                 <ol className="flex flex-col gap-2">
-                  {data.quickLinks.map((link, index) => (
+                  {serviceData.quickLinks.map((link, index) => (
                     <li key={index}>
                       <a
                         href={link.href}
@@ -97,14 +128,14 @@ export default function ServicesGrid({ data }) {
             </div>
 
             <p className="relative z-10 text-white/90 text-[14px] md:text-[13px] italic font-medium leading-[1.3] pt-6">
-              &ldquo;{data.saying.quote}&rdquo;
+              &ldquo;{serviceData.saying.quote}&rdquo;
             </p>
 
             <div className="relative z-10 flex items-center gap-3 mt-6">
               <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden border border-white/10 shrink-0">
                 <Image
-                  src={data.saying.avatar}
-                  alt={data.saying.author}
+                  src={serviceData.saying.avatar}
+                  alt={serviceData.saying.author}
                   fill
                   sizes="44px"
                   className="object-cover"
@@ -112,10 +143,10 @@ export default function ServicesGrid({ data }) {
               </div>
               <div className="min-w-0">
                 <h4 className="text-white text-[13px] tracking-wide truncate">
-                  {data.saying.author}
+                  {serviceData.saying.author}
                 </h4>
                 <p className="text-white/75 text-[12px] mt-0.5 truncate">
-                  {data.saying.role}
+                  {serviceData.saying.role}
                 </p>
               </div>
             </div>

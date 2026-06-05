@@ -12,23 +12,29 @@ import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
 
 
-export default function WebDevelopmentPage() {
+
+
+export default function SeoPage() {
   return (
     <main className="flex flex-col bg-black min-h-screen text-white overflow-">
       <BusinessHero
-        headerbtn={"Web Development"}
-        title={  
+        headerbtn={"SEO & Performance Optimization"}
+        title={
           <>
-            Top{" "}
+            Quality{" "}
             <span className="highlightedTextColor">
-              Web 
+              Testing
               <br />
-              Application
+              Included
             </span>{" "}
-             Development
+            In Ev
           </>
         }
+        description={
+          "We provide a fully customised service, designed to meet your specific IT requirements, business set up and budget."
+        }
         image={Assets.BusinessSolutions1}
+        buttonText={"Let's Discuss Your Needs"}
       />
 
       {/*
@@ -37,7 +43,7 @@ export default function WebDevelopmentPage() {
       <ServicesGrid />
       <WhatYouGet />
       <WhyChoose />
-      <FAQ />
+      <FAQ  />
       <ClientSuccess />
       <CTA />
       {/*
