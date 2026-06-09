@@ -28,7 +28,7 @@ export default function UiUxDesignPage() {
              Possibilities
           </>
         }
-        image={Assets.BusinessSolutions1}
+        image={Assets.UIUX1}
       />
 
       {/*
@@ -36,7 +36,7 @@ export default function UiUxDesignPage() {
       <TechStack />
       <ServicesGrid />
       <WhatYouGet />
-      <WhyChoose />
+      <WhyChoose cardImage1={Assets.UIUX2} cardImage2={Assets.UIUX3} cardImage3={Assets.UIUX4}/>
       <FAQ />
       <ClientSuccess />
       <CTA />

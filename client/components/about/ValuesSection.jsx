@@ -48,7 +48,7 @@ const values = [
 
 export default function ValuesSection() {
   return (
-    <section className="bg-black pt-16 md:pt-20">
+    <section className="bg-black pb-16 md:pb-20">
       <div className="h-full w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header */}
         <div className="text-left md:text-center mb-10 md:mb-14 flex flex-col items-start md:items-center">

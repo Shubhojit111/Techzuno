@@ -27,12 +27,12 @@ const CardSliderComponent = ({ index, title, description, icon, image }) => {
             <p className="text-white font-bold tracking-wider text-[22px] sm:text-[17px]">
               {title}
             </p>
-            <p className="text-white/60  lg:max-w-[86%] text-[14px] md:text-[12px] lg:text-[13px] leading-[1.2] ">
+            <p className="text-white/60  lg:max-w-[87%] text-[14px] md:text-[12px] lg:text-[13px] leading-[1.2] ">
               {description}
             </p>
           </div>
         </div>
-        <div className="imageCard h-full w-full sm:w-[55%] lg:w-[65%] rounded-2xl overflow-hidden">
+        <div className="imageCard card-bg-gradient h-full w-full sm:w-[55%] lg:w-[65%] rounded-xl overflow-hidden">
           <Image
             src={image}
             alt={title}

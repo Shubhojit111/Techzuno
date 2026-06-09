@@ -36,6 +36,7 @@ import Milestone from "./images/Milestone.png";
 import Aboutimg from "./images/Aboutimg.jpeg";
 import AboutVision from "./images/AboutVision.png";
 import AboutMission from "./images/AboutMission.png";
+import ImageBgRectangle from "./images/ImageBgRectangle.png";
 
 import ContactBg from "./images/ContactBg.png";
 import ContactRight from "./images/ContactRight.png";
@@ -48,6 +49,33 @@ import BusinessSolutions2 from "./images/BusinessSolutions2.png";
 import BusinessSolutions3 from "./images/BusinessSolutions3.png";
 import BusinessSolutions4 from "./images/BusinessSolutions4.png";
 
+import UIUX1 from "./images/UIUX1.png";
+import UIUX2 from "./images/UIUX2.png";
+import UIUX3 from "./images/UIUX3.png";
+import UIUX4 from "./images/UIUX4.png";
+
+import AppDev1 from "./images/AppDev1.png";
+import AppDev2 from "./images/AppDev2.png";
+import AppDev3 from "./images/AppDev3.png";
+import AppDev4 from "./images/AppDev4.png";
+
+import WebDev1 from "./images/WebDev1.png";
+import WebDev2 from "./images/WebDev2.png";
+import WebDev3 from "./images/WebDev3.png";
+import WebDev4 from "./images/WebDev4.png";
+
+import Ecom1 from "./images/Ecom1.png";
+import Ecom2 from "./images/Ecom2.png";
+import Ecom3 from "./images/Ecom3.png";
+import Ecom4 from "./images/Ecom4.png";
+
+import SEO1 from "./images/SEO1.png";
+import SEO2 from "./images/SEO2.png";
+import SEO3 from "./images/SEO3.png";
+import SEO4 from "./images/SEO4.png";
+
+import ServiceHeader from "./images/ServiceHeader.png";
+import WorksHeader from "./images/WorksHeader.png";
 
 const Assets = {
   logo,
@@ -92,7 +120,9 @@ const Assets = {
   Aboutimg,
   AboutVision,
   AboutMission,
-
+  
+  ImageBgRectangle,
+  
   ContactBg,
   ContactRight,
   ContactFormRight,
@@ -103,6 +133,34 @@ const Assets = {
   BusinessSolutions2,
   BusinessSolutions3,
   BusinessSolutions4,
+
+  UIUX1,
+  UIUX2,
+  UIUX3,
+  UIUX4,
+
+  AppDev1,
+  AppDev2,
+  AppDev3,
+  AppDev4,
+
+  WebDev1,
+  WebDev2,
+  WebDev3,
+  WebDev4,
+
+  Ecom1,
+  Ecom2,
+  Ecom3,
+  Ecom4,
+
+  SEO1,
+  SEO2,
+  SEO3,
+  SEO4,
+  
+  ServiceHeader,
+  WorksHeader,
 };
 
 export default Assets;

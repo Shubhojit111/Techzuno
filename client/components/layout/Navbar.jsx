@@ -12,7 +12,8 @@ export default function Navbar() {
   const primaryLinks = [
     { href: "/", label: "Home" },
     { href: "/pricing", label: "Pricing" },
-    { href: "/learn-more", label: "Learn More" },
+    // { href: "/learn-more", label: "Learn More" },
+    { href: "/works", label: "Works" },
     { href: "/services", label: "Services" },
   ];
 

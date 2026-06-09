@@ -8,7 +8,7 @@ import { MegaphoneIcon } from "lucide-react";
 import Assets from "@/Assets/Assets";
 import CardSliderComponent from "./CardSliderComponent";
 
-export default function WhyChoose() {
+export default function WhyChoose({ cardImage1, cardImage2, cardImage3 }) {
   const whyChooseData = [
     {
       index: "01",
@@ -16,7 +16,7 @@ export default function WhyChoose() {
       description:
         "With years of hands-on experience across web, mobile, and cloud technologies, we bring deep technical expertise and strategic thinking to every project.",
       icon: "hugeicons:work",
-      image: Assets.BusinessSolutions2,
+      image: cardImage1 || Assets.BusinessSolutions1,
     },
     {
       index: "02",
@@ -24,7 +24,7 @@ export default function WhyChoose() {
       description:
         "We prioritize your business goals, ensuring our solutions are not just technologically advanced but also perfectly aligned with your objectives.",
       icon: "streamline-flex:customer-support-7",
-      image: Assets.BusinessSolutions3,
+      image: cardImage2 || Assets.BusinessSolutions2,
     },
     {
       index: "03",
@@ -32,7 +32,7 @@ export default function WhyChoose() {
       description:
         "Our commitment extends beyond delivery with robust post-launch support and maintenance, ensuring your systems run smoothly 24/7.",
       icon: "icon-park-outline:message",
-      image: Assets.BusinessSolutions4,
+      image: cardImage3 || Assets.BusinessSolutions3,
     },
   ];
 

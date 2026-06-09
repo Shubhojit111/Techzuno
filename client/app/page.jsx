@@ -13,7 +13,7 @@ import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import AboutHome from "@/components/home/AboutHome";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="flex flex-col h-full ">
       <Hero />

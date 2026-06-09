@@ -11,36 +11,34 @@ import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
 
-
 export default function WebDevelopmentPage() {
   return (
     <main className="flex flex-col bg-black min-h-screen text-white overflow-">
       <BusinessHero
         headerbtn={"Web Development"}
-        title={  
+        title={
           <>
             Top{" "}
             <span className="highlightedTextColor">
-              Web 
+              Web
               <br />
               Application
             </span>{" "}
-             Development
+            Development
           </>
         }
-        image={Assets.BusinessSolutions1}
+        image={Assets.WebDev1}
       />
-
-      {/*
-       */}
       <TechStack />
       <ServicesGrid />
       <WhatYouGet />
-      <WhyChoose />
+      <WhyChoose cardImage1={Assets.WebDev2} cardImage2={Assets.WebDev3} cardImage3={Assets.WebDev4}/>
       <FAQ />
       <ClientSuccess />
       <CTA />
+
       {/*
+      <h1 className="mx-auto text-center text-7xl mt-32">Web Development Page</h1>
        */}
     </main>
   );

@@ -42,7 +42,7 @@ export default function TechStack() {
   );
 
   return (
-    <section ref={sectionRef} className="bg-black pt-20 pb-16">
+    <section ref={sectionRef} className="bg-black py-16">
       <div className="px-6 sm:px-10 md:px-12 lg:px-62 mx-auto flex flex-col items-center justify-between gap-10 md:flex-row">
         <h3 className="text-[16px] md:text-[14px] lg:text-[18px] font-normal tracking-wide text-white/70 text-center md:text-left w-full md:w-auto">
           Tools We Master To Build Digital Excellence

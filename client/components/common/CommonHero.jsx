@@ -10,7 +10,7 @@ import KnowMoreBtnSmall from "../buttons/KnowMoreBtnSmall";
 import Assets from "@/Assets/Assets";
 
 
-export default function BusinessHero({ headerbtn,title,description,buttonText,image }) {
+export default function CommonHero({ headerbtn,title,description,buttonText,image }) {
   return (
     <section className="relative pt-28 md:pt-36 lg:pt-40 ">
       <div className="relative z-10 px-6 sm:px-10 lg:px-62 mx-auto flex flex-col sm:flex-row justify-between gap-8 lg:gap-14 items-center lg:h-[400px]">
@@ -31,21 +31,13 @@ export default function BusinessHero({ headerbtn,title,description,buttonText,im
         </div>
 
         <div className="h-full w-full sm:w-1/2 lg:min-w-[45%]">
-          <div className="relative rounded-[18px] md:rounded-[24px] border border-white/10 shadow-2xl bg-black/30">
-            <div className="w-full h-full relative">
+          <div className="relative  border border-white/10 shadow-2xl bg-black/30">
+            <div className="w-full rounded-[18px] md:rounded-[24px] h-full relative overflow-hidden">
               <Image
-                src={Assets.ImageBgRectangle}
+                src={image || Assets.ServiceHeader}
                 alt="Business Solutions"
                 className="w-full h-full object-cover  -z-10"
               />
-
-              <Image
-                src={image}
-                alt="Business Solutions"
-                className="w-full h-full object-cover rounded-[18px] md:rounded-[24px] absolute top-3 -left-3.5 z-10"
-              />
-              
-
             </div>
           </div>
         </div>

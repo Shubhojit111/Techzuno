@@ -141,10 +141,10 @@ export default function Testimonials() {
   return (
     <div ref={triggerRef} className="w-full shrink-0 ">
       <section
-        className="bg-black overflow-hidden w-full relative"
+        className="bg-black overflow-hidden w-full relative my-6 md:my-16 lg:my-24"
         ref={sectionRef}
       >
-        <div className="mx-auto px-6 md:px-10 lg:px-62 mb-6 md:mb-16 relative z-[60]">
+        <div className="mx-auto px-6 md:px-10 lg:px-62  relative z-[60]">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
             <HeaderBtn text="CLIENT TESTIMONIALS" />
             <SectionTitle className="mb-4 md:mb-6" title={<>

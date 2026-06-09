@@ -9,7 +9,7 @@ import CTA from "@/components/home/CTA";
 import TechStack from "@/components/home/TechStack";
 import React from "react";
 
-const page = () => {
+export default function AboutPage() {
   return (
     <div className="flex flex-col h-full pt-16 md:pt-24 lg:pt-24 ">
       <AboutHeader />
@@ -44,4 +44,3 @@ const page = () => {
   );
 };
 
-export default page;
