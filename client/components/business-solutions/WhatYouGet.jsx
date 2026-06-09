@@ -11,37 +11,37 @@ export default function WhatYouGet() {
       title: "Project Documentation",
       description:
         "We provide comprehensive documentation for every project, ensuring that you have all the information you need to manage and maintain your software.",
-      icon: "mdi:file-document-outline",
+      icon: "teenyicons:pdf-outline",
     },
     {
       title: "Integration Tests Satisfaction",
       description:
         "Our rigorous testing process ensures that your software is robust, reliable, and meets your exact requirements, giving you peace of mind.",
-      icon: "mdi:cog-outline",
+      icon: "boxicons:plug-connect",
     },
     {
       title: "Added Business Value",
       description:
         "We focus on delivering solutions that add real value to your business, helping you streamline operations and increase efficiency.",
-      icon: "mdi:briefcase-outline",
+      icon: "solar:graph-broken",
     },
     {
       title: "Post-Launch Support",
       description:
         "We provide ongoing support and maintenance after your project is launched, ensuring that your software continues to perform at its best.",
-      icon: "mdi:heart-outline",
+      icon: "gg:check-r",
     },
     {
       title: "Transparent & Detailed delivery",
       description:
         "We believe in transparency and keep you informed at every stage of the project, providing detailed reports on progress and milestones.",
-      icon: "mdi:package-variant-closed",
+      icon: "humbleicons:sun",
     },
     {
       title: "Intellectual Property Protection",
       description:
         "We take intellectual property protection seriously and ensure that your software and data are secure and protected at all times.",
-      icon: "mdi:shield-lock-outline",
+      icon: "material-symbols:lock-outline",
     },
   ];
   return (

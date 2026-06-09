@@ -23,7 +23,7 @@ export default function TellUs() {
               <div className="flex gap-3 ">
                 <div className="shrink-0 mt-1">
                   <Icon
-                    icon="solar:document-text-outline"
+                    icon="material-symbols-light:dashboard-outline-rounded"
                     className="h-6 w-6 sm:h-6 sm:w-6 lg:h-6 lg:w-6 highlightedTextColor"
                   />
                 </div>
@@ -43,7 +43,7 @@ export default function TellUs() {
               <div className="flex gap-3">
                 <div className="shrink-0 mt-1">
                   <Icon
-                    icon="solar:settings-outline"
+                    icon="streamline-ultimate:human-resources-search-men"
                     className="h-6 w-6 sm:h-6 sm:w-6 lg:h-6 lg:w-6 highlightedTextColor"
                   />
                 </div>
@@ -63,7 +63,7 @@ export default function TellUs() {
               <div className="flex gap-3">
                 <div className="shrink-0 mt-1">
                   <Icon
-                    icon="solar:hand-money-outline"
+                    icon="arcticons:pixel-experience"
                     className="h-6 w-6 sm:h-6 sm:w-6 lg:h-6 lg:w-6 highlightedTextColor"
                   />
                 </div>

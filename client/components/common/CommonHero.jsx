@@ -13,7 +13,7 @@ import Assets from "@/Assets/Assets";
 export default function CommonHero({ headerbtn,title,description,buttonText,image }) {
   return (
     <section className="relative pt-28 md:pt-36 lg:pt-40 ">
-      <div className="relative z-10 px-6 sm:px-10 lg:px-62 mx-auto flex flex-col sm:flex-row justify-between gap-8 lg:gap-14 items-center lg:h-[400px]">
+      <div className="relative z-10 px-6 sm:px-10 lg:px-62 mx-auto flex flex-col sm:flex-row justify-between  items-center">
         <div className="w-full  sm:w-1/2 lg:min-w-[50%]">
           <HeaderBtn text={headerbtn} className="w-1/2 sm:w-full" />
 
@@ -31,7 +31,7 @@ export default function CommonHero({ headerbtn,title,description,buttonText,imag
         </div>
 
         <div className="h-full w-full sm:w-1/2 lg:min-w-[45%]">
-          <div className="relative  border border-white/10 shadow-2xl bg-black/30">
+          <div className="relative  shadow-2xl bg-black/30">
             <div className="w-full rounded-[18px] md:rounded-[24px] h-full relative overflow-hidden">
               <Image
                 src={image || Assets.ServiceHeader}

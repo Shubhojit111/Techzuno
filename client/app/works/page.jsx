@@ -1,6 +1,7 @@
 import Assets from '@/Assets/Assets'
 import ValuesSection from '@/components/about/ValuesSection'
 import BusinessHero from '@/components/business-solutions/BusinessHero'
+import CommonHero from '@/components/common/CommonHero'
 import Stats from '@/components/common/Stats'
 import CTA from '@/components/home/CTA'
 import TechStack from '@/components/home/TechStack'
@@ -11,12 +12,13 @@ import React from 'react'
 export default function Workspage()  {
   return (
     <div>
-      <BusinessHero
+      <CommonHero
         headerbtn="Redifining Outsourcing"
         title={<>
         Our <span className='highlightedTextColor'>Works</span>
         </>}
         buttonText="View Our Works"
+        image={Assets.WorksHeader}
       />
       <Stats />
       <Works />
