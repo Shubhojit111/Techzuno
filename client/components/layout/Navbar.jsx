@@ -97,14 +97,20 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="hidden lg:flex items-center gap-6">
-            <button className="text-[12px] font-normal tracking-wider hover:text-cyan-400 transition-colors">
+          {/* <div className="hidden lg:flex items-center gap-6">
+            <Link
+              href="/login"
+              className="text-[12px] font-normal tracking-wider hover:text-cyan-400 transition-colors"
+            >
               Login
-            </button>
-            <button className="bg-[#03B8B8] hover:cursor-pointer text-white px-5 py-1.5 rounded-2xl text-[12px] font-normal tracking-wider">
+            </Link>
+            <Link
+              href="/register"
+              className="bg-[#03B8B8] hover:brightness-110 text-white px-5 py-1.5 rounded-2xl text-[12px] font-normal tracking-wider transition-all"
+            >
               Sign Up
-            </button>
-          </div>
+            </Link>
+          </div> */}
 
           <button
             type="button"
@@ -170,6 +176,30 @@ export default function Navbar() {
                     </Link>
                   ))}
                 </div>
+              </div>
+
+              {/* Auth links for mobile */}
+              <div className="flex gap-3 pt-5 mt-2">
+                <Link
+                  href="/login"
+                  onClick={() => {
+                    setOpen(false);
+                    setOthersOpen(false);
+                  }}
+                  className="flex-1 text-center py-2.5 border border-white/20 rounded-full text-white/90 hover:text-cyan-400 text-[13px] tracking-wide transition-colors"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => {
+                    setOpen(false);
+                    setOthersOpen(false);
+                  }}
+                  className="flex-1 text-center py-2.5 bg-[#03B8B8] rounded-full text-white text-[13px] tracking-wide hover:brightness-110 transition-all"
+                >
+                  Sign Up
+                </Link>
               </div>
             </div>
           </div>
