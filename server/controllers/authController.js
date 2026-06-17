@@ -110,6 +110,29 @@ const loginUser = async (req, res) => {
   }
 };
 
+const logoutUser = async (req, res) => {
+    try{
+        const token = req.cookies.token;
+        if(!token)
+        {
+            return res.status(401).json({
+                message: "User not authenticated",
+            });
+        }
+        res.clearCookie("token");
+        return res.status(200).json({
+            message: "User logged out successfully",
+        });
+    }
+    catch(err)
+    {
+        console.log(err);
+        return res.status(500).json({
+            message: "Error Occured",
+        });
+    }
+}
+
 const getAuth = async (req, res) => {
   try {
     const token = req.cookies.token;
@@ -138,10 +161,9 @@ const getAuth = async (req, res) => {
   }
 };
 
-// const logoutUser
-
 module.exports = {
   registerUser,
   loginUser,
+  logoutUser,
   getAuth,
 };

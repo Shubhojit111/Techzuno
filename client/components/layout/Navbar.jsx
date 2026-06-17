@@ -4,10 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import Assets from "@/Assets/Assets";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function Navbar() {
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [othersOpen, setOthersOpen] = useState(false);
+
+  const [user, setUser] = useState([]);
 
   const primaryLinks = [
     { href: "/", label: "Home" },
@@ -31,6 +37,31 @@ export default function Navbar() {
   ];
 
   useEffect(() => {
+    const getAuth = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/auth/check",
+          {
+            withCredentials: true,
+          },
+        );
+        console.log(response.data.user);
+        const { user } = response.data;
+        setUser(user);
+
+        // console.log(user);
+
+      } catch (err) {
+        console.log(err);
+        // setLoading(false);
+      }
+    };
+    getAuth();
+  }, [router]);
+
+  const isAdmin = user?.role === "admin";
+
+  useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 1024) {
         setOpen(false);
@@ -40,6 +71,7 @@ export default function Navbar() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
+  
 
   return (
     <nav className="fixed top-0 w-full z-[9999] ">
@@ -97,20 +129,22 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* <div className="hidden lg:flex items-center gap-6">
+          {isAdmin ? (
+            <div className="hidden lg:flex items-center gap-6">
             <Link
-              href="/login"
+              href="/dashboard"
               className="text-[12px] font-normal tracking-wider hover:text-cyan-400 transition-colors"
             >
-              Login
+              Dashboard
             </Link>
             <Link
-              href="/register"
+              href="/logout"
               className="bg-[#03B8B8] hover:brightness-110 text-white px-5 py-1.5 rounded-2xl text-[12px] font-normal tracking-wider transition-all"
             >
-              Sign Up
+              Logout
             </Link>
-          </div> */}
+          </div>
+          ) : null}
 
           <button
             type="button"
@@ -151,7 +185,9 @@ export default function Navbar() {
                 aria-expanded={othersOpen}
               >
                 <span>Others</span>
-                <span className={`transition-transform ${othersOpen ? "rotate-180" : ""}`}>
+                <span
+                  className={`transition-transform ${othersOpen ? "rotate-180" : ""}`}
+                >
                   ▾
                 </span>
               </button>
