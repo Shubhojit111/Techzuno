@@ -8,7 +8,7 @@ const adminData = {
   name: "Techzuno Admin",
   email: process.env.ADMIN_EMAIL,
   password: process.env.ADMIN_PASSWORD,
-  role: "admin",
+  role: "admin head",
 };
 
 const addSeedAdmin = async () => {

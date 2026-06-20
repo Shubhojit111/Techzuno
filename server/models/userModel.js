@@ -21,7 +21,7 @@ const userModel = sequelize.define("User", {
     allowNull: true, //null for Google users
   },
   role: {
-    type: DataTypes.ENUM("user", "admin"),
+    type: DataTypes.ENUM("user", "admin","admin head"),
     defaultValue: "user",
   },
   phone: {

@@ -9,7 +9,7 @@
 //     .catch((error)=>{
 //         console.log(error);
 //     })
-    
+
 // }
 
 // module.exports=connectDb;
@@ -31,10 +31,10 @@ const sequelize = new Sequelize(
 
     /* 🔥 CONNECTION POOL (VERY IMPORTANT) */
     pool: {
-      max: 5,        // max connections
+      max: 5, // max connections
       min: 0,
       acquire: 60000, // wait up to 60s
-      idle: 10000,    // release idle connections
+      idle: 10000, // release idle connections
     },
 
     /* 🔥 TIMEOUT FIX */
@@ -43,11 +43,14 @@ const sequelize = new Sequelize(
     },
 
     logging: false,
-  }
+  },
 );
 
 sequelize.addHook("afterConnect", async (connection) => {
-  const conn = typeof connection?.promise === "function" ? connection.promise() : connection;
+  const conn =
+    typeof connection?.promise === "function"
+      ? connection.promise()
+      : connection;
   try {
     await conn.query("SET SESSION innodb_lock_wait_timeout = 10");
   } catch {}
@@ -61,11 +64,10 @@ const connectDb = async () => {
     await sequelize.authenticate();
     console.log("Database successfully connected");
 
-    console.log(sequelize.models)
-    
-    await sequelize.sync(); // Sync models with the database
-    console.log("Database synchronized successfully");
+    console.log(sequelize.models);
 
+    await sequelize.sync({ alter: true }); // Sync models with the database
+    console.log("Database synchronized successfully");
   } catch (error) {
     console.error("Error connecting to the database:", error);
   }
