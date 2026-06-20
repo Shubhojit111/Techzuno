@@ -14,7 +14,7 @@ const createAdmin = async (req, res) => {
       });
     }
  
-    if (!allowedRole.includes(role)) {
+    if (!allowedRole.includes(role)) { 
       return res.status(400).json({ 
         message: "Invalid role selected",
       });
