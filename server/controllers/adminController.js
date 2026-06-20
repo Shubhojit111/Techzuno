@@ -13,7 +13,7 @@ const createAdmin = async (req, res) => {
         message: "Name, email and password are required",
       });
     }
-
+ 
     if (!allowedRole.includes(role)) {
       return res.status(400).json({
         message: "Invalid role selected",
