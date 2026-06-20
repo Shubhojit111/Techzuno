@@ -28,7 +28,7 @@ export default function LoginPage() {
 
         const user = response.data.user;
 
-        if (user.role === "admin") {
+        if (user.role === "admin" || user.role === "admin head") {
           router.replace("/dashboard");
 
         } else if (user.role === "user") {

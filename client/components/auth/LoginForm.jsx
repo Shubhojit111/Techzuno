@@ -52,14 +52,16 @@ export default function LoginForm() {
 
       console.log(user);
 
-      if (user.role === "admin") {
+      if (user.role === "admin" || user.role === "admin head") {
         router.replace("/dashboard");
-      }
-      else{
+      } else {
         router.replace("/");
       }
     } catch (err) {
-      console.log(err.response.data.message || err.message);
+      setMessage({
+        type: "error",
+        text: err.response?.data?.message || err.message,
+      });
     } finally {
       setLoading(false);
     }

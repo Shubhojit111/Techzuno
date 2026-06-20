@@ -22,10 +22,9 @@ export default function RegisterPage() {
           withCredentials: true,
         })
         const {user} = response.data;
-        if (user.role === "admin") {
-          router.replace("/admin");
-        }
-        else{
+        if (user.role === "admin" || user.role === "admin head") {
+          router.replace("/dashboard");
+        } else {
           router.replace("/");
         }
         
@@ -36,7 +35,7 @@ export default function RegisterPage() {
       }
     };
     getAuth();
-  }, [])
+  }, [router])
   
   if(loading) return <>
     <div>

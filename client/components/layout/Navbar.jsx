@@ -59,7 +59,7 @@ export default function Navbar() {
     getAuth();
   }, [router]);
 
-  const isAdmin = user?.role === "admin";
+  const isAdmin = user?.role === "admin" || user?.role === "admin head";
 
   useEffect(() => {
     const onResize = () => {
@@ -214,29 +214,53 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Auth links for mobile */}
-              <div className="flex gap-3 pt-5 mt-2">
-                <Link
-                  href="/login"
-                  onClick={() => {
-                    setOpen(false);
-                    setOthersOpen(false);
-                  }}
-                  className="flex-1 text-center py-2.5 border border-white/20 rounded-full text-white/90 hover:text-cyan-400 text-[13px] tracking-wide transition-colors"
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/register"
-                  onClick={() => {
-                    setOpen(false);
-                    setOthersOpen(false);
-                  }}
-                  className="flex-1 text-center py-2.5 bg-[#03B8B8] rounded-full text-white text-[13px] tracking-wide hover:brightness-110 transition-all"
-                >
-                  Sign Up
-                </Link>
-              </div>
+              {isAdmin ? (
+                <div className="flex gap-3 pt-5 mt-2">
+                  <Link
+                    href="/dashboard"
+                    onClick={() => {
+                      setOpen(false);
+                      setOthersOpen(false);
+                    }}
+                    className="flex-1 text-center py-2.5 border border-white/20 rounded-full text-white/90 hover:text-cyan-400 text-[13px] tracking-wide transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/logout"
+                    onClick={() => {
+                      setOpen(false);
+                      setOthersOpen(false);
+                    }}
+                    className="flex-1 text-center py-2.5 bg-[#03B8B8] rounded-full text-white text-[13px] tracking-wide hover:brightness-110 transition-all"
+                  >
+                    Logout
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex gap-3 pt-5 mt-2">
+                  <Link
+                    href="/login"
+                    onClick={() => {
+                      setOpen(false);
+                      setOthersOpen(false);
+                    }}
+                    className="flex-1 text-center py-2.5 border border-white/20 rounded-full text-white/90 hover:text-cyan-400 text-[13px] tracking-wide transition-colors"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => {
+                      setOpen(false);
+                      setOthersOpen(false);
+                    }}
+                    className="flex-1 text-center py-2.5 bg-[#03B8B8] rounded-full text-white text-[13px] tracking-wide hover:brightness-110 transition-all"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         ) : null}

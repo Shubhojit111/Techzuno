@@ -14,12 +14,7 @@ const registerUser = async (req, res) => {
       });
     }
 
-    let { role } = req.body;
-
-    if (!role) {
-      role = "user";
-    }
-    console.log(name, email, password, role);
+    const role = "user";
 
     const isUserAlreadyExists = await userModel.findOne({ where: { email } });
     if (isUserAlreadyExists) {

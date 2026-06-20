@@ -60,7 +60,7 @@ export default function RegisterForm() {
 
       console.log(user);
 
-      if (user.role === "admin") {
+      if (user.role === "admin" || user.role === "admin head") {
         router.replace("/dashboard");
       } else if (user.role === "user") {
         router.replace("/");
@@ -68,7 +68,10 @@ export default function RegisterForm() {
         router.replace("/register");
       }
     } catch (err) {
-      console.log(err.response.data.message || err.message);
+      setMessage({
+        type: "error",
+        text: err.response?.data?.message || err.message,
+      });
     } finally {
       setLoading(false);
     }
