@@ -1,32 +1,34 @@
 require("dotenv").config();
 
-const mongoose = require("mongoose");
 const userModel = require("./models/userModel");
 const bcrypt = require("bcrypt");
+const { connectDb, sequelize } = require("./config/db");
 
 const adminData = {
+  name: "Techzuno Admin",
   email: process.env.ADMIN_EMAIL,
   password: process.env.ADMIN_PASSWORD,
   role: "admin",
-  name: "Techzuno Admin",
 };
 
 const addSeedAdmin = async () => {
   try {
-    if (!process.env.MONGO_URI || !adminData.email || !adminData.password) {
-      throw new Error("MONGO_URI, ADMIN_EMAIL, and ADMIN_PASSWORD are required");
+    if (!adminData.email || !adminData.password) {
+      throw new Error("ADMIN_EMAIL, and ADMIN_PASSWORD are required");
     }
 
-    await mongoose.connect(process.env.MONGO_URI);
+    await connectDb();
     console.log("Database successfully connected");
 
     const isAdminAlreadyExists = await userModel.findOne({
-      email: adminData.email,
+      where: {
+        email: adminData.email,
+      },
     });
 
     if (isAdminAlreadyExists) {
       console.log("Admin already exists");
-      await mongoose.connection.close();
+      await sequelize.close();
       process.exit(0);
     }
 
@@ -37,15 +39,15 @@ const addSeedAdmin = async () => {
     });
 
     console.log("Admin created successfully", {
-      id: seedAdmin._id,
+      id: seedAdmin.id,
       email: seedAdmin.email,
       role: seedAdmin.role,
     });
-    await mongoose.connection.close();
+    await sequelize.close();
     process.exit(0);
   } catch (err) {
     console.log(err.message);
-    await mongoose.connection.close();
+    await sequelize.close();
     process.exit(1);
   }
 };

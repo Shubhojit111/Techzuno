@@ -7,6 +7,13 @@ const bcrypt = require("bcrypt");
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        message: "All fields are important",
+      });
+    }
+
     let { role } = req.body;
 
     if (!role) {
@@ -14,7 +21,7 @@ const registerUser = async (req, res) => {
     }
     console.log(name, email, password, role);
 
-    const isUserAlreadyExists = await userModel.findOne({ email });
+    const isUserAlreadyExists = await userModel.findOne({ where: { email } });
     if (isUserAlreadyExists) {
       return res.status(400).json({
         message: "User already exists",
@@ -32,7 +39,7 @@ const registerUser = async (req, res) => {
 
     const token = jwt.sign(
       {
-        id: newUser._id,
+        id: newUser.id,
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
@@ -49,11 +56,17 @@ const registerUser = async (req, res) => {
 
     return res.status(200).json({
       message: "User registered successfully",
-      user: newUser,
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        role: newUser.role,
+      },
+      token,
     });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "Error Occured", err });
+    return res.status(500).json({ message: "Registration failed", err });
   }
 };
 
@@ -61,7 +74,7 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ where: { email } });
     if (!user) {
       return res.status(404).json({
         message: "User not found",
@@ -78,7 +91,7 @@ const loginUser = async (req, res) => {
 
     const token = jwt.sign(
       {
-        id: user._id,
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
@@ -96,42 +109,44 @@ const loginUser = async (req, res) => {
     return res.status(200).json({
       message: "Login successful",
       user: {
-        _id: user._id,
+        id: user.id,
         name: user.name,
         email: user.email,
         role: user.role,
       },
+      token,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message: "Error Occured",
+      message: "Login failed",
     });
   }
 };
 
 const logoutUser = async (req, res) => {
-    try{
-        const token = req.cookies.token;
-        if(!token)
-        {
-            return res.status(401).json({
-                message: "User not authenticated",
-            });
-        }
-        res.clearCookie("token");
-        return res.status(200).json({
-            message: "User logged out successfully",
-        });
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({
+        message: "User not authenticated",
+      });
     }
-    catch(err)
-    {
-        console.log(err);
-        return res.status(500).json({
-            message: "Error Occured",
-        });
-    }
-}
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: false, // true in production with HTTPS
+      sameSite: "lax",
+    });
+    return res.status(200).json({
+      message: "User logged out successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Logout failed",
+    });
+  }
+};
 
 const getAuth = async (req, res) => {
   try {
@@ -145,13 +160,18 @@ const getAuth = async (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     // console.log(decoded)
-    
-    const user = await userModel.findById(decoded.id);
+
+    const user = await userModel.findOne({ where: { id: decoded.id } });
     req.user = user;
 
     return res.status(200).json({
-      message: "User authenticated successfully",
-      user: user,
+      message: "User fetched successfully",
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (err) {
     console.log(err);
