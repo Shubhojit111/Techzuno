@@ -14,9 +14,12 @@ export default function DashboardShell({ title, children }) {
   useEffect(() => {
     const getAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/check", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          "http://localhost:5000/api/auth/check",
+          {
+            withCredentials: true,
+          },
+        );
 
         const currentUser = response.data.user;
 
@@ -35,21 +38,17 @@ export default function DashboardShell({ title, children }) {
     getAuth();
   }, [router]);
 
-  const navItems = useMemo(() => {
-    const baseItems = [
-      { href: "/dashboard", label: "Overview" },
-      { href: "/dashboard/products", label: "Products" },
-      { href: "/dashboard/orders", label: "Orders" },
-      { href: "/dashboard/users", label: "Users" },
-      { href: "/dashboard/settings", label: "Settings" },
-    ];
+  const baseItems = [
+    { href: "/dashboard", label: "Overview" },
+    { href: "/dashboard/blogs", label: "Blogs" },
+    { href: "/dashboard/orders", label: "Orders" },
+    { href: "/dashboard/users", label: "Users" },
+    { href: "/dashboard/settings", label: "Settings" },
+  ];
 
-    if (user?.role === "admin head") {
-      baseItems.splice(4, 0, { href: "/dashboard/admins", label: "Admins" });
-    }
-
-    return baseItems;
-  }, [user]);
+  if (user?.role === "admin head") {
+    baseItems.splice(4, 0, { href: "/dashboard/admins", label: "Admins" });
+  }
 
   if (loading) {
     return (
@@ -65,7 +64,7 @@ export default function DashboardShell({ title, children }) {
     <section className="min-h-screen bg-black text-white pt-28 pb-20">
       <div className="px-6 sm:px-10 lg:px-20 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[260px_minmax(0,1fr)] gap-8">
-          <aside className="rounded-[28px] border border-white/10 bg-gradient-to-b from-white/10 to-white/[0.03] backdrop-blur-xl p-5 lg:p-6 h-fit">
+          <aside className="rounded-[28px] border border-white/10 bg-linear-to-b from-white/10 to-white/[0.03] backdrop-blur-xl p-5 lg:p-6 h-fit">
             <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">
               Dashboard
             </p>
@@ -82,7 +81,7 @@ export default function DashboardShell({ title, children }) {
             </div>
 
             <nav className="mt-6 space-y-2">
-              {navItems.map((item) => {
+              {baseItems.map((item) => {
                 const isActive = pathname === item.href;
 
                 return (
@@ -128,4 +127,3 @@ export default function DashboardShell({ title, children }) {
     </section>
   );
 }
-
