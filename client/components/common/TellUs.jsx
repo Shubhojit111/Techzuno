@@ -15,7 +15,7 @@ export default function TellUs() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           <div className="w-full lg:w-1/2 md:max-w-[80%] ">
             <h2 className="text-white font-semibold tracking-normal leading-tight text-[24px] sm:text-[32px] lg:text-[26px]">
-              Tell Us About Your Ideas, And We'll Offer The Most Fitting
+              Tell Us About Your Ideas, And We&apos;ll Offer The Most Fitting
               Solution.
             </h2>
 

@@ -24,6 +24,11 @@ const userModel = sequelize.define("User", {
     type: DataTypes.ENUM("user", "admin","admin head"),
     defaultValue: "user",
   },
+  permissions: {
+    type: DataTypes.JSON,
+    allowNull: false,
+    defaultValue: [],
+  },
   phone: {
     type: DataTypes.STRING,
     allowNull: true,

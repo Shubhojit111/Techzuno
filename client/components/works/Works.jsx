@@ -12,7 +12,7 @@ const Works = () => {
         <SectionTitle
           title={
             <>
-              DISCOVER SOME FEATURED PROJECTS WE'RE REALLY PROUD OF <br /> SOFTWARE
+              DISCOVER SOME FEATURED PROJECTS WE&apos;RE REALLY PROUD OF <br /> SOFTWARE
               TOOLS FOR <span className="highlightedTextColor">DEVELOPING <br /> </span>{" "}
               <span className="highlightedTextColor">YOUR FUTURE</span>-RICH PROJECTS
             </>

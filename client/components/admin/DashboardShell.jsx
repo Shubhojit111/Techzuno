@@ -5,7 +5,12 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
-export default function DashboardShell({ title, children }) {
+export default function DashboardShell({
+  title,
+  children,
+  requiredPermission,
+  adminHeadOnly = false,
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const [loading, setLoading] = useState(true);
@@ -38,17 +43,47 @@ export default function DashboardShell({ title, children }) {
     getAuth();
   }, [router]);
 
-  const baseItems = [
-    { href: "/dashboard", label: "Overview" },
-    { href: "/dashboard/blogs", label: "Blogs" },
-    { href: "/dashboard/orders", label: "Orders" },
-    { href: "/dashboard/users", label: "Users" },
-    { href: "/dashboard/settings", label: "Settings" },
-  ];
+  const sidebarItems = useMemo(() => {
+    if (!user) {
+      return [];
+    }
 
-  if (user?.role === "admin head") {
-    baseItems.splice(4, 0, { href: "/dashboard/admins", label: "Admins" });
-  }
+    const all = [
+      { href: "/dashboard", label: "Overview" },
+      { href: "/dashboard/products", label: "Products", permission: "products" },
+      { href: "/dashboard/orders", label: "Orders", permission: "orders" },
+      { href: "/dashboard/blogs", label: "Blogs", permission: "blogs" },
+      { href: "/dashboard/users", label: "Users", permission: "users" },
+      { href: "/dashboard/settings", label: "Settings", permission: "settings" },
+    ];
+
+    if (user.role === "admin head") {
+      all.splice(5, 0, { href: "/dashboard/admins", label: "Admins" });
+    }
+
+    return all;
+  }, [user]);
+
+  const isPermitted = useMemo(() => {
+    if (!user) {
+      return false;
+    }
+
+    if (adminHeadOnly) {
+      return user.role === "admin head";
+    }
+
+    if (!requiredPermission) {
+      return true;
+    }
+
+    if (user.role === "admin head") {
+      return true;
+    }
+
+    const userPermissions = Array.isArray(user.permissions) ? user.permissions : [];
+    return userPermissions.includes(requiredPermission);
+  }, [adminHeadOnly, requiredPermission, user]);
 
   if (loading) {
     return (
@@ -81,7 +116,7 @@ export default function DashboardShell({ title, children }) {
             </div>
 
             <nav className="mt-6 space-y-2">
-              {baseItems.map((item) => {
+              {sidebarItems.map((item) => {
                 const isActive = pathname === item.href;
 
                 return (
@@ -120,7 +155,15 @@ export default function DashboardShell({ title, children }) {
               </h1>
             </div>
 
-            {children}
+            {isPermitted ? (
+              children
+            ) : (
+              <div className="rounded-[24px] border border-white/10 bg-black/20 p-8">
+                <h2 className="text-[26px] font-semibold">
+                  you are not permitted to access here
+                </h2>
+              </div>
+            )}
           </div>
         </div>
       </div>

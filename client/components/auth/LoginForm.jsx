@@ -116,12 +116,6 @@ export default function LoginForm() {
                   <label className="block text-white/80 text-[13px] sm:text-[14px] tracking-wide">
                     Password
                   </label>
-                  <Link
-                    href="#"
-                    className="text-[#38FFF2]/70 hover:text-[#38FFF2] text-[12px] sm:text-[13px] transition-colors"
-                  >
-                    Forgot Password?
-                  </Link>
                 </div>
                 <div className="relative">
                   <Icon

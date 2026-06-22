@@ -3,6 +3,7 @@ const router = express.Router();
 const userModel = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { resolveUserPermissions } = require("../utils/permissionControl");
 
 const registerUser = async (req, res) => {
   try {
@@ -30,6 +31,7 @@ const registerUser = async (req, res) => {
       email,
       password: hashPassword,
       role,
+      permissions: [],
     });
 
     const token = jwt.sign(
@@ -56,6 +58,7 @@ const registerUser = async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         role: newUser.role,
+        permissions: resolveUserPermissions(newUser),
       },
       token,
     });
@@ -108,6 +111,7 @@ const loginUser = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        permissions: resolveUserPermissions(user),
       },
       token,
     });
@@ -166,6 +170,7 @@ const getAuth = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        permissions: resolveUserPermissions(user),
       },
     });
   } catch (err) {
