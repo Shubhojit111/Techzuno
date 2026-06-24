@@ -1,12 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const userModel = require("./models/userModel");
 const { connectDb } = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
-const adminRoutes = require("./routes/adminRoutes");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+
+require("./models");
+
+const authRoutes = require("./routes/authRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const blogRoutes = require("./routes/blogsRoutes");
 
 app.use(
   cors({
@@ -25,6 +28,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/blogs", blogRoutes);
 
 const PORT = process.env.PORT || 3000;
 

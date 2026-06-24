@@ -52,7 +52,17 @@ export default function DashboardShell({
       { href: "/dashboard", label: "Overview" },
       { href: "/dashboard/products", label: "Products", permission: "products" },
       { href: "/dashboard/orders", label: "Orders", permission: "orders" },
-      { href: "/dashboard/blogs", label: "Blogs", permission: "blogs" },
+      {
+        href: "/dashboard/blogs",
+        label: "Blogs",
+        permission: "blogs",
+        children: [
+          { href: "/dashboard/blogs", label: "All Blogs" },
+          { href: "/dashboard/blogs/add", label: "Add Blogs" },
+          { href: "/dashboard/blogs/categories", label: "Categories" },
+          { href: "/dashboard/blogs/tags", label: "Tags" },
+        ],
+      },
       { href: "/dashboard/users", label: "Users", permission: "users" },
       { href: "/dashboard/settings", label: "Settings", permission: "settings" },
     ];
@@ -117,7 +127,56 @@ export default function DashboardShell({
 
             <nav className="mt-6 space-y-2">
               {sidebarItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive =
+                  pathname === item.href ||
+                  (item.children && pathname.startsWith(item.href));
+                const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+
+                if (hasChildren) {
+                  return (
+                    <div key={item.href} className="group">
+                      <Link
+                        href={item.href}
+                        className={`flex items-center justify-between rounded-2xl px-4 py-3 text-[14px] transition-all ${
+                          isActive
+                            ? "bg-[#03B8B8] text-black font-semibold"
+                            : "bg-white/[0.03] text-white/80 hover:bg-white/[0.08] hover:text-white"
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        <span
+                          className={`text-[12px] transition-transform ${
+                            isActive ? "text-black/70" : "text-white/60"
+                          } group-hover:rotate-180 group-focus-within:rotate-180`}
+                        >
+                          ▾
+                        </span>
+                      </Link>
+
+                      <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-200 group-hover:max-h-64 group-hover:opacity-100 group-focus-within:max-h-64 group-focus-within:opacity-100">
+                        <div className="mt-2 space-y-1 pl-3">
+                          {item.children.map((child) => {
+                            const isChildActive = pathname === child.href;
+
+                            return (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                className={`block rounded-2xl px-4 py-2.5 text-[13px] transition-all ${
+                                  isChildActive
+                                    ? "bg-white/10 text-white font-semibold"
+                                    : "bg-transparent text-white/70 hover:bg-white/[0.06] hover:text-white"
+                                }`}
+                              >
+                                {child.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
 
                 return (
                   <Link
@@ -160,7 +219,7 @@ export default function DashboardShell({
             ) : (
               <div className="rounded-[24px] border border-white/10 bg-black/20 p-8">
                 <h2 className="text-[26px] font-semibold">
-                  you are not permitted to access here
+                  you are not eligible to access here in ui
                 </h2>
               </div>
             )}

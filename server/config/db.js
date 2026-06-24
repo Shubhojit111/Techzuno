@@ -66,8 +66,9 @@ const connectDb = async () => {
 
     console.log(sequelize.models);
 
-    await sequelize.sync({ alter: true }); // Sync models with the database
+    await sequelize.sync(); // Sync models with the database
     console.log("Database synchronized successfully");
+    console.log(sequelize.models)
   } catch (error) {
     console.error("Error connecting to the database:", error);
   }
