@@ -20,6 +20,13 @@ const initialCreateForm = {
   permissions: [],
 };
 
+const initialDraftProfile = {
+  name: "",
+  email: "",
+  phone: "",
+  profileImage: "",
+};
+
 export default function AdminsPage() {
   const [admins, setAdmins] = useState([]);
   const [loadingAdmins, setLoadingAdmins] = useState(true);
@@ -33,7 +40,8 @@ export default function AdminsPage() {
   const [isDrawerMounted, setIsDrawerMounted] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [draftPermissions, setDraftPermissions] = useState([]);
-  const [savingPermissions, setSavingPermissions] = useState(false);
+  const [draftProfile, setDraftProfile] = useState(initialDraftProfile);
+  const [savingAdmin, setSavingAdmin] = useState(false);
   const [deletingAdmin, setDeletingAdmin] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedIds, setSelectedIds] = useState([]);
@@ -63,7 +71,7 @@ export default function AdminsPage() {
   const fetchAdmins = useCallback(async () => {
     setLoadingAdmins(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/admin/admins", {
+      const response = await axios.get("http://localhost:5000/api/admin", {
         withCredentials: true,
       });
       setAdmins(Array.isArray(response.data.admins) ? response.data.admins : []);
@@ -88,6 +96,12 @@ export default function AdminsPage() {
   const openDrawer = (admin) => {
     setSelectedAdmin(admin);
     setDraftPermissions(Array.isArray(admin.permissions) ? admin.permissions : []);
+    setDraftProfile({
+      name: admin.name || "",
+      email: admin.email || "",
+      phone: admin.phone || "",
+      profileImage: admin.profileImage || "",
+    });
     setIsDrawerMounted(true);
     requestAnimationFrame(() => setIsDrawerOpen(true));
     setFeedback({ type: "", message: "" });
@@ -99,6 +113,7 @@ export default function AdminsPage() {
       setIsDrawerMounted(false);
       setSelectedAdmin(null);
       setDraftPermissions([]);
+      setDraftProfile(initialDraftProfile);
     }, 260);
   };
 
@@ -109,6 +124,14 @@ export default function AdminsPage() {
       }
       return [...prev, permission];
     });
+  };
+
+  const handleDraftProfileChange = (e) => {
+    const { name, value } = e.target;
+    setDraftProfile((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleCreateChange = (e) => {
@@ -133,7 +156,7 @@ export default function AdminsPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/admin/admins",
+        "http://localhost:5000/api/admin/create",
         createForm,
         { withCredentials: true },
       );
@@ -152,15 +175,21 @@ export default function AdminsPage() {
     }
   };
 
-  const savePermissions = async () => {
+  const saveAdmin = async () => {
     if (!selectedAdminId) return;
-    setSavingPermissions(true);
+    setSavingAdmin(true);
     setFeedback({ type: "", message: "" });
 
     try {
       const response = await axios.patch(
-        `http://localhost:5000/api/admin/admins/${selectedAdminId}/permissions`,
-        { permissions: draftPermissions },
+        `http://localhost:5000/api/admin/admins/${selectedAdminId}`,
+        {
+          name: draftProfile.name,
+          email: draftProfile.email,
+          phone: draftProfile.phone,
+          profileImage: draftProfile.profileImage,
+          permissions: draftPermissions,
+        },
         { withCredentials: true },
       );
 
@@ -172,14 +201,20 @@ export default function AdminsPage() {
       setDraftPermissions(
         Array.isArray(updatedAdmin.permissions) ? updatedAdmin.permissions : [],
       );
+      setDraftProfile({
+        name: updatedAdmin.name || "",
+        email: updatedAdmin.email || "",
+        phone: updatedAdmin.phone || "",
+        profileImage: updatedAdmin.profileImage || "",
+      });
       setFeedback({ type: "success", message: response.data.message || "Updated successfully" });
     } catch (error) {
       setFeedback({
         type: "error",
-        message: error.response?.data?.message || "Unable to update permissions",
+        message: error.response?.data?.message || "Unable to update admin",
       });
     } finally {
-      setSavingPermissions(false);
+      setSavingAdmin(false);
     }
   };
 
@@ -271,7 +306,7 @@ export default function AdminsPage() {
             }}
             className="shrink-0 rounded-2xl bg-[#03B8B8] px-6 py-3 text-black font-semibold hover:bg-[#38FFF2] transition-colors"
           >
-            Invite
+            Add
           </button>
         </div>
       </div>
@@ -537,9 +572,18 @@ export default function AdminsPage() {
 
             <div className="mt-7 rounded-[24px] border border-white/10 bg-white/[0.03] p-5">
               <div className="flex items-center gap-4">
-                <div className="h-14 w-14 rounded-full border border-white/10 bg-white/[0.06] flex items-center justify-center text-white font-semibold text-[18px]">
-                  {getInitials(selectedAdmin?.name, selectedAdmin?.email)}
-                </div>
+                {draftProfile.profileImage ? (
+                  <div
+                    className="h-14 w-14 rounded-full border border-white/10 bg-center bg-cover bg-no-repeat"
+                    style={{ backgroundImage: `url(${draftProfile.profileImage})` }}
+                    aria-label={draftProfile.name || "Admin profile"}
+                    role="img"
+                  />
+                ) : (
+                  <div className="h-14 w-14 rounded-full border border-white/10 bg-white/[0.06] flex items-center justify-center text-white font-semibold text-[18px]">
+                    {getInitials(selectedAdmin?.name, selectedAdmin?.email)}
+                  </div>
+                )}
                 <div className="min-w-0">
                   <p className="text-white font-semibold truncate">
                     {selectedAdmin?.name || "Admin"}
@@ -549,6 +593,57 @@ export default function AdminsPage() {
                     {selectedAdmin?.role || "admin"}
                   </p>
                 </div>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-[24px] border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-sm text-white/60 mb-4">Profile Details</p>
+              <div className="space-y-4">
+                <label className="block">
+                  <span className="block text-sm text-white/70 mb-2">Name</span>
+                  <input
+                    type="text"
+                    name="name"
+                    value={draftProfile.name}
+                    onChange={handleDraftProfileChange}
+                    className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="block text-sm text-white/70 mb-2">Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    value={draftProfile.email}
+                    onChange={handleDraftProfileChange}
+                    className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="block text-sm text-white/70 mb-2">Phone</span>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={draftProfile.phone}
+                    onChange={handleDraftProfileChange}
+                    className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
+                    placeholder="Optional"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="block text-sm text-white/70 mb-2">Profile Image URL</span>
+                  <input
+                    type="url"
+                    name="profileImage"
+                    value={draftProfile.profileImage}
+                    onChange={handleDraftProfileChange}
+                    className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </label>
               </div>
             </div>
 
@@ -589,11 +684,11 @@ export default function AdminsPage() {
             <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <button
                 type="button"
-                onClick={savePermissions}
-                disabled={savingPermissions}
+                onClick={saveAdmin}
+                disabled={savingAdmin}
                 className="rounded-2xl bg-[#03B8B8] px-6 py-3.5 text-black font-semibold hover:bg-[#38FFF2] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {savingPermissions ? "Saving..." : "Save"}
+                {savingAdmin ? "Saving..." : "Save"}
               </button>
               <button
                 type="button"

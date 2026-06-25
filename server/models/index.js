@@ -23,12 +23,16 @@ blogModel.belongsTo(userModel, {
 
 // Many Blogs
 
-categoryModel.hasMany(blogModel, {
-  foreignKey: "categoryId",
+blogModel.belongsToMany(categoryModel, {
+  through: "BlogCategories",
+  foreignKey: "blogId",
+  otherKey: "categoryId",
 });
 
-blogModel.belongsTo(categoryModel, {
+categoryModel.belongsToMany(blogModel, {
+  through: "BlogCategories",
   foreignKey: "categoryId",
+  otherKey: "blogId",
 });
 
 // One blogModel
@@ -45,6 +49,10 @@ blogModel.belongsTo(categoryModel, {
 
 // Many Blogs
 
+// A blog can have many tags and a tag can belong to many blogs.
+// Sequelize stores that relation in the "BlogTags" join table:
+// BlogTags.blogId -> Blog.id
+// BlogTags.tagId  -> Tag.id
 blogModel.belongsToMany(tagModel, {
   through: "BlogTags",
   foreignKey: "blogId",
@@ -53,8 +61,8 @@ blogModel.belongsToMany(tagModel, {
 
 tagModel.belongsToMany(blogModel, {
   through: "BlogTags",
-  foreignKey: "blogId",
-  otherKey: "tagId",
+  foreignKey: "tagId",
+  otherKey: "blogId",
 });
 
 module.exports = {

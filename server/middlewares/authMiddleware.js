@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
+const { resolveUserPermissions } = require("../utils/permissionControl");
 
 const isLoggedIn = async (req, res, next) => {
   try {
@@ -21,6 +22,7 @@ const isLoggedIn = async (req, res, next) => {
     }
 
     req.user = user;
+    req.permissions = resolveUserPermissions(user);
     next();
   } catch (error) {
     return res.status(401).json({
@@ -39,8 +41,31 @@ const isAdminHead = (req, res, next) => {
   next();
 };
 
+const requirePermission = (permission) => {
+  return (req, res, next) => {
+    if (req.user?.role === "admin head") {
+      return next();
+    }
+
+    if (req.user?.role !== "admin") {
+      return res.status(403).json({
+        message: "Forbidden: admin access only",
+      });
+    }
+
+    const permissions = Array.isArray(req.permissions) ? req.permissions : [];
+    if (!permissions.includes(permission)) {
+      return res.status(403).json({
+        message: `Forbidden: ${permission} permission required`,
+      });
+    }
+
+    next();
+  };
+};
+
 module.exports = {
   isLoggedIn,
   isAdminHead,
+  requirePermission,
 };
-

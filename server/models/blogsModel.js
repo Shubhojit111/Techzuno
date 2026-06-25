@@ -24,11 +24,7 @@ const blogsModel = sequelize.define(
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    categoryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    }
   },
   {
     timestamps: true,

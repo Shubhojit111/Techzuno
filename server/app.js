@@ -10,6 +10,8 @@ require("./models");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const blogRoutes = require("./routes/blogsRoutes");
+const blogCategoryRoutes = require("./routes/blogCategoryRoutes");
+const blogTagRoutes = require("./routes/blogTagRoutes");
 
 app.use(
   cors({
@@ -28,6 +30,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/blogs/categories", blogCategoryRoutes);
+app.use("/api/blogs/tags", blogTagRoutes);
 app.use("/api/blogs", blogRoutes);
 
 const PORT = process.env.PORT || 3000;

@@ -2,6 +2,17 @@ const bcrypt = require("bcrypt");
 const userModel = require("../models/userModel");
 const { normalizePermissions } = require("../utils/permissionControl");
 
+const mapAdminResponse = (admin) => ({
+  id: admin.id,
+  name: admin.name,
+  email: admin.email,
+  role: admin.role,
+  permissions: admin.permissions,
+  profileImage: admin.profileImage,
+  phone: admin.phone,
+  createdAt: admin.createdAt,
+});
+
 const createAdmin = async (req, res) => {
   try {
     const { name, email, password, permissions } = req.body;
@@ -16,7 +27,7 @@ const createAdmin = async (req, res) => {
 
     if (existingUser) {
       return res.status(400).json({
-        message: "User already exists",
+        message: "Admin already exists",
       });
     }
 
@@ -32,13 +43,7 @@ const createAdmin = async (req, res) => {
 
     return res.status(201).json({
       message: "Admin created successfully",
-      admin: {
-        id: newAdmin.id,
-        name: newAdmin.name,
-        email: newAdmin.email,
-        role: newAdmin.role,
-        permissions: newAdmin.permissions,
-      },
+      admin: mapAdminResponse(newAdmin),
     });
   } catch (error) {
     console.log(error);
@@ -52,13 +57,13 @@ const listAdmins = async (req, res) => {
   try {
     const admins = await userModel.findAll({
       where: { role: "admin" },
-      attributes: ["id", "name", "email", "role", "permissions", "createdAt"],
+      attributes: ["id", "name", "email", "role", "permissions", "profileImage", "phone", "createdAt"],
       order: [["createdAt", "DESC"]],
     });
 
     return res.status(200).json({
       message: "Admins fetched successfully",
-      admins,
+      admins: admins.map(mapAdminResponse),
     });
   } catch (error) {
     console.log(error);
@@ -74,7 +79,7 @@ const getAdminById = async (req, res) => {
 
     const admin = await userModel.findOne({
       where: { id: adminId, role: "admin" },
-      attributes: ["id", "name", "email", "role", "permissions", "createdAt"],
+      attributes: ["id", "name", "email", "role", "permissions", "profileImage", "phone", "createdAt"],
     });
 
     if (!admin) {
@@ -85,7 +90,7 @@ const getAdminById = async (req, res) => {
 
     return res.status(200).json({
       message: "Admin fetched successfully",
-      admin,
+      admin: mapAdminResponse(admin),
     });
   } catch (error) {
     console.log(error);
@@ -95,10 +100,10 @@ const getAdminById = async (req, res) => {
   }
 };
 
-const updateAdminPermissions = async (req, res) => {
+const updateAdminById = async (req, res) => {
   try {
     const adminId = req.params.id;
-    const { permissions } = req.body;
+    const { name, email, phone, profileImage, permissions } = req.body;
 
     const admin = await userModel.findOne({ where: { id: adminId, role: "admin" } });
     if (!admin) {
@@ -107,23 +112,39 @@ const updateAdminPermissions = async (req, res) => {
       });
     }
 
+    const normalizedName = String(name || "").trim();
+    const normalizedEmail = String(email || "").trim().toLowerCase();
+    const normalizedPhone = phone ? String(phone).trim() : null;
+    const normalizedProfileImage = profileImage ? String(profileImage).trim() : null;
+
+    if (!normalizedName || !normalizedEmail) {
+      return res.status(400).json({
+        message: "Name and email are required",
+      });
+    }
+
+    const existingUser = await userModel.findOne({ where: { email: normalizedEmail } });
+    if (existingUser && existingUser.id !== admin.id) {
+      return res.status(400).json({
+        message: "Email already exists",
+      });
+    }
+
+    admin.name = normalizedName;
+    admin.email = normalizedEmail;
+    admin.phone = normalizedPhone;
+    admin.profileImage = normalizedProfileImage;
     admin.permissions = normalizePermissions(permissions);
     await admin.save();
 
     return res.status(200).json({
-      message: "Permissions updated successfully",
-      admin: {
-        id: admin.id,
-        name: admin.name,
-        email: admin.email,
-        role: admin.role,
-        permissions: admin.permissions,
-      },
+      message: "Admin updated successfully",
+      admin: mapAdminResponse(admin),
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message: "Unable to update permissions",
+      message: "Unable to update admin",
     });
   }
 };
@@ -156,6 +177,6 @@ module.exports = {
   createAdmin,
   listAdmins,
   getAdminById,
-  updateAdminPermissions,
+  updateAdminById,
   deleteAdmin,
 };
