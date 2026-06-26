@@ -5,59 +5,35 @@ import Image from "next/image";
 import Assets from "@/Assets/Assets";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
+
+const primaryLinks = [
+  { href: "/", label: "Home" },
+  { href: "/pricing", label: "Pricing" },
+  // { href: "/learn-more", label: "Learn More" },
+  { href: "/works", label: "Works" },
+  { href: "/services", label: "Services" },
+  { href: "/blogs", label: "Blogs" },
+];
+
+const otherLinks = [
+  { href: "/contact", label: "Contact" },
+  { href: "/about", label: "About" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/business-solutions", label: "Business Solutions" },
+  { href: "/web-development", label: "Web Development" },
+  { href: "/ui-ux-design", label: "UI/UX Design" },
+  { href: "/app-development", label: "App Development" },
+  { href: "/ecom-integration", label: "Ecom Integration" },
+  { href: "/seo", label: "SEO" },
+];
 
 export default function Navbar() {
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const [othersOpen, setOthersOpen] = useState(false);
 
-  const [user, setUser] = useState([]);
-
-  const primaryLinks = [
-    { href: "/", label: "Home" },
-    { href: "/pricing", label: "Pricing" },
-    // { href: "/learn-more", label: "Learn More" },
-    { href: "/works", label: "Works" },
-    { href: "/services", label: "Services" },
-  ];
-
-  const otherLinks = [
-    { href: "/blogs", label: "Blogs" },
-    { href: "/contact", label: "Contact" },
-    { href: "/about", label: "About" },
-    { href: "/faq", label: "FAQ" },
-    { href: "/business-solutions", label: "Business Solutions" },
-    { href: "/web-development", label: "Web Development" },
-    { href: "/ui-ux-design", label: "UI/UX Design" },
-    { href: "/app-development", label: "App Development" },
-    { href: "/ecom-integration", label: "Ecom Integration" },
-    { href: "/seo", label: "SEO" },
-  ];
-
-  useEffect(() => {
-    const getAuth = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/auth/check",
-          {
-            withCredentials: true,
-          },
-        );
-        console.log(response.data.user);
-        const { user } = response.data;
-        setUser(user);
-
-        // console.log(user);
-
-      } catch (err) {
-        console.log(err);
-        // setLoading(false);
-      }
-    };
-    getAuth();
-  }, [router]);
+  const { user, authLoading } = useContext(AuthContext);
 
   const isAdmin = user?.role === "admin" || user?.role === "admin head";
 
@@ -71,7 +47,10 @@ export default function Navbar() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
-  
+
+  if (authLoading) {
+    return null;
+  }
 
   return (
     <nav className="fixed top-0 w-full z-[9999] ">
@@ -131,19 +110,19 @@ export default function Navbar() {
 
           {isAdmin ? (
             <div className="hidden lg:flex items-center gap-6">
-            <Link
-              href="/dashboard"
-              className="text-[12px] font-normal tracking-wider hover:text-cyan-400 transition-colors"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/logout"
-              className="bg-[#03B8B8] hover:brightness-110 text-white px-5 py-1.5 rounded-2xl text-[12px] font-normal tracking-wider transition-all"
-            >
-              Logout
-            </Link>
-          </div>
+              <Link
+                href="/dashboard"
+                className="text-[12px] font-normal tracking-wider hover:text-cyan-400 transition-colors"
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/logout"
+                className="bg-[#03B8B8] hover:brightness-110 text-white px-5 py-1.5 rounded-2xl text-[12px] font-normal tracking-wider transition-all"
+              >
+                Logout
+              </Link>
+            </div>
           ) : null}
 
           <button

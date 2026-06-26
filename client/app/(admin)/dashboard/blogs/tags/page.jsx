@@ -73,9 +73,13 @@ export default function BlogTagsPage() {
 
     try {
       const response = editingId
-        ? await axios.patch(`http://localhost:5000/api/blogs/tags/${editingId}`, form, {
-            withCredentials: true,
-          })
+        ? await axios.patch(
+            `http://localhost:5000/api/blogs/tags/${editingId}`,
+            form,
+            {
+              withCredentials: true,
+            },
+          )
         : await axios.post("http://localhost:5000/api/blogs/tags", form, {
             withCredentials: true,
           });
@@ -83,14 +87,17 @@ export default function BlogTagsPage() {
       setFeedback({
         type: "success",
         message:
-          response.data.message || `Tag ${editingId ? "updated" : "created"} successfully`,
+          response.data.message ||
+          `Tag ${editingId ? "updated" : "created"} successfully`,
       });
       resetForm();
       await loadTags();
     } catch (error) {
       setFeedback({
         type: "error",
-        message: error.response?.data?.message || `Unable to ${editingId ? "update" : "create"} tag`,
+        message:
+          error.response?.data?.message ||
+          `Unable to ${editingId ? "update" : "create"} tag`,
       });
     } finally {
       setSaving(false);
@@ -105,9 +112,12 @@ export default function BlogTagsPage() {
     setFeedback({ type: "", message: "" });
 
     try {
-      const response = await axios.delete(`http://localhost:5000/api/blogs/tags/${id}`, {
-        withCredentials: true,
-      });
+      const response = await axios.delete(
+        `http://localhost:5000/api/blogs/tags/${id}`,
+        {
+          withCredentials: true,
+        },
+      );
       setFeedback({
         type: "success",
         message: response.data.message || "Tag deleted successfully",
@@ -133,7 +143,9 @@ export default function BlogTagsPage() {
           onSubmit={handleSubmit}
           className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6 md:p-8"
         >
-          <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">Tag</p>
+          <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">
+            Tag
+          </p>
           <h2 className="mt-3 text-[26px] font-semibold">
             {editingId ? "Edit Tag" : "Create Tag"}
           </h2>
@@ -176,7 +188,9 @@ export default function BlogTagsPage() {
           </label>
 
           <label className="block mt-5">
-            <span className="block text-sm text-white/70 mb-2">Description</span>
+            <span className="block text-sm text-white/70 mb-2">
+              Description
+            </span>
             <textarea
               name="description"
               value={form.description}
@@ -208,14 +222,18 @@ export default function BlogTagsPage() {
         <div className="rounded-[24px] border border-white/10 bg-white/[0.03] overflow-hidden">
           <div className="px-6 py-5 border-b border-white/10">
             <h2 className="text-[18px] font-semibold">All Tags</h2>
-            <p className="mt-1 text-sm text-white/50">{loading ? "Loading..." : `${tags.length} total`}</p>
+            <p className="mt-1 text-sm text-white/50">
+              {loading ? "Loading..." : `${tags.length} total`}
+            </p>
           </div>
 
           <div className="overflow-x-auto">
             {loading ? (
               <div className="px-6 py-10 text-white/65">Loading tags...</div>
             ) : tags.length === 0 ? (
-              <div className="px-6 py-10 text-white/65">No tags created yet.</div>
+              <div className="px-6 py-10 text-white/65">
+                No tags created yet.
+              </div>
             ) : (
               <table className="w-full min-w-[760px]">
                 <thead>
@@ -230,7 +248,9 @@ export default function BlogTagsPage() {
                 <tbody className="divide-y divide-white/10">
                   {tags.map((tag) => (
                     <tr key={tag.id}>
-                      <td className="px-6 py-5 text-white/85 font-medium">{tag.name}</td>
+                      <td className="px-6 py-5 text-white/85 font-medium">
+                        {tag.name}
+                      </td>
                       <td className="px-6 py-5 text-white/55 max-w-[280px]">
                         <p className="line-clamp-2">{tag.description || "-"}</p>
                       </td>

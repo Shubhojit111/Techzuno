@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import Assets from "@/Assets/Assets";
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";

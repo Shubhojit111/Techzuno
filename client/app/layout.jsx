@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoToTop from "@/components/layout/GoToTop";
+import { AuthProvider } from "@/context/AuthContext";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],
@@ -28,18 +29,12 @@ export default function RootLayout({ children }) {
       className={`${roboto.variable} ${montserrat.variable} h-full antialiased bg-black text-white`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <Navbar />
-        <main className="">{children}</main>
-        <Footer />
-        <GoToTop />
-        
-        {/*
-        <Footer />
-        <Footer />
-        <Footer />
-        <Footer />
-         
-         */}
+        <AuthProvider>
+          <Navbar />
+          <main className="">{children}</main>
+          <Footer />
+          <GoToTop />
+        </AuthProvider>
       </body>
     </html>
   );

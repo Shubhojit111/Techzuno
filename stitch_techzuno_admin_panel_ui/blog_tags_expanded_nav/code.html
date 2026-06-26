@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blog Tags Management - Techzuno</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;900&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#3a3939",
+                      "on-tertiary": "#512300",
+                      "surface-container-low": "#121212",
+                      "on-surface": "#e5e2e1",
+                      "tertiary-fixed-dim": "#ffb689",
+                      "on-secondary": "#003355",
+                      "background": "#131313",
+                      "on-secondary-container": "#002e4e",
+                      "on-primary-fixed": "#002022",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-secondary-fixed-variant": "#004a79",
+                      "tertiary": "#ffbc93",
+                      "surface-container-high": "#2a2a2a",
+                      "on-secondary-fixed": "#001d34",
+                      "primary-fixed-dim": "#3edae3",
+                      "tertiary-container": "#fb9651",
+                      "on-error": "#690005",
+                      "surface": "#131313",
+                      "primary": "#45dee7",
+                      "inverse-on-surface": "#313030",
+                      "on-background": "#e5e2e1",
+                      "secondary-container": "#0099f3",
+                      "glass-fill": "rgba(255, 255, 255, 0.05)",
+                      "error": "#ffb4ab",
+                      "error-container": "#93000a",
+                      "surface-container-highest": "#353534",
+                      "surface-base": "#0A0A0A",
+                      "secondary-fixed": "#cfe5ff",
+                      "on-surface-variant": "#bbc9ca",
+                      "tertiary-fixed": "#ffdbc8",
+                      "glass-stroke": "rgba(255, 255, 255, 0.1)",
+                      "secondary": "#9acbff",
+                      "on-primary": "#003739",
+                      "primary-container": "#00c2cb",
+                      "inverse-primary": "#00696e",
+                      "surface-container": "#201f1f",
+                      "on-error-container": "#ffdad6",
+                      "surface-tint": "#3edae3",
+                      "outline-variant": "#3c494a",
+                      "primary-fixed": "#6bf6ff",
+                      "on-tertiary-fixed-variant": "#743500",
+                      "surface-dim": "#131313",
+                      "on-tertiary-fixed": "#311300",
+                      "on-tertiary-container": "#6d3200",
+                      "secondary-fixed-dim": "#9acbff",
+                      "on-primary-container": "#004a4e",
+                      "surface-variant": "#353534",
+                      "inverse-surface": "#e5e2e1",
+                      "outline": "#859394",
+                      "on-primary-fixed-variant": "#004f53"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base-unit": "8px",
+                      "margin-lg": "48px",
+                      "gutter": "24px",
+                      "container-padding-mobile": "16px",
+                      "container-padding-desktop": "32px",
+                      "margin-sm": "12px",
+                      "margin-md": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg-mobile": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "stats-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-md": [
+                              "JetBrains Mono"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "stats-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #0A0A0A; }
+        .glass-panel {
+            background-color: #1C1C1C;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glow-active {
+            box-shadow: 0 0 15px rgba(0, 194, 203, 0.3);
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3c494a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00c2cb;
+        }
+    </style>
+</head>
+<body class="bg-surface-base text-on-surface font-body-md antialiased min-h-screen flex selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col p-6 gap-y-4 bg-surface-container-low dark:bg-surface-container-lowest border-r border-glass-stroke docked fixed left-0 top-0 h-full w-[280px] z-50">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0 glow-active">
+<span class="material-symbols-outlined text-on-primary font-bold">bolt</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-on-surface tracking-tight">Techzuno Admin</h1>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mt-1">ADMIN HEAD</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="font-body-md text-body-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span class="font-body-md text-body-md">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+<span class="font-body-md text-body-md">Orders</span>
+</a>
+<div class="space-y-1">
+<button class="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-primary text-on-primary font-bold shadow-[0_0_15px_rgba(0,194,203,0.3)] transition-transform scale-95">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+<span class="font-body-md text-body-md">Blogs</span>
+</div>
+<span class="material-symbols-outlined text-sm">arrow_drop_down</span>
+</button>
+<div class="pl-10 flex flex-col gap-1 mt-1">
+<a class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all text-body-md" href="#">All Blogs</a>
+<a class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all text-body-md" href="#">Add Blogs</a>
+<a class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all text-body-md" href="#">Categories</a>
+<a class="px-4 py-2 rounded-lg bg-surface-container-highest/50 text-on-surface font-semibold transition-all text-body-md" href="#">Tags</a>
+</div>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span>
+<span class="font-body-md text-body-md">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">admin_panel_settings</span>
+<span class="font-body-md text-body-md">Admins</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 pt-6 border-t border-glass-stroke">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary px-4 py-3 rounded-xl font-bold hover:brightness-110 transition-all glow-active mb-4">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="font-body-md text-body-md">Add new Widget</span>
+</button>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help</span>
+<span class="font-body-md text-body-md">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">logout</span>
+<span class="font-body-md text-body-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-[280px] min-h-screen relative">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-8 py-4 bg-surface/80 backdrop-blur-xl docked full-width top-0 sticky z-40 border-b border-glass-stroke shadow-sm">
+<div class="flex items-center gap-6">
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-primary hover:bg-surface-container-highest/50 p-2 rounded-lg transition-all">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-highest/50 rounded-lg px-3 py-2 transition-all hover:-translate-y-[1px]" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-on-surface font-body-md text-body-md hover:bg-surface-container-highest/50 rounded-lg px-3 py-2 transition-all hover:-translate-y-[1px]" href="#">Analytics</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md px-3 py-2" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="bg-surface-container-low border border-glass-stroke text-on-surface rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all placeholder:text-on-surface-variant" placeholder="Search..." type="text"/>
+</div>
+<div class="flex items-center gap-2 border-l border-glass-stroke pl-4 ml-2">
+<button class="text-on-surface-variant hover:text-primary p-2 rounded-full hover:bg-glass-fill transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary p-2 rounded-full hover:bg-glass-fill transition-colors">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary p-2 rounded-full hover:bg-glass-fill transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-glass-stroke ml-2">
+<div class="text-right hidden lg:block">
+<p class="font-body-md text-body-md font-semibold text-on-surface">Admin User</p>
+<p class="font-label-md text-label-md text-primary">System Ops</p>
+</div>
+<img alt="Admin Head Avatar" class="w-10 h-10 rounded-full border-2 border-primary/30 object-cover p-[2px]" data-alt="A futuristic, high-tech avatar portrait of an administrator. The subject has subtle glowing cybernetic enhancements around the eyes, lit by neon cyan and deep blue accents. The background is a dark, sleek command center environment. The style is hyper-realistic 3D render, highly detailed, signaling a modern tech-noir aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqGERUHuoD4XDgajC--Q9ES_G4zRyCw1i_fMl_0vGBrk_XKCXp3uspYMh639svovv2C-E00Z40gSB7ACG_rY7Bg5c3gWlnqCLvc_0H_H3lwm5Vn0-zqziOyCBPIAKOsDgwQh3b9hIorFY0p2HUZuyWCjrLXHAVT1Ihou2_rLZKvqeZZtjpPjNSsbkE1gqZqDte4WPCZ98cSbzq0kqNBYpainzfyU0jwcQhxS1wdrGVUi0e-BXMGos9VwJunXvuUotTctdJiK86zFU"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-4 md:p-container-padding-desktop overflow-x-hidden">
+<div class="max-w-7xl mx-auto space-y-6">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Blog Tags</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage and organize tags used across the platform's content.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Create Form (4 cols) -->
+<div class="lg:col-span-4 space-y-6">
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden group">
+<!-- Subtle background gradient -->
+<div class="absolute inset-0 bg-gradient-to-br from-surface-container-high/50 to-surface-base pointer-events-none z-0"></div>
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6 border-b border-glass-stroke pb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+                                    Add New Tag
+                                </h3>
+<form class="space-y-5">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Tag Name *</label>
+<input class="w-full bg-[#121212] border border-glass-stroke rounded-lg px-4 py-3 text-on-surface font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-variant shadow-inner" placeholder="e.g. Cybersecurity" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Slug</label>
+<div class="flex rounded-lg overflow-hidden border border-glass-stroke focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all shadow-inner">
+<span class="bg-surface-container px-3 py-3 text-on-surface-variant font-label-md text-label-md border-r border-glass-stroke">/tag/</span>
+<input class="w-full bg-[#121212] border-none px-4 py-3 text-on-surface font-body-md text-body-md outline-none placeholder:text-surface-variant" placeholder="cybersecurity" type="text"/>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant mt-2 text-xs opacity-70">Auto-generated if left blank.</p>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Description</label>
+<textarea class="w-full bg-[#121212] border border-glass-stroke rounded-lg px-4 py-3 text-on-surface font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-surface-variant shadow-inner resize-none" placeholder="Brief description for SEO..." rows="4"></textarea>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Status</label>
+<select class="w-full bg-[#121212] border border-glass-stroke rounded-lg px-4 py-3 text-on-surface font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all appearance-none cursor-pointer">
+<option value="active">Active</option>
+<option value="inactive">Inactive</option>
+</select>
+</div>
+<button class="w-full bg-primary text-on-primary font-bold font-body-md text-body-md py-3 rounded-lg hover:brightness-110 transition-all glow-active mt-4 flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                                        Save Tag
+                                    </button>
+</form>
+</div>
+</div>
+<!-- Reference Image Display (Requested Context) -->
+<div class="glass-panel rounded-xl p-4 overflow-hidden">
+<p class="font-label-md text-label-md text-on-surface-variant mb-2 border-b border-glass-stroke pb-2">Layout Reference</p>
+<div class="relative w-full h-32 rounded-lg overflow-hidden border border-glass-stroke opacity-70 hover:opacity-100 transition-opacity">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZNfrKDmRZAQutQ3FDvTqEAqYkBwvjYjNjwrJ_TKOc4z26erzxv7ODU-JGiZDtF7amraWHsAwduvfTxtYl6GHWJN24Hck6M2tuiUdjQ5NB1t_ibeiDLBf3lPBgk4mqXtfNc4nmCz1cYge6w4L3rScjoAQ0nzs8H5f1c14l0D4c8hSkHZ4oVfsb-oWlmx5MKfPg50IiaNAH-k2y6iKC1G2Cc8-Xsti0Cb4iUX-yyc1DRCIlm2SxBT3_444kF_RwgHHi5tfi0ktKCbg"/>
+</div>
+</div>
+</div>
+<!-- Right Column: Data Table (8 cols) -->
+<div class="lg:col-span-8">
+<div class="glass-panel rounded-xl overflow-hidden flex flex-col h-full border border-glass-stroke">
+<!-- Table Toolbar -->
+<div class="p-4 border-b border-glass-stroke flex flex-wrap sm:flex-nowrap justify-between items-center gap-4 bg-surface-container-high/30">
+<div class="relative w-full sm:w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-[#121212] border border-glass-stroke text-on-surface rounded-lg pl-10 pr-4 py-2 font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search tags..." type="text"/>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-glass-stroke text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                                        Filter
+                                    </button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-2 rounded-lg border border-glass-stroke text-on-surface-variant hover:text-on-surface hover:bg-glass-fill transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">view_column</span>
+                                        Cols
+                                    </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-glass-stroke bg-surface-container/50">
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider w-12">
+<input class="rounded bg-[#121212] border-glass-stroke text-primary focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Name</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Slug</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Count</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-glass-stroke/50 font-body-md text-body-md text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-glass-fill transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded bg-[#121212] border-glass-stroke text-primary focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-secondary-container/20 text-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">tag</span>
+</div>
+<span class="font-semibold">Cybersecurity</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">/cybersecurity</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold rounded-full bg-surface-container border border-glass-stroke">142</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                                    Active
+                                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded hover:bg-glass-fill transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error rounded hover:bg-error/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-glass-fill transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded bg-[#121212] border-glass-stroke text-primary focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-secondary-container/20 text-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">tag</span>
+</div>
+<span class="font-semibold">Data Analytics</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">/data-analytics</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold rounded-full bg-surface-container border border-glass-stroke">89</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                                    Active
+                                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded hover:bg-glass-fill transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error rounded hover:bg-error/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-glass-fill transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded bg-[#121212] border-glass-stroke text-primary focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-secondary-container/20 text-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">tag</span>
+</div>
+<span class="font-semibold text-on-surface-variant">Legacy Systems</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">/legacy</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold rounded-full bg-surface-container border border-glass-stroke opacity-50">12</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-surface-variant text-on-surface-variant border border-glass-stroke">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                                    Inactive
+                                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded hover:bg-glass-fill transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error rounded hover:bg-error/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-glass-fill transition-colors group">
+<td class="px-6 py-4">
+<input class="rounded bg-[#121212] border-glass-stroke text-primary focus:ring-primary focus:ring-offset-0" type="checkbox"/>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-secondary-container/20 text-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">tag</span>
+</div>
+<span class="font-semibold">AI Integration</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">/ai-integration</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold rounded-full bg-surface-container border border-glass-stroke">205</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                                    Active
+                                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary rounded hover:bg-glass-fill transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error rounded hover:bg-error/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-glass-stroke flex items-center justify-between bg-surface-container-high/30 mt-auto">
+<p class="font-label-md text-label-md text-on-surface-variant">Showing 1 to 4 of 48 entries</p>
+<div class="flex gap-1">
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-glass-fill disabled:opacity-50"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary font-bold font-label-md text-label-md flex items-center justify-center shadow-[0_0_10px_rgba(0,194,203,0.2)]">1</button>
+<button class="w-8 h-8 rounded text-on-surface-variant hover:text-on-surface hover:bg-glass-fill font-label-md text-label-md flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded text-on-surface-variant hover:text-on-surface hover:bg-glass-fill font-label-md text-label-md flex items-center justify-center transition-colors">3</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-glass-fill"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

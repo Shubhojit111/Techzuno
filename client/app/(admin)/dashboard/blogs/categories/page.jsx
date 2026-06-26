@@ -21,9 +21,12 @@ export default function BlogCategoriesPage() {
   const loadCategories = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/blogs/categories", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        "http://localhost:5000/api/blogs/categories",
+        {
+          withCredentials: true,
+        },
+      );
       setCategories(
         Array.isArray(response.data.categories) ? response.data.categories : [],
       );
@@ -142,7 +145,9 @@ export default function BlogCategoriesPage() {
           onSubmit={handleSubmit}
           className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6 md:p-8"
         >
-          <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">Category</p>
+          <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">
+            Category
+          </p>
           <h2 className="mt-3 text-[26px] font-semibold">
             {editingId ? "Edit Category" : "Create Category"}
           </h2>
@@ -185,7 +190,9 @@ export default function BlogCategoriesPage() {
           </label>
 
           <label className="block mt-5">
-            <span className="block text-sm text-white/70 mb-2">Description</span>
+            <span className="block text-sm text-white/70 mb-2">
+              Description
+            </span>
             <textarea
               name="description"
               value={form.description}
@@ -202,7 +209,11 @@ export default function BlogCategoriesPage() {
               disabled={saving}
               className="rounded-2xl bg-[#03B8B8] px-6 py-3.5 text-black font-semibold hover:bg-[#38FFF2] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {saving ? "Saving..." : editingId ? "Update Category" : "Add Category"}
+              {saving
+                ? "Saving..."
+                : editingId
+                  ? "Update Category"
+                  : "Add Category"}
             </button>
             <button
               type="button"
@@ -224,9 +235,13 @@ export default function BlogCategoriesPage() {
 
           <div className="overflow-x-auto">
             {loading ? (
-              <div className="px-6 py-10 text-white/65">Loading categories...</div>
+              <div className="px-6 py-10 text-white/65">
+                Loading categories...
+              </div>
             ) : categories.length === 0 ? (
-              <div className="px-6 py-10 text-white/65">No categories created yet.</div>
+              <div className="px-6 py-10 text-white/65">
+                No categories created yet.
+              </div>
             ) : (
               <table className="w-full min-w-[760px]">
                 <thead>
@@ -241,12 +256,20 @@ export default function BlogCategoriesPage() {
                 <tbody className="divide-y divide-white/10">
                   {categories.map((category) => (
                     <tr key={category.id}>
-                      <td className="px-6 py-5 text-white/85 font-medium">{category.name}</td>
-                      <td className="px-6 py-5 text-white/55 max-w-[280px]">
-                        <p className="line-clamp-2">{category.description || "-"}</p>
+                      <td className="px-6 py-5 text-white/85 font-medium">
+                        {category.name}
                       </td>
-                      <td className="px-6 py-5 text-white/55">{category.slug}</td>
-                      <td className="px-6 py-5 text-white/65">{category.count}</td>
+                      <td className="px-6 py-5 text-white/55 max-w-[280px]">
+                        <p className="line-clamp-2">
+                          {category.description || "-"}
+                        </p>
+                      </td>
+                      <td className="px-6 py-5 text-white/55">
+                        {category.slug}
+                      </td>
+                      <td className="px-6 py-5 text-white/65">
+                        {category.count}
+                      </td>
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-3">
                           <button
@@ -255,7 +278,7 @@ export default function BlogCategoriesPage() {
                             className=" text-white/75 hover:bg-white/[0.08] hover:text-white transition-colors"
                           >
                             {/* <PenIcon /> */}
-                            <Edit3Icon size={20}/>
+                            <Edit3Icon size={20} />
                           </button>
                           <button
                             type="button"
@@ -263,7 +286,11 @@ export default function BlogCategoriesPage() {
                             disabled={deletingId === category.id}
                             className="rounded-2xl border border-red-500/25 bg-red-500/10 px-4 py-2 text-red-300 hover:bg-red-500/15 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                           >
-                            {deletingId === category.id ? <TrashIcon size={20} /> : <TrashIcon size={20} />}
+                            {deletingId === category.id ? (
+                              <TrashIcon size={20} />
+                            ) : (
+                              <TrashIcon size={20} />
+                            )}
                           </button>
                         </div>
                       </td>

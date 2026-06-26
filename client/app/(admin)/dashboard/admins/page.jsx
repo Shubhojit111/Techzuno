@@ -4,7 +4,13 @@ import DashboardShell from "@/components/admin/DashboardShell";
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-const ALLOWED_PERMISSIONS = ["products", "orders", "blogs", "users", "settings"];
+const ALLOWED_PERMISSIONS = [
+  "products",
+  "orders",
+  "blogs",
+  "users",
+  "settings",
+];
 const PERMISSION_BADGE_STYLES = {
   products: "border-emerald-500/30 bg-emerald-500/10 text-emerald-200",
   orders: "border-sky-500/30 bg-sky-500/10 text-sky-200",
@@ -74,7 +80,9 @@ export default function AdminsPage() {
       const response = await axios.get("http://localhost:5000/api/admin", {
         withCredentials: true,
       });
-      setAdmins(Array.isArray(response.data.admins) ? response.data.admins : []);
+      setAdmins(
+        Array.isArray(response.data.admins) ? response.data.admins : [],
+      );
     } catch (error) {
       setFeedback({
         type: "error",
@@ -95,7 +103,9 @@ export default function AdminsPage() {
 
   const openDrawer = (admin) => {
     setSelectedAdmin(admin);
-    setDraftPermissions(Array.isArray(admin.permissions) ? admin.permissions : []);
+    setDraftPermissions(
+      Array.isArray(admin.permissions) ? admin.permissions : [],
+    );
     setDraftProfile({
       name: admin.name || "",
       email: admin.email || "",
@@ -143,7 +153,10 @@ export default function AdminsPage() {
     setCreateForm((prev) => {
       const current = Array.isArray(prev.permissions) ? prev.permissions : [];
       if (current.includes(permission)) {
-        return { ...prev, permissions: current.filter((p) => p !== permission) };
+        return {
+          ...prev,
+          permissions: current.filter((p) => p !== permission),
+        };
       }
       return { ...prev, permissions: [...current, permission] };
     });
@@ -161,7 +174,10 @@ export default function AdminsPage() {
         { withCredentials: true },
       );
 
-      setFeedback({ type: "success", message: response.data.message || "Admin created" });
+      setFeedback({
+        type: "success",
+        message: response.data.message || "Admin created",
+      });
       setCreateForm(initialCreateForm);
       setIsCreateOpen(false);
       await fetchAdmins();
@@ -195,7 +211,9 @@ export default function AdminsPage() {
 
       const updatedAdmin = response.data.admin;
       setAdmins((prev) =>
-        prev.map((admin) => (admin.id === updatedAdmin.id ? { ...admin, ...updatedAdmin } : admin)),
+        prev.map((admin) =>
+          admin.id === updatedAdmin.id ? { ...admin, ...updatedAdmin } : admin,
+        ),
       );
       setSelectedAdmin(updatedAdmin);
       setDraftPermissions(
@@ -207,7 +225,10 @@ export default function AdminsPage() {
         phone: updatedAdmin.phone || "",
         profileImage: updatedAdmin.profileImage || "",
       });
-      setFeedback({ type: "success", message: response.data.message || "Updated successfully" });
+      setFeedback({
+        type: "success",
+        message: response.data.message || "Updated successfully",
+      });
     } catch (error) {
       setFeedback({
         type: "error",
@@ -231,7 +252,10 @@ export default function AdminsPage() {
         `http://localhost:5000/api/admin/admins/${selectedAdminId}`,
         { withCredentials: true },
       );
-      setFeedback({ type: "success", message: response.data.message || "Admin deleted" });
+      setFeedback({
+        type: "success",
+        message: response.data.message || "Admin deleted",
+      });
       setAdmins((prev) => prev.filter((admin) => admin.id !== selectedAdminId));
       closeDrawer();
     } catch (error) {
@@ -245,7 +269,9 @@ export default function AdminsPage() {
   };
 
   const toggleRow = (id) => {
-    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    );
   };
 
   const toggleAllVisible = () => {
@@ -276,7 +302,13 @@ export default function AdminsPage() {
   };
 
   const permissionShort = (permission) => {
-    const map = { products: "P", orders: "O", blogs: "B", users: "U", settings: "S" };
+    const map = {
+      products: "P",
+      orders: "O",
+      blogs: "B",
+      users: "U",
+      settings: "S",
+    };
     return map[permission] || permission.slice(0, 1).toUpperCase();
   };
 
@@ -285,7 +317,8 @@ export default function AdminsPage() {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="min-w-0">
           <p className="text-white/65 leading-relaxed max-w-2xl">
-            Manage admins and permissions. Admin head automatically has all permissions.
+            Manage admins and permissions. Admin head automatically has all
+            permissions.
           </p>
         </div>
 
@@ -399,27 +432,35 @@ export default function AdminsPage() {
                     <td className="px-6 py-5 text-white/70">Active</td>
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-2">
-                        {(Array.isArray(admin.permissions) ? admin.permissions : []).length === 0 ? (
-                          <span className="text-white/45 text-sm">No permissions</span>
+                        {(Array.isArray(admin.permissions)
+                          ? admin.permissions
+                          : []
+                        ).length === 0 ? (
+                          <span className="text-white/45 text-sm">
+                            No permissions
+                          </span>
                         ) : (
-                          (Array.isArray(admin.permissions) ? admin.permissions : []).map(
-                            (permission) => (
-                              <span
-                                key={`${admin.id}-${permission}`}
-                                title={permission}
-                                className={`h-8 w-8 rounded-full border flex items-center justify-center text-[12px] font-semibold ${
-                                  PERMISSION_BADGE_STYLES[permission] ||
-                                  "border-white/15 bg-white/[0.05] text-white/75"
-                                }`}
-                              >
-                                {permissionShort(permission)}
-                              </span>
-                            ),
-                          )
+                          (Array.isArray(admin.permissions)
+                            ? admin.permissions
+                            : []
+                          ).map((permission) => (
+                            <span
+                              key={`${admin.id}-${permission}`}
+                              title={permission}
+                              className={`h-8 w-8 rounded-full border flex items-center justify-center text-[12px] font-semibold ${
+                                PERMISSION_BADGE_STYLES[permission] ||
+                                "border-white/15 bg-white/[0.05] text-white/75"
+                              }`}
+                            >
+                              {permissionShort(permission)}
+                            </span>
+                          ))
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-5 text-white/60">{formatDate(admin.createdAt)}</td>
+                    <td className="px-6 py-5 text-white/60">
+                      {formatDate(admin.createdAt)}
+                    </td>
                     <td className="px-6 py-5 text-right">
                       <button
                         type="button"
@@ -491,7 +532,9 @@ export default function AdminsPage() {
               </label>
 
               <label className="block">
-                <span className="block text-sm text-white/70 mb-2">Password</span>
+                <span className="block text-sm text-white/70 mb-2">
+                  Password
+                </span>
                 <input
                   type="password"
                   name="password"
@@ -511,7 +554,9 @@ export default function AdminsPage() {
                       key={`create-${permission}`}
                       className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
                     >
-                      <span className="text-white/85 capitalize">{permission}</span>
+                      <span className="text-white/85 capitalize">
+                        {permission}
+                      </span>
                       <input
                         type="checkbox"
                         checked={(Array.isArray(createForm.permissions)
@@ -558,8 +603,12 @@ export default function AdminsPage() {
                 <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">
                   Admin Profile
                 </p>
-                <h3 className="mt-3 text-[24px] font-semibold truncate">{drawerTitle}</h3>
-                <p className="mt-2 text-white/60 text-sm truncate">{selectedAdmin?.email}</p>
+                <h3 className="mt-3 text-[24px] font-semibold truncate">
+                  {drawerTitle}
+                </h3>
+                <p className="mt-2 text-white/60 text-sm truncate">
+                  {selectedAdmin?.email}
+                </p>
               </div>
               <button
                 type="button"
@@ -575,7 +624,9 @@ export default function AdminsPage() {
                 {draftProfile.profileImage ? (
                   <div
                     className="h-14 w-14 rounded-full border border-white/10 bg-center bg-cover bg-no-repeat"
-                    style={{ backgroundImage: `url(${draftProfile.profileImage})` }}
+                    style={{
+                      backgroundImage: `url(${draftProfile.profileImage})`,
+                    }}
                     aria-label={draftProfile.name || "Admin profile"}
                     role="img"
                   />
@@ -588,7 +639,9 @@ export default function AdminsPage() {
                   <p className="text-white font-semibold truncate">
                     {selectedAdmin?.name || "Admin"}
                   </p>
-                  <p className="text-white/60 text-sm truncate">{selectedAdmin?.email}</p>
+                  <p className="text-white/60 text-sm truncate">
+                    {selectedAdmin?.email}
+                  </p>
                   <p className="mt-2 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-white/70">
                     {selectedAdmin?.role || "admin"}
                   </p>
@@ -611,7 +664,9 @@ export default function AdminsPage() {
                 </label>
 
                 <label className="block">
-                  <span className="block text-sm text-white/70 mb-2">Email</span>
+                  <span className="block text-sm text-white/70 mb-2">
+                    Email
+                  </span>
                   <input
                     type="email"
                     name="email"
@@ -622,7 +677,9 @@ export default function AdminsPage() {
                 </label>
 
                 <label className="block">
-                  <span className="block text-sm text-white/70 mb-2">Phone</span>
+                  <span className="block text-sm text-white/70 mb-2">
+                    Phone
+                  </span>
                   <input
                     type="text"
                     name="phone"
@@ -634,7 +691,9 @@ export default function AdminsPage() {
                 </label>
 
                 <label className="block">
-                  <span className="block text-sm text-white/70 mb-2">Profile Image URL</span>
+                  <span className="block text-sm text-white/70 mb-2">
+                    Profile Image URL
+                  </span>
                   <input
                     type="url"
                     name="profileImage"
@@ -668,7 +727,9 @@ export default function AdminsPage() {
                       >
                         {permissionShort(permission)}
                       </span>
-                      <span className="text-white/85 capitalize">{permission}</span>
+                      <span className="text-white/85 capitalize">
+                        {permission}
+                      </span>
                     </div>
                     <input
                       type="checkbox"

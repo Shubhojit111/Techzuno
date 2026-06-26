@@ -2,10 +2,13 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function LogoutPage() {
   const router = useRouter();
+
+  const { setUser } = useContext(AuthContext);
 
   useEffect(() => {
     const logoutUser = async () => {
@@ -20,6 +23,7 @@ export default function LogoutPage() {
 
         console.log(response.data);
 
+        setUser(null);
         router.replace("/");
       } catch (err) {
         console.log(err.response?.data || err.message);
