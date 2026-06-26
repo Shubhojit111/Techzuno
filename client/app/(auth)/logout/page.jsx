@@ -19,7 +19,6 @@ export default function LogoutPage() {
             withCredentials: true,
           },
         );
-
         console.log(response.data);
 
         setUser(null);
