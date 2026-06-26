@@ -7,7 +7,6 @@ import { AuthContext } from "@/context/AuthContext";
 
 export default function LogoutPage() {
   const router = useRouter();
-
   const { setUser } = useContext(AuthContext);
 
   useEffect(() => {
