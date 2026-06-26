@@ -1,9 +1,10 @@
 "use client";
 
-import axios from "axios";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function DashboardShell({
   title,
@@ -13,35 +14,20 @@ export default function DashboardShell({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const { user, authLoading } = useContext(AuthContext);
 
   useEffect(() => {
-    const getAuth = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/auth/check",
-          {
-            withCredentials: true,
-          },
-        );
+    if (authLoading) return;
 
-        const currentUser = response.data.user;
+    if (!user) {
+      router.replace("/login");
+      return;
+    }
 
-        if (currentUser.role !== "admin" && currentUser.role !== "admin head") {
-          router.replace("/");
-          return;
-        }
-
-        setUser(currentUser);
-        setLoading(false);
-      } catch (error) {
-        router.replace("/login");
-      }
-    };
-
-    getAuth();
-  }, [router]);
+    if (user.role !== "admin" && user.role !== "admin head") {
+      router.replace("/");
+    }
+  }, [user, authLoading, router]);
 
   const sidebarItems = useMemo(() => {
     if (!user) {
@@ -50,7 +36,11 @@ export default function DashboardShell({
 
     const all = [
       { href: "/dashboard", label: "Overview" },
-      { href: "/dashboard/products", label: "Products", permission: "products" },
+      {
+        href: "/dashboard/products",
+        label: "Products",
+        permission: "products",
+      },
       { href: "/dashboard/orders", label: "Orders", permission: "orders" },
       {
         href: "/dashboard/blogs",
@@ -64,7 +54,11 @@ export default function DashboardShell({
         ],
       },
       { href: "/dashboard/users", label: "Users", permission: "users" },
-      { href: "/dashboard/settings", label: "Settings", permission: "settings" },
+      {
+        href: "/dashboard/settings",
+        label: "Settings",
+        permission: "settings",
+      },
     ];
 
     if (user.role === "admin head") {
@@ -91,11 +85,13 @@ export default function DashboardShell({
       return true;
     }
 
-    const userPermissions = Array.isArray(user.permissions) ? user.permissions : [];
+    const userPermissions = Array.isArray(user.permissions)
+      ? user.permissions
+      : [];
     return userPermissions.includes(requiredPermission);
   }, [adminHeadOnly, requiredPermission, user]);
 
-  if (loading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen bg-black text-white pt-28 px-6 sm:px-10 lg:px-20">
         <div className="rounded-[28px] border border-white/10 bg-white/5 px-8 py-20 text-center text-2xl">
@@ -130,7 +126,8 @@ export default function DashboardShell({
                 const isActive =
                   pathname === item.href ||
                   (item.children && pathname.startsWith(item.href));
-                const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+                const hasChildren =
+                  Array.isArray(item.children) && item.children.length > 0;
 
                 if (hasChildren) {
                   return (

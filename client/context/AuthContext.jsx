@@ -18,11 +18,12 @@ export function AuthProvider({ children }) {
 
       setUser(data.user);
       console.log(data.user);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error(error);
-
       setUser(null);
-    } finally {
+    } 
+    finally {
       setAuthLoading(false);
     }
   };
