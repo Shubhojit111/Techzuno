@@ -1,4 +1,8 @@
 import Assets from "@/Assets/Assets";
+import axios from "axios";
+import { useEffect } from "react";
+
+
 
 export const blogPosts = [
   {
@@ -7,9 +11,7 @@ export const blogPosts = [
     title: "On-Page SEO vs Technical SEO: What Matters More?",
     date: "June 12, 2026",
     image: Assets.NewsImage1,
-    content:
-      "There is a debate that resurfaces in every SEO conversation, every strategy meeting, every client brief: should we focus on our content and keyword targeting, or should we fix the technical foundations first?",
-    contentParagraphs: [
+    content: [
       "There is a debate that resurfaces in every SEO conversation, every strategy meeting, every client brief: should we focus on our content and keyword targeting, or should we fix the technical foundations first? The on-page versus technical SEO question sounds like it should have a clean answer. It doesn't — but it does have an honest one.",
       "Most articles will tell you both matter equally, then give you a tidy list of things to do for each. What actually helps is understanding how these two disciplines relate to each other, when each one is the bottleneck holding your rankings back, and how to make smart decisions about where to invest your time and budget.",
       "At Techzuno, we call this the foundation vs. the fuel. Technical SEO is your foundation — it determines whether search engines can crawl, understand, and index your site correctly. On-Page SEO is the fuel — it tells search engines why your pages should rank for specific queries. You need both, but you need them in the right order.",
