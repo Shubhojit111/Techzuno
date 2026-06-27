@@ -8,11 +8,9 @@ const {
 } = require("../controllers/blogTagController");
 const { isLoggedIn, requirePermission } = require("../middlewares/authMiddleware");
 
-router.use(isLoggedIn, requirePermission("blogs"));
-
 router.get("/", getAllTags);
-router.post("/", createTag);
-router.patch("/:id", updateTag);
-router.delete("/:id", deleteTag);
+router.post("/", isLoggedIn, requirePermission("blogs"), createTag);
+router.patch("/:id", isLoggedIn, requirePermission("blogs"), updateTag);
+router.delete("/:id", isLoggedIn, requirePermission("blogs"), deleteTag);
 
 module.exports = router;

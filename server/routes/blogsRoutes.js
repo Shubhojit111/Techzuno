@@ -9,12 +9,12 @@ const {
 } = require("../controllers/blogsController");
 const { isLoggedIn, requirePermission } = require("../middlewares/authMiddleware");
 
-router.use(isLoggedIn, requirePermission("blogs"));
+// router.use();
 
-router.post("/", createBlog);
+router.post("/",isLoggedIn, requirePermission("blogs"), createBlog);
 router.get("/", getAllBlogs);
 router.get("/:id", getBlogById);
-router.patch("/:id", updateBlogById);
-router.delete("/:id", deleteBlogById);
+router.patch("/:id", isLoggedIn, requirePermission("blogs"), updateBlogById);
+router.delete("/:id", isLoggedIn, requirePermission("blogs"), deleteBlogById);
 
 module.exports = router;

@@ -6,13 +6,16 @@ const {
   updateCategory,
   deleteCategory,
 } = require("../controllers/blogCategoryController");
-const { isLoggedIn, requirePermission } = require("../middlewares/authMiddleware");
+const {
+  isLoggedIn,
+  requirePermission,
+} = require("../middlewares/authMiddleware");
 
-router.use(isLoggedIn, requirePermission("blogs"));
+// router.use();
 
 router.get("/", getAllCategories);
-router.post("/", createCategory);
-router.patch("/:id", updateCategory);
-router.delete("/:id", deleteCategory);
+router.post("/", isLoggedIn, requirePermission("blogs"), createCategory);
+router.patch("/:id", isLoggedIn, requirePermission("blogs"), updateCategory);
+router.delete("/:id", isLoggedIn, requirePermission("blogs"), deleteCategory);
 
 module.exports = router;
