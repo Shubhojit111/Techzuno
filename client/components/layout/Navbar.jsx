@@ -31,7 +31,7 @@ const otherLinks = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(false);
   const [othersOpen, setOthersOpen] = useState(false);
 
   const { user, authLoading } = useContext(AuthContext);
