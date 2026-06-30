@@ -32,9 +32,9 @@ export default function UserLayout({ children }) {
         <main className="">{children}</main>
         <Footer />
         <GoToTop />
-        
-        {/*
+
         <Footer />
+        {/*
         <Footer />
         <Footer />
         <Footer />

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Assets from "@/Assets/Assets";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
@@ -30,6 +30,7 @@ const otherLinks = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [othersOpen, setOthersOpen] = useState(false);
 
@@ -49,6 +50,10 @@ export default function Navbar() {
   }, []);
 
   if (authLoading) {
+    return null;
+  }
+
+  if (pathname?.startsWith("/dashboard")) {
     return null;
   }
 

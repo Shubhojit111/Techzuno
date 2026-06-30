@@ -79,7 +79,7 @@ if (!blog) {
                 );
               })}
             </div>
-            <p className="text-white px-12 text-[28px]  md:text-[56px] lg:text-[76px] font-semibold uppercase tracking-[3.5px] leading-[1.25] text-center">
+            <p className="text-white px-12 text-[28px]  md:text-[56px] lg:text-[76px] font-semibold uppercase tracking-[3.5px] leading-tight text-center">
               {blog.title}
             </p>
 

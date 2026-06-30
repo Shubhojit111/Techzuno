@@ -38,6 +38,7 @@ body {
   border: 2px solid white;
 }
 
+/* Animations and Non-Utility Styles */
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -46,6 +47,7 @@ body {
     transform: translateX(-50%);
   }
 }
+
 .animate-marquee {
   animation: marquee 60s linear infinite;
   width: fit-content;
@@ -59,11 +61,41 @@ body {
     transform: translateX(0%);
   }
 }
+
 .animate-marquee-reverse {
   animation: marquee-reverse 50s linear infinite;
   width: fit-content;
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Legacy support styles */
 .highlightedTextColor {
   color: #38FFF2;
 }
@@ -79,15 +111,3 @@ body {
   border-right: 1px solid #fff;
   border-bottom: 0;
 }
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-

@@ -3,6 +3,22 @@
 import DashboardShell from "@/components/admin/DashboardShell";
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  Plus,
+  Search,
+  Calendar,
+  Eye,
+  Edit3,
+  Trash2,
+  BookOpen,
+  Grid,
+  List,
+  Filter,
+  ChevronDown,
+  SearchCheck,
+  SearchIcon,
+} from "lucide-react";
+import Link from "next/link";
 
 const initialForm = {
   name: "",
@@ -23,23 +39,35 @@ export default function BlogsPage() {
   const [editingBlogId, setEditingBlogId] = useState(null);
   const [form, setForm] = useState(initialForm);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
+  const [searchQuery, setSearchQuery] = useState("");
 
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const [blogsResponse, categoriesResponse, tagsResponse] = await Promise.all([
-        axios.get("http://localhost:5000/api/blogs", { withCredentials: true }),
-        axios.get("http://localhost:5000/api/blogs/categories", { withCredentials: true }),
-        axios.get("http://localhost:5000/api/blogs/tags", { withCredentials: true }),
-      ]);
+      const [blogsResponse, categoriesResponse, tagsResponse] =
+        await Promise.all([
+          axios.get("http://localhost:5000/api/blogs", {
+            withCredentials: true,
+          }),
+          axios.get("http://localhost:5000/api/blogs/categories", {
+            withCredentials: true,
+          }),
+          axios.get("http://localhost:5000/api/blogs/tags", {
+            withCredentials: true,
+          }),
+        ]);
 
-      setBlogs(Array.isArray(blogsResponse.data.blogs) ? blogsResponse.data.blogs : []);
+      setBlogs(
+        Array.isArray(blogsResponse.data.blogs) ? blogsResponse.data.blogs : [],
+      );
       setCategories(
         Array.isArray(categoriesResponse.data.categories)
           ? categoriesResponse.data.categories
           : [],
       );
-      setTags(Array.isArray(tagsResponse.data.tags) ? tagsResponse.data.tags : []);
+      setTags(
+        Array.isArray(tagsResponse.data.tags) ? tagsResponse.data.tags : [],
+      );
     } catch (error) {
       setFeedback({
         type: "error",
@@ -55,10 +83,19 @@ export default function BlogsPage() {
     return () => clearTimeout(timeoutId);
   }, [loadData]);
 
+  const filteredBlogs = useMemo(() => {
+    if (!searchQuery.trim()) return blogs;
+    const q = searchQuery.toLowerCase();
+    return blogs.filter((b) => (b.title || "").toLowerCase().includes(q));
+  }, [blogs, searchQuery]);
+
   const selectedCategoryNames = useMemo(() => {
-    if (!Array.isArray(form.categoryIds) || form.categoryIds.length === 0) return [];
+    if (!Array.isArray(form.categoryIds) || form.categoryIds.length === 0)
+      return [];
     const selected = new Set(form.categoryIds);
-    return categories.filter((category) => selected.has(category.id)).map((category) => category.name);
+    return categories
+      .filter((category) => selected.has(category.id))
+      .map((category) => category.name);
   }, [categories, form.categoryIds]);
 
   const resetForm = () => {
@@ -121,7 +158,9 @@ export default function BlogsPage() {
     setForm({
       name: blog.title || "",
       description: blog.content || "",
-      categoryIds: Array.isArray(blog.Categories) ? blog.Categories.map((category) => category.id) : [],
+      categoryIds: Array.isArray(blog.Categories)
+        ? blog.Categories.map((category) => category.id)
+        : [],
       newCategoriesInput: "",
       tagIds: Array.isArray(blog.Tags) ? blog.Tags.map((tag) => tag.id) : [],
       newTagsInput: "",
@@ -164,9 +203,12 @@ export default function BlogsPage() {
     setFeedback({ type: "", message: "" });
 
     try {
-      const response = await axios.delete(`http://localhost:5000/api/blogs/${blogId}`, {
-        withCredentials: true,
-      });
+      const response = await axios.delete(
+        `http://localhost:5000/api/blogs/${blogId}`,
+        {
+          withCredentials: true,
+        },
+      );
       setFeedback({
         type: "success",
         message: response.data.message || "Blog deleted successfully",
@@ -186,25 +228,79 @@ export default function BlogsPage() {
   };
 
   const formatDate = (value) => {
-    if (!value) return "-";
+    if (!value) return "No date";
     const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "-";
-    return date.toLocaleDateString();
+    if (Number.isNaN(date.getTime())) return "No date";
+    return date
+      .toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+      .toUpperCase();
   };
+
 
   return (
     <DashboardShell title="Blogs" requiredPermission="blogs">
       <div>
-        <p className="text-white/60 max-w-3xl leading-relaxed">
-          This is the all blogs page. Categories and tags are optional. If no category is selected,
-          the blog will be placed into Uncategorized automatically.
-        </p>
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-white tracking-tight">
+              Blog Management
+            </h1>
+            <p className="text-zinc-400 text-sm mt-1">
+              Manage and organize your digital content ecosystem.
+            </p>
+          </div>
+          <Link
+            href="/dashboard/blogs/add"
+            className="inline-flex items-center gap-2 bg-[#38FFF2] text-black font-bold px-5 py-3 rounded-xl hover:bg-[#38FFF2]/90 transition-all shadow-[0_0_20px_rgba(56,255,242,0.2)]"
+          >
+            <Plus size={20} />
+            Add New Blog
+          </Link>
+        </div>
+
+        {/* Filter Bar */}
+        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-8 flex flex-col md:flex-row items-center gap-46">
+          <div className="flex-1 relative w-full">
+            <SearchIcon
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"
+              size={18}
+            />
+            <input
+              type="text"
+              placeholder="Search blog title or keywords..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-11 pr-4 py-2.5 bg-white/[0.03] border border-white/5 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-white/10 focus:bg-white/[0.05] transition-all text-sm"
+            />
+          </div>
+
+          <div className="flex items-center gap-3 w-full md:w-auto">
+            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[140px]">
+              <span>Category: All</span>
+              <ChevronDown size={16} className="text-zinc-500" />
+            </button>
+
+            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[120px]">
+              <span>Status: All</span>
+              <ChevronDown size={16} className="text-zinc-500" />
+            </button>
+
+            <button className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-all">
+              <Calendar size={18} />
+            </button>
+          </div>
+        </div>
 
         {feedback.message ? (
           <div
-            className={`mt-6 rounded-2xl border px-4 py-3 text-sm ${
+            className={`mb-6 rounded-xl border px-4 py-3 text-sm animate-in fade-in slide-in-from-top-2 duration-300 ${
               feedback.type === "success"
-                ? "border-[#03B8B8]/20 bg-[#03B8B8]/10 text-[#38FFF2]"
+                ? "border-white/20 bg-white/10 text-white"
                 : "border-red-500/20 bg-red-500/10 text-red-300"
             }`}
           >
@@ -212,238 +308,182 @@ export default function BlogsPage() {
           </div>
         ) : null}
 
-        {editingBlogId ? (
-          <div className="mt-8 rounded-[24px] border border-white/10 bg-white/[0.03] p-6 md:p-8">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">Blog</p>
-                <h2 className="mt-3 text-[26px] font-semibold">Edit Blog</h2>
-              </div>
-              <button
-                type="button"
-                onClick={resetForm}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2 text-white/75 hover:bg-white/[0.08] hover:text-white transition-colors"
-              >
-                Close
-              </button>
-            </div>
+        {/* Blog Grid/List Container */}
+        <div
+          className={`grid gap-4 "grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4" }`}
+        >
+          {loading ? (
+            Array(8)
+              .fill(0)
+              .map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-white/[0.02] border border-white/5 rounded-[24px] overflow-hidden transition-all duration-300 animate-pulse"
+                >
+                  <div className="h-48 bg-white/[0.03]"></div>
+                  <div className="p-6 space-y-4">
+                    <div className="flex justify-between">
+                      <div className="h-3 bg-white/[0.05] rounded w-20"></div>
+                      <div className="h-3 bg-white/[0.05] rounded w-16"></div>
+                    </div>
+                    <p className="mt-3 text-xs text-white/40">
+                      {form.newCategoriesInput.trim()
+                        ? `New categories: ${form.newCategoriesInput.trim()}`
+                        : selectedCategoryNames.length
+                          ? `Selected: ${selectedCategoryNames.join(", ")}`
+                          : "No category selected (will become Uncategorized)"}
+                    </p>
+                    <input
+                      type="text"
+                      name="newCategoriesInput"
+                      value={form.newCategoriesInput}
+                      onChange={handleChange}
+                      placeholder="Add new categories, separated by commas"
+                      className="mt-4 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
+                    />
+                  </div>
 
-            <form onSubmit={handleUpdate} className="mt-6 grid grid-cols-1 gap-5 xl:max-w-4xl">
-              <label className="block">
-                <span className="block text-sm text-white/70 mb-2">Name</span>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
-                  placeholder="Enter blog name"
-                  required
-                />
-              </label>
-
-              <label className="block">
-                <span className="block text-sm text-white/70 mb-2">Description</span>
-                <textarea
-                  name="description"
-                  value={form.description}
-                  onChange={handleChange}
-                  rows={8}
-                  className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors resize-y"
-                  placeholder="Write blog description"
-                  required
-                />
-              </label>
-
-              <div className="grid grid-cols-1 xl:grid-cols-[320px_minmax(0,1fr)] gap-5">
-                <div className="rounded-[20px] border border-white/10 bg-black/20 p-4">
-                  <p className="text-sm text-white/70 mb-3">Category</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {categories.length === 0 ? (
-                      <p className="text-white/45 text-sm">No categories available yet.</p>
-                    ) : (
-                      categories.map((category) => (
+                  <div className="rounded-[20px] border border-white/10 bg-black/20 p-4">
+                    <p className="text-sm text-white/70 mb-3">Tags</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {tags.map((tag) => (
                         <label
-                          key={category.id}
+                          key={tag.id}
                           className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
                         >
-                          <span className="text-white/85">{category.name}</span>
+                          <span className="text-white/85">{tag.name}</span>
                           <input
                             type="checkbox"
-                            checked={form.categoryIds.includes(category.id)}
-                            onChange={() => toggleCategory(category.id)}
+                            checked={form.tagIds.includes(tag.id)}
+                            onChange={() => toggleTag(tag.id)}
                             className="h-4 w-4 accent-[#03B8B8]"
                           />
                         </label>
-                      ))
-                    )}
+                      ))}
+                    </div>
+                    <div className="h-8 bg-white/[0.05] rounded-full w-full"></div>
                   </div>
-                  <p className="mt-3 text-xs text-white/40">
-                    {form.newCategoriesInput.trim()
-                      ? `New categories: ${form.newCategoriesInput.trim()}`
-                      : selectedCategoryNames.length
-                        ? `Selected: ${selectedCategoryNames.join(", ")}`
-                        : "No category selected (will become Uncategorized)"}
-                  </p>
-                  <input
-                    type="text"
-                    name="newCategoriesInput"
-                    value={form.newCategoriesInput}
-                    onChange={handleChange}
-                    placeholder="Add new categories, separated by commas"
-                    className="mt-4 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
-                  />
                 </div>
+              ))
+          ) : filteredBlogs.length === 0 ? (
+            <div className="col-span-full flex flex-col items-center justify-center py-24 text-center">
+              <div className="w-20 h-20 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-center mb-6">
+                <BookOpen size={40} className="text-zinc-700" />
+              </div>
+              <p className="text-xl font-bold text-white">No results found</p>
+              <p className="text-zinc-500 text-sm mt-2 max-w-xs">
+                Try adjusting your search query or filters to find what you're
+                looking for.
+              </p>
+              <button
+                onClick={() => setSearchQuery("")}
+                className="mt-6 text-sm font-bold text-[#38FFF2] hover:underline"
+              >
+                Clear all filters
+              </button>
+            </div>
+          ) : (
+            <>
+              {filteredBlogs.map((blog) => (
+                <div
+                  key={blog.id}
+                  className="relative h-[460px] bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/[0.04] hover:border-white/10 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] group"
+                >
+                  {/* Image Section */}
+                  <div className="relative h-48 bg-zinc-900 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                    <div className="absolute top-4 left-4 z-20">
+                      {Array.isArray(blog.Categories) &&
+                        blog.Categories.slice(0, 1).map((cat) => (
+                          <span
+                            key={cat.id}
+                            className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] rounded-lg border backdrop-blur-md bg-[#38FFF2]/20 text-[#38FFF2] border-[#38FFF2]/30`}
+                          >
+                            {cat.name}
+                          </span>
+                        ))}
+                    </div>
+                    {/* Placeholder content image */}
+                    <div className="w-full h-full flex items-center justify-center bg-zinc-800 group-hover:scale-105 transition-transform duration-500">
+                      <BookOpen size={48} className="text-white/5" />
+                    </div>
+                  </div>
 
-                <div className="rounded-[20px] border border-white/10 bg-black/20 p-4">
-                  <p className="text-sm text-white/70 mb-3">Tags</p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {tags.map((tag) => (
-                      <label
-                        key={tag.id}
-                        className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
+                  {/* Content Section */}
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-bold text-zinc-500 tracking-wider">
+                        {formatDate(blog.createdAt)}
+                      </span>
+                      <span
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold border uppercase tracking-wider ${blog.status === "draft" ? "bg-zinc-500/10 border-zinc-500/20 text-zinc-500" : "bg-[#38FFF2]/10 border-[#38FFF2]/20 text-[#38FFF2]"}`}
                       >
-                        <span className="text-white/85">{tag.name}</span>
-                        <input
-                          type="checkbox"
-                          checked={form.tagIds.includes(tag.id)}
-                          onChange={() => toggleTag(tag.id)}
-                          className="h-4 w-4 accent-[#03B8B8]"
+                        <span
+                          className={`w-1 h-1 rounded-full ${blog.status === "draft" ? "bg-zinc-500" : "bg-[#38FFF2]"}`}
                         />
-                      </label>
-                    ))}
+                        {blog.status || "Published"}
+                      </span>
+                    </div>
+
+                    <h3 className="text-white font-bold text-lg leading-tight mb-3 line-clamp-2 group-hover:text-[#38FFF2] transition-colors">
+                      {blog.title || "Untitled Blog Post"}
+                    </h3>
+
+                    <p className="text-zinc-400 text-sm line-clamp-2 mb-6 leading-relaxed">
+                      {blog.content ||
+                        "Exploring the boundaries of technology and design in this comprehensive guide."}
+                    </p>
+
+                    {/* Footer */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 pb-4 border-t border-white/5 flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white  font-bold">
+                          {blog.User?.name
+                            ? blog.User.name.charAt(0).toUpperCase()
+                            : "A"}
+                        </div>
+                        <span className="text-zinc-400 text-sm font-medium">
+                          {blog.User?.name || "Admin"}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-0">
+                        <button
+                          onClick={() => openEdit(blog)}
+                          className="p-2 rounded-lg hover:bg-white/5 text-zinc-500 hover:text-white transition-all"
+                        >
+                          <Edit3 size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(blog.id)}
+                          disabled={deletingId === blog.id}
+                          className="p-2 rounded-lg hover:bg-red-500/10 text-zinc-500 hover:text-red-400 transition-all disabled:opacity-50"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    name="newTagsInput"
-                    value={form.newTagsInput}
-                    onChange={handleChange}
-                    placeholder="Add new tags, separated by commas"
-                    className="mt-4 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
+                </div>
+              ))}
+
+              {/* Add New Placeholder Card */}
+              <Link
+                href="/dashboard/blogs/add"
+                className="border border-dashed border-white/10 rounded-[24px] bg-transparent flex flex-col items-center justify-center min-h-[400px] hover:bg-white/[0.02] hover:border-[#38FFF2]/30 transition-all group"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#38FFF2]/10 group-hover:border-[#38FFF2]/20 transition-all">
+                  <Plus
+                    size={24}
+                    className="text-zinc-500 group-hover:text-[#38FFF2]"
                   />
                 </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="rounded-2xl bg-[#03B8B8] px-6 py-3.5 text-black font-semibold hover:bg-[#38FFF2] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {saving ? "Saving..." : "Update Blog"}
-                </button>
-                <button
-                  type="button"
-                  onClick={resetForm}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-3.5 text-white/75 hover:bg-white/[0.08] hover:text-white transition-colors"
-                >
-                  Reset
-                </button>
-              </div>
-            </form>
-          </div>
-        ) : null}
-
-        <div className="mt-8 rounded-[24px] border border-white/10 bg-white/[0.03] overflow-hidden">
-          <div className="px-6 py-5 border-b border-white/10 flex items-center justify-between">
-            <h2 className="text-[18px] font-semibold">All Blogs</h2>
-            <p className="text-sm text-white/50">{loading ? "Loading..." : `${blogs.length} total`}</p>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[1080px]">
-              <thead>
-                <tr className="text-left text-white/50 text-[12px] uppercase tracking-[0.18em]">
-                  <th className="px-6 py-4">Name</th>
-                  <th className="px-6 py-4">Category</th>
-                  <th className="px-6 py-4">Tags</th>
-                  <th className="px-6 py-4">Description</th>
-                  <th className="px-6 py-4">Author</th>
-                  <th className="px-6 py-4">Created</th>
-                  <th className="px-6 py-4">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                {loading ? (
-                  <tr>
-                    <td colSpan={7} className="px-6 py-10 text-white/65">
-                      Loading blogs...
-                    </td>
-                  </tr>
-                ) : blogs.length === 0 ? (
-                  <tr>
-                    <td colSpan={7} className="px-6 py-10 text-white/65">
-                      No blogs created yet.
-                    </td>
-                  </tr>
-                ) : (
-                  blogs.map((blog) => (
-                    <tr key={blog.id}>
-                      <td className="px-6 py-5 text-white font-medium">{blog.title}</td>
-                      <td className="px-6 py-5 text-white/75">
-                        {Array.isArray(blog.Categories) && blog.Categories.length ? (
-                          <div className="flex flex-wrap gap-2">
-                            {blog.Categories.map((category) => (
-                              <span
-                                key={`${blog.id}-${category.id}`}
-                                className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[12px] text-white/75"
-                              >
-                                {category.name}
-                              </span>
-                            ))}
-                          </div>
-                        ) : (
-                          <span className="text-white/45">Uncategorized</span>
-                        )}
-                      </td>
-                      <td className="px-6 py-5">
-                        <div className="flex flex-wrap gap-2">
-                          {Array.isArray(blog.Tags) && blog.Tags.length > 0 ? (
-                            blog.Tags.map((tag) => (
-                              <span
-                                key={`${blog.id}-${tag.id}`}
-                                className="rounded-full border border-[#03B8B8]/20 bg-[#03B8B8]/10 px-3 py-1 text-[12px] text-[#38FFF2]"
-                              >
-                                {tag.name}
-                              </span>
-                            ))
-                          ) : (
-                            <span className="text-white/40 text-sm">No tags</span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-5">
-                        <p className="text-white/60 max-w-[300px] line-clamp-2">{blog.content || "-"}</p>
-                      </td>
-                      <td className="px-6 py-5 text-white/75">
-                        {blog.User?.name || blog.User?.email || "-"}
-                      </td>
-                      <td className="px-6 py-5 text-white/55">{formatDate(blog.createdAt)}</td>
-                      <td className="px-6 py-5">
-                        <div className="flex items-center gap-3">
-                          <button
-                            type="button"
-                            onClick={() => openEdit(blog)}
-                            className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2 text-white/75 hover:bg-white/[0.08] hover:text-white transition-colors"
-                          >
-                            Edit
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleDelete(blog.id)}
-                            disabled={deletingId === blog.id}
-                            className="rounded-2xl border border-red-500/25 bg-red-500/10 px-4 py-2 text-red-300 hover:bg-red-500/15 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-                          >
-                            {deletingId === blog.id ? "Deleting..." : "Delete"}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+                <span className="text-sm font-bold text-zinc-500 group-hover:text-white transition-colors">
+                  Create New Post
+                </span>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </DashboardShell>

@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <Navbar />
           <main className="">{children}</main>
-          <Footer />
+          {/* <Footer /> */}
           <GoToTop />
         </AuthProvider>
       </body>
