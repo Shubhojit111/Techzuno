@@ -38,7 +38,7 @@ export default function Navbar() {
 
   const isAdmin = user?.role === "admin" || user?.role === "admin head";
 
-  useEffect(() => {
+  useEffect(() => { 
     const onResize = () => {
       if (window.innerWidth >= 1024) {
         setOpen(false);
