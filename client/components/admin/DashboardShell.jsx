@@ -228,7 +228,7 @@ export default function DashboardShell({
                       : "max-h-0 opacity-0"
                   }`}
                 >
-                  <div className="ml-[46px] space-y-0.5 border-l border-[#38FFF2]/10 pl-3 py-1">
+                  <div className="ml-[36px] space-y-0.5 border-l border-[#38FFF2]/10 pl-3 py-1">
                     {item.children.map((child) => {
                       const isChildActive = pathname === child.href;
                       return (

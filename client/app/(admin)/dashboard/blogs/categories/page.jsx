@@ -2,8 +2,11 @@
 
 import DashboardShell from "@/components/admin/DashboardShell";
 import axios from "axios";
-import { Edit3, Trash2, Plus, TrendingUp } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { Edit3, Plus, Trash2, TrendingUp } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+const ROWS_PER_PAGE = 6;
+const MAX_TRENDING = 6;
 
 export default function BlogCategoriesPage() {
   const [categories, setCategories] = useState([]);
@@ -12,21 +15,16 @@ export default function BlogCategoriesPage() {
   const [deletingId, setDeletingId] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
-  const [form, setForm] = useState({
-    name: "",
-    slug: "",
-    description: "",
-  });
+  const [form, setForm] = useState({ name: "", slug: "", description: "" });
 
   const loadCategories = useCallback(async () => {
     setLoading(true);
     try {
       const response = await axios.get(
         "http://localhost:5000/api/blogs/categories",
-        {
-          withCredentials: true,
-        },
+        { withCredentials: true },
       );
+      console.log(response.data);
       setCategories(
         Array.isArray(response.data.categories) ? response.data.categories : [],
       );
@@ -41,25 +39,17 @@ export default function BlogCategoriesPage() {
   }, []);
 
   useEffect(() => {
-    const timeoutId = setTimeout(loadCategories, 0);
-    return () => clearTimeout(timeoutId);
+    loadCategories();
   }, [loadCategories]);
 
   const resetForm = () => {
     setEditingId(null);
-    setForm({
-      name: "",
-      slug: "",
-      description: "",
-    });
+    setForm({ name: "", slug: "", description: "" });
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleEdit = (category) => {
@@ -76,18 +66,16 @@ export default function BlogCategoriesPage() {
     e.preventDefault();
     setSaving(true);
     setFeedback({ type: "", message: "" });
-
     try {
       const response = editingId
         ? await axios.patch(
-          `http://localhost:5000/api/blogs/categories/${editingId}`,
-          form,
-          { withCredentials: true },
-        )
+            `http://localhost:5000/api/blogs/categories/${editingId}`,
+            form,
+            { withCredentials: true },
+          )
         : await axios.post("http://localhost:5000/api/blogs/categories", form, {
-          withCredentials: true,
-        });
-
+            withCredentials: true,
+          });
       setFeedback({
         type: "success",
         message:
@@ -109,12 +97,9 @@ export default function BlogCategoriesPage() {
   };
 
   const handleDelete = async (id) => {
-    const confirmed = window.confirm("Delete this category?");
-    if (!confirmed) return;
-
+    if (!window.confirm("Delete this category?")) return;
     setDeletingId(id);
     setFeedback({ type: "", message: "" });
-
     try {
       const response = await axios.delete(
         `http://localhost:5000/api/blogs/categories/${id}`,
@@ -138,90 +123,117 @@ export default function BlogCategoriesPage() {
     }
   };
 
+  // Sort by count desc, take top N for trending bar
+  const trendingCategories = useMemo(
+    () =>
+      [...categories]
+        .filter((c) => (c.count ?? 0) > 0)
+        .sort((a, b) => (b.count ?? 0) - (a.count ?? 0))
+        .slice(0, MAX_TRENDING),
+    [categories],
+  );
+
   return (
     <DashboardShell title="Blog Categories" requiredPermission="blogs">
       <div>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+        {/* Page Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white">Categories</h1>
-            <p className="text-zinc-400 mt-2 max-w-2xl">Organize and refine the discovery system for your blog content. Manage existing metadata or generate new classification nodes.</p>
+            <p className="text-zinc-400 text-sm mt-1.5 max-w-xl">
+              Organize and manage blog categories for better content discovery.
+            </p>
           </div>
-
-            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#38FFF2] text-black font-semibold hover:bg-[#38FFF2]/90 transition-colors">
-              <Plus size={18} />
-              Add Category
-            </button>
-          
+          <button
+            onClick={resetForm}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#38FFF2] text-black font-semibold hover:bg-[#38FFF2]/90 transition-colors shrink-0"
+          >
+            <Plus size={16} />
+            New Category
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[380px_minmax(0,1fr)] gap-8 items-start">
-          {/* Create/Edit Form */}
-          <div className="h-fit bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-6">
-            <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase mb-1">
-              {editingId ? "Edit" : "Create New"}
+        {/* Feedback */}
+        {feedback.message && (
+          <div
+            className={`mb-6 rounded-xl border px-4 py-3 text-sm ${
+              feedback.type === "success"
+                ? "border-[#38FFF2]/20 bg-[#38FFF2]/10 text-[#38FFF2]"
+                : "border-red-500/20 bg-red-500/10 text-red-300"
+            }`}
+          >
+            {feedback.message}
+          </div>
+        )}
+
+        {/* Two-column layout: form left, table right — equal height */}
+        <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 items-start">
+          {/* ── Left: Create / Edit Form ───────────────────────── */}
+          <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] h-full rounded-2xl p-6 flex flex-col">
+            <p className="text-[#38FFF2] text-[10px] tracking-[0.3em] uppercase mb-1">
+              {editingId ? "Editing" : "Create New"}
             </p>
-            <h2 className="text-xl font-semibold text-white mb-6">
-              {editingId ? "Edit Category" : "Category"}
+            <h2 className="text-lg font-semibold text-white mb-5">
+              {editingId ? "Edit Category" : "New Category"}
             </h2>
 
-            {feedback.message ? (
-              <div
-                className={`mb-6 rounded-xl border px-4 py-3 text-sm ${
-                  feedback.type === "success"
-                    ? "border-[#38FFF2]/20 bg-[#38FFF2]/10 text-[#38FFF2]"
-                    : "border-red-500/20 bg-red-500/10 text-red-300"
-                }`}
-              >
-                {feedback.message}
-              </div>
-            ) : null}
-
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-4 flex-1"
+            >
               <label className="block">
-                <span className="block text-sm text-white/70 mb-2">Category Name</span>
+                <span className="block text-xs text-zinc-400 mb-1.5 font-medium uppercase tracking-wider">
+                  Category Name *
+                </span>
                 <input
                   type="text"
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#38FFF2]/30 focus:bg-black/40 transition-colors text-white"
+                  className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#38FFF2]/40 focus:bg-black/40 transition-colors text-white text-sm placeholder-zinc-600"
                   placeholder="e.g., Technology"
                   required
                 />
               </label>
 
               <label className="block">
-                <span className="block text-sm text-white/70 mb-2">Slug (Optional)</span>
+                <span className="block text-xs text-zinc-400 mb-1.5 font-medium uppercase tracking-wider">
+                  Slug{" "}
+                  <span className="normal-case text-zinc-600">(optional)</span>
+                </span>
                 <input
                   type="text"
                   name="slug"
                   value={form.slug}
                   onChange={handleChange}
-                  className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#38FFF2]/30 focus:bg-black/40 transition-colors text-zinc-300"
+                  className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#38FFF2]/40 focus:bg-black/40 transition-colors text-zinc-300 text-sm placeholder-zinc-600"
                   placeholder="e.g., technology"
                 />
               </label>
 
-              <label className="block">
-                <span className="block text-sm text-white/70 mb-2">Description</span>
+              <label className="block flex-1">
+                <span className="block text-xs text-zinc-400 mb-1.5 font-medium uppercase tracking-wider">
+                  Description{" "}
+                  <span className="normal-case text-zinc-600">(optional)</span>
+                </span>
                 <textarea
                   name="description"
                   value={form.description}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#38FFF2]/30 focus:bg-black/40 transition-colors resize-none text-white"
+                  className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#38FFF2]/40 focus:bg-black/40 transition-colors resize-none text-white text-sm placeholder-zinc-600"
                   placeholder="Brief context for this category..."
                 />
               </label>
 
-              <div className="flex flex-col gap-3 pt-2">
+              <div className="flex flex-col gap-2.5 mt-auto pt-1">
                 <button
                   type="submit"
                   disabled={saving}
-                  className="w-full rounded-xl bg-[#38FFF2] px-6 py-3 text-black font-semibold hover:bg-[#38FFF2]/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full rounded-xl bg-[#38FFF2] px-6 py-3 text-black font-semibold text-sm hover:bg-[#38FFF2]/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {saving
-                    ? "Saving..."
+                    ? "Saving…"
                     : editingId
                       ? "Update Category"
                       : "Create Category"}
@@ -230,7 +242,7 @@ export default function BlogCategoriesPage() {
                   <button
                     type="button"
                     onClick={resetForm}
-                    className="w-full rounded-xl border border-white/10 bg-transparent px-6 py-3 text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
+                    className="w-full rounded-xl border border-white/10 bg-transparent px-6 py-3 text-zinc-400 text-sm hover:text-white hover:bg-white/5 transition-colors"
                   >
                     Cancel
                   </button>
@@ -239,104 +251,116 @@ export default function BlogCategoriesPage() {
             </form>
           </div>
 
-          {/* Categories List */}
-          <div className="space-y-6">
-            {/* Metrics/Trending (dummy for now) */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-5">
-              <div className="flex items-center gap-2 text-zinc-400 mb-4">
-                <TrendingUp size={18} />
-                <span className="text-sm font-medium tracking-wide uppercase">Trending Clusters</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1.5 rounded-lg bg-[#38FFF2]/10 border border-[#38FFF2]/20 text-[#38FFF2] text-xs">Cloud Infrastructure (42)</span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-zinc-400 text-xs">FinTech (38)</span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-zinc-400 text-xs">AI/ML (31)</span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-zinc-400 text-xs">React Query (25)</span>
-                <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-zinc-400 text-xs">TypeScript (22)</span>
+          {/* ── Right: Trending + Table ─────────────────────────── */}
+          <div className="flex flex-col bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden">
+            {/* Table header bar */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+              <div>
+                <p className="text-white font-semibold text-sm">
+                  All Categories
+                </p>
+                <p className="text-zinc-500 text-xs mt-0.5">
+                  {loading ? "Loading…" : `${categories.length} total`}
+                </p>
               </div>
             </div>
 
-            {/* Main Table Container */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden">
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-white/5 text-sm font-medium tracking-wider uppercase">
-                      <th className="px-6 py-4 font-medium">Name</th>
-                      <th className="px-6 py-4 font-medium">Slug</th>
-                      <th className="px-6 py-4 font-medium">Count</th>
-                      <th className="px-6 py-4 font-medium text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5">
-                    {loading ? (
-                      Array(5).fill(0).map((_, i) => (
+            {/* Scrollable table body — FIXED HEIGHT, never grows */}
+            <div className="overflow-auto no-scrollbar" style={{ height: "408px" }}>
+              <table className="w-full text-left border-collapse min-w-[420px]">
+                <thead className="sticky top-0 z-10 bg-[#0c0e17]">
+                  <tr className="border-b border-white/5 text-[10px] font-bold tracking-[0.14em] uppercase text-zinc-500">
+                    <th className="px-6 py-3">Name</th>
+                    <th className="px-6 py-3">Slug</th>
+                    <th className="px-6 py-3">Description</th>
+                    <th className="px-6 py-3">Count</th>
+                    <th className="px-6 py-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/[0.04]">
+                  {loading ? (
+                    Array(ROWS_PER_PAGE)
+                      .fill(0)
+                      .map((_, i) => (
                         <tr key={i} className="animate-pulse">
-                          <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-24"></div></td>
-                          <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-20"></div></td>
-                          <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-32"></div></td>
-                          <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-12"></div></td>
-                          <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-16 ml-auto"></div></td>
+                          <td className="px-6 py-3.5">
+                            <div className="h-3.5 bg-white/5 rounded w-28" />
+                          </td>
+                          <td className="px-6 py-3.5">
+                            <div className="h-3.5 bg-white/5 rounded w-20" />
+                          </td>
+                          <td className="px-6 py-3.5">
+                            <div className="h-3.5 bg-white/5 rounded w-8" />
+                          </td>
+                          <td className="px-6 py-3.5">
+                            <div className="h-3.5 bg-white/5 rounded w-14 ml-auto" />
+                          </td>
                         </tr>
                       ))
-                    ) : categories.length === 0 ? (
-                      <tr>
-                        <td colSpan="5" className="px-6 py-12 text-center text-zinc-500">
-                          No categories created yet.
+                  ) : categories.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan={4}
+                        className="px-6 py-16 text-center text-zinc-600 text-sm"
+                      >
+                        "No categories yet. Create your first one"
+                      </td>
+                    </tr>
+                  ) : (
+                    categories.map((category) => (
+                      <tr
+                        key={category.id}
+                        className={`hover:bg-white/[0.02] transition-colors ${
+                          editingId === category.id
+                            ? "bg-[#38FFF2]/[0.03] border-l-2 border-[#38FFF2]/40"
+                            : ""
+                        }`}
+                      >
+                        <td className="px-6 py-3.5">
+                          <div className="flex items-center gap-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#38FFF2] shrink-0" />
+                            <span className="text-white font-medium text-sm">
+                              {category.name}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-3.5 text-zinc-500 text-sm font-mono">
+                          {category.slug || "—"}
+                        </td>
+                        <td className="px-6 py-3.5 text-zinc-500 text-sm font-mono">
+                          {category.description || "—"}
+                        </td>
+                        <td className="px-6 py-3.5">
+                          <span className="px-2 py-0.5 rounded-md text-xs border border-white/10 text-zinc-400">
+                            {category.count ?? 0}
+                          </span>
+                        </td>
+                        <td className="px-6 py-3.5 text-right">
+                          <div className="flex items-center justify-end gap-0.5">
+                            <button
+                              type="button"
+                              onClick={() => handleEdit(category)}
+                              className="p-1.5 rounded-lg hover:bg-white/5 text-zinc-500 hover:text-white transition-colors"
+                              title="Edit"
+                            >
+                              <Edit3 size={14} />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDelete(category.id)}
+                              disabled={deletingId === category.id}
+                              className="p-1.5 rounded-lg hover:bg-red-500/10 text-zinc-500 hover:text-red-400 transition-colors disabled:opacity-50"
+                              title="Delete"
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
                         </td>
                       </tr>
-                    ) : (
-                      categories.map((category) => (
-                        <tr key={category.id} className="hover:bg-white/[0.02] transition-colors group">
-                          <td className="px-6 py-4">
-                            <div className="flex items-center gap-3">
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#38FFF2]"></div>
-                              <span className="text-white font-medium">{category.name}</span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-zinc-400 text-sm">{category.slug || "—"}</td>
-                          <td className="px-6 py-4 text-zinc-400 text-sm">
-                            <span className="px-2 py-0.5 rounded-md text-center border-white/10 text-xs">
-                              {category.count || 0}
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-right">
-                            <div className="flex items-center justify-end gap-1">
-                              <button
-                                type="button"
-                                onClick={() => handleEdit(category)}
-                                className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-colors"
-                              >
-                                <Edit3 size={16} />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => handleDelete(category.id)}
-                                disabled={deletingId === category.id}
-                                className="p-2 rounded-lg hover:bg-red-500/10 text-red-400 hover:text-red-300 transition-colors disabled:opacity-50"
-                              >
-                                <Trash2 size={16} />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-
-              {!loading && categories.length > 0 && (
-                <div className="flex items-center justify-between px-6 py-4 border-t border-white/10 text-zinc-500 text-xs">
-                  <span>Showing {categories.length} categories</span>
-                  <div className="flex items-center gap-2">
-                    <button className="px-3 py-1 rounded-md border border-white/10 bg-white/[0.02] hover:bg-white/5 transition-colors">Previous</button>
-                    <button className="px-3 py-1 rounded-md bg-[#38FFF2]/10 border border-[#38FFF2]/20 text-[#38FFF2] font-medium">1</button>
-                    <button className="px-3 py-1 rounded-md border border-white/10 bg-white/[0.02] hover:bg-white/5 transition-colors">Next</button>
-                  </div>
-                </div>
-              )}
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
