@@ -242,7 +242,6 @@ export default function BlogsPage() {
       .toUpperCase();
   };
 
-
   return (
     <DashboardShell title="Blogs" requiredPermission="blogs">
       <div>
@@ -266,7 +265,7 @@ export default function BlogsPage() {
         </div>
 
         {/* Filter Bar */}
-        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-8 flex flex-col md:flex-row items-center gap-46">
+        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-6 flex flex-col md:flex-row items-center gap-46">
           <div className="flex-1 relative w-full">
             <SearchIcon
               className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"
@@ -387,88 +386,93 @@ export default function BlogsPage() {
           ) : (
             <>
               {filteredBlogs.map((blog) => (
+                
                 <div
                   key={blog.id}
                   className="relative h-[460px] bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/[0.04] hover:border-white/10 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] group"
                 >
-                  {/* Image Section */}
-                  <div className="relative h-48 bg-zinc-900 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
-                    <Image
-                      src={blog.image || Assets.UIUX2}
-                      alt={blog.name}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-4 left-4 z-20">
-                      {Array.isArray(blog.Categories) &&
-                        blog.Categories.slice(0, 1).map((cat) => (
-                          <span
-                            key={cat.id}
-                            className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] rounded-lg border backdrop-blur-md bg-[#38FFF2]/20 text-[#38FFF2] border-[#38FFF2]/30`}
-                          >
-                            {cat.name}
-                          </span>
-                        ))}
+                  <Link href={`/blogs/${blog.id}`} className="group block w-full">
+                  <div className="flex flex-col">
+                    {/* Image Section */}
+                    <div className="relative h-48 bg-zinc-900 overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                      <Image
+                        src={blog.image || Assets.UIUX2}
+                        alt={blog.name}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-4 left-4 z-20">
+                        {Array.isArray(blog.Categories) &&
+                          blog.Categories.slice(0, 1).map((cat) => (
+                            <span
+                              key={cat.id}
+                              className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] rounded-lg border backdrop-blur-md bg-[#38FFF2]/20 text-[#38FFF2] border-[#38FFF2]/30`}
+                            >
+                              {cat.name}
+                            </span>
+                          ))}
+                      </div>
+                      {/* Placeholder content image */}
+                      <div className="w-full h-full flex items-center justify-center bg-zinc-800 group-hover:scale-105 transition-transform duration-500">
+                        <BookOpen size={48} className="text-white/5" />
+                      </div>
                     </div>
-                    {/* Placeholder content image */}
-                    <div className="w-full h-full flex items-center justify-center bg-zinc-800 group-hover:scale-105 transition-transform duration-500">
-                      <BookOpen size={48} className="text-white/5" />
-                    </div>
-                  </div>
 
-                  {/* Content Section */}
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[10px] font-bold text-zinc-500 tracking-wider">
-                        {formatDate(blog.createdAt)}
-                      </span>
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold border uppercase tracking-wider ${blog.status === "draft" ? "bg-zinc-500/10 border-zinc-500/20 text-zinc-500" : "bg-[#38FFF2]/10 border-[#38FFF2]/20 text-[#38FFF2]"}`}
-                      >
+                    {/* Content Section */}
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[10px] font-bold text-zinc-500 tracking-wider">
+                          {formatDate(blog.createdAt)}
+                        </span>
                         <span
-                          className={`w-1 h-1 rounded-full ${blog.status === "draft" ? "bg-zinc-500" : "bg-[#38FFF2]"}`}
-                        />
-                        {blog.status || "Published"}
-                      </span>
-                    </div>
-
-                    <h3 className="text-white font-bold text-lg leading-tight mb-3 line-clamp-2 group-hover:text-[#38FFF2] transition-colors">
-                      {blog.title || "Untitled Blog Post"}
-                    </h3>
-
-                    <p className="text-zinc-400 text-sm line-clamp-2 mb-6 leading-relaxed">
-                      {blog.content ||
-                        "Exploring the boundaries of technology and design in this comprehensive guide."}
-                    </p>
-
-                    {/* Footer */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 pb-4 border-t border-white/5 flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white  font-bold">
-                          {blog.User?.name
-                            ? blog.User.name.charAt(0).toUpperCase()
-                            : "A"}
-                        </div>
-                        <span className="text-zinc-400 text-sm font-medium">
-                          {blog.User?.name || "Admin"}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold border uppercase tracking-wider ${blog.status === "draft" ? "bg-zinc-500/10 border-zinc-500/20 text-zinc-500" : "bg-[#38FFF2]/10 border-[#38FFF2]/20 text-[#38FFF2]"}`}
+                        >
+                          <span
+                            className={`w-1 h-1 rounded-full ${blog.status === "draft" ? "bg-zinc-500" : "bg-[#38FFF2]"}`}
+                          />
+                          {blog.status || "Published"}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-0">
-                        <button
-                          onClick={() => openEdit(blog)}
-                          className="p-2 rounded-lg hover:bg-white/5 text-zinc-500 hover:text-white transition-all"
-                        >
-                          <Edit3 size={16} />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(blog.id)}
-                          disabled={deletingId === blog.id}
-                          className="p-2 rounded-lg hover:bg-red-500/10 text-zinc-500 hover:text-red-400 transition-all disabled:opacity-50"
-                        >
-                          <Trash2 size={16} />
-                        </button>
+                      <h3 className="text-white font-bold text-lg leading-tight mb-3 line-clamp-2 group-hover:text-[#38FFF2] transition-colors">
+                        {blog.title || "Untitled Blog Post"}
+                      </h3>
+
+                      <p className="text-zinc-400 text-sm line-clamp-2 mb-6 leading-relaxed">
+                        {blog.content ||
+                          "Exploring the boundaries of technology and design in this comprehensive guide."}
+                      </p>
+                    </div>
+                  </div>
+                  </Link>
+
+                  {/* Footer */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 pb-4 border-t border-white/5 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white  font-bold">
+                        {blog.User?.name
+                          ? blog.User.name.charAt(0).toUpperCase()
+                          : "A"}
                       </div>
+                      <span className="text-zinc-400 text-sm font-medium">
+                        {blog.User?.name || "Admin"}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-0">
+                      <button
+                        onClick={() => openEdit(blog)}
+                        className="p-2 rounded-lg hover:bg-white/5 text-zinc-500 hover:text-white transition-all"
+                      >
+                        <Edit3 size={16} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(blog.id)}
+                        disabled={deletingId === blog.id}
+                        className="p-2 rounded-lg hover:bg-red-500/10 text-zinc-500 hover:text-red-400 transition-all disabled:opacity-50"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                   </div>
                 </div>
