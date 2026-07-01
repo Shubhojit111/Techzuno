@@ -136,14 +136,13 @@ export default function BlogTagsPage() {
       setDeletingId(null);
     }
   };
-
   return (
     <DashboardShell title="Blog Tags" requiredPermission="blogs">
       <div>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white">Tag Taxonomy Management</h1>
-            <p className="text-zinc-400 mt-1">Organize and refine the discovery system for your blog content. Manage existing metadata or generate new classification nodes.</p>
+            <h1 className="text-3xl font-bold text-white">Tags</h1>
+            <p className="text-zinc-400 mt-2 max-w-2xl">Organize and refine the discovery system for your blog content. Manage existing metadata or generate new classification nodes.</p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -227,7 +226,7 @@ export default function BlogTagsPage() {
                     ? "Saving..."
                     : editingId
                       ? "Update Tag"
-                      : "Generate Tag"}
+                      : "Create Tag"}
                 </button>
                 {editingId && (
                   <button
@@ -261,17 +260,12 @@ export default function BlogTagsPage() {
 
             {/* Main Table Container */}
             <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden">
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
-                <h3 className="text-sm font-medium uppercase tracking-wide text-zinc-400">Tags</h3>
-              </div>
-
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-white/5 text-zinc-500 text-[11px] uppercase tracking-wider">
+                    <tr className="border-b border-white/5 text-sm font-medium tracking-wider uppercase">
                       <th className="px-6 py-4 font-medium">Name</th>
                       <th className="px-6 py-4 font-medium">Slug</th>
-                      <th className="px-6 py-4 font-medium">Description</th>
                       <th className="px-6 py-4 font-medium">Count</th>
                       <th className="px-6 py-4 font-medium text-right">Actions</th>
                     </tr>
@@ -282,14 +276,13 @@ export default function BlogTagsPage() {
                         <tr key={i} className="animate-pulse">
                           <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-24"></div></td>
                           <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-20"></div></td>
-                          <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-32"></div></td>
                           <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-12"></div></td>
                           <td className="px-6 py-4"><div className="h-4 bg-white/5 rounded w-16 ml-auto"></div></td>
                         </tr>
                       ))
                     ) : tags.length === 0 ? (
                       <tr>
-                        <td colSpan="5" className="px-6 py-12 text-center text-zinc-500">
+                        <td colSpan="4" className="px-6 py-12 text-center text-zinc-500">
                           No tags created yet.
                         </td>
                       </tr>
@@ -303,16 +296,13 @@ export default function BlogTagsPage() {
                             </div>
                           </td>
                           <td className="px-6 py-4 text-zinc-400 text-sm">{tag.slug || "—"}</td>
-                          <td className="px-6 py-4 text-zinc-500 text-sm truncate max-w-[200px]">
-                            {tag.description || "No description"}
-                          </td>
                           <td className="px-6 py-4 text-zinc-400 text-sm">
-                            <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-xs">
+                            <span className="px-2 py-0.5 rounded-md text-center border-white/10 text-xs">
                               {tag.count || 0}
                             </span>
                           </td>
                           <td className="px-6 py-4 text-right">
-                            <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="flex items-center justify-end gap-1">
                               <button
                                 type="button"
                                 onClick={() => handleEdit(tag)}
@@ -324,7 +314,7 @@ export default function BlogTagsPage() {
                                 type="button"
                                 onClick={() => handleDelete(tag.id)}
                                 disabled={deletingId === tag.id}
-                                className="p-2 rounded-lg hover:bg-red-500/10 text-zinc-400 hover:text-red-300 transition-colors disabled:opacity-50"
+                                className="p-2 rounded-lg hover:bg-red-500/10 text-red-400 hover:text-red-300 transition-colors disabled:opacity-50"
                               >
                                 <Trash2 size={16} />
                               </button>

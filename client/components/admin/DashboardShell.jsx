@@ -21,6 +21,7 @@ import {
   X,
   PanelLeftClose,
   PanelLeftOpen,
+  Sparkle,
 } from "lucide-react";
 
 export default function DashboardShell({
@@ -296,21 +297,7 @@ export default function DashboardShell({
           <div className="flex items-center justify-between px-4 h-16 border-b border-white/5 flex-shrink-0">
             <div className="flex items-center gap-3 min-w-0 overflow-hidden">
               {/* Icon mark */}
-              <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-[#38FFF2]/10 border border-[#38FFF2]/20 flex items-center justify-center">
-                <svg className="w-4 h-4 fill-[#38FFF2]" viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                  <rect
-                    x="14"
-                    y="14"
-                    width="7"
-                    height="7"
-                    rx="1.5"
-                    fillOpacity="0.4"
-                  />
-                </svg>
-              </div>
+              <Sparkle className="w-5 h-5" />
               <span
                 className={`text-white font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap
                   transition-all duration-300 ${isSidebarOpen ? "opacity-100 max-w-[120px]" : "opacity-0 max-w-0 overflow-hidden"}`}
@@ -326,9 +313,9 @@ export default function DashboardShell({
               title={isSidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
             >
               {isSidebarOpen ? (
-                <PanelLeftClose className="w-4 h-4" />
+                <PanelLeftClose className="w-5 h-5" />
               ) : (
-                <PanelLeftOpen className="w-4 h-4" />
+                <PanelLeftOpen className="w-5 h-5" />
               )}
             </button>
           </div>
@@ -521,7 +508,7 @@ export default function DashboardShell({
                   href={tab.href}
                   className={`relative px-4 py-1.5 rounded-lg text-sm font-medium tracking-wide transition-all duration-200 ${
                     isActive
-                      ? "text-[#38FFF2] bg-[#38FFF2]/10"
+                      ? "text-[#38FFF2] "
                       : "text-zinc-400 hover:text-zinc-100 hover:bg-white/5"
                   }`}
                 >

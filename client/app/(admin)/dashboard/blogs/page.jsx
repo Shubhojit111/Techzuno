@@ -19,6 +19,8 @@ import {
   SearchIcon,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import Assets from "@/Assets/Assets";
 
 const initialForm = {
   name: "",
@@ -392,6 +394,11 @@ export default function BlogsPage() {
                   {/* Image Section */}
                   <div className="relative h-48 bg-zinc-900 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                    <Image
+                      src={blog.image || Assets.UIUX2}
+                      alt={blog.name}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-4 left-4 z-20">
                       {Array.isArray(blog.Categories) &&
                         blog.Categories.slice(0, 1).map((cat) => (
@@ -470,7 +477,7 @@ export default function BlogsPage() {
               {/* Add New Placeholder Card */}
               <Link
                 href="/dashboard/blogs/add"
-                className="border border-dashed border-white/10 rounded-[24px] bg-transparent flex flex-col items-center justify-center min-h-[400px] hover:bg-white/[0.02] hover:border-[#38FFF2]/30 transition-all group"
+                className="border border-dashed border-white/10 rounded-2xl bg-transparent flex flex-col items-center justify-center min-h-[400px] hover:bg-white/[0.02] hover:border-[#38FFF2]/30 transition-all group"
               >
                 <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#38FFF2]/10 group-hover:border-[#38FFF2]/20 transition-all">
                   <Plus

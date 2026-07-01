@@ -173,10 +173,31 @@ const deleteAdmin = async (req, res) => {
   }
 };
 
+const listUsers = async (req, res) => {
+  try {
+    const users = await userModel.findAll({
+      // where:{"role" : "user" || "adminHead"},
+      attributes: ["id", "name", "email", "role", "permissions", "profileImage", "phone", "createdAt"],
+      order: [["role", "DESC"]],
+    });
+
+    return res.status(200).json({
+      message: "Users fetched successfully",
+      users: users.map(mapAdminResponse),
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Unable to fetch users",
+    });
+  }
+};
+
 module.exports = {
   createAdmin,
   listAdmins,
   getAdminById,
   updateAdminById,
   deleteAdmin,
+  listUsers,
 };
