@@ -154,49 +154,9 @@ export default function BlogsPage() {
     };
   };
 
-  const openEdit = (blog) => {
-    setEditingBlogId(blog.id);
-    setFeedback({ type: "", message: "" });
-    setForm({
-      name: blog.title || "",
-      description: blog.content || "",
-      categoryIds: Array.isArray(blog.Categories)
-        ? blog.Categories.map((category) => category.id)
-        : [],
-      newCategoriesInput: "",
-      tagIds: Array.isArray(blog.Tags) ? blog.Tags.map((tag) => tag.id) : [],
-      newTagsInput: "",
-    });
+  const handleUpdate = (blogId) => {
+    window.location.href = `/dashboard/blogs/add?edit=${blogId}`;
   };
-
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    setSaving(true);
-    setFeedback({ type: "", message: "" });
-
-    try {
-      const response = await axios.patch(
-        `http://localhost:5000/api/blogs/${editingBlogId}`,
-        buildPayload(),
-        { withCredentials: true },
-      );
-
-      setFeedback({
-        type: "success",
-        message: response.data.message || "Blog updated successfully",
-      });
-      resetForm();
-      await loadData();
-    } catch (error) {
-      setFeedback({
-        type: "error",
-        message: error.response?.data?.message || "Unable to update blog",
-      });
-    } finally {
-      setSaving(false);
-    }
-  };
-
   const handleDelete = async (blogId) => {
     const confirmed = window.confirm("Delete this blog?");
     if (!confirmed) return;
@@ -461,7 +421,7 @@ export default function BlogsPage() {
 
                     <div className="flex items-center gap-0">
                       <button
-                        onClick={() => openEdit(blog)}
+                        onClick={() => handleUpdate(blog.id)}
                         className="p-2 rounded-lg hover:bg-white/5 text-zinc-500 hover:text-white transition-all"
                       >
                         <Edit3 size={16} />
@@ -500,3 +460,5 @@ export default function BlogsPage() {
     </DashboardShell>
   );
 }
+
+

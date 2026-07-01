@@ -20,14 +20,26 @@ export default function AddBlogsPage() {
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [form, setForm] = useState(initialForm);
+  const [editingBlogId, setEditingBlogId] = useState(null);
 
   const loadOptions = useCallback(async () => {
     setLoading(true);
     try {
-      const [categoriesResponse, tagsResponse] = await Promise.all([
+      const editId = new URLSearchParams(window.location.search).get("edit");
+      const requests = [
         axios.get("http://localhost:5000/api/blogs/categories", { withCredentials: true }),
         axios.get("http://localhost:5000/api/blogs/tags", { withCredentials: true }),
-      ]);
+      ];
+      if (editId) {
+        requests.push(
+          axios.get(`http://localhost:5000/api/blogs/${editId}`, {
+            withCredentials: true,
+          }),
+        );
+      }
+
+      const [categoriesResponse, tagsResponse, blogResponse] =
+        await Promise.all(requests);
 
       setCategories(
         Array.isArray(categoriesResponse.data.categories)
@@ -35,6 +47,23 @@ export default function AddBlogsPage() {
           : [],
       );
       setTags(Array.isArray(tagsResponse.data.tags) ? tagsResponse.data.tags : []);
+
+      if (editId && blogResponse?.data?.blog) {
+        const blog = blogResponse.data.blog;
+        setEditingBlogId(editId);
+        setForm({
+          name: blog.title || "",
+          description: blog.content || "",
+          categoryIds: Array.isArray(blog.Categories)
+            ? blog.Categories.map((category) => category.id)
+            : [],
+          newCategoriesInput: "",
+          tagIds: Array.isArray(blog.Tags)
+            ? blog.Tags.map((tag) => tag.id)
+            : [],
+          newTagsInput: "",
+        });
+      }
     } catch (error) {
       setFeedback({
         type: "error",
@@ -90,53 +119,82 @@ export default function AddBlogsPage() {
       .map((item) => item.trim())
       .filter(Boolean);
 
+  const buildPayload = () => ({
+    title: form.name,
+    content: form.description,
+    categoryIds: form.categoryIds,
+    newCategoryNames: parseNewCategories(form.newCategoriesInput),
+    tagIds: form.tagIds,
+    newTagNames: parseNewTags(form.newTagsInput),
+  });
+
+  const handleUpdate = async () => {
+    const response = await axios.patch(
+      `http://localhost:5000/api/blogs/${editingBlogId}`,
+      buildPayload(),
+      { withCredentials: true },
+    );
+
+    setFeedback({
+      type: "success",
+      message: response.data.message || "Blog updated successfully",
+    });
+    window.location.href = "/dashboard/blogs";
+  };
+
+  const handleCreate = async () => {
+    const response = await axios.post(
+      "http://localhost:5000/api/blogs/",
+      buildPayload(),
+      { withCredentials: true },
+    );
+
+    setFeedback({
+      type: "success",
+      message: response.data.message || "Blog created successfully",
+    });
+    resetForm();
+    await loadOptions();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
     setFeedback({ type: "", message: "" });
 
     try {
-      const parsedNewCategories = parseNewCategories(form.newCategoriesInput);
-      const parsedNewTags = parseNewTags(form.newTagsInput);
-
-      const response = await axios.post(
-        "http://localhost:5000/api/blogs/",
-        {
-          title: form.name,
-          content: form.description,
-          categoryIds: form.categoryIds,
-          newCategoryNames: parsedNewCategories,
-          tagIds: form.tagIds,
-          newTagNames: parsedNewTags,
-        },
-        { withCredentials: true },
-      );
-
-      setFeedback({
-        type: "success",
-        message: response.data.message || "Blog created successfully",
-      });
-      resetForm();
-      await loadOptions();
+      if (editingBlogId) {
+        await handleUpdate();
+      } else {
+        await handleCreate();
+      }
     } catch (error) {
       setFeedback({
         type: "error",
-        message: error.response?.data?.message || "Unable to create blog",
+        message:
+          error.response?.data?.message ||
+          (editingBlogId ? "Unable to update blog" : "Unable to create blog"),
       });
     } finally {
       setSaving(false);
     }
   };
-
   return (
-    <DashboardShell title="Add Blogs" requiredPermission="blogs">
+    <DashboardShell
+      title={editingBlogId ? "Edit Blog" : "Add Blogs"}
+      requiredPermission="blogs"
+    >
       <div className="grid grid-cols-1 xl:grid-cols-[520px_minmax(0,1fr)] gap-6">
         <form
           onSubmit={handleSubmit}
           className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6 md:p-8"
         >
-          <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">Add Blog</p>
-          <h2 className="mt-3 text-[26px] font-semibold">Create Blog</h2>
+          <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">
+            {editingBlogId ? "Edit Blog" : "Add Blog"}
+          </p>
+          <h2 className="mt-3 text-[26px] font-semibold">
+            {editingBlogId ? "Update Blog" : "Create Blog"}
+          </h2>
           <p className="mt-3 text-white/55 leading-relaxed">
             Categories and tags are optional. If you do not choose any category the blog will go
             into Uncategorized automatically.
@@ -246,14 +304,20 @@ export default function AddBlogsPage() {
               disabled={saving || loading}
               className="rounded-2xl bg-[#03B8B8] px-6 py-3.5 text-black font-semibold hover:bg-[#38FFF2] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {saving ? "Saving..." : "Add Blog"}
+              {saving ? "Saving..." : editingBlogId ? "Update Blog" : "Add Blog"}
             </button>
             <button
               type="button"
-              onClick={resetForm}
+              onClick={() => {
+                if (editingBlogId) {
+                  window.location.href = "/dashboard/blogs";
+                  return;
+                }
+                resetForm();
+              }}
               className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-3.5 text-white/75 hover:bg-white/[0.08] hover:text-white transition-colors"
             >
-              Reset
+              {editingBlogId ? "Cancel" : "Reset"}
             </button>
           </div>
         </form>
@@ -301,3 +365,7 @@ export default function AddBlogsPage() {
     </DashboardShell>
   );
 }
+
+
+
+

@@ -147,15 +147,11 @@ export default function BlogCategoriesPage() {
             <p className="text-zinc-400 mt-2 max-w-2xl">Organize and refine the discovery system for your blog content. Manage existing metadata or generate new classification nodes.</p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-zinc-300 text-sm font-medium hover:bg-white/10 transition-colors">
-              Export CSV
-            </button>
             <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#38FFF2] text-black font-semibold hover:bg-[#38FFF2]/90 transition-colors">
               <Plus size={18} />
               Add Category
             </button>
-          </div>
+          
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[380px_minmax(0,1fr)] gap-8 items-start">
@@ -165,7 +161,7 @@ export default function BlogCategoriesPage() {
               {editingId ? "Edit" : "Create New"}
             </p>
             <h2 className="text-xl font-semibold text-white mb-6">
-              {editingId ? "Edit Category" : "Create New Category"}
+              {editingId ? "Edit Category" : "Category"}
             </h2>
 
             {feedback.message ? (
