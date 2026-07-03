@@ -62,7 +62,6 @@ export default function DashboardShell({
         children: [
           { href: "/dashboard/blogs", label: "All Blogs" },
           { href: "/dashboard/blogs/add", label: "Add Blog" },
-          { href: "/dashboard/blogs/add-rich", label: "Add Rich Blog" },
           { href: "/dashboard/blogs/categories", label: "Categories" },
           { href: "/dashboard/blogs/tags", label: "Tags" },
         ],

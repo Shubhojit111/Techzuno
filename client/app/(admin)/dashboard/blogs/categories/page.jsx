@@ -266,7 +266,10 @@ export default function BlogCategoriesPage() {
             </div>
 
             {/* Scrollable table body — FIXED HEIGHT, never grows */}
-            <div className="overflow-auto no-scrollbar" style={{ height: "408px" }}>
+            <div
+              className="overflow-auto no-scrollbar"
+              style={{ height: "408px" }}
+            >
               <table className="w-full text-left border-collapse min-w-[420px]">
                 <thead className="sticky top-0 z-10 bg-[#0c0e17]">
                   <tr className="border-b border-white/5 text-[10px] font-bold tracking-[0.14em] uppercase text-zinc-500">

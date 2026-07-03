@@ -2,7 +2,14 @@
 
 import DashboardShell from "@/components/admin/DashboardShell";
 import axios from "axios";
-import { ChevronLeft, ChevronRight, Edit3, Plus, Trash2, TrendingUp } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Edit3,
+  Plus,
+  Trash2,
+  TrendingUp,
+} from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const ROWS_PER_PAGE = 8;
@@ -68,7 +75,7 @@ export default function BlogTagsPage() {
         ? await axios.patch(
             `http://localhost:5000/api/blogs/tags/${editingId}`,
             form,
-            { withCredentials: true }
+            { withCredentials: true },
           )
         : await axios.post("http://localhost:5000/api/blogs/tags", form, {
             withCredentials: true,
@@ -100,7 +107,7 @@ export default function BlogTagsPage() {
     try {
       const response = await axios.delete(
         `http://localhost:5000/api/blogs/tags/${id}`,
-        { withCredentials: true }
+        { withCredentials: true },
       );
       setFeedback({
         type: "success",
@@ -125,7 +132,7 @@ export default function BlogTagsPage() {
         .filter((t) => (t.count ?? 0) > 0)
         .sort((a, b) => (b.count ?? 0) - (a.count ?? 0))
         .slice(0, MAX_TRENDING),
-    [tags]
+    [tags],
   );
 
   const totalPages = Math.max(1, Math.ceil(tags.length / ROWS_PER_PAGE));
@@ -170,7 +177,6 @@ export default function BlogTagsPage() {
 
         {/* Two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 items-start">
-
           {/* ── Left: Form ─────────────────────────────────────── */}
           <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-6 flex flex-col">
             <p className="text-[#38FFF2] text-[10px] tracking-[0.3em] uppercase mb-1">
@@ -180,7 +186,10 @@ export default function BlogTagsPage() {
               {editingId ? "Edit Tag" : "New Tag"}
             </h2>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 flex-1">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-4 flex-1"
+            >
               <label className="block">
                 <span className="block text-xs text-zinc-400 mb-1.5 font-medium uppercase tracking-wider">
                   Tag Name *
@@ -249,7 +258,6 @@ export default function BlogTagsPage() {
 
           {/* ── Right: Trending + Table ─────────────────────────── */}
           <div className="flex flex-col gap-4">
-
             {/* Trending Tags — sorted by count from real data */}
             <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl px-5 py-4">
               <div className="flex items-center gap-2 mb-3">
@@ -260,9 +268,14 @@ export default function BlogTagsPage() {
               </div>
               <div className="flex flex-wrap gap-2">
                 {loading ? (
-                  Array(5).fill(0).map((_, i) => (
-                    <div key={i} className="h-6 w-20 rounded-lg bg-white/5 animate-pulse" />
-                  ))
+                  Array(5)
+                    .fill(0)
+                    .map((_, i) => (
+                      <div
+                        key={i}
+                        className="h-6 w-20 rounded-lg bg-white/5 animate-pulse"
+                      />
+                    ))
                 ) : trendingTags.length === 0 ? (
                   <span className="text-zinc-600 text-xs">
                     No usage data yet — counts will appear as tags are used.
@@ -287,7 +300,6 @@ export default function BlogTagsPage() {
 
             {/* Tags Table — fixed height, real pagination */}
             <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden  flex flex-col">
-
               {/* Table header bar */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
                 <div>
@@ -299,7 +311,10 @@ export default function BlogTagsPage() {
               </div>
 
               {/* Fixed-height scrollable area */}
-              <div className="overflow-auto no-scrollbar" style={{ height: "352px" }}>
+              <div
+                className="overflow-auto no-scrollbar"
+                style={{ height: "352px" }}
+              >
                 <table className="w-full text-left border-collapse min-w-[380px]">
                   <thead className="sticky top-0 z-10 bg-[#0c0e17]">
                     <tr className="border-b border-white/5 text-[10px] font-bold tracking-[0.14em] uppercase text-zinc-500">
@@ -312,17 +327,30 @@ export default function BlogTagsPage() {
                   </thead>
                   <tbody className="divide-y divide-white/[0.04]">
                     {loading ? (
-                      Array(ROWS_PER_PAGE).fill(0).map((_, i) => (
-                        <tr key={i} className="animate-pulse">
-                          <td className="px-6 py-3.5"><div className="h-3.5 bg-white/5 rounded w-28" /></td>
-                          <td className="px-6 py-3.5"><div className="h-3.5 bg-white/5 rounded w-20" /></td>
-                          <td className="px-6 py-3.5"><div className="h-3.5 bg-white/5 rounded w-8" /></td>
-                          <td className="px-6 py-3.5"><div className="h-3.5 bg-white/5 rounded w-14 ml-auto" /></td>
-                        </tr>
-                      ))
+                      Array(ROWS_PER_PAGE)
+                        .fill(0)
+                        .map((_, i) => (
+                          <tr key={i} className="animate-pulse">
+                            <td className="px-6 py-3.5">
+                              <div className="h-3.5 bg-white/5 rounded w-28" />
+                            </td>
+                            <td className="px-6 py-3.5">
+                              <div className="h-3.5 bg-white/5 rounded w-20" />
+                            </td>
+                            <td className="px-6 py-3.5">
+                              <div className="h-3.5 bg-white/5 rounded w-8" />
+                            </td>
+                            <td className="px-6 py-3.5">
+                              <div className="h-3.5 bg-white/5 rounded w-14 ml-auto" />
+                            </td>
+                          </tr>
+                        ))
                     ) : paginatedTags.length === 0 ? (
                       <tr>
-                        <td colSpan={4} className="px-6 py-14 text-center text-zinc-600 text-sm">
+                        <td
+                          colSpan={4}
+                          className="px-6 py-14 text-center text-zinc-600 text-sm"
+                        >
                           {tags.length === 0
                             ? "No tags yet. Create your first one →"
                             : "No results on this page."}
@@ -392,7 +420,7 @@ export default function BlogTagsPage() {
                     ? "No tags"
                     : `${(page - 1) * ROWS_PER_PAGE + 1}–${Math.min(
                         page * ROWS_PER_PAGE,
-                        tags.length
+                        tags.length,
                       )} of ${tags.length}`}
                 </span>
                 <div className="flex items-center gap-1">
@@ -403,19 +431,21 @@ export default function BlogTagsPage() {
                   >
                     <ChevronLeft size={13} />
                   </button>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pg) => (
-                    <button
-                      key={pg}
-                      onClick={() => setPage(pg)}
-                      className={`w-7 h-7 rounded-lg text-[11px] font-bold transition-colors ${
-                        pg === page
-                          ? "bg-[#38FFF2]/20 border border-[#38FFF2]/30 text-[#38FFF2]"
-                          : "border border-white/10 bg-white/[0.02] hover:bg-white/5 text-zinc-400"
-                      }`}
-                    >
-                      {pg}
-                    </button>
-                  ))}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (pg) => (
+                      <button
+                        key={pg}
+                        onClick={() => setPage(pg)}
+                        className={`w-7 h-7 rounded-lg text-[11px] font-bold transition-colors ${
+                          pg === page
+                            ? "bg-[#38FFF2]/20 border border-[#38FFF2]/30 text-[#38FFF2]"
+                            : "border border-white/10 bg-white/[0.02] hover:bg-white/5 text-zinc-400"
+                        }`}
+                      >
+                        {pg}
+                      </button>
+                    ),
+                  )}
                   <button
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page === totalPages}

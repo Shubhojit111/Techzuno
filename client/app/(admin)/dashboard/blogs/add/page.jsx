@@ -27,8 +27,12 @@ export default function AddBlogsPage() {
     try {
       const editId = new URLSearchParams(window.location.search).get("edit");
       const requests = [
-        axios.get("http://localhost:5000/api/blogs/categories", { withCredentials: true }),
-        axios.get("http://localhost:5000/api/blogs/tags", { withCredentials: true }),
+        axios.get("http://localhost:5000/api/blogs/categories", {
+          withCredentials: true,
+        }),
+        axios.get("http://localhost:5000/api/blogs/tags", {
+          withCredentials: true,
+        }),
       ];
       if (editId) {
         requests.push(
@@ -46,7 +50,9 @@ export default function AddBlogsPage() {
           ? categoriesResponse.data.categories
           : [],
       );
-      setTags(Array.isArray(tagsResponse.data.tags) ? tagsResponse.data.tags : []);
+      setTags(
+        Array.isArray(tagsResponse.data.tags) ? tagsResponse.data.tags : [],
+      );
 
       if (editId && blogResponse?.data?.blog) {
         const blog = blogResponse.data.blog;
@@ -67,7 +73,8 @@ export default function AddBlogsPage() {
     } catch (error) {
       setFeedback({
         type: "error",
-        message: error.response?.data?.message || "Unable to load categories and tags",
+        message:
+          error.response?.data?.message || "Unable to load categories and tags",
       });
     } finally {
       setLoading(false);
@@ -196,8 +203,8 @@ export default function AddBlogsPage() {
             {editingBlogId ? "Update Blog" : "Create Blog"}
           </h2>
           <p className="mt-3 text-white/55 leading-relaxed">
-            Categories and tags are optional. If you do not choose any category the blog will go
-            into Uncategorized automatically.
+            Categories and tags are optional. If you do not choose any category
+            the blog will go into Uncategorized automatically.
           </p>
 
           {feedback.message ? (
@@ -226,7 +233,9 @@ export default function AddBlogsPage() {
           </label>
 
           <label className="block mt-5">
-            <span className="block text-sm text-white/70 mb-2">Description</span>
+            <span className="block text-sm text-white/70 mb-2">
+              Description
+            </span>
             <textarea
               name="description"
               value={form.description}
@@ -242,7 +251,9 @@ export default function AddBlogsPage() {
             <p className="text-sm text-white/70 mb-3">Category</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {categories.length === 0 ? (
-                <p className="text-white/45 text-sm">No categories available yet.</p>
+                <p className="text-white/45 text-sm">
+                  No categories available yet.
+                </p>
               ) : (
                 categories.map((category) => (
                   <label
@@ -304,7 +315,11 @@ export default function AddBlogsPage() {
               disabled={saving || loading}
               className="rounded-2xl bg-[#03B8B8] px-6 py-3.5 text-black font-semibold hover:bg-[#38FFF2] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {saving ? "Saving..." : editingBlogId ? "Update Blog" : "Add Blog"}
+              {saving
+                ? "Saving..."
+                : editingBlogId
+                  ? "Update Blog"
+                  : "Add Blog"}
             </button>
             <button
               type="button"
@@ -326,10 +341,14 @@ export default function AddBlogsPage() {
           <h3 className="text-[22px] font-semibold">Available Options</h3>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <p className="text-sm text-white/50 uppercase tracking-[0.18em]">Categories</p>
+              <p className="text-sm text-white/50 uppercase tracking-[0.18em]">
+                Categories
+              </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {categories.length === 0 ? (
-                  <span className="text-white/45 text-sm">No categories yet</span>
+                  <span className="text-white/45 text-sm">
+                    No categories yet
+                  </span>
                 ) : (
                   categories.map((category) => (
                     <span
@@ -343,7 +362,9 @@ export default function AddBlogsPage() {
               </div>
             </div>
             <div>
-              <p className="text-sm text-white/50 uppercase tracking-[0.18em]">Tags</p>
+              <p className="text-sm text-white/50 uppercase tracking-[0.18em]">
+                Tags
+              </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {tags.length === 0 ? (
                   <span className="text-white/45 text-sm">No tags yet</span>
@@ -365,7 +386,3 @@ export default function AddBlogsPage() {
     </DashboardShell>
   );
 }
-
-
-
-

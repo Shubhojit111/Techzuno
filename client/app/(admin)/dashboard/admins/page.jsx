@@ -391,7 +391,6 @@ export default function AdminsPage() {
               <span>Status: All</span>
               <ChevronDown size={16} className="text-zinc-500" />
             </button>
-
           </div>
         </div>
 
