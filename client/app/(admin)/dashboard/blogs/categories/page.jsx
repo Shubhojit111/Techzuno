@@ -169,7 +169,7 @@ export default function BlogCategoriesPage() {
         {/* Two-column layout: form left, table right — equal height */}
         <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 items-start">
           {/* ── Left: Create / Edit Form ───────────────────────── */}
-          <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] h-full rounded-2xl p-6 flex flex-col">
+          <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] h-full rounded-2xl p-6 flex flex-col">
             <p className="text-[#38FFF2] text-[10px] tracking-[0.3em] uppercase mb-1">
               {editingId ? "Editing" : "Create New"}
             </p>
@@ -252,7 +252,7 @@ export default function BlogCategoriesPage() {
           </div>
 
           {/* ── Right: Trending + Table ─────────────────────────── */}
-          <div className="flex flex-col bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden">
+          <div className="flex flex-col bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden">
             {/* Table header bar */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
               <div>

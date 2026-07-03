@@ -178,7 +178,7 @@ export default function BlogTagsPage() {
         {/* Two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-6 items-start">
           {/* ── Left: Form ─────────────────────────────────────── */}
-          <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-6 flex flex-col">
+          <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-6 flex flex-col">
             <p className="text-[#38FFF2] text-[10px] tracking-[0.3em] uppercase mb-1">
               {editingId ? "Editing" : "Create New"}
             </p>
@@ -259,7 +259,7 @@ export default function BlogTagsPage() {
           {/* ── Right: Trending + Table ─────────────────────────── */}
           <div className="flex flex-col gap-4">
             {/* Trending Tags — sorted by count from real data */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl px-5 py-4">
+            <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl px-5 py-4">
               <div className="flex items-center gap-2 mb-3">
                 <TrendingUp size={15} className="text-[#38FFF2]" />
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-400">
@@ -287,7 +287,7 @@ export default function BlogTagsPage() {
                       className={`px-3 py-1 rounded-lg text-xs font-medium border cursor-default transition-colors ${
                         i === 0
                           ? "bg-[#38FFF2]/15 border-[#38FFF2]/30 text-[#38FFF2]"
-                          : "bg-white/[0.03] border-white/10 text-zinc-400 hover:text-zinc-200 hover:border-white/20"
+                          : "bg-white/3 border-white/10 text-zinc-400 hover:text-zinc-200 hover:border-white/20"
                       }`}
                     >
                       {tag.name}{" "}
@@ -299,7 +299,7 @@ export default function BlogTagsPage() {
             </div>
 
             {/* Tags Table — fixed height, real pagination */}
-            <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden  flex flex-col">
+            <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden  flex flex-col">
               {/* Table header bar */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
                 <div>

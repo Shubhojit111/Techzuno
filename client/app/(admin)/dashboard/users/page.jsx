@@ -12,6 +12,9 @@ import {
   Eye,
   Edit3,
   MoreVertical,
+  Trash2,
+  X,
+  Save,
   TrendingUp,
   ShieldCheck,
   ShieldAlert,
@@ -45,6 +48,15 @@ export default function UsersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All Statuses");
   const [dateFilter, setDateFilter] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [panelMode, setPanelMode] = useState("view");
+  const [draftUser, setDraftUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    profileImage: "",
+  });
+  const [feedback, setFeedback] = useState("");
 
   const fetchUsers = useCallback(async () => {
     setLoading(true);
@@ -62,6 +74,8 @@ export default function UsersPage() {
           role: u.role || "",
           permissions: Array.isArray(u.permissions) ? u.permissions : [],
           createdAt: u.createdAt || null,
+          phone: u.phone || "",
+          profileImage: u.profileImage || "",
         })),
       );
     } catch (error) {
@@ -107,6 +121,32 @@ export default function UsersPage() {
     [users],
   );
 
+  const openUser = (user, mode = "view") => {
+    setSelectedUser(user);
+    setPanelMode(mode);
+    setDraftUser({
+      name: user.name || "",
+      email: user.email || "",
+      phone: user.phone || "",
+      profileImage: user.profileImage || "",
+    });
+  };
+  
+  const deleteUser = async (user) => {
+    if (!window.confirm(`Delete ${user.name || user.email}?`)) return;
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/admin/users/${user.id}`,
+        { withCredentials: true },
+      );
+      setUsers((prev) => prev.filter((u) => u.id !== user.id));
+      setSelectedUser(null);
+      setFeedback(response.data.message || "User deleted");
+    } catch (error) {
+      setFeedback(error.response?.data?.message || "Unable to delete user");
+    }
+  };
+
   const getInitials = (name) => {
     if (!name) return "U";
     const parts = name.split(/\s+/).filter(Boolean);
@@ -143,8 +183,14 @@ export default function UsersPage() {
           </button>
         </div>
 
+        {feedback ? (
+          <div className="mb-5 rounded-xl border border-[#38FFF2]/20 bg-[#38FFF2]/10 px-4 py-3 text-sm text-[#38FFF2]">
+            {feedback}
+          </div>
+        ) : null}
+
         {/* Filter Bar */}
-        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-8 flex flex-col md:flex-row items-center gap-46">
+        <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-8 flex flex-col md:flex-row items-center gap-46">
           <div className="flex-1 relative w-full">
             <SearchIcon
               className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"
@@ -155,30 +201,22 @@ export default function UsersPage() {
               placeholder="Search admin name or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 bg-white/[0.03] border border-white/5 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-white/10 focus:bg-white/[0.05] transition-all text-sm"
+              className="w-full pl-11 pr-4 py-2.5 bg-white/3 border border-white/5 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-white/10 focus:bg-white/[0.05] transition-all text-sm"
             />
           </div>
 
           <div className="flex items-center gap-3 w-full md:w-auto">
-            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[140px]">
+            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/3 border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[140px]">
               <span>Category: All</span>
               <ChevronDown size={16} className="text-zinc-500" />
             </button>
 
-            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[120px]">
+            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/3 border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[120px]">
               <span>Status: All</span>
               <ChevronDown size={16} className="text-zinc-500" />
             </button>
           </div>
         </div>
-
-        <button
-          onClick={() => {
-            console.log(users);
-          }}
-        >
-          get Users
-        </button>
 
         {/* Users Table */}
         <div className="bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden mb-8">
@@ -241,7 +279,8 @@ export default function UsersPage() {
                   filteredUsers.map((u) => (
                     <tr
                       key={u.id}
-                      className="hover:bg-white/[0.01] transition-colors group"
+                      onClick={() => openUser(u, "view")}
+                      className="cursor-pointer hover:bg-white/[0.01] transition-colors group"
                     >
                       {/* USER column */}
                       <td className="px-6 py-5">
@@ -305,16 +344,31 @@ export default function UsersPage() {
                       </td>
 
                       {/* ACTION column */}
-                      <td className="px-6 py-5 text-right">
+                      <td
+                        className="px-6 py-5 text-right"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <div className="flex items-center justify-end gap-1.5">
-                          <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-all">
+                          <button
+                            onClick={() => openUser(u, "view")}
+                            title="View user"
+                            className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-all"
+                          >
                             <Eye size={16} />
                           </button>
-                          <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-all">
+                          {/* <button
+                            onClick={() => openUser(u, "edit")}
+                            title="Edit user"
+                            className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-all"
+                          >
                             <Edit3 size={16} />
-                          </button>
-                          <button className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-all">
-                            <MoreVertical size={16} />
+                          </button> */}
+                          <button
+                            onClick={() => deleteUser(u)}
+                            title="Delete user"
+                            className="p-2 rounded-lg hover:bg-red-500/10 text-zinc-400 hover:text-red-300 transition-all"
+                          >
+                            <Trash2 size={16} />
                           </button>
                         </div>
                       </td>
@@ -400,8 +454,111 @@ export default function UsersPage() {
           </div>
         </div>
       </div>
+      {selectedUser ? (
+        <div className="fixed inset-0 z-50">
+          <button
+            aria-label="Close user panel"
+            onClick={() => setSelectedUser(null)}
+            className="absolute inset-0 bg-black/70"
+          />
+          <aside className="absolute right-0 top-0 h-full w-[92%] max-w-xl overflow-y-auto border-l border-white/10 bg-black/95 p-6 md:p-8">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[11px] uppercase tracking-[.28em] text-[#38FFF2]">
+                  User profile
+                </p>
+                <h2 className="mt-3 text-2xl font-semibold">
+                  {selectedUser.name || "User"}
+                </h2>
+                <p className="mt-1 text-sm text-white/50">
+                  {selectedUser.email}
+                </p>
+              </div>
+              <button
+                onClick={() => setSelectedUser(null)}
+                className="rounded-xl border border-white/10 p-2 text-white/60 hover:text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className="mt-6 flex rounded-xl border border-white/10 bg-white/[.03] p-1">
+              <button
+                onClick={() => setPanelMode("view")}
+                className={`flex-1 rounded-lg py-2 text-sm ${panelMode === "view" ? "bg-[#38FFF2] text-black font-semibold" : "text-white/60"}`}
+              >
+                View
+              </button>
+              <button
+                onClick={() => setPanelMode("edit")}
+                className={`flex-1 rounded-lg py-2 text-sm ${panelMode === "edit" ? "bg-[#38FFF2] text-black font-semibold" : "text-white/60"}`}
+              >
+                Edit
+              </button>
+            </div>
+            <div className="mt-6 rounded-3xl border border-white/10 bg-white/[.03] p-5">
+              <div className="flex items-center gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#38FFF2]/20 bg-[#38FFF2]/10 font-bold text-[#38FFF2]">
+                  {getInitials(selectedUser.name)}
+                </div>
+                <div>
+                  <p className="font-semibold">{selectedUser.name}</p>
+                  <p className="text-sm text-white/50">
+                    ID: TZ-{selectedUser.id}
+                  </p>
+                  <span className="mt-2 inline-block rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-widest text-white/60">
+                    {selectedUser.role}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="mt-6 space-y-4 rounded-3xl border border-white/10 bg-white/[.03] p-5">
+              {[
+                ["Name", "name", "text"],
+                ["Email", "email", "email"],
+                ["Phone", "phone", "text"],
+                ["Profile image URL", "profileImage", "url"],
+              ].map(([label, key, type]) => (
+                <label key={key} className="block">
+                  <span className="mb-2 block text-sm text-white/60">
+                    {label}
+                  </span>
+                  <input
+                    type={type}
+                    value={draftUser[key]}
+                    readOnly={panelMode === "view"}
+                    onChange={(e) =>
+                      setDraftUser((prev) => ({
+                        ...prev,
+                        [key]: e.target.value,
+                      }))
+                    }
+                    placeholder={key === "phone" ? "Not provided" : ""}
+                    className={`w-full rounded-2xl border border-white/10 px-4 py-3 outline-none ${panelMode === "view" ? "bg-white/[.02] text-white/75" : "bg-black/30 focus:border-[#38FFF2]"}`}
+                  />
+                </label>
+              ))}
+            </div>
+            {panelMode === "edit" ? (
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <button
+                  onClick={saveUser}
+                  className="flex items-center justify-center gap-2 rounded-2xl bg-[#38FFF2] py-3 font-semibold text-black"
+                >
+                  <Save size={16} />
+                  Save
+                </button>
+                <button
+                  onClick={() => deleteUser(selectedUser)}
+                  className="flex items-center justify-center gap-2 rounded-2xl border border-red-500/30 bg-red-500/10 py-3 font-semibold text-red-300"
+                >
+                  <Trash2 size={16} />
+                  Delete
+                </button>
+              </div>
+            ) : null}
+          </aside>
+        </div>
+      ) : null}
     </DashboardShell>
   );
 }
-
-

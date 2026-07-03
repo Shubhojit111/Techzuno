@@ -225,7 +225,7 @@ export default function BlogsPage() {
         </div>
 
         {/* Filter Bar */}
-        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-6 flex flex-col md:flex-row items-center gap-46">
+        <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-6 flex flex-col md:flex-row items-center gap-46">
           <div className="flex-1 relative w-full">
             <SearchIcon
               className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"
@@ -236,22 +236,22 @@ export default function BlogsPage() {
               placeholder="Search blog title or keywords..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 bg-white/[0.03] border border-white/5 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-white/10 focus:bg-white/[0.05] transition-all text-sm"
+              className="w-full pl-11 pr-4 py-2.5 bg-white/3 border border-white/5 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-white/10 focus:bg-white/5 transition-all text-sm"
             />
           </div>
 
           <div className="flex items-center gap-3 w-full md:w-auto">
-            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[140px]">
+            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/3 border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/6 transition-all min-w-[140px]">
               <span>Category: All</span>
               <ChevronDown size={16} className="text-zinc-500" />
             </button>
 
-            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[120px]">
+            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/3 border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/5 transition-all min-w-[120px]">
               <span>Status: All</span>
               <ChevronDown size={16} className="text-zinc-500" />
             </button>
 
-            <button className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-400 hover:text-white hover:bg-white/[0.06] transition-all">
+            <button className="p-2.5 rounded-xl bg-white/3 border border-white/5 text-zinc-400 hover:text-white hover:bg-white/5 transition-all">
               <Calendar size={18} />
             </button>
           </div>
@@ -279,13 +279,13 @@ export default function BlogsPage() {
               .map((_, i) => (
                 <div
                   key={i}
-                  className="bg-white/[0.02] border border-white/5 rounded-[24px] overflow-hidden transition-all duration-300 animate-pulse"
+                  className="bg-white/2 border border-white/5 rounded-[24px] overflow-hidden transition-all duration-300 animate-pulse"
                 >
-                  <div className="h-48 bg-white/[0.03]"></div>
+                  <div className="h-48 bg-white/3"></div>
                   <div className="p-6 space-y-4">
                     <div className="flex justify-between">
-                      <div className="h-3 bg-white/[0.05] rounded w-20"></div>
-                      <div className="h-3 bg-white/[0.05] rounded w-16"></div>
+                      <div className="h-3 bg-white/5 rounded w-20"></div>
+                      <div className="h-3 bg-white/5 rounded w-16"></div>
                     </div>
                     <p className="mt-3 text-xs text-white/40">
                       {form.newCategoriesInput.trim()
@@ -322,13 +322,13 @@ export default function BlogsPage() {
                         </label>
                       ))}
                     </div>
-                    <div className="h-8 bg-white/[0.05] rounded-full w-full"></div>
+                    <div className="h-8 bg-white/5 rounded-full w-full"></div>
                   </div>
                 </div>
               ))
           ) : filteredBlogs.length === 0 ? (
             <div className="col-span-full flex flex-col items-center justify-center py-24 text-center">
-              <div className="w-20 h-20 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-center mb-6">
+              <div className="w-20 h-20 rounded-2xl border border-white/5 bg-white/2 flex items-center justify-center mb-6">
                 <BookOpen size={40} className="text-zinc-700" />
               </div>
               <p className="text-xl font-bold text-white">No results found</p>
@@ -348,7 +348,7 @@ export default function BlogsPage() {
               {filteredBlogs.map((blog) => (
                 <div
                   key={blog.id}
-                  className="relative h-[460px] bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/[0.04] hover:border-white/10 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] group"
+                  className="relative h-[460px] bg-white/2 border border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/4 hover:border-white/10 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] group"
                 >
                   <Link
                     href={`/blogs/${blog.id}`}
@@ -357,7 +357,7 @@ export default function BlogsPage() {
                     <div className="flex flex-col">
                       {/* Image Section */}
                       <div className="relative h-48 bg-zinc-900 overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent z-10" />
                         <Image
                           src={blog.image || Assets.UIUX2}
                           alt={blog.name}
@@ -443,9 +443,9 @@ export default function BlogsPage() {
               {/* Add New Placeholder Card */}
               <Link
                 href="/dashboard/blogs/add"
-                className="border border-dashed border-white/10 rounded-2xl bg-transparent flex flex-col items-center justify-center min-h-[400px] hover:bg-white/[0.02] hover:border-[#38FFF2]/30 transition-all group"
+                className="border border-dashed border-white/10 rounded-2xl bg-transparent flex flex-col items-center justify-center min-h-[400px] hover:bg-white/2 hover:border-[#38FFF2]/30 transition-all group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#38FFF2]/10 group-hover:border-[#38FFF2]/20 transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-white/3 border border-white/5 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#38FFF2]/10 group-hover:border-[#38FFF2]/20 transition-all">
                   <Plus
                     size={24}
                     className="text-zinc-500 group-hover:text-[#38FFF2]"

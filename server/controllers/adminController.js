@@ -193,6 +193,16 @@ const listUsers = async (req, res) => {
   }
 };
 
+const deleteUserById = async (req, res) => {
+  try {
+    const user = await userModel.findByPk(req.params.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    if (user.role === "admin head") return res.status(403).json({ message: "The admin head cannot be deleted" });
+    await user.destroy();
+    return res.json({ message: "User deleted successfully" });
+  } catch (error) { return res.status(500).json({ message: "Unable to delete user" }); }
+};
+
 module.exports = {
   createAdmin,
   listAdmins,
@@ -200,4 +210,5 @@ module.exports = {
   updateAdminById,
   deleteAdmin,
   listUsers,
+  deleteUserById,
 };

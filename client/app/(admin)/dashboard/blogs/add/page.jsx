@@ -194,7 +194,7 @@ export default function AddBlogsPage() {
       <div className="grid grid-cols-1 xl:grid-cols-[520px_minmax(0,1fr)] gap-6">
         <form
           onSubmit={handleSubmit}
-          className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6 md:p-8"
+          className="rounded-[24px] border border-white/10 bg-white/3 p-6 md:p-8"
         >
           <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">
             {editingBlogId ? "Edit Blog" : "Add Blog"}
@@ -330,14 +330,14 @@ export default function AddBlogsPage() {
                 }
                 resetForm();
               }}
-              className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-3.5 text-white/75 hover:bg-white/[0.08] hover:text-white transition-colors"
+              className="rounded-2xl border border-white/10 bg-white/3 px-6 py-3.5 text-white/75 hover:bg-white/[0.08] hover:text-white transition-colors"
             >
               {editingBlogId ? "Cancel" : "Reset"}
             </button>
           </div>
         </form>
 
-        <div className="rounded-[24px] border border-white/10 bg-white/[0.03] p-6 md:p-8">
+        <div className="rounded-[24px] border border-white/10 bg-white/3 p-6 md:p-8">
           <h3 className="text-[22px] font-semibold">Available Options</h3>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>

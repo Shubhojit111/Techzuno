@@ -10,6 +10,7 @@ import {
   Eye,
   Filter,
   MoreVertical,
+  Trash2,
   Search,
   SearchIcon,
   ShieldAlert,
@@ -58,6 +59,7 @@ export default function AdminsPage() {
   const [creating, setCreating] = useState(false);
 
   const [selectedAdmin, setSelectedAdmin] = useState(null);
+  const [drawerMode, setDrawerMode] = useState("view");
   const [isDrawerMounted, setIsDrawerMounted] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [draftPermissions, setDraftPermissions] = useState([]);
@@ -116,7 +118,8 @@ export default function AdminsPage() {
     return () => clearTimeout(timeoutId);
   }, [fetchAdmins]);
 
-  const openDrawer = (admin) => {
+  const openDrawer = (admin, mode = "view") => {
+    setDrawerMode(mode);
     setSelectedAdmin(admin);
     setDraftPermissions(
       Array.isArray(admin.permissions) ? admin.permissions : [],
@@ -283,6 +286,17 @@ export default function AdminsPage() {
     }
   };
 
+  const deleteAdmin = async (admin) => {
+    if (!window.confirm(`Delete ${admin.name || admin.email}?`)) return;
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/admin/admins/${admin.id}`, { withCredentials: true });
+      setAdmins((prev) => prev.filter((item) => item.id !== admin.id));
+      setFeedback({ type: "success", message: response.data.message || "Admin deleted" });
+    } catch (error) {
+      setFeedback({ type: "error", message: error.response?.data?.message || "Unable to delete admin" });
+    }
+  };
+
   const toggleRow = (id) => {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
@@ -366,7 +380,7 @@ export default function AdminsPage() {
         ) : null}
 
         {/* Filter Bar Panel (Image UI replica) */}
-        <div className="bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-8 flex flex-col md:flex-row items-center gap-46">
+        <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-8 flex flex-col md:flex-row items-center gap-46">
           <div className="flex-1 relative w-full">
             <SearchIcon
               className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"
@@ -377,17 +391,17 @@ export default function AdminsPage() {
               placeholder="Search admin name or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 bg-white/[0.03] border border-white/5 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-white/10 focus:bg-white/[0.05] transition-all text-sm"
+              className="w-full pl-11 pr-4 py-2.5 bg-white/3 border border-white/5 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-white/10 focus:bg-white/[0.05] transition-all text-sm"
             />
           </div>
 
           <div className="flex items-center gap-3 w-full md:w-auto">
-            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[140px]">
+            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/3 border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[140px]">
               <span>Category: All</span>
               <ChevronDown size={16} className="text-zinc-500" />
             </button>
 
-            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[120px]">
+            <button className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-white/3 border border-white/5 text-zinc-300 text-sm font-medium hover:bg-white/[0.06] transition-all min-w-[120px]">
               <span>Status: All</span>
               <ChevronDown size={16} className="text-zinc-500" />
             </button>
@@ -454,7 +468,7 @@ export default function AdminsPage() {
                   filteredAdmins.map((admin) => (
                     <tr
                       key={admin.id}
-                      onClick={() => openDrawer(admin)}
+                      onClick={() => openDrawer(admin, "view")}
                       className="cursor-pointer hover:bg-white/[0.01] transition-colors group"
                     >
                       {/* USER column */}
@@ -541,22 +555,24 @@ export default function AdminsPage() {
                       >
                         <div className="flex items-center justify-end gap-1.5">
                           <button
-                            onClick={() => openDrawer(admin)}
+                            onClick={() => openDrawer(admin, "view")}
                             className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-all"
                           >
                             <Eye size={16} />
                           </button>
                           <button
-                            onClick={() => openDrawer(admin)}
+                            onClick={() => openDrawer(admin, "edit")}
+                            title="Edit admin"
                             className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-all"
                           >
                             <Edit3 size={16} />
                           </button>
                           <button
-                            onClick={() => openDrawer(admin)}
-                            className="p-2 rounded-lg hover:bg-white/5 text-zinc-400 hover:text-white transition-all"
+                            onClick={() => deleteAdmin(admin)}
+                            title="Delete admin"
+                            className="p-2 rounded-lg hover:bg-red-500/10 text-zinc-400 hover:text-red-300 transition-all"
                           >
-                            <MoreVertical size={16} />
+                            <Trash2 size={16} />
                           </button>
                         </div>
                       </td>
@@ -593,9 +609,9 @@ export default function AdminsPage() {
             type="button"
             onClick={() => setIsCreateOpen(false)}
             className="absolute inset-0 bg-black/70"
-            aria-label="Close create admin modal"
+            aria-label="Close create admin drawer"
           />
-          <div className="relative mx-auto mt-24 w-[92%] max-w-xl rounded-[28px] border border-white/10 bg-black/90 backdrop-blur-xl p-6 md:p-8">
+          <aside className="absolute right-0 top-0 h-full w-[92%] max-w-xl overflow-y-auto border-l border-white/10 bg-black/95 p-6 backdrop-blur-xl md:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">
@@ -606,7 +622,7 @@ export default function AdminsPage() {
               <button
                 type="button"
                 onClick={() => setIsCreateOpen(false)}
-                className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-white/80 hover:bg-white/[0.08] hover:text-white transition-colors"
+                className="rounded-full border border-white/10 bg-white/3 px-4 py-2 text-white/80 hover:bg-white/[0.08] hover:text-white transition-colors"
               >
                 Close
               </button>
@@ -654,7 +670,7 @@ export default function AdminsPage() {
                 />
               </label>
 
-              <div className="rounded-[20px] border border-white/10 bg-white/[0.03] p-4">
+              <div className="rounded-[20px] border border-white/10 bg-white/3 p-4">
                 <p className="text-sm text-white/70 mb-3">Permissions</p>
                 <div className="space-y-3">
                   {ALLOWED_PERMISSIONS.map((permission) => (
@@ -687,7 +703,7 @@ export default function AdminsPage() {
                 {creating ? "Creating..." : "Create"}
               </button>
             </form>
-          </div>
+          </aside>
         </div>
       ) : null}
 
@@ -721,13 +737,13 @@ export default function AdminsPage() {
               <button
                 type="button"
                 onClick={closeDrawer}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-2 text-white/80 hover:bg-white/[0.08] hover:text-white transition-colors"
+                className="rounded-2xl border border-white/10 bg-white/3 px-4 py-2 text-white/80 hover:bg-white/[0.08] hover:text-white transition-colors"
               >
                 Close
               </button>
             </div>
 
-            <div className="mt-7 rounded-[24px] border border-white/10 bg-white/[0.03] p-5">
+            <div className="mt-7 rounded-[24px] border border-white/10 bg-white/3 p-5">
               <div className="flex items-center gap-4">
                 {draftProfile.profileImage ? (
                   <div
@@ -757,7 +773,7 @@ export default function AdminsPage() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-[24px] border border-white/10 bg-white/[0.03] p-5">
+            <div className="mt-6 rounded-[24px] border border-white/10 bg-white/3 p-5">
               <p className="text-sm text-white/60 mb-4">Profile Details</p>
               <div className="space-y-4">
                 <label className="block">
@@ -767,6 +783,7 @@ export default function AdminsPage() {
                     name="name"
                     value={draftProfile.name}
                     onChange={handleDraftProfileChange}
+                    readOnly={drawerMode === "view"}
                     className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
                   />
                 </label>
@@ -780,6 +797,7 @@ export default function AdminsPage() {
                     name="email"
                     value={draftProfile.email}
                     onChange={handleDraftProfileChange}
+                    readOnly={drawerMode === "view"}
                     className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
                   />
                 </label>
@@ -793,6 +811,7 @@ export default function AdminsPage() {
                     name="phone"
                     value={draftProfile.phone}
                     onChange={handleDraftProfileChange}
+                    readOnly={drawerMode === "view"}
                     className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
                     placeholder="Optional"
                   />
@@ -807,6 +826,7 @@ export default function AdminsPage() {
                     name="profileImage"
                     value={draftProfile.profileImage}
                     onChange={handleDraftProfileChange}
+                    readOnly={drawerMode === "view"}
                     className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
                     placeholder="https://example.com/image.jpg"
                   />
@@ -814,7 +834,7 @@ export default function AdminsPage() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-[24px] border border-white/10 bg-white/[0.03] p-5">
+            <div className="mt-6 rounded-[24px] border border-white/10 bg-white/3 p-5">
               <p className="text-sm text-white/60 mb-4">Permissions</p>
               <div className="space-y-3">
                 {ALLOWED_PERMISSIONS.map((permission) => (
@@ -843,6 +863,7 @@ export default function AdminsPage() {
                       type="checkbox"
                       checked={draftPermissions.includes(permission)}
                       onChange={() => togglePermission(permission)}
+                      disabled={drawerMode === "view"}
                       className="h-4 w-4 accent-[#03B8B8]"
                     />
                   </label>
@@ -850,7 +871,7 @@ export default function AdminsPage() {
               </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {drawerMode === "edit" ? <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <button
                 type="button"
                 onClick={saveAdmin}
@@ -867,7 +888,7 @@ export default function AdminsPage() {
               >
                 {deletingAdmin ? "Deleting..." : "Delete"}
               </button>
-            </div>
+            </div> : null}
           </aside>
         </div>
       ) : null}
