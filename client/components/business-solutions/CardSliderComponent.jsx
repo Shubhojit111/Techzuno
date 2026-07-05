@@ -35,7 +35,7 @@ const CardSliderComponent = ({ index, title, description, icon, image }) => {
         <div className="imageCard card-bg-gradient h-full w-full sm:w-[55%] lg:w-[65%] rounded-xl overflow-hidden">
           <Image
             src={image}
-            alt={title}
+            alt={title || "Card Image"}
             className="h-full w-full object-cover"
           />
         </div>

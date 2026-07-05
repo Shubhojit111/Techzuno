@@ -221,7 +221,7 @@ export default function Testimonials() {
                 <div className="absolute overflow-hidden z-10 bottom-0 right-0 h-48 md:h-56 w-[200px] sm:w-[250px] md:w-[auto]">
                   <Image
                     src={testimonial.image}
-                    alt={testimonial.name}
+                    alt={testimonial.name || "Testimonials"}
                     className="w-full h-full object-cover object-center"
                   />
                 </div>

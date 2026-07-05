@@ -218,7 +218,7 @@ export default function Steps() {
                 <div className="step-card-content relative h-[220px] w-[280px] md:h-[190px] md:w-[215px] lg:h-65 lg:w-[320px] overflow-hidden rounded-[22px] bg-white shadow-[0_30px_90px_rgba(0,0,0,0.75)]">
                   <Image
                     src={step.image}
-                    alt={step.title}
+                    alt={step.title || "Steps"}
                     className="absolute inset-0 rounded-b-[16px] w-full object-cover h-52.5 md:h-45 lg:h-62.5"
                   />
 

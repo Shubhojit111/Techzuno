@@ -24,7 +24,7 @@ export default function TestimonialQuote({ data }) {
               <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#03B8B8]">
                 <Image
                   src={data.avatar}
-                  alt={data.author}
+                  alt={data.author || "Techzuno"}
                   fill
                   sizes="56px"
                   className="object-cover"

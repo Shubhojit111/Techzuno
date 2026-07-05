@@ -227,7 +227,7 @@ export default function AboutHome({image, title,  description, buttonText}) {
         <div className="about-image w-full md:w-2/3 lg:w-1/2 relative">
           <Image
             src={image || Assets.RoboticHead}
-            alt=""
+            alt="Techzuno Robotic Head"
             priority
             className="w-full h-full object-cover"
           />
@@ -246,7 +246,7 @@ export default function AboutHome({image, title,  description, buttonText}) {
       </div>
       <div className="about-floating-img absolute -bottom-30 md:bottom-15 lg:-bottom-20 -right-10 md:-right-10 lg:right-0 z-60 h-[160px] w-[160px] md:h-[240px] md:w-[240px] lg:h-[260px] lg:w-[260px] pointer-events-none">
         <Image
-          alt=""
+          alt="Techzuno Home Figure"
           src={Assets.HomeFigure}
           priority
           className="w-full h-full object-cover"

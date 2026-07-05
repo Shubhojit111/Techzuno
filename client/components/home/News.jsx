@@ -54,7 +54,7 @@ export default function News() {
               <div className="h-[60%] md:h-[65%] overflow-hidden">
                 <Image 
                   src={item.image} 
-                  alt={item.title} 
+                  alt={item.title || "Techzuno News"} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>

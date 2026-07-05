@@ -360,7 +360,7 @@ export default function BlogsPage() {
                         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent z-10" />
                         <Image
                           src={blog.image || Assets.UIUX2}
-                          alt={blog.name}
+                          alt={blog.name || "Blog Image"}
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute top-4 left-4 z-20">

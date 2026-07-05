@@ -94,7 +94,7 @@ if (!blog) {
         <div className="w-[700px] h-[450px] rounded-3xl overflow-hidden ">
           <Image
             src={blog.blogImage || Assets.ServiceHeader}
-            alt={blog.title}
+            alt={blog.title || "Techzuno"}
             className="object-cover h-full w-full"
             priority
           />

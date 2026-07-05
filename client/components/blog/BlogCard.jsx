@@ -32,7 +32,7 @@ export default function BlogCard({ blog }) {
           <div className="w-full h-[240px] sm:h-[420px] lg:h-[200px]">
             <Image
               src={blog.image || Assets.WebDev1}
-              alt={blog.title}
+              alt={blog.title || "Blog Title"}
               className="w-full h-full object-cover"
             />
           </div>

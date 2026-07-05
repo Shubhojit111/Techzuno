@@ -227,7 +227,7 @@ export default function About({image, title,  description, buttonText}) {
         <div className="about-image w-full md:w-2/3 lg:w-1/2  relative">
           <Image
             src={image || Assets.RoboticHead}
-            alt=""
+            alt="Techzuno Robotic Head"
             className="lg:max-w-[450px] h-full object-cover"
           />
         </div>

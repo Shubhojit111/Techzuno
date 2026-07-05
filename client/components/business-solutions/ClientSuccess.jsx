@@ -26,7 +26,7 @@ export default function ClientSuccess() {
               <div className="h-8 md:h-20 w-auto grayscale group-hover:grayscale-0 transition-all group-hover:scale-110">
                 <Image
                   src={logo.src}
-                  alt={logo.name}
+                  alt={logo.name || "Techzuno"}
                   className="h-full w-auto object-contain"
                 />
               </div>

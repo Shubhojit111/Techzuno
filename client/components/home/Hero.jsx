@@ -10,7 +10,7 @@ export default function Hero() {
       <div className="w-full h-full absolute top-0 left-0">
         <Image
           src={Assets.HomeBg}
-          alt=""
+          alt="Techzuno Home Background"
           className="w-full h-full object-cover "
         />
       </div>

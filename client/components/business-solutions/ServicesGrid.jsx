@@ -135,7 +135,7 @@ export default function ServicesGrid() {
               <div className="relative w-10 h-10 md:w-11 md:h-11 rounded-full overflow-hidden border border-white/10 shrink-0">
                 <Image
                   src={serviceData.saying.avatar}
-                  alt={serviceData.saying.author}
+                  alt={serviceData.saying.author || "Service data"}
                   fill
                   sizes="44px"
                   className="object-cover"

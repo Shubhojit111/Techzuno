@@ -55,7 +55,7 @@ export default function TechStack() {
             >
               <Image
                 src={tech.image}
-                alt={tech.name}
+                alt={tech.name || "Techzuno"}
                 className="h-full w-full object-cover border border-white/10 grayscale transition duration-300 hover:grayscale-0 rounded-full hover:scale-120"
               />
             </div>
