@@ -79,18 +79,6 @@ export default function DashboardShell({
         icon: Users,
       },
       {
-        href: "/dashboard/products",
-        label: "Products",
-        permission: "products",
-        icon: Package,
-      },
-      {
-        href: "/dashboard/orders",
-        label: "Orders",
-        permission: "orders",
-        icon: ShoppingBag,
-      },
-      {
         href: "/dashboard/settings",
         label: "Settings",
         permission: "settings",

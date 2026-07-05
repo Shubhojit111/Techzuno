@@ -6,9 +6,9 @@ export default function BlogCard({ blog }) {
 
   return (
     <Link href={`/blogs/${blog.id}`} className="group block w-full">
-      <article className="flex flex-col w-full mt-4">
+      <article className="flex flex-col w-full mt-4 hover:border hover:bg-gray-900 p-2 duration-300 rounded-xl border-white/50 hover:scale-105 ">
         {/* Categories */}
-        <p className="text-white font-normal tracking-[0.22em] text-[11px] uppercase mb-3 leading-relaxed">
+        <p className="text-white font-normal tracking-[0.20em] text-[10px] uppercase mb-3 leading-relaxed ">
           {blog.Categories.map((cat, index) => {
             return (
               <span
@@ -23,7 +23,7 @@ export default function BlogCard({ blog }) {
         </p>
 
         {/* Title */}
-        <h3 className="text-white font-bold text-[20px] md:text-[22px] leading-[1.3] uppercase tracking-[0.06em] group-hover:text-[#B8FAFF] transition-colors duration-300">
+        <h3 className="text-white font-bold text-[20px] md:text-[22px] leading-[1.3] uppercase tracking-[0.06em] group-hover:text-[#B8FAFF] transition-colors duration-300 line-clamp-3">
           {blog.title}
         </h3>
 
