@@ -125,8 +125,8 @@ export default function Testimonials() {
         ScrollTrigger.create({
           trigger: triggerRef.current,
           pin: sectionRef.current,
-          start: "top 6%", // Pinned a little lower for desktop
-          // markers: true,
+          start: "top 0%", // Pinned a little lower for desktop
+          markers: true,
           end: () =>
             `+=${Math.max(0, container.scrollWidth - window.innerWidth)}`,
           animation: tween,
@@ -141,7 +141,7 @@ export default function Testimonials() {
   return (
     <div ref={triggerRef} className="w-full shrink-0 ">
       <section
-        className="bg-black overflow-hidden w-full relative my-6 md:my-16 lg:my-24"
+        className="bg-black overflow-hidden w-full relative my-6 md:my-16 lg:mt-24"
         ref={sectionRef}
       >
         <div className="mx-auto px-6 md:px-10 lg:px-62  relative z-[60]">
