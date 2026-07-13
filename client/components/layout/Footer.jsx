@@ -117,8 +117,8 @@ export default function Footer() {
         &copy; {new Date().getFullYear()} Techzuno. All rights reserved.
       </div> */}
 
-      <div className="bg-white text-black  border-t border-white/10 flex items-center justify-center w-full">
-        <h1 className="font-bold text-[60px] md:text-[120px] lg:text-[260px] tracking-wider">
+      <div className="bg-white text-black border-t border-white/10 flex items-center justify-center w-full overflow-hidden px-4">
+        <h1 className="font-bold text-[clamp(56px,18vw,230px)] tracking-wider max-w-full leading-none whitespace-nowrap">
           TECHZUNO
         </h1>
       </div>

@@ -2,7 +2,7 @@
 
 import DashboardShell from "@/components/admin/DashboardShell";
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import {
@@ -18,6 +18,7 @@ import {
   AlertCircle,
   RotateCcw,
 } from "lucide-react";
+import { AuthContext } from "@/context/AuthContext";
 
 // Dynamically import CustomTiptapEditor to avoid SSR issues in Next.js
 const CustomTiptapEditor = dynamic(
@@ -61,7 +62,8 @@ export default function AddBlogsPage() {
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [form, setForm] = useState(initialForm);
   const [editingBlogId, setEditingBlogId] = useState(null);
-  const [author, setAuthor] = useState("")
+  const { user } = useContext(AuthContext) || {};
+  const [author, setAuthor] = useState("");
 
   // Sidebar controls
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -109,6 +111,7 @@ export default function AddBlogsPage() {
       if (editId && blogResponse?.data?.blog) {
         const blog = blogResponse.data.blog;
         setEditingBlogId(editId);
+        setAuthor(blog.User?.name || blog.User?.email || "Blog Expert");
         setForm({
           name: blog.title || "",
           description: blog.content || "",
@@ -120,7 +123,7 @@ export default function AddBlogsPage() {
             ? blog.Tags.map((tag) => tag.id)
             : [],
           newTagsInput: "",
-          author: blog.author || "Blog Expert"
+          author: blog.User?.name || blog.User?.email || "Blog Expert",
         });
       }
     } catch (error) {
@@ -138,6 +141,12 @@ export default function AddBlogsPage() {
     const timeoutId = setTimeout(loadOptions, 0);
     return () => clearTimeout(timeoutId);
   }, [loadOptions]);
+
+  useEffect(() => {
+    if (!editingBlogId) {
+      setAuthor(user?.name || user?.email || "Admin");
+    }
+  }, [editingBlogId, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -354,7 +363,7 @@ export default function AddBlogsPage() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Add Title"
-                className="text-xl md:text-2xl font-bold font-montserrat text-zinc-950 placeholder-zinc-300 outline-none w-full border-b border-zinc-100 pb-3 mb-5 bg-transparent"
+                className="text-xl md:text-2xl font-bold font-montserrat text-zinc-950 placeholder-zinc-300 outline-none w-full border-b border-zinc-100 pb-1.5 mb-5 bg-transparent"
                 required
               />
 

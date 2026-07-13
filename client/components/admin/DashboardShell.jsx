@@ -281,13 +281,15 @@ export default function DashboardShell({
       >
         {/* Top – Logo + toggle */}
         <div className="flex-1 min-h-0 flex flex-col">
-          <div className="flex items-center justify-between px-4 h-16 border-b border-white/5 flex-shrink-0">
-            <div className="flex items-center gap-3 min-w-0 overflow-hidden">
+          <div className="flex items-center justify-between px-4 h-16 border-b border-white/5 shrink-0">
+            <div
+              className={`flex items-center gap-3 min-w-0 overflow-hidden transition-all duration-300 ${isSidebarOpen ? "opacity-100 max-w-[120px]" : "opacity-0 max-w-0 overflow-hidden"}`}
+            >
               {/* Icon mark */}
               <Sparkle className="w-5 h-5" />
               <span
                 className={`text-white font-bold text-sm tracking-[0.15em] uppercase whitespace-nowrap
-                  transition-all duration-300 ${isSidebarOpen ? "opacity-100 max-w-[120px]" : "opacity-0 max-w-0 overflow-hidden"}`}
+                  transition-all duration-300 `}
               >
                 Techzuno
               </span>
@@ -441,11 +443,9 @@ export default function DashboardShell({
       >
         {/* ── TOP HEADER ─────────────────────────────────────────────── */}
         <header
-          className={`fixed top-0 right-0 left-0 z-30 h-16 flex items-center justify-between px-5 lg:px-8
-          bg-[#080C14]/88 backdrop-blur-xl border-b border-white/5 transition-[left] duration-300
-          shadow-[0_1px_0_rgba(255,255,255,0.04),0_4px_24px_rgba(0,0,0,0.3)] ${
-            isSidebarOpen ? "lg:left-64" : "lg:left-[72px]"
-          }`}
+          className="sticky top-0 z-30 h-16 flex items-center justify-between px-5 lg:px-8
+          bg-[#080C14]/80 backdrop-blur-xl border-b border-white/5
+          shadow-[0_1px_0_rgba(255,255,255,0.04),0_4px_24px_rgba(0,0,0,0.3)]"
         >
           {/* Left – mobile menu trigger */}
           <div className="flex items-center gap-4">
@@ -541,7 +541,7 @@ export default function DashboardShell({
         </header>
 
         {/* ── WORKSPACE AREA ─────────────────────────────────────────── */}
-        <main className="flex-1 overflow-y-auto pt-16">
+        <main className="flex-1 overflow-y-auto">
           <div className="p-6 md:p-8 max-w-[1400px] mx-auto w-full">
             {isPermitted ? (
               children
