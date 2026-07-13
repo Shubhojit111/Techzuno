@@ -16,13 +16,13 @@ import {
   Image,
   FileText,
   AlertCircle,
-  RotateCcw
+  RotateCcw,
 } from "lucide-react";
 
 // Dynamically import CustomTiptapEditor to avoid SSR issues in Next.js
 const CustomTiptapEditor = dynamic(
   () => import("@/components/admin/CustomTiptapEditor"),
-  { ssr: false }
+  { ssr: false },
 );
 
 const initialForm = {
@@ -61,6 +61,7 @@ export default function AddBlogsPage() {
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [form, setForm] = useState(initialForm);
   const [editingBlogId, setEditingBlogId] = useState(null);
+  const [author, setAuthor] = useState("")
 
   // Sidebar controls
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -119,6 +120,7 @@ export default function AddBlogsPage() {
             ? blog.Tags.map((tag) => tag.id)
             : [],
           newTagsInput: "",
+          author: blog.author || "Blog Expert"
         });
       }
     } catch (error) {
@@ -261,25 +263,17 @@ export default function AddBlogsPage() {
     >
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col min-h-[calc(100vh-12rem)] relative"
+        className="flex flex-col min-h-[calc(100vh-8rem)] relative"
       >
         {/* ── TOP HEADER BAR ────────────────────────────────────────────── */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
-          <div className="flex items-center gap-3">
-            <Link
-              href="/dashboard/blogs"
-              className="p-2.5 border border-white/10 bg-white/3 hover:bg-white/8 rounded-xl text-zinc-400 hover:text-white transition-colors"
-            >
-              <ChevronLeft className="w-4.5 h-4.5" />
-            </Link>
-            <div>
-              <span className="text-[11px] tracking-[0.22em] uppercase text-[#38FFF2] block font-bold">
-                {editingBlogId ? "Blog Editor" : "New Publication"}
-              </span>
-              <h1 className="text-2xl font-bold text-white leading-tight">
-                {editingBlogId ? "Modify Blog Post" : "Create Blog Post"}
-              </h1>
-            </div>
+          <div className="flex flex-col gap-1">
+            <span className="text-[11px] tracking-[0.22em] uppercase text-[#38FFF2] block font-bold">
+              {editingBlogId ? "Blog Editor" : "New Publication"}
+            </span>
+            <h1 className="text-2xl font-bold text-white leading-tight">
+              {editingBlogId ? "Edit Blog Post" : "Create Blog Post"}
+            </h1>
           </div>
 
           <div className="flex items-center gap-3">
@@ -349,12 +343,10 @@ export default function AddBlogsPage() {
         )}
 
         {/* ── MAIN WORKSPACE CONTAINER ────────────────────────────────── */}
-        <div className="flex-1 flex flex-col lg:flex-row gap-6 items-stretch relative overflow-x-hidden pb-12">
-          
+        <div className="flex-1 flex flex-col lg:flex-row gap-6 items-stretch relative overflow-x-hidden pb-12 ">
           {/* LEFT: WHITE BOARD EDITOR CANVAS */}
           <div className="flex-1 min-w-0">
-            <div className="bg-white text-zinc-900 rounded-2xl border border-zinc-200 shadow-xl p-6 md:p-10 max-w-4xl mx-auto w-full min-h-[600px] flex flex-col">
-              
+            <div className="bg-white text-zinc-900 rounded-2xl border border-zinc-200 shadow-xl p-6 md:p-10 w-full mx-auto h-[1000px] flex flex-col">
               {/* Document Title Input */}
               <input
                 type="text"
@@ -365,9 +357,9 @@ export default function AddBlogsPage() {
                 className="text-xl md:text-2xl font-bold font-montserrat text-zinc-950 placeholder-zinc-300 outline-none w-full border-b border-zinc-100 pb-3 mb-5 bg-transparent"
                 required
               />
-              
+
               {/* Rich Text Editor */}
-              <div className="flex-1">
+              <div className="flex-1 min-h-0">
                 <CustomTiptapEditor
                   value={form.description}
                   onChange={(content) => {
@@ -383,7 +375,6 @@ export default function AddBlogsPage() {
 
           {/* RIGHT SIDEBAR CONTAINER (DESKTOP FLEX + SMOOTH COLLAPSE) */}
           <div className="relative flex-shrink-0 flex items-stretch">
-            
             {/* Desktop Slide/Drag Toggle Bar */}
             <button
               type="button"
@@ -402,13 +393,12 @@ export default function AddBlogsPage() {
             <div
               className={`bg-[#0A0F1C] border border-white/5 rounded-2xl flex flex-col transition-all duration-300 ease-in-out ${
                 isSidebarOpen
-                  ? "w-full lg:w-[350px] opacity-100 visible"
+                  ? "w-full lg:w-[300px] opacity-100 visible"
                   : "w-0 opacity-0 invisible overflow-hidden border-transparent"
               }`}
             >
               {/* Inner wrapper to lock content width during collapse transition */}
-              <div className="w-full lg:w-[350px] flex-1 flex flex-col h-full">
-                
+              <div className="w-full lg:w-[300px] flex-1 flex flex-col h-full">
                 {/* Tabs (Post vs Block) */}
                 <div className="flex border-b border-white/5 flex-shrink-0">
                   <button
@@ -446,7 +436,6 @@ export default function AddBlogsPage() {
                 <div className="flex-1 overflow-y-auto custom-scrollbar">
                   {sidebarTab === "post" ? (
                     <div className="flex flex-col">
-                      
                       {/* Section 1: Status & Visibility */}
                       <SidebarSection
                         title="Status & visibility"
@@ -456,23 +445,32 @@ export default function AddBlogsPage() {
                         <div className="space-y-3.5 text-xs">
                           <div className="flex justify-between items-center">
                             <span className="text-zinc-500">Status</span>
-                            <span className="text-[#38FFF2] font-semibold bg-[#38FFF2]/5 px-2 py-0.5 rounded border border-[#38FFF2]/10 uppercase tracking-wider text-[10px]">
+                            <span className="text-[#38FFF2] font-semibold bg-[#38FFF2]/5 px-2 py-0.5 rounded border border-[#38FFF2]/10 uppercase tracking-wider text-[12px]">
                               {editingBlogId ? "Editing" : "Draft"}
                             </span>
                           </div>
                           <div className="flex justify-between items-center">
                             <span className="text-zinc-500">Publish</span>
-                            <span className="text-zinc-300 font-medium">Immediately</span>
+                            <span className="text-zinc-300 font-medium">
+                              Immediately
+                            </span>
                           </div>
                           <div className="flex justify-between items-center">
                             <span className="text-zinc-500">Author</span>
-                            <span className="text-zinc-300 font-medium">Bishal</span>
+                            <span className="text-zinc-300 font-medium truncate text-right max-w-[150px]">
+                              {author}
+                            </span>
                           </div>
                           <div className="space-y-1">
-                            <span className="text-zinc-500 block mb-1">Permalink Slug</span>
+                            <span className="text-zinc-500 block mb-1">
+                              Permalink Slug
+                            </span>
                             <div className="flex rounded-lg border border-white/10 bg-black/40 px-3 py-1.5 text-zinc-400 select-all font-mono truncate text-[11px]">
                               {form.name
-                                ? form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")
+                                ? form.name
+                                    .toLowerCase()
+                                    .replace(/[^a-z0-9]+/g, "-")
+                                    .replace(/(^-|-$)+/g, "")
                                 : "slug-will-appear-here"}
                             </div>
                           </div>
@@ -483,7 +481,9 @@ export default function AddBlogsPage() {
                       <SidebarSection
                         title="Categories"
                         isOpen={categoriesExpanded}
-                        onToggle={() => setCategoriesExpanded(!categoriesExpanded)}
+                        onToggle={() =>
+                          setCategoriesExpanded(!categoriesExpanded)
+                        }
                       >
                         <div className="space-y-2.5 max-h-48 overflow-y-auto custom-scrollbar pr-1">
                           {categories.length === 0 ? (
@@ -498,7 +498,9 @@ export default function AddBlogsPage() {
                               >
                                 <input
                                   type="checkbox"
-                                  checked={form.categoryIds.includes(category.id)}
+                                  checked={form.categoryIds.includes(
+                                    category.id,
+                                  )}
                                   onChange={() => toggleCategory(category.id)}
                                   className="rounded border-white/10 bg-black/40 text-[#03B8B8] focus:ring-[#03B8B8] focus:ring-offset-0 h-4 w-4 transition-colors"
                                 />
@@ -596,15 +598,23 @@ export default function AddBlogsPage() {
                           <div className="flex items-center gap-3">
                             <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.4)]" />
                             <div className="text-xs">
-                              <span className="text-zinc-500">SEO analysis: </span>
-                              <span className="text-rose-400 font-semibold">Needs improvement</span>
+                              <span className="text-zinc-500">
+                                SEO analysis:{" "}
+                              </span>
+                              <span className="text-rose-400 font-semibold">
+                                Needs improvement
+                              </span>
                             </div>
                           </div>
                           <div className="flex items-center gap-3">
                             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                             <div className="text-xs">
-                              <span className="text-zinc-500">Readability analysis: </span>
-                              <span className="text-emerald-400 font-semibold">Good</span>
+                              <span className="text-zinc-500">
+                                Readability analysis:{" "}
+                              </span>
+                              <span className="text-emerald-400 font-semibold">
+                                Good
+                              </span>
                             </div>
                           </div>
                           <button
@@ -615,28 +625,26 @@ export default function AddBlogsPage() {
                           </button>
                         </div>
                       </SidebarSection>
-
                     </div>
                   ) : (
                     <div className="p-8 text-center text-zinc-500">
                       <FileText className="w-10 h-10 mx-auto mb-3 text-zinc-600" />
-                      <p className="text-sm font-semibold text-zinc-400">No Block Selected</p>
+                      <p className="text-sm font-semibold text-zinc-400">
+                        No Block Selected
+                      </p>
                       <p className="text-xs text-zinc-600 mt-1 max-w-[200px] mx-auto leading-relaxed">
-                        Select a specific text block inside the whiteboard area to modify its individual attributes.
+                        Select a specific text block inside the whiteboard area
+                        to modify its individual attributes.
                       </p>
                     </div>
                   )}
                 </div>
-
               </div>
             </div>
-
           </div>
-
         </div>
-
       </form>
-      
+
       {/* MOBILE OVERLAY DRAWER PANEL */}
       {isSidebarOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex pointer-events-auto">
@@ -645,7 +653,6 @@ export default function AddBlogsPage() {
             onClick={() => setIsSidebarOpen(false)}
           />
           <div className="relative w-80 max-w-[90%] bg-[#0A0F1C] border-l border-white/5 h-full flex flex-col justify-between py-0 ml-auto animate-in slide-in-from-right duration-250 shadow-2xl">
-            
             {/* Header / Tabs */}
             <div className="flex border-b border-white/5 flex-shrink-0">
               <button
@@ -698,15 +705,19 @@ export default function AddBlogsPage() {
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-zinc-500">Publish</span>
-                        <span className="text-zinc-300 font-medium">Immediately</span>
+                        <span className="text-zinc-300 font-medium">
+                          Immediately
+                        </span>
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-zinc-500">Author</span>
-                        <span className="text-zinc-300 font-medium">Bishal</span>
+                        <span className="text-zinc-300 font-medium truncate text-right max-w-[130px]">
+                          {author}
+                        </span>
                       </div>
                     </div>
                   </SidebarSection>
-                  
+
                   {/* Categories */}
                   <SidebarSection
                     title="Categories"
@@ -715,14 +726,19 @@ export default function AddBlogsPage() {
                   >
                     <div className="space-y-2.5 max-h-40 overflow-y-auto custom-scrollbar pr-1">
                       {categories.map((category) => (
-                        <label key={category.id} className="flex items-center gap-2.5 cursor-pointer">
+                        <label
+                          key={category.id}
+                          className="flex items-center gap-2.5 cursor-pointer"
+                        >
                           <input
                             type="checkbox"
                             checked={form.categoryIds.includes(category.id)}
                             onChange={() => toggleCategory(category.id)}
                             className="rounded border-white/10 bg-black/40 text-[#03B8B8] h-4 w-4"
                           />
-                          <span className="text-xs text-zinc-400">{category.name}</span>
+                          <span className="text-xs text-zinc-400">
+                            {category.name}
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -746,14 +762,19 @@ export default function AddBlogsPage() {
                   >
                     <div className="space-y-2.5 max-h-40 overflow-y-auto custom-scrollbar pr-1">
                       {tags.map((tag) => (
-                        <label key={tag.id} className="flex items-center gap-2.5 cursor-pointer">
+                        <label
+                          key={tag.id}
+                          className="flex items-center gap-2.5 cursor-pointer"
+                        >
                           <input
                             type="checkbox"
                             checked={form.tagIds.includes(tag.id)}
                             onChange={() => toggleTag(tag.id)}
                             className="rounded border-white/10 bg-black/40 text-[#03B8B8] h-4 w-4"
                           />
-                          <span className="text-xs text-zinc-400">{tag.name}</span>
+                          <span className="text-xs text-zinc-400">
+                            {tag.name}
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -777,22 +798,25 @@ export default function AddBlogsPage() {
                   >
                     <div className="border-2 border-dashed border-white/10 rounded-xl p-5 text-center">
                       <Image className="w-7 h-7 mx-auto mb-2 text-zinc-500" />
-                      <span className="text-xs text-[#03B8B8] font-semibold">Set featured image</span>
+                      <span className="text-xs text-[#03B8B8] font-semibold">
+                        Set featured image
+                      </span>
                     </div>
                   </SidebarSection>
                 </div>
               ) : (
                 <div className="p-6 text-center text-zinc-500">
                   <FileText className="w-10 h-10 mx-auto mb-3" />
-                  <p className="text-xs">No block selected. Choose an element in the whiteboard editor area to inspect properties.</p>
+                  <p className="text-xs">
+                    No block selected. Choose an element in the whiteboard
+                    editor area to inspect properties.
+                  </p>
                 </div>
               )}
             </div>
-
           </div>
         </div>
       )}
-
     </DashboardShell>
   );
 }

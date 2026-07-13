@@ -22,6 +22,18 @@ import Link from "next/link";
 import Image from "next/image";
 import Assets from "@/Assets/Assets";
 
+const getExcerpt = (html = "") =>
+  String(html)
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+
 const initialForm = {
   name: "",
   description: "",
@@ -401,7 +413,7 @@ export default function BlogsPage() {
                         </h3>
 
                         <p className="text-zinc-400 text-sm line-clamp-2 mb-6 leading-relaxed">
-                          {blog.content ||
+                          {getExcerpt(blog.content) ||
                             "Exploring the boundaries of technology and design in this comprehensive guide."}
                         </p>
                       </div>

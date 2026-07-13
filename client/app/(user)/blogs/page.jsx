@@ -90,14 +90,6 @@ export default function BlogPage() {
   return (
     <main className="flex flex-col bg-black min-h-screen">
       <BlogHero />
-      <button
-        onClick={() => {
-          getData();
-          console.log(blogs);
-        }}
-      >
-        Get Data
-      </button>
       <BlogSections blogs={blogs} />
       <CTA />
     </main>

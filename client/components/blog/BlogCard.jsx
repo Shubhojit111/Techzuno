@@ -2,18 +2,30 @@ import Assets from "@/Assets/Assets";
 import Image from "next/image";
 import Link from "next/link";
 
+const getExcerpt = (html = "") =>
+  String(html)
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+
 export default function BlogCard({ blog }) {
 
   return (
     <Link href={`/blogs/${blog.id}`} className="group block w-full">
-      <article className="flex flex-col w-full mt-4 hover:border hover:bg-gray-900 p-2 duration-300 rounded-xl border-white/50 hover:scale-105 ">
+      <article className="flex flex-col w-full mt-4 hover:border p-2 duration-300 rounded-xl border-white/50 hover:scale-105 ">
         {/* Categories */}
-        <p className="text-white font-normal tracking-[0.20em] text-[10px] uppercase mb-3 leading-relaxed ">
+        <p className="text-white font-normal tracking-[0.20em] text-[10px] uppercase mb-3 leading-relaxed line-clamp-2">
           {blog.Categories.map((cat, index) => {
             return (
               <span
                 key={cat.id}
-                className="hover:text-[#38FFF2] transition-colors duration-300"
+                className="hover:text-[#38FFF2] transition-colors duration-300 "
               >
                 {cat.name || cat.slug}
                 {index < blog.Categories.length - 1 ? ", " : ""}
@@ -40,7 +52,7 @@ export default function BlogCard({ blog }) {
 
         {/* content */}
         <p className="mt-4 text-white/80 text-[14px] leading-[1.75] tracking-wider line-clamp-3">
-          {blog.content}
+          {getExcerpt(blog.content)}
         </p>
       </article>
     </Link>

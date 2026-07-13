@@ -14,7 +14,25 @@ export default function BlogDetailPage() {
 
 const [blog, setBlog] = useState(null);
 const [loading, setLoading] = useState(true);
-const sanitizedContent = DOMPurify.sanitize(blog?.content || "");
+const sanitizedContent = DOMPurify.sanitize(blog?.content || "", {
+  ADD_TAGS: ["iframe"],
+  ADD_ATTR: [
+    "allow",
+    "allowfullscreen",
+    "frameborder",
+    "scrolling",
+    "target",
+    "rel",
+    "style",
+    "data-youtube-video",
+    "data-type",
+    "data-id",
+    "data-label",
+    "data-checked",
+    "checked",
+  ],
+});
+const authorName = blog?.User?.name || blog?.User?.email || "Techzuno";
 
   const getBlog = async () => {
     try {
@@ -78,9 +96,14 @@ if (!blog) {
                 );
               })}
             </div>
-            <p className="text-white px-12 text-[28px]  md:text-[56px] lg:text-[76px] font-semibold uppercase tracking-[3.5px] leading-tight text-center line-clamp-4">
+            <p className="text-white px-12 text-[28px] md:text-[56px] lg:text-[76px] font-semibold uppercase tracking-[3.5px] leading-tight text-center line-clamp-4">
               {blog.title}
             </p>
+
+            <div className="mt-6 flex items-center gap-3 text-white/70 text-xs tracking-[0.18em] uppercase">
+              <span>By {authorName}</span>
+              {blog.createdAt ? <span>{new Date(blog.createdAt).toLocaleDateString()}</span> : null}
+            </div>
 
             <span className="text-white mx-auto text-sm pt-10">
               SCROLL DOWN
@@ -152,6 +175,8 @@ if (!blog) {
           }
           .techzuno-blog-content u {
             text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
           }
           .techzuno-blog-content s {
             text-decoration: line-through;
@@ -186,6 +211,22 @@ if (!blog) {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+          }
+          .techzuno-blog-content ul[data-type="taskList"] {
+            list-style: none;
+            padding-left: 0;
+          }
+          .techzuno-blog-content li[data-type="taskItem"] {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            list-style: none;
+          }
+          .techzuno-blog-content li[data-type="taskItem"] > label {
+            margin-top: 0.25rem;
+          }
+          .techzuno-blog-content li[data-type="taskItem"] input {
+            accent-color: #03b8b8;
           }
 
           .techzuno-blog-content blockquote {
@@ -241,6 +282,27 @@ if (!blog) {
             padding: 0.55rem 0.9rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.75);
+          }
+
+          .techzuno-blog-content img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 1.75rem auto;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+          }
+
+          .techzuno-blog-content .tiptap-mention,
+          .techzuno-blog-content [data-type="mention"] {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            background: rgba(3, 184, 184, 0.14);
+            color: #38fff2;
+            padding: 0.05rem 0.45rem;
+            font-weight: 700;
           }
 
           .techzuno-blog-content div[data-youtube-video] {

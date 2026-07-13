@@ -3,6 +3,7 @@ import Image from "next/image";
 import HeaderBtn from "@/components/buttons/HeaderBtn";
 import SectionTitle from "@/components/buttons/SectionTitle";
 import SectionDescription from "@/components/buttons/SectionDescription";
+import { ChevronDown } from "lucide-react";
 
 export default function BlogHero() {
   return (
@@ -25,6 +26,7 @@ export default function BlogHero() {
           </p>
 
           <span className="text-white mx-auto text-sm pt-10">SCROLL DOWN</span>
+          <ChevronDown className="mt-2 w-4 h-4 mx-auto animate-bounce" />
         </div>
       </div>
     </section>
