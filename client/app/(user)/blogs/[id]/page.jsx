@@ -3,12 +3,10 @@
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { Icon } from "@iconify/react";
-import { blogPosts } from "@/data/blogData";
-import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import DOMPurify from "isomorphic-dompurify";
 
 export default function BlogDetailPage() {
   const params = useParams();
@@ -16,6 +14,7 @@ export default function BlogDetailPage() {
 
 const [blog, setBlog] = useState(null);
 const [loading, setLoading] = useState(true);
+const sanitizedContent = DOMPurify.sanitize(blog?.content || "");
 
   const getBlog = async () => {
     try {
@@ -79,7 +78,7 @@ if (!blog) {
                 );
               })}
             </div>
-            <p className="text-white px-12 text-[28px]  md:text-[56px] lg:text-[76px] font-semibold uppercase tracking-[3.5px] leading-tight text-center">
+            <p className="text-white px-12 text-[28px]  md:text-[56px] lg:text-[76px] font-semibold uppercase tracking-[3.5px] leading-tight text-center line-clamp-4">
               {blog.title}
             </p>
 
@@ -102,12 +101,165 @@ if (!blog) {
       </div>
 
       <article className="max-w-[800px] w-full mx-auto px-6 pt-14 pb-20 md:pt-20 md:pb-28">
-        {/* Paragraphs */}
-        <div className="space-y-6 md:space-y-8">
-          <p className="text-white/75 text-[16px] md:text-[17px] leading-[1.9] tracking-[0.01em]">
-            {blog.content}
-          </p>
-        </div>
+        <div
+          className="techzuno-blog-content"
+          dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+        />
+
+        <style jsx global>{`
+          .techzuno-blog-content {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 16px;
+            line-height: 1.9;
+            letter-spacing: 0.01em;
+          }
+          @media (min-width: 768px) {
+            .techzuno-blog-content {
+              font-size: 17px;
+            }
+          }
+
+          .techzuno-blog-content > * + * {
+            margin-top: 1.5rem;
+          }
+
+          .techzuno-blog-content h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.25;
+            letter-spacing: 0.01em;
+          }
+          .techzuno-blog-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.3;
+          }
+          .techzuno-blog-content h3 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: #f4f4f5;
+            line-height: 1.4;
+          }
+
+          .techzuno-blog-content strong {
+            color: #ffffff;
+            font-weight: 700;
+          }
+          .techzuno-blog-content em {
+            font-style: italic;
+          }
+          .techzuno-blog-content u {
+            text-decoration: underline;
+          }
+          .techzuno-blog-content s {
+            text-decoration: line-through;
+            opacity: 0.7;
+          }
+
+          .techzuno-blog-content a {
+            color: #38fff2;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            transition: color 0.2s ease;
+          }
+          .techzuno-blog-content a:hover {
+            color: #03b8b8;
+          }
+
+          .techzuno-blog-content ul,
+          .techzuno-blog-content ol {
+            padding-left: 1.5rem;
+          }
+          .techzuno-blog-content ul {
+            list-style: disc;
+          }
+          .techzuno-blog-content ol {
+            list-style: decimal;
+          }
+          .techzuno-blog-content li {
+            margin: 0.4rem 0;
+          }
+          .techzuno-blog-content li[data-checked] {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+
+          .techzuno-blog-content blockquote {
+            border-left: 3px solid #03b8b8;
+            padding: 0.75rem 1.25rem;
+            background: rgba(3, 184, 184, 0.06);
+            border-radius: 0 10px 10px 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
+          }
+
+          .techzuno-blog-content code {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            padding: 0.15em 0.4em;
+            font-family: ui-monospace, monospace;
+            font-size: 0.9em;
+            color: #38fff2;
+          }
+          .techzuno-blog-content pre {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+          }
+          .techzuno-blog-content pre code {
+            background: none;
+            color: #e4e4e7;
+            padding: 0;
+          }
+
+          .techzuno-blog-content hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+          }
+
+          .techzuno-blog-content table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+          }
+          .techzuno-blog-content th {
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            text-align: left;
+            padding: 0.6rem 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+          .techzuno-blog-content td {
+            padding: 0.55rem 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.75);
+          }
+
+          .techzuno-blog-content div[data-youtube-video] {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+          }
+          .techzuno-blog-content div[data-youtube-video] iframe {
+            border-radius: 14px;
+            max-width: 100%;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+          }
+
+          .techzuno-blog-content mark {
+            border-radius: 3px;
+            padding: 0 0.15em;
+          }
+        `}</style>
 
         {/* Tags */}
         {blog.Tags?.length > 0 && (

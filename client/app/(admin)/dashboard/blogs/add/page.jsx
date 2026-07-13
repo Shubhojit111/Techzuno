@@ -3,6 +3,27 @@
 import DashboardShell from "@/components/admin/DashboardShell";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import {
+  ChevronLeft,
+  Settings,
+  X,
+  ChevronDown,
+  ChevronRight,
+  Check,
+  Plus,
+  Image,
+  FileText,
+  AlertCircle,
+  RotateCcw
+} from "lucide-react";
+
+// Dynamically import CustomTiptapEditor to avoid SSR issues in Next.js
+const CustomTiptapEditor = dynamic(
+  () => import("@/components/admin/CustomTiptapEditor"),
+  { ssr: false }
+);
 
 const initialForm = {
   name: "",
@@ -13,6 +34,25 @@ const initialForm = {
   newTagsInput: "",
 };
 
+// Reusable Collapsible Sidebar Section Component
+const SidebarSection = ({ title, isOpen, onToggle, children }) => (
+  <div className="border-b border-white/5">
+    <button
+      type="button"
+      onClick={onToggle}
+      className="w-full flex items-center justify-between px-4 py-3.5 text-xs font-semibold text-zinc-300 hover:text-white hover:bg-white/[0.02] transition-colors"
+    >
+      <span className="uppercase tracking-wider">{title}</span>
+      {isOpen ? (
+        <ChevronDown className="w-4 h-4 text-zinc-500" />
+      ) : (
+        <ChevronRight className="w-4 h-4 text-zinc-500" />
+      )}
+    </button>
+    {isOpen && <div className="px-4 pb-4 space-y-3">{children}</div>}
+  </div>
+);
+
 export default function AddBlogsPage() {
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
@@ -21,6 +61,17 @@ export default function AddBlogsPage() {
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [form, setForm] = useState(initialForm);
   const [editingBlogId, setEditingBlogId] = useState(null);
+
+  // Sidebar controls
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [sidebarTab, setSidebarTab] = useState("post"); // "post" or "block"
+
+  // Accordion section controls
+  const [statusExpanded, setStatusExpanded] = useState(true);
+  const [categoriesExpanded, setCategoriesExpanded] = useState(true);
+  const [tagsExpanded, setTagsExpanded] = useState(true);
+  const [imageExpanded, setImageExpanded] = useState(false);
+  const [seoExpanded, setSeoExpanded] = useState(false);
 
   const loadOptions = useCallback(async () => {
     setLoading(true);
@@ -186,141 +237,53 @@ export default function AddBlogsPage() {
       setSaving(false);
     }
   };
+
+  if (loading) {
+    return (
+      <DashboardShell
+        title={editingBlogId ? "Edit Blog" : "Add Blogs"}
+        requiredPermission="blogs"
+      >
+        <div className="flex flex-col items-center justify-center py-32 gap-4">
+          <div className="w-12 h-12 border-4 border-zinc-800 border-t-[#38FFF2] rounded-full animate-spin"></div>
+          <span className="text-zinc-400 font-medium text-sm">
+            Loading editor assets...
+          </span>
+        </div>
+      </DashboardShell>
+    );
+  }
+
   return (
     <DashboardShell
       title={editingBlogId ? "Edit Blog" : "Add Blogs"}
       requiredPermission="blogs"
     >
-      <div className="grid grid-cols-1 xl:grid-cols-[520px_minmax(0,1fr)] gap-6">
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-[24px] border border-white/10 bg-white/3 p-6 md:p-8"
-        >
-          <p className="text-[#38FFF2] text-[11px] tracking-[0.28em] uppercase">
-            {editingBlogId ? "Edit Blog" : "Add Blog"}
-          </p>
-          <h2 className="mt-3 text-[26px] font-semibold">
-            {editingBlogId ? "Update Blog" : "Create Blog"}
-          </h2>
-          <p className="mt-3 text-white/55 leading-relaxed">
-            Categories and tags are optional. If you do not choose any category
-            the blog will go into Uncategorized automatically.
-          </p>
-
-          {feedback.message ? (
-            <div
-              className={`mt-6 rounded-2xl border px-4 py-3 text-sm ${
-                feedback.type === "success"
-                  ? "border-[#03B8B8]/20 bg-[#03B8B8]/10 text-[#38FFF2]"
-                  : "border-red-500/20 bg-red-500/10 text-red-300"
-              }`}
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col min-h-[calc(100vh-12rem)] relative"
+      >
+        {/* ── TOP HEADER BAR ────────────────────────────────────────────── */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/dashboard/blogs"
+              className="p-2.5 border border-white/10 bg-white/3 hover:bg-white/8 rounded-xl text-zinc-400 hover:text-white transition-colors"
             >
-              {feedback.message}
+              <ChevronLeft className="w-4.5 h-4.5" />
+            </Link>
+            <div>
+              <span className="text-[11px] tracking-[0.22em] uppercase text-[#38FFF2] block font-bold">
+                {editingBlogId ? "Blog Editor" : "New Publication"}
+              </span>
+              <h1 className="text-2xl font-bold text-white leading-tight">
+                {editingBlogId ? "Modify Blog Post" : "Create Blog Post"}
+              </h1>
             </div>
-          ) : null}
-
-          <label className="block mt-6">
-            <span className="block text-sm text-white/70 mb-2">Name</span>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
-              placeholder="Enter blog name"
-              required
-            />
-          </label>
-
-          <label className="block mt-5">
-            <span className="block text-sm text-white/70 mb-2">
-              Description
-            </span>
-            <textarea
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-              rows={8}
-              className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors resize-y"
-              placeholder="Write blog description"
-              required
-            />
-          </label>
-
-          <div className="mt-5 rounded-[20px] border border-white/10 bg-black/20 p-4">
-            <p className="text-sm text-white/70 mb-3">Category</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {categories.length === 0 ? (
-                <p className="text-white/45 text-sm">
-                  No categories available yet.
-                </p>
-              ) : (
-                categories.map((category) => (
-                  <label
-                    key={category.id}
-                    className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
-                  >
-                    <span className="text-white/85">{category.name}</span>
-                    <input
-                      type="checkbox"
-                      checked={form.categoryIds.includes(category.id)}
-                      onChange={() => toggleCategory(category.id)}
-                      className="h-4 w-4 accent-[#03B8B8]"
-                    />
-                  </label>
-                ))
-              )}
-            </div>
-            <input
-              type="text"
-              name="newCategoriesInput"
-              value={form.newCategoriesInput}
-              onChange={handleChange}
-              placeholder="Add new categories, separated by commas"
-              className="mt-4 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
-            />
           </div>
 
-          <div className="mt-5 rounded-[20px] border border-white/10 bg-black/20 p-4">
-            <p className="text-sm text-white/70 mb-3">Tags</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {tags.map((tag) => (
-                <label
-                  key={tag.id}
-                  className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/30 px-4 py-3"
-                >
-                  <span className="text-white/85">{tag.name}</span>
-                  <input
-                    type="checkbox"
-                    checked={form.tagIds.includes(tag.id)}
-                    onChange={() => toggleTag(tag.id)}
-                    className="h-4 w-4 accent-[#03B8B8]"
-                  />
-                </label>
-              ))}
-            </div>
-            <input
-              type="text"
-              name="newTagsInput"
-              value={form.newTagsInput}
-              onChange={handleChange}
-              placeholder="Add new tags, separated by commas"
-              className="mt-4 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 outline-none focus:border-[#03B8B8] transition-colors"
-            />
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-4">
-            <button
-              type="submit"
-              disabled={saving || loading}
-              className="rounded-2xl bg-[#03B8B8] px-6 py-3.5 text-black font-semibold hover:bg-[#38FFF2] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {saving
-                ? "Saving..."
-                : editingBlogId
-                  ? "Update Blog"
-                  : "Add Blog"}
-            </button>
+          <div className="flex items-center gap-3">
+            {/* Cancel/Reset */}
             <button
               type="button"
               onClick={() => {
@@ -330,59 +293,506 @@ export default function AddBlogsPage() {
                 }
                 resetForm();
               }}
-              className="rounded-2xl border border-white/10 bg-white/3 px-6 py-3.5 text-white/75 hover:bg-white/[0.08] hover:text-white transition-colors"
+              className="flex items-center gap-2 px-4.5 py-2.5 border border-white/10 bg-white/3 hover:bg-white/8 hover:text-white text-zinc-300 rounded-xl text-sm font-semibold transition-colors cursor-pointer"
             >
-              {editingBlogId ? "Cancel" : "Reset"}
+              <RotateCcw className="w-4 h-4" />
+              <span>{editingBlogId ? "Cancel" : "Reset"}</span>
+            </button>
+
+            {/* Save/Publish */}
+            <button
+              type="submit"
+              disabled={saving}
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#03B8B8] hover:bg-[#38FFF2] text-black font-bold rounded-xl text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_12px_rgba(3,184,184,0.2)] hover:shadow-[0_4px_16px_rgba(56,255,242,0.35)] cursor-pointer"
+            >
+              {saving ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                  <span>Saving...</span>
+                </>
+              ) : (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>{editingBlogId ? "Update Post" : "Publish Post"}</span>
+                </>
+              )}
+            </button>
+
+            {/* Sidebar Toggle Gear */}
+            <button
+              type="button"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className={`p-2.5 border rounded-xl transition-all duration-200 cursor-pointer ${
+                isSidebarOpen
+                  ? "border-[#38FFF2]/30 bg-[#38FFF2]/10 text-[#38FFF2]"
+                  : "border-white/10 bg-white/3 text-zinc-400 hover:text-white"
+              }`}
+              title="Toggle Sidebar Panel"
+            >
+              <Settings className="w-4.5 h-4.5" />
             </button>
           </div>
-        </form>
+        </div>
 
-        <div className="rounded-[24px] border border-white/10 bg-white/3 p-6 md:p-8">
-          <h3 className="text-[22px] font-semibold">Available Options</h3>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <p className="text-sm text-white/50 uppercase tracking-[0.18em]">
-                Categories
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {categories.length === 0 ? (
-                  <span className="text-white/45 text-sm">
-                    No categories yet
-                  </span>
-                ) : (
-                  categories.map((category) => (
-                    <span
-                      key={category.id}
-                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-sm text-white/75"
-                    >
-                      {category.name}
-                    </span>
-                  ))
-                )}
-              </div>
-            </div>
-            <div>
-              <p className="text-sm text-white/50 uppercase tracking-[0.18em]">
-                Tags
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {tags.length === 0 ? (
-                  <span className="text-white/45 text-sm">No tags yet</span>
-                ) : (
-                  tags.map((tag) => (
-                    <span
-                      key={tag.id}
-                      className="rounded-full border border-[#03B8B8]/20 bg-[#03B8B8]/10 px-3 py-1 text-sm text-[#38FFF2]"
-                    >
-                      {tag.name}
-                    </span>
-                  ))
-                )}
+        {/* Feedback Message */}
+        {feedback.message && (
+          <div
+            className={`mb-6 rounded-2xl border px-4 py-3 text-sm flex items-center gap-3 ${
+              feedback.type === "success"
+                ? "border-[#03B8B8]/20 bg-[#03B8B8]/10 text-[#38FFF2]"
+                : "border-red-500/20 bg-red-500/10 text-red-300"
+            }`}
+          >
+            <AlertCircle className="w-5 h-5 flex-shrink-0" />
+            <span>{feedback.message}</span>
+          </div>
+        )}
+
+        {/* ── MAIN WORKSPACE CONTAINER ────────────────────────────────── */}
+        <div className="flex-1 flex flex-col lg:flex-row gap-6 items-stretch relative overflow-x-hidden pb-12">
+          
+          {/* LEFT: WHITE BOARD EDITOR CANVAS */}
+          <div className="flex-1 min-w-0">
+            <div className="bg-white text-zinc-900 rounded-2xl border border-zinc-200 shadow-xl p-6 md:p-10 max-w-4xl mx-auto w-full min-h-[600px] flex flex-col">
+              
+              {/* Document Title Input */}
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Add Title"
+                className="text-xl md:text-2xl font-bold font-montserrat text-zinc-950 placeholder-zinc-300 outline-none w-full border-b border-zinc-100 pb-3 mb-5 bg-transparent"
+                required
+              />
+              
+              {/* Rich Text Editor */}
+              <div className="flex-1">
+                <CustomTiptapEditor
+                  value={form.description}
+                  onChange={(content) => {
+                    setForm((prev) => ({
+                      ...prev,
+                      description: content,
+                    }));
+                  }}
+                />
               </div>
             </div>
           </div>
+
+          {/* RIGHT SIDEBAR CONTAINER (DESKTOP FLEX + SMOOTH COLLAPSE) */}
+          <div className="relative flex-shrink-0 flex items-stretch">
+            
+            {/* Desktop Slide/Drag Toggle Bar */}
+            <button
+              type="button"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="hidden lg:flex items-center justify-center w-5 bg-[#0A0F1C] hover:bg-[#0E1528] border border-white/5 text-zinc-400 hover:text-[#38FFF2] transition-colors rounded-l-xl cursor-pointer absolute -left-5 top-1/2 -translate-y-1/2 h-20 shadow-lg z-20 outline-none"
+              title={isSidebarOpen ? "Hide Options" : "Show Options"}
+            >
+              {isSidebarOpen ? (
+                <ChevronRight className="w-3.5 h-3.5" />
+              ) : (
+                <ChevronLeft className="w-3.5 h-3.5" />
+              )}
+            </button>
+
+            {/* Sidebar Content Panel */}
+            <div
+              className={`bg-[#0A0F1C] border border-white/5 rounded-2xl flex flex-col transition-all duration-300 ease-in-out ${
+                isSidebarOpen
+                  ? "w-full lg:w-[350px] opacity-100 visible"
+                  : "w-0 opacity-0 invisible overflow-hidden border-transparent"
+              }`}
+            >
+              {/* Inner wrapper to lock content width during collapse transition */}
+              <div className="w-full lg:w-[350px] flex-1 flex flex-col h-full">
+                
+                {/* Tabs (Post vs Block) */}
+                <div className="flex border-b border-white/5 flex-shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => setSidebarTab("post")}
+                    className={`flex-1 py-3.5 text-center text-xs font-bold border-b-2 uppercase tracking-wide transition-all cursor-pointer ${
+                      sidebarTab === "post"
+                        ? "border-[#38FFF2] text-[#38FFF2]"
+                        : "border-transparent text-zinc-500 hover:text-zinc-300"
+                    }`}
+                  >
+                    Post
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSidebarTab("block")}
+                    className={`flex-1 py-3.5 text-center text-xs font-bold border-b-2 uppercase tracking-wide transition-all cursor-pointer ${
+                      sidebarTab === "block"
+                        ? "border-[#38FFF2] text-[#38FFF2]"
+                        : "border-transparent text-zinc-500 hover:text-zinc-300"
+                    }`}
+                  >
+                    Block
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="px-4 text-zinc-500 hover:text-white border-l border-white/5 cursor-pointer"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Tab Contents */}
+                <div className="flex-1 overflow-y-auto custom-scrollbar">
+                  {sidebarTab === "post" ? (
+                    <div className="flex flex-col">
+                      
+                      {/* Section 1: Status & Visibility */}
+                      <SidebarSection
+                        title="Status & visibility"
+                        isOpen={statusExpanded}
+                        onToggle={() => setStatusExpanded(!statusExpanded)}
+                      >
+                        <div className="space-y-3.5 text-xs">
+                          <div className="flex justify-between items-center">
+                            <span className="text-zinc-500">Status</span>
+                            <span className="text-[#38FFF2] font-semibold bg-[#38FFF2]/5 px-2 py-0.5 rounded border border-[#38FFF2]/10 uppercase tracking-wider text-[10px]">
+                              {editingBlogId ? "Editing" : "Draft"}
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-zinc-500">Publish</span>
+                            <span className="text-zinc-300 font-medium">Immediately</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-zinc-500">Author</span>
+                            <span className="text-zinc-300 font-medium">Bishal</span>
+                          </div>
+                          <div className="space-y-1">
+                            <span className="text-zinc-500 block mb-1">Permalink Slug</span>
+                            <div className="flex rounded-lg border border-white/10 bg-black/40 px-3 py-1.5 text-zinc-400 select-all font-mono truncate text-[11px]">
+                              {form.name
+                                ? form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")
+                                : "slug-will-appear-here"}
+                            </div>
+                          </div>
+                        </div>
+                      </SidebarSection>
+
+                      {/* Section 2: Categories */}
+                      <SidebarSection
+                        title="Categories"
+                        isOpen={categoriesExpanded}
+                        onToggle={() => setCategoriesExpanded(!categoriesExpanded)}
+                      >
+                        <div className="space-y-2.5 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                          {categories.length === 0 ? (
+                            <p className="text-zinc-500 text-xs italic">
+                              No categories available.
+                            </p>
+                          ) : (
+                            categories.map((category) => (
+                              <label
+                                key={category.id}
+                                className="flex items-center gap-2.5 cursor-pointer group"
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={form.categoryIds.includes(category.id)}
+                                  onChange={() => toggleCategory(category.id)}
+                                  className="rounded border-white/10 bg-black/40 text-[#03B8B8] focus:ring-[#03B8B8] focus:ring-offset-0 h-4 w-4 transition-colors"
+                                />
+                                <span className="text-xs text-zinc-400 group-hover:text-zinc-200 transition-colors">
+                                  {category.name}
+                                </span>
+                              </label>
+                            ))
+                          )}
+                        </div>
+                        <div className="pt-2.5 border-t border-white/5 space-y-2">
+                          <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">
+                            Add New Category
+                          </span>
+                          <input
+                            type="text"
+                            name="newCategoriesInput"
+                            value={form.newCategoriesInput}
+                            onChange={handleChange}
+                            placeholder="Type name, separated by commas"
+                            className="w-full text-xs rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none focus:border-[#03B8B8] text-zinc-200 placeholder-zinc-600 transition-colors"
+                          />
+                        </div>
+                      </SidebarSection>
+
+                      {/* Section 3: Tags */}
+                      <SidebarSection
+                        title="Tags"
+                        isOpen={tagsExpanded}
+                        onToggle={() => setTagsExpanded(!tagsExpanded)}
+                      >
+                        <div className="space-y-2.5 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                          {tags.length === 0 ? (
+                            <p className="text-zinc-500 text-xs italic">
+                              No tags available.
+                            </p>
+                          ) : (
+                            tags.map((tag) => (
+                              <label
+                                key={tag.id}
+                                className="flex items-center gap-2.5 cursor-pointer group"
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={form.tagIds.includes(tag.id)}
+                                  onChange={() => toggleTag(tag.id)}
+                                  className="rounded border-white/10 bg-black/40 text-[#03B8B8] focus:ring-[#03B8B8] focus:ring-offset-0 h-4 w-4 transition-colors"
+                                />
+                                <span className="text-xs text-zinc-400 group-hover:text-zinc-200 transition-colors">
+                                  {tag.name}
+                                </span>
+                              </label>
+                            ))
+                          )}
+                        </div>
+                        <div className="pt-2.5 border-t border-white/5 space-y-2">
+                          <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">
+                            Add New Tags
+                          </span>
+                          <input
+                            type="text"
+                            name="newTagsInput"
+                            value={form.newTagsInput}
+                            onChange={handleChange}
+                            placeholder="Type tags, separated by commas"
+                            className="w-full text-xs rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none focus:border-[#03B8B8] text-zinc-200 placeholder-zinc-600 transition-colors"
+                          />
+                        </div>
+                      </SidebarSection>
+
+                      {/* Section 4: Featured Image */}
+                      <SidebarSection
+                        title="Featured Image"
+                        isOpen={imageExpanded}
+                        onToggle={() => setImageExpanded(!imageExpanded)}
+                      >
+                        <div className="border-2 border-dashed border-white/10 rounded-xl p-5 text-center hover:border-[#03B8B8]/30 transition-colors cursor-pointer group">
+                          <Image className="w-7 h-7 mx-auto mb-2 text-zinc-500 group-hover:text-[#38FFF2] transition-colors" />
+                          <span className="text-xs text-[#03B8B8] group-hover:text-[#38FFF2] transition-colors font-semibold">
+                            Set featured image
+                          </span>
+                          <p className="text-[10px] text-zinc-600 mt-1">
+                            Recommended: 1200 x 630 pixels
+                          </p>
+                        </div>
+                      </SidebarSection>
+
+                      {/* Section 5: Yoast SEO */}
+                      <SidebarSection
+                        title="Yoast SEO"
+                        isOpen={seoExpanded}
+                        onToggle={() => setSeoExpanded(!seoExpanded)}
+                      >
+                        <div className="space-y-3.5">
+                          <div className="flex items-center gap-3">
+                            <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.4)]" />
+                            <div className="text-xs">
+                              <span className="text-zinc-500">SEO analysis: </span>
+                              <span className="text-rose-400 font-semibold">Needs improvement</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+                            <div className="text-xs">
+                              <span className="text-zinc-500">Readability analysis: </span>
+                              <span className="text-emerald-400 font-semibold">Good</span>
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            className="w-full text-[11px] py-2 px-3 border border-white/10 rounded-lg hover:bg-white/5 transition-colors text-center text-zinc-300 font-semibold cursor-pointer"
+                          >
+                            Improve post with Yoast SEO
+                          </button>
+                        </div>
+                      </SidebarSection>
+
+                    </div>
+                  ) : (
+                    <div className="p-8 text-center text-zinc-500">
+                      <FileText className="w-10 h-10 mx-auto mb-3 text-zinc-600" />
+                      <p className="text-sm font-semibold text-zinc-400">No Block Selected</p>
+                      <p className="text-xs text-zinc-600 mt-1 max-w-[200px] mx-auto leading-relaxed">
+                        Select a specific text block inside the whiteboard area to modify its individual attributes.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
         </div>
-      </div>
+
+      </form>
+      
+      {/* MOBILE OVERLAY DRAWER PANEL */}
+      {isSidebarOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex pointer-events-auto">
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+          <div className="relative w-80 max-w-[90%] bg-[#0A0F1C] border-l border-white/5 h-full flex flex-col justify-between py-0 ml-auto animate-in slide-in-from-right duration-250 shadow-2xl">
+            
+            {/* Header / Tabs */}
+            <div className="flex border-b border-white/5 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => setSidebarTab("post")}
+                className={`flex-1 py-4 text-center text-xs font-bold border-b-2 uppercase tracking-wide transition-all ${
+                  sidebarTab === "post"
+                    ? "border-[#38FFF2] text-[#38FFF2]"
+                    : "border-transparent text-zinc-500"
+                }`}
+              >
+                Post
+              </button>
+              <button
+                type="button"
+                onClick={() => setSidebarTab("block")}
+                className={`flex-1 py-4 text-center text-xs font-bold border-b-2 uppercase tracking-wide transition-all ${
+                  sidebarTab === "block"
+                    ? "border-[#38FFF2] text-[#38FFF2]"
+                    : "border-transparent text-zinc-500"
+                }`}
+              >
+                Block
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsSidebarOpen(false)}
+                className="px-4 text-zinc-400 hover:text-white border-l border-white/5"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Scrollable Contents */}
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-1">
+              {sidebarTab === "post" ? (
+                <div className="flex flex-col">
+                  {/* Status */}
+                  <SidebarSection
+                    title="Status & visibility"
+                    isOpen={statusExpanded}
+                    onToggle={() => setStatusExpanded(!statusExpanded)}
+                  >
+                    <div className="space-y-3.5 text-xs">
+                      <div className="flex justify-between items-center">
+                        <span className="text-zinc-500">Status</span>
+                        <span className="text-[#38FFF2] font-semibold bg-[#38FFF2]/5 px-2 py-0.5 rounded border border-[#38FFF2]/10 uppercase tracking-wider text-[10px]">
+                          {editingBlogId ? "Editing" : "Draft"}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-zinc-500">Publish</span>
+                        <span className="text-zinc-300 font-medium">Immediately</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-zinc-500">Author</span>
+                        <span className="text-zinc-300 font-medium">Bishal</span>
+                      </div>
+                    </div>
+                  </SidebarSection>
+                  
+                  {/* Categories */}
+                  <SidebarSection
+                    title="Categories"
+                    isOpen={categoriesExpanded}
+                    onToggle={() => setCategoriesExpanded(!categoriesExpanded)}
+                  >
+                    <div className="space-y-2.5 max-h-40 overflow-y-auto custom-scrollbar pr-1">
+                      {categories.map((category) => (
+                        <label key={category.id} className="flex items-center gap-2.5 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={form.categoryIds.includes(category.id)}
+                            onChange={() => toggleCategory(category.id)}
+                            className="rounded border-white/10 bg-black/40 text-[#03B8B8] h-4 w-4"
+                          />
+                          <span className="text-xs text-zinc-400">{category.name}</span>
+                        </label>
+                      ))}
+                    </div>
+                    <div className="pt-2 border-t border-white/5 space-y-2">
+                      <input
+                        type="text"
+                        name="newCategoriesInput"
+                        value={form.newCategoriesInput}
+                        onChange={handleChange}
+                        placeholder="Add categories, comma-separated"
+                        className="w-full text-xs rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none focus:border-[#03B8B8] text-zinc-200 placeholder-zinc-600"
+                      />
+                    </div>
+                  </SidebarSection>
+
+                  {/* Tags */}
+                  <SidebarSection
+                    title="Tags"
+                    isOpen={tagsExpanded}
+                    onToggle={() => setTagsExpanded(!tagsExpanded)}
+                  >
+                    <div className="space-y-2.5 max-h-40 overflow-y-auto custom-scrollbar pr-1">
+                      {tags.map((tag) => (
+                        <label key={tag.id} className="flex items-center gap-2.5 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={form.tagIds.includes(tag.id)}
+                            onChange={() => toggleTag(tag.id)}
+                            className="rounded border-white/10 bg-black/40 text-[#03B8B8] h-4 w-4"
+                          />
+                          <span className="text-xs text-zinc-400">{tag.name}</span>
+                        </label>
+                      ))}
+                    </div>
+                    <div className="pt-2 border-t border-white/5 space-y-2">
+                      <input
+                        type="text"
+                        name="newTagsInput"
+                        value={form.newTagsInput}
+                        onChange={handleChange}
+                        placeholder="Add tags, comma-separated"
+                        className="w-full text-xs rounded-lg border border-white/10 bg-black/30 px-3 py-2 outline-none focus:border-[#03B8B8] text-zinc-200 placeholder-zinc-600"
+                      />
+                    </div>
+                  </SidebarSection>
+
+                  {/* Image */}
+                  <SidebarSection
+                    title="Featured Image"
+                    isOpen={imageExpanded}
+                    onToggle={() => setImageExpanded(!imageExpanded)}
+                  >
+                    <div className="border-2 border-dashed border-white/10 rounded-xl p-5 text-center">
+                      <Image className="w-7 h-7 mx-auto mb-2 text-zinc-500" />
+                      <span className="text-xs text-[#03B8B8] font-semibold">Set featured image</span>
+                    </div>
+                  </SidebarSection>
+                </div>
+              ) : (
+                <div className="p-6 text-center text-zinc-500">
+                  <FileText className="w-10 h-10 mx-auto mb-3" />
+                  <p className="text-xs">No block selected. Choose an element in the whiteboard editor area to inspect properties.</p>
+                </div>
+              )}
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </DashboardShell>
   );
 }
