@@ -4,6 +4,8 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import GoToTop from "@/components/layout/GoToTop";
 import { AuthProvider } from "@/context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700", "900"],
@@ -34,6 +36,7 @@ export default function RootLayout({ children }) {
           <main className="">{children}</main>
           {/* <Footer /> */}
           <GoToTop />
+          <ToastContainer theme="dark" position="bottom-right" />
         </AuthProvider>
       </body>
     </html>

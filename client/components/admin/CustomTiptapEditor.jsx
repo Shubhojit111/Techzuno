@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, NodeViewWrapper, NodeViewContent, ReactNodeViewRenderer } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
@@ -54,7 +54,136 @@ import {
   Underline as UnderlineIcon,
   Undo2,
   Video as YoutubeIcon,
+  GripVertical,
+  Trash2,
 } from "lucide-react";
+import axios from "axios";
+
+const ImageNodeComponent = ({ node, updateAttributes, deleteNode, editor }) => {
+  const [isResizing, setIsResizing] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [startWidth, setStartWidth] = useState(0);
+
+  const handleMouseDown = (e) => {
+    if (e.target.closest(".resize-handle")) {
+      e.preventDefault();
+      setIsResizing(true);
+      setStartX(e.clientX);
+      setStartWidth(node.attrs.width || 500);
+    }
+  };
+
+  const handleMouseMove = useCallback((e) => {
+    if (!isResizing) return;
+    const deltaX = e.clientX - startX;
+    const align = node.attrs.align || "center";
+    
+    // If centered, both sides grow, so right edge moves by deltaX / 2. To get accurate drag, we multiply delta by 2.
+    // If right aligned, dragging the right handle doesn't make sense because it's fixed to the right. We subtract deltaX.
+    let newWidth = startWidth;
+    if (align === "center") {
+      newWidth = startWidth + deltaX * 2;
+    } else if (align === "right") {
+      newWidth = startWidth - deltaX;
+    } else {
+      newWidth = startWidth + deltaX;
+    }
+    
+    newWidth = Math.max(100, Math.min(1000, newWidth));
+    updateAttributes({ width: newWidth });
+  }, [isResizing, startX, startWidth, updateAttributes, node.attrs.align]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  useEffect(() => {
+    if (isResizing) {
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("mouseup", handleMouseUp);
+      };
+    }
+  }, [isResizing, handleMouseMove, handleMouseUp]);
+
+  const align = node.attrs.align || "center";
+  const alignmentClass = align === "left" ? "justify-start" : align === "right" ? "justify-end" : "justify-center";
+
+  return (
+    <NodeViewWrapper
+      className={`group relative my-4 flex w-full ${alignmentClass}`}
+      draggable
+      data-drag-handle
+      onDragStart={() => setIsDragging(true)}
+      onDragEnd={() => setIsDragging(false)}
+    >
+      <div className={`relative inline-block transition-all ${isDragging ? "opacity-50" : ""}`} style={{ width: node.attrs.width || 500 }}>
+        <img
+          src={node.attrs.src}
+          alt={node.attrs.alt || "Blog image"}
+          className="w-full rounded-xl shadow-lg"
+        />
+
+        {/* Action Toolbar (Align + Delete) */}
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm border border-zinc-200 shadow-xl rounded-lg px-2 py-1.5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1.5 z-10">
+          <button onClick={(e) => { e.preventDefault(); updateAttributes({ align: "left" }); }} className={`p-1 rounded hover:bg-zinc-100 ${align === "left" ? "text-[#03B8B8]" : "text-zinc-500"}`} title="Align Left">
+            <AlignLeft size={16} />
+          </button>
+          <button onClick={(e) => { e.preventDefault(); updateAttributes({ align: "center" }); }} className={`p-1 rounded hover:bg-zinc-100 ${align === "center" ? "text-[#03B8B8]" : "text-zinc-500"}`} title="Align Center">
+            <AlignCenter size={16} />
+          </button>
+          <button onClick={(e) => { e.preventDefault(); updateAttributes({ align: "right" }); }} className={`p-1 rounded hover:bg-zinc-100 ${align === "right" ? "text-[#03B8B8]" : "text-zinc-500"}`} title="Align Right">
+            <AlignRight size={16} />
+          </button>
+          <div className="w-px h-4 bg-zinc-300 mx-1"></div>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              deleteNode();
+            }}
+            className="p-1 rounded hover:bg-red-50 text-red-500 transition-colors"
+            title="Delete Image"
+          >
+            <Trash2 size={16} />
+          </button>
+        </div>
+
+        {/* Drag Handle */}
+        <div className="absolute -left-8 top-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity text-zinc-400 hover:text-zinc-600 bg-white shadow-md p-1.5 rounded-lg border border-zinc-200">
+          <GripVertical size={16} />
+        </div>
+
+        {/* Resize Handle */}
+        <div
+          className="resize-handle absolute -bottom-1 -right-1 w-6 h-6 cursor-nwse-resize bg-white shadow-md border border-zinc-200 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
+          onMouseDown={handleMouseDown}
+        >
+          <div className="w-2.5 h-2.5 bg-[#03B8B8] rounded-full"></div>
+        </div>
+      </div>
+    </NodeViewWrapper>
+  );
+};
+
+const CustomImageExtension = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      width: {
+        default: 500,
+      },
+      align: {
+        default: "center",
+      },
+    };
+  },
+  addNodeView() {
+    return ReactNodeViewRenderer(ImageNodeComponent);
+  },
+});
 
 const HEADING_OPTIONS = [
   { label: "Paragraph", value: "paragraph" },
@@ -283,7 +412,6 @@ function Divider() {
   return <span className="toolbar-divider" />;
 }
 
-
 function LinkModal({ open, initialUrl, initialText, onClose, onSubmit }) {
   const [url, setUrl] = useState(initialUrl || "https://");
   const [label, setLabel] = useState(initialText || "");
@@ -346,10 +474,12 @@ function LinkModal({ open, initialUrl, initialText, onClose, onSubmit }) {
   );
 }
 
-function Toolbar({ editor }) {
+function Toolbar({ editor, handleImageUpload }) {
   const [stateVersion, setStateVersion] = useState(0);
   const [linkModal, setLinkModal] = useState({ open: false, url: "", text: "" });
+  const [uploadingImage, setUploadingImage] = useState(false);
   const lastSelectionRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (!editor) return;
@@ -443,12 +573,31 @@ function Toolbar({ editor }) {
   }, [editor, restoreSelection]);
 
   const handleImage = useCallback(() => {
-    if (!editor) return;
-    const src = window.prompt("Image URL:", "https://");
-    if (!src || src.trim() === "https://") return;
-    const alt = window.prompt("Alt text:", "Blog image") || "Blog image";
-    editor.chain().focus().setImage({ src: src.trim(), alt }).run();
-  }, [editor]);
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  }, []);
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    try {
+      const imageUrl = await handleImageUpload(file);
+      if (imageUrl) {
+        editor.chain().focus().setImage({ src: imageUrl, alt: file.name, width: 500 }).run();
+      }
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      alert("Failed to upload image");
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
 
   const handleTable = useCallback(() => {
     if (!editor) return;
@@ -469,140 +618,168 @@ function Toolbar({ editor }) {
 
   return (
     <>
-    <div className="tiptap-toolbar">
-      <div className="toolbar-row ">
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleBold().run()} isActive={editor.isActive("bold")} title="Bold">
-          <Bold className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleItalic().run()} isActive={editor.isActive("italic")} title="Italic">
-          <Italic className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleUnderline().run()} isActive={editor.isActive("underline")} title="Underline">
-          <UnderlineIcon className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleStrike().run()} isActive={editor.isActive("strike")} title="Strikethrough">
-          <Strikethrough className="w-4 h-4" />
-        </ToolbarBtn>
-        <Divider />
-        <ToolbarBtn onClick={openLinkModal} isActive={editor.isActive("link")} title={editor.isActive("link") ? "Edit or remove link" : "Add link"}>
-          {editor.isActive("link") ? <Link2Off className="w-4 h-4" /> : <LinkIcon className="w-4 h-4" />}
-        </ToolbarBtn>
-        <ToolbarBtn onClick={handleImage} title="Insert image">
-          <ImageIcon className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={handleTable} title="Insert 3 x 3 table">
-          <TableIcon className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={handleYoutube} title="Embed YouTube video">
-          <YoutubeIcon className="w-4 h-4" />
-        </ToolbarBtn>
-        <Dropdown label="Insert" icon={Rows3} minWidth="min-w-[110px]">
-          <MenuItem onClick={() => editor.chain().focus().setHorizontalRule().run()}>
-            <span className="flex items-center gap-2"><Minus className="w-4 h-4" /> Horizontal rule</span>
-          </MenuItem>
-          <MenuItem onClick={() => editor.chain().focus().toggleCodeBlock().run()} active={editor.isActive("codeBlock")}>
-            <span className="flex items-center gap-2"><Code2 className="w-4 h-4" /> Code block</span>
-          </MenuItem>
-        </Dropdown>
-        <Divider />
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleBulletList().run()} isActive={editor.isActive("bulletList")} title="Bullet list">
-          <List className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleOrderedList().run()} isActive={editor.isActive("orderedList")} title="Numbered list">
-          <ListOrdered className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleTaskList().run()} isActive={editor.isActive("taskList")} title="Task list">
-          <ListChecks className="w-4 h-4" />
-        </ToolbarBtn>
-        <Dropdown label={activeHeadingLabel || "Paragraph"} icon={Type} minWidth="min-w-[150px]">
-          {HEADING_OPTIONS.map((option) => (
-            <MenuItem
-              key={option.value}
-              active={activeHeading === option.value}
-              onClick={() => {
-                if (option.value === "paragraph") editor.chain().focus().setParagraph().run();
-                else editor.chain().focus().toggleHeading({ level: Number(option.value.slice(1)) }).run();
-              }}
-            >
-              {option.label}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept="image/*"
+        style={{ display: "none" }}
+      />
+      <div className="tiptap-toolbar">
+        <div className="toolbar-row ">
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleBold().run()} isActive={editor.isActive("bold")} title="Bold">
+            <Bold className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleItalic().run()} isActive={editor.isActive("italic")} title="Italic">
+            <Italic className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleUnderline().run()} isActive={editor.isActive("underline")} title="Underline">
+            <UnderlineIcon className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleStrike().run()} isActive={editor.isActive("strike")} title="Strikethrough">
+            <Strikethrough className="w-4 h-4" />
+          </ToolbarBtn>
+          <Divider />
+          <ToolbarBtn onClick={openLinkModal} isActive={editor.isActive("link")} title={editor.isActive("link") ? "Edit or remove link" : "Add link"}>
+            {editor.isActive("link") ? <Link2Off className="w-4 h-4" /> : <LinkIcon className="w-4 h-4" />}
+          </ToolbarBtn>
+          <ToolbarBtn onClick={handleImage} title="Insert image" disabled={uploadingImage}>
+            {uploadingImage ? (
+              <div className="w-4 h-4 border-2 border-zinc-300 border-t-[#03B8B8] rounded-full animate-spin" />
+            ) : (
+              <ImageIcon className="w-4 h-4" />
+            )}
+          </ToolbarBtn>
+          <ToolbarBtn onClick={handleTable} title="Insert 3 x 3 table">
+            <TableIcon className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={handleYoutube} title="Embed YouTube video">
+            <YoutubeIcon className="w-4 h-4" />
+          </ToolbarBtn>
+          <Dropdown label="Insert" icon={Rows3} minWidth="min-w-[110px]">
+            <MenuItem onClick={() => editor.chain().focus().setHorizontalRule().run()}>
+              <span className="flex items-center gap-2"><Minus className="w-4 h-4" /> Horizontal rule</span>
             </MenuItem>
-          ))}
-        </Dropdown>
-      </div>
+            <MenuItem onClick={() => editor.chain().focus().toggleCodeBlock().run()} active={editor.isActive("codeBlock")}>
+              <span className="flex items-center gap-2"><Code2 className="w-4 h-4" /> Code block</span>
+            </MenuItem>
+          </Dropdown>
+          <Divider />
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleBulletList().run()} isActive={editor.isActive("bulletList")} title="Bullet list">
+            <List className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleOrderedList().run()} isActive={editor.isActive("orderedList")} title="Numbered list">
+            <ListOrdered className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleTaskList().run()} isActive={editor.isActive("taskList")} title="Task list">
+            <ListChecks className="w-4 h-4" />
+          </ToolbarBtn>
+          <Dropdown label={activeHeadingLabel || "Paragraph"} icon={Type} minWidth="min-w-[150px]">
+            {HEADING_OPTIONS.map((option) => (
+              <MenuItem
+                key={option.value}
+                active={activeHeading === option.value}
+                onClick={() => {
+                  if (option.value === "paragraph") editor.chain().focus().setParagraph().run();
+                  else editor.chain().focus().toggleHeading({ level: Number(option.value.slice(1)) }).run();
+                }}
+              >
+                {option.label}
+              </MenuItem>
+            ))}
+          </Dropdown>
+        </div>
 
-      <div className="toolbar-row toolbar-row-secondary">
-        <Dropdown label="Align" icon={AlignLeft} minWidth="min-w-[112px]">
-          <MenuItem active={editor.isActive({ textAlign: "left" })} onClick={() => editor.chain().focus().setTextAlign("left").run()}>
-            <span className="flex items-center gap-2"><AlignLeft className="w-4 h-4" /> Left</span>
-          </MenuItem>
-          <MenuItem active={editor.isActive({ textAlign: "center" })} onClick={() => editor.chain().focus().setTextAlign("center").run()}>
-            <span className="flex items-center gap-2"><AlignCenter className="w-4 h-4" /> Center</span>
-          </MenuItem>
-          <MenuItem active={editor.isActive({ textAlign: "right" })} onClick={() => editor.chain().focus().setTextAlign("right").run()}>
-            <span className="flex items-center gap-2"><AlignRight className="w-4 h-4" /> Right</span>
-          </MenuItem>
-          <MenuItem active={editor.isActive({ textAlign: "justify" })} onClick={() => editor.chain().focus().setTextAlign("justify").run()}>
-            <span className="flex items-center gap-2"><AlignJustify className="w-4 h-4" /> Justify</span>
-          </MenuItem>
-        </Dropdown>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleBlockquote().run()} isActive={editor.isActive("blockquote")} title="Block quote">
-          <Quote className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleCode().run()} isActive={editor.isActive("code")} title="Inline code">
-          <Code2 className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleSubscript().run()} isActive={editor.isActive("subscript")} title="Subscript">
-          <SubscriptIcon className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().toggleSuperscript().run()} isActive={editor.isActive("superscript")} title="Superscript">
-          <SuperscriptIcon className="w-4 h-4" />
-        </ToolbarBtn>
-        <Divider />
-        <Dropdown label="Text color" icon={Palette} minWidth="min-w-[132px]">
-          {TEXT_COLORS.map((color) => (
-            <SwatchItem key={color.value} label={color.label} value={color.value} onClick={() => editor.chain().focus().setMark("textStyle", { color: color.value }).run()} />
-          ))}
-          <MenuItem onClick={() => editor.chain().focus().unsetColor().run()}>
-            <span className="flex items-center gap-2"><Eraser className="w-4 h-4" /> Clear color</span>
-          </MenuItem>
-        </Dropdown>
-        <Dropdown label="Highlight" icon={Highlighter} minWidth="min-w-[124px]">
-          {HIGHLIGHT_COLORS.map((color) => (
-            <SwatchItem key={color.value} label={color.label} value={color.value} onClick={() => editor.chain().focus().toggleHighlight({ color: color.value }).run()} />
-          ))}
-          <MenuItem onClick={() => editor.chain().focus().unsetHighlight().run()}>
-            <span className="flex items-center gap-2"><Eraser className="w-4 h-4" /> Clear highlight</span>
-          </MenuItem>
-        </Dropdown>
-        <Divider />
-        <ToolbarBtn onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} title="Undo">
-          <Undo2 className="w-4 h-4" />
-        </ToolbarBtn>
-        <ToolbarBtn onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} title="Redo">
-          <Redo2 className="w-4 h-4" />
-        </ToolbarBtn>
-        <div className="toolbar-hint">
-          <TextCursorInput className="w-3.5 h-3.5" /> Type @ to mention
+        <div className="toolbar-row toolbar-row-secondary">
+          <Dropdown label="Align" icon={AlignLeft} minWidth="min-w-[112px]">
+            <MenuItem active={editor.isActive({ textAlign: "left" })} onClick={() => editor.chain().focus().setTextAlign("left").run()}>
+              <span className="flex items-center gap-2"><AlignLeft className="w-4 h-4" /> Left</span>
+            </MenuItem>
+            <MenuItem active={editor.isActive({ textAlign: "center" })} onClick={() => editor.chain().focus().setTextAlign("center").run()}>
+              <span className="flex items-center gap-2"><AlignCenter className="w-4 h-4" /> Center</span>
+            </MenuItem>
+            <MenuItem active={editor.isActive({ textAlign: "right" })} onClick={() => editor.chain().focus().setTextAlign("right").run()}>
+              <span className="flex items-center gap-2"><AlignRight className="w-4 h-4" /> Right</span>
+            </MenuItem>
+            <MenuItem active={editor.isActive({ textAlign: "justify" })} onClick={() => editor.chain().focus().setTextAlign("justify").run()}>
+              <span className="flex items-center gap-2"><AlignJustify className="w-4 h-4" /> Justify</span>
+            </MenuItem>
+          </Dropdown>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleBlockquote().run()} isActive={editor.isActive("blockquote")} title="Block quote">
+            <Quote className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleCode().run()} isActive={editor.isActive("code")} title="Inline code">
+            <Code2 className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleSubscript().run()} isActive={editor.isActive("subscript")} title="Subscript">
+            <SubscriptIcon className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().toggleSuperscript().run()} isActive={editor.isActive("superscript")} title="Superscript">
+            <SuperscriptIcon className="w-4 h-4" />
+          </ToolbarBtn>
+          <Divider />
+          <Dropdown label="Text color" icon={Palette} minWidth="min-w-[132px]">
+            {TEXT_COLORS.map((color) => (
+              <SwatchItem key={color.value} label={color.label} value={color.value} onClick={() => editor.chain().focus().setMark("textStyle", { color: color.value }).run()} />
+            ))}
+            <MenuItem onClick={() => editor.chain().focus().unsetColor().run()}>
+              <span className="flex items-center gap-2"><Eraser className="w-4 h-4" /> Clear color</span>
+            </MenuItem>
+          </Dropdown>
+          <Dropdown label="Highlight" icon={Highlighter} minWidth="min-w-[124px]">
+            {HIGHLIGHT_COLORS.map((color) => (
+              <SwatchItem key={color.value} label={color.label} value={color.value} onClick={() => editor.chain().focus().toggleHighlight({ color: color.value }).run()} />
+            ))}
+            <MenuItem onClick={() => editor.chain().focus().unsetHighlight().run()}>
+              <span className="flex items-center gap-2"><Eraser className="w-4 h-4" /> Clear highlight</span>
+            </MenuItem>
+          </Dropdown>
+          <Divider />
+          <ToolbarBtn onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} title="Undo">
+            <Undo2 className="w-4 h-4" />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} title="Redo">
+            <Redo2 className="w-4 h-4" />
+          </ToolbarBtn>
+          <div className="toolbar-hint">
+            <TextCursorInput className="w-3.5 h-3.5" /> Type @ to mention
+          </div>
         </div>
       </div>
-    </div>
-    <LinkModal
-      open={linkModal.open}
-      initialUrl={linkModal.url}
-      initialText={linkModal.text}
-      onClose={() => setLinkModal({ open: false, url: "", text: "" })}
-      onSubmit={applyLink}
-    />
+      <LinkModal
+        open={linkModal.open}
+        initialUrl={linkModal.url}
+        initialText={linkModal.text}
+        onClose={() => setLinkModal({ open: false, url: "", text: "" })}
+        onSubmit={applyLink}
+      />
     </>
   );
 }
 
 export default function CustomTiptapEditor({ value, onChange }) {
+  // Function to upload image
+  const handleImageUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await axios.post("http://localhost:5000/api/upload/image", formData, {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data.url;
+  };
+
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
       StarterKit.configure({
         heading: { levels: [1, 2, 3] },
+        underline: false,
+        link: false,
       }),
       Underline,
       TextStyle,
@@ -613,10 +790,9 @@ export default function CustomTiptapEditor({ value, onChange }) {
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       TaskList,
       TaskItem.configure({ nested: true }),
-      Image.configure({
+      CustomImageExtension.configure({
         inline: false,
         allowBase64: true,
-        HTMLAttributes: { class: "tiptap-image" },
       }),
       Mention.configure({
         HTMLAttributes: { class: "tiptap-mention" },
@@ -658,20 +834,16 @@ export default function CustomTiptapEditor({ value, onChange }) {
 
   return (
     <div className="tiptap-shell">
-      <Toolbar editor={editor} />
-      <EditorContent editor={editor} className="tiptap-editor-content" />
+      <Toolbar editor={editor} handleImageUpload={handleImageUpload} />
+      <EditorContent editor={editor} className="tiptap-editor-content no-scrollbar" />
       <style>{`
         .tiptap-shell {
           width: 100%;
-          height: 100%;
-          min-height: 0;
           display: flex;
           flex-direction: column;
-          overflow: hidden;
-          border: 1px solid #d4d4d8;
-          border-radius: 18px;
-          background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-          box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+          border-radius: 14px;
+          background: rgba(0, 0, 0, 0.15);
+          box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.25);
         }
 
         .tiptap-toolbar {
@@ -679,8 +851,12 @@ export default function CustomTiptapEditor({ value, onChange }) {
           flex-shrink: 0;
           flex-direction: column;
           gap: 0;
-          border-bottom: 1px solid #e4e4e7;
-          background: linear-gradient(180deg, #ffffff 0%, #f6f8fb 100%);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(20, 25, 35, 0.98);
+          backdrop-filter: blur(12px);
+          position: sticky;
+          top: 0;
+          z-index: 10;
         }
 
         .toolbar-row {
@@ -689,12 +865,12 @@ export default function CustomTiptapEditor({ value, onChange }) {
           align-items: center;
           gap: 0.35rem;
           min-height: 56px;
-          padding: 0.65rem 0.85rem;
+          padding: 0.75rem 1rem;
         }
 
         .toolbar-row-secondary {
-          border-top: 1px solid #edf0f3;
-          background: rgba(248, 250, 252, 0.72);
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          background: rgba(0, 0, 0, 0.1);
         }
 
         .toolbar-btn,
@@ -706,7 +882,7 @@ export default function CustomTiptapEditor({ value, onChange }) {
           min-height: 36px;
           border: 1px solid transparent;
           border-radius: 10px;
-          color: #334155;
+          color: #a1a1aa;
           background: transparent;
           transition: all 0.16s ease;
           cursor: pointer;
@@ -725,17 +901,17 @@ export default function CustomTiptapEditor({ value, onChange }) {
 
         .toolbar-btn:hover,
         .toolbar-select:hover {
-          border-color: #d9f7f7;
-          background: #ecfeff;
-          color: #047b7b;
+          border-color: rgba(3, 184, 184, 0.3);
+          background: rgba(3, 184, 184, 0.1);
+          color: #38FFF2;
           transform: translateY(-1px);
         }
 
         .toolbar-btn.is-active,
         .toolbar-menu-item.is-active {
-          border-color: rgba(3, 184, 184, 0.28);
-          background: rgba(3, 184, 184, 0.12);
-          color: #028989;
+          border-color: rgba(3, 184, 184, 0.4);
+          background: rgba(3, 184, 184, 0.2);
+          color: #38FFF2;
         }
 
         .toolbar-btn:disabled {
@@ -748,7 +924,7 @@ export default function CustomTiptapEditor({ value, onChange }) {
           width: 1px;
           height: 26px;
           margin: 0 0.35rem;
-          background: #e4e4e7;
+          background: rgba(255, 255, 255, 0.1);
         }
 
         .toolbar-menu {
@@ -758,10 +934,10 @@ export default function CustomTiptapEditor({ value, onChange }) {
           z-index: 80;
           width: 210px;
           overflow: hidden;
-          border: 1px solid #e2e8f0;
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 14px;
-          background: #ffffff;
-          box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
+          background: #080C14;
+          box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
           padding: 0.35rem;
         }
 
@@ -775,7 +951,7 @@ export default function CustomTiptapEditor({ value, onChange }) {
           border-radius: 10px;
           background: transparent;
           padding: 0.65rem 0.75rem;
-          color: #334155;
+          color: #e4e4e7;
           font-size: 0.8rem;
           font-weight: 650;
           text-align: left;
@@ -784,8 +960,8 @@ export default function CustomTiptapEditor({ value, onChange }) {
 
         .toolbar-menu-item:hover,
         .toolbar-swatch-item:hover {
-          background: #f0fdfa;
-          color: #047b7b;
+          background: rgba(255, 255, 255, 0.1);
+          color: #38FFF2;
         }
 
         .toolbar-swatch-item {
@@ -797,8 +973,8 @@ export default function CustomTiptapEditor({ value, onChange }) {
           width: 18px;
           height: 18px;
           border-radius: 999px;
-          border: 2px solid #ffffff;
-          box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.16);
+          border: 2px solid #080C14;
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
         }
 
         .toolbar-hint {
@@ -813,22 +989,21 @@ export default function CustomTiptapEditor({ value, onChange }) {
 
         .tiptap-editor-content {
           flex: 1 1 auto;
-          min-height: 0;
+          max-height: 70vh;
           overflow-y: auto;
-          overscroll-behavior: contain;
-          background: #ffffff;
+          background: transparent;
         }
 
         .tiptap-editor-content .tiptap {
-          min-height: 100%;
-          padding: 1.5rem 1.75rem;
+          min-height: 300px;
+          padding: 1.75rem;
           outline: none;
-          color: #18181b;
+          color: #f4f4f5;
           font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-          font-size: 0.95rem;
-          line-height: 1.78;
-          caret-color: #0f172a;
-          background: #ffffff;
+          font-size: 1rem;
+          line-height: 1.7;
+          caret-color: #38FFF2;
+          background: transparent;
         }
 
         .tiptap-editor-content .tiptap:focus {
@@ -836,13 +1011,13 @@ export default function CustomTiptapEditor({ value, onChange }) {
         }
 
         .tiptap-editor-content .tiptap ::selection {
-          background: rgba(3, 184, 184, 0.25);
+          background: rgba(3, 184, 184, 0.35);
         }
 
         .tiptap-editor-content .tiptap p.is-editor-empty:first-child::before {
           content: attr(data-placeholder);
           float: left;
-          color: #a1a1aa;
+          color: #71717a;
           pointer-events: none;
           height: 0;
         }
@@ -850,28 +1025,28 @@ export default function CustomTiptapEditor({ value, onChange }) {
         .tiptap-editor-content .tiptap h1,
         .tiptap-editor-content .tiptap h2,
         .tiptap-editor-content .tiptap h3 {
-          color: #09090b;
+          color: #ffffff;
           font-weight: 800;
         }
 
-        .tiptap-editor-content .tiptap h1 { font-size: 2rem; line-height: 1.2; margin: 1.4rem 0 0.6rem; }
-        .tiptap-editor-content .tiptap h2 { font-size: 1.5rem; line-height: 1.3; margin: 1.2rem 0 0.5rem; }
-        .tiptap-editor-content .tiptap h3 { font-size: 1.2rem; line-height: 1.4; margin: 1rem 0 0.4rem; }
-        .tiptap-editor-content .tiptap p { margin: 0 0 0.75rem; }
+        .tiptap-editor-content .tiptap h1 { font-size: 2.2rem; line-height: 1.2; margin: 1.8rem 0 0.8rem; }
+        .tiptap-editor-content .tiptap h2 { font-size: 1.75rem; line-height: 1.3; margin: 1.5rem 0 0.7rem; }
+        .tiptap-editor-content .tiptap h3 { font-size: 1.35rem; line-height: 1.4; margin: 1.2rem 0 0.5rem; }
+        .tiptap-editor-content .tiptap p { margin: 0 0 1rem; }
         .tiptap-editor-content .tiptap u,
         .tiptap-editor-content .tiptap a {
-          text-underline-offset: 2px;
+          text-underline-offset: 3px;
           text-decoration-thickness: 1px;
         }
 
         .tiptap-editor-content .tiptap ul,
         .tiptap-editor-content .tiptap ol {
-          padding-left: 1.5rem;
-          margin: 0.5rem 0 0.75rem;
+          padding-left: 1.75rem;
+          margin: 0.75rem 0 1rem;
         }
         .tiptap-editor-content .tiptap ul { list-style-type: disc; }
         .tiptap-editor-content .tiptap ol { list-style-type: decimal; }
-        .tiptap-editor-content .tiptap li { margin: 0.25rem 0; }
+        .tiptap-editor-content .tiptap li { margin: 0.35rem 0; }
 
         .tiptap-editor-content .tiptap ul[data-type="taskList"] {
           list-style: none;
@@ -891,31 +1066,32 @@ export default function CustomTiptapEditor({ value, onChange }) {
 
         .tiptap-editor-content .tiptap blockquote {
           border-left: 4px solid #03B8B8;
-          margin: 1rem 0;
-          padding: 0.7rem 1rem;
-          background: rgba(3, 184, 184, 0.05);
+          margin: 1.2rem 0;
+          padding: 0.7rem 1.2rem;
+          background: rgba(3, 184, 184, 0.1);
           border-radius: 0 10px 10px 0;
-          color: #3f3f46;
+          color: #d4d4d8;
           font-style: italic;
         }
 
         .tiptap-editor-content .tiptap code {
-          background: #f4f4f5;
+          background: rgba(255, 255, 255, 0.1);
           border-radius: 5px;
           padding: 0.15em 0.4em;
           font-family: ui-monospace, monospace;
           font-size: 0.86em;
-          color: #be185d;
+          color: #fb7185;
         }
         .tiptap-editor-content .tiptap pre {
-          background: #111827;
+          background: rgba(0, 0, 0, 0.4);
           color: #e4e4e7;
           border-radius: 12px;
-          padding: 1rem 1.25rem;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 1.25rem 1.5rem;
           font-family: ui-monospace, monospace;
-          font-size: 0.875rem;
+          font-size: 0.9rem;
           overflow-x: auto;
-          margin: 1rem 0;
+          margin: 1.2rem 0;
         }
         .tiptap-editor-content .tiptap pre code {
           background: none;
@@ -926,48 +1102,39 @@ export default function CustomTiptapEditor({ value, onChange }) {
 
         .tiptap-editor-content .tiptap hr {
           border: none;
-          border-top: 2px solid #e4e4e7;
-          margin: 1.5rem 0;
+          border-top: 2px solid rgba(255, 255, 255, 0.1);
+          margin: 2rem 0;
         }
 
         .tiptap-editor-content .tiptap table {
           border-collapse: collapse;
           width: 100%;
-          margin: 1rem 0;
+          margin: 1.2rem 0;
           border-radius: 10px;
           overflow: hidden;
-          font-size: 0.875rem;
+          font-size: 0.9rem;
         }
         .tiptap-editor-content .tiptap th {
-          background: #f1f5f9;
-          color: #334155;
+          background: rgba(255, 255, 255, 0.05);
+          color: #e4e4e7;
           font-weight: 700;
           text-align: left;
-          padding: 0.6rem 0.85rem;
-          border: 1px solid #e2e8f0;
+          padding: 0.75rem 1rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .tiptap-editor-content .tiptap td {
-          padding: 0.55rem 0.85rem;
-          border: 1px solid #e2e8f0;
-          color: #374151;
+          padding: 0.75rem 1rem;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #d4d4d8;
           vertical-align: top;
         }
-        .tiptap-editor-content .tiptap tr:nth-child(even) td { background: #f8fafc; }
-        .tiptap-editor-content .tiptap .selectedCell { background: rgba(3, 184, 184, 0.08) !important; }
-
-        .tiptap-editor-content .tiptap img.tiptap-image {
-          display: block;
-          max-width: 100%;
-          height: auto;
-          margin: 1.25rem auto;
-          border-radius: 16px;
-          box-shadow: 0 18px 42px rgba(15, 23, 42, 0.14);
-        }
+        .tiptap-editor-content .tiptap tr:nth-child(even) td { background: rgba(255, 255, 255, 0.02); }
+        .tiptap-editor-content .tiptap .selectedCell { background: rgba(3, 184, 184, 0.15) !important; }
 
         .tiptap-editor-content .tiptap div[data-youtube-video] {
           display: flex;
           justify-content: center;
-          margin: 1.25rem 0;
+          margin: 1.5rem 0;
         }
         .tiptap-editor-content .tiptap div[data-youtube-video] iframe {
           border-radius: 12px;
@@ -978,9 +1145,9 @@ export default function CustomTiptapEditor({ value, onChange }) {
           display: inline-flex;
           align-items: center;
           border-radius: 999px;
-          background: rgba(3, 184, 184, 0.1);
-          color: #047b7b;
-          padding: 0.05rem 0.45rem;
+          background: rgba(3, 184, 184, 0.15);
+          color: #38FFF2;
+          padding: 0.1rem 0.5rem;
           font-weight: 700;
         }
 
@@ -992,106 +1159,117 @@ export default function CustomTiptapEditor({ value, onChange }) {
           align-items: flex-start;
           justify-content: center;
           padding-top: 18vh;
-          background: rgba(15, 23, 42, 0.24);
+          background: rgba(0, 0, 0, 0.6);
           backdrop-filter: blur(4px);
         }
         .link-modal {
           width: min(440px, calc(100vw - 2rem));
-          border: 1px solid rgba(3, 184, 184, 0.22);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 18px;
-          background: #ffffff;
-          box-shadow: 0 28px 80px rgba(15, 23, 42, 0.24);
-          padding: 1rem;
+          background: #080C14;
+          box-shadow: 0 28px 80px rgba(0, 0, 0, 0.8);
+          padding: 1.25rem;
         }
         .link-modal-header {
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
           gap: 1rem;
-          margin-bottom: 1rem;
+          margin-bottom: 1.25rem;
         }
         .link-modal-kicker {
-          margin: 0 0 0.15rem;
+          margin: 0 0 0.25rem;
           color: #03B8B8;
-          font-size: 0.68rem;
+          font-size: 0.7rem;
           font-weight: 800;
           letter-spacing: 0.16em;
           text-transform: uppercase;
         }
         .link-modal h3 {
           margin: 0;
-          color: #0f172a;
-          font-size: 1.2rem;
+          color: #ffffff;
+          font-size: 1.3rem;
           font-weight: 850;
         }
         .link-modal-close {
           display: inline-flex;
-          width: 34px;
-          height: 34px;
+          width: 36px;
+          height: 36px;
           align-items: center;
           justify-content: center;
-          border: 1px solid #e2e8f0;
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 10px;
-          background: #f8fafc;
-          color: #475569;
+          background: rgba(255, 255, 255, 0.05);
+          color: #a1a1aa;
           cursor: pointer;
+        }
+        .link-modal-close:hover {
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.1);
         }
         .link-modal-field {
           display: block;
-          margin-top: 0.75rem;
+          margin-top: 1rem;
         }
         .link-modal-field span {
           display: block;
-          margin-bottom: 0.35rem;
-          color: #475569;
-          font-size: 0.76rem;
+          margin-bottom: 0.5rem;
+          color: #a1a1aa;
+          font-size: 0.8rem;
           font-weight: 800;
         }
         .link-modal-field input {
           width: 100%;
-          border: 1px solid #dbe3ea;
+          border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 12px;
-          background: #f8fafc;
-          color: #0f172a;
+          background: rgba(0, 0, 0, 0.2);
+          color: #ffffff;
           outline: none;
-          padding: 0.75rem 0.85rem;
-          font-size: 0.9rem;
+          padding: 0.85rem 1rem;
+          font-size: 0.95rem;
         }
         .link-modal-field input:focus {
           border-color: rgba(3, 184, 184, 0.6);
           box-shadow: 0 0 0 3px rgba(3, 184, 184, 0.12);
-          background: #ffffff;
         }
         .link-modal-help {
-          margin: 0.75rem 0 0;
-          color: #64748b;
-          font-size: 0.76rem;
-          line-height: 1.5;
+          margin: 1rem 0 0;
+          color: #94a3b8;
+          font-size: 0.8rem;
+          line-height: 1.6;
         }
         .link-modal-actions {
           display: flex;
           justify-content: flex-end;
-          gap: 0.6rem;
-          margin-top: 1rem;
+          gap: 0.75rem;
+          margin-top: 1.25rem;
         }
         .link-modal-secondary,
         .link-modal-primary {
           border-radius: 11px;
-          padding: 0.65rem 0.95rem;
-          font-size: 0.82rem;
+          padding: 0.75rem 1.1rem;
+          font-size: 0.85rem;
           font-weight: 800;
           cursor: pointer;
         }
         .link-modal-secondary {
-          border: 1px solid #e2e8f0;
-          background: #ffffff;
-          color: #475569;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: transparent;
+          color: #a1a1aa;
+        }
+        .link-modal-secondary:hover {
+          background: rgba(255, 255, 255, 0.05);
+          color: #ffffff;
         }
         .link-modal-primary {
           border: 1px solid #03B8B8;
           background: #03B8B8;
           color: #001314;
           box-shadow: 0 10px 24px rgba(3, 184, 184, 0.24);
+        }
+        .link-modal-primary:hover {
+          background: #38FFF2;
+          border-color: #38FFF2;
         }
 
         .tiptap-mention-popover {
@@ -1100,10 +1278,10 @@ export default function CustomTiptapEditor({ value, onChange }) {
           width: 360px;
           max-height: 280px;
           overflow-y: auto;
-          border: 1px solid #e2e8f0;
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 14px;
-          background: #ffffff;
-          box-shadow: 0 22px 60px rgba(15, 23, 42, 0.2);
+          background: #080C14;
+          box-shadow: 0 22px 60px rgba(0, 0, 0, 0.6);
           padding: 0.45rem;
         }
         .mention-option {
@@ -1114,13 +1292,13 @@ export default function CustomTiptapEditor({ value, onChange }) {
           border: 0;
           border-radius: 12px;
           background: transparent;
-          padding: 0.65rem;
+          padding: 0.75rem;
           text-align: left;
           cursor: pointer;
         }
         .mention-option:hover,
         .mention-option.is-selected {
-          background: #f0fdfa;
+          background: rgba(255, 255, 255, 0.05);
         }
         .mention-avatar {
           display: inline-flex;
@@ -1131,7 +1309,7 @@ export default function CustomTiptapEditor({ value, onChange }) {
           justify-content: center;
           border-radius: 999px;
           color: #ffffff;
-          font-size: 0.8rem;
+          font-size: 0.85rem;
           font-weight: 800;
         }
         .mention-meta {
@@ -1140,7 +1318,7 @@ export default function CustomTiptapEditor({ value, onChange }) {
           flex-direction: column;
         }
         .mention-meta strong {
-          color: #1f2937;
+          color: #f4f4f5;
           font-size: 0.95rem;
         }
         .mention-meta small {
@@ -1151,4 +1329,3 @@ export default function CustomTiptapEditor({ value, onChange }) {
     </div>
   );
 }
-

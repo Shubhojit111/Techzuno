@@ -13,10 +13,11 @@ import {
   ChevronRight,
   Check,
   Plus,
-  Image,
+  Image as ImageIcon,
   FileText,
   AlertCircle,
   RotateCcw,
+  ArrowRight,
 } from "lucide-react";
 import { AuthContext } from "@/context/AuthContext";
 
@@ -33,6 +34,7 @@ const initialForm = {
   newCategoriesInput: "",
   tagIds: [],
   newTagsInput: "",
+  blogImage: "",
 };
 
 // Reusable Collapsible Sidebar Section Component
@@ -62,6 +64,7 @@ export default function AddBlogsPage() {
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [form, setForm] = useState(initialForm);
   const [editingBlogId, setEditingBlogId] = useState(null);
+  const [createdBlogSlug, setCreatedBlogSlug] = useState(null); // For view blog button
   const { user } = useContext(AuthContext) || {};
   const [author, setAuthor] = useState("");
 
@@ -72,7 +75,7 @@ export default function AddBlogsPage() {
   // Accordion section controls
   const [statusExpanded, setStatusExpanded] = useState(true);
   const [categoriesExpanded, setCategoriesExpanded] = useState(true);
-  const [tagsExpanded, setTagsExpanded] = useState(true);
+  const [tagsExpanded, setTagsExpanded] = useState(false);
   const [imageExpanded, setImageExpanded] = useState(false);
   const [seoExpanded, setSeoExpanded] = useState(false);
 
@@ -123,6 +126,7 @@ export default function AddBlogsPage() {
             ? blog.Tags.map((tag) => tag.id)
             : [],
           newTagsInput: "",
+          blogImage: blog.blogImage || "",
           author: blog.User?.name || blog.User?.email || "Blog Expert",
         });
       }
@@ -176,17 +180,41 @@ export default function AddBlogsPage() {
 
   const resetForm = () => setForm(initialForm);
 
+  const parseNewCategories = (value) =>
+    value
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+
   const parseNewTags = (value) =>
     value
       .split(",")
       .map((item) => item.trim())
       .filter(Boolean);
 
-  const parseNewCategories = (value) =>
-    value
-      .split(",")
-      .map((item) => item.trim())
-      .filter(Boolean);
+  const handleFeaturedImageUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await axios.post(
+      "http://localhost:5000/api/upload/image",
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+
+    setForm((prev) => ({ ...prev, blogImage: response.data.url }));
+  };
+
+  const handleCoverDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (file) handleFeaturedImageUpload(file);
+  };
 
   const buildPayload = () => ({
     title: form.name,
@@ -195,6 +223,7 @@ export default function AddBlogsPage() {
     newCategoryNames: parseNewCategories(form.newCategoriesInput),
     tagIds: form.tagIds,
     newTagNames: parseNewTags(form.newTagsInput),
+    blogImage: form.blogImage,
   });
 
   const handleUpdate = async () => {
@@ -208,7 +237,10 @@ export default function AddBlogsPage() {
       type: "success",
       message: response.data.message || "Blog updated successfully",
     });
-    window.location.href = "/dashboard/blogs";
+    // If response has blog data, set slug/id for view button
+    if (response.data.blog) {
+      setCreatedBlogSlug(response.data.blog.slug || response.data.blog.id);
+    }
   };
 
   const handleCreate = async () => {
@@ -222,6 +254,10 @@ export default function AddBlogsPage() {
       type: "success",
       message: response.data.message || "Blog created successfully",
     });
+    // If response has blog data, set slug/id for view button
+    if (response.data.blog) {
+      setCreatedBlogSlug(response.data.blog.slug || response.data.blog.id);
+    }
     resetForm();
     await loadOptions();
   };
@@ -272,20 +308,19 @@ export default function AddBlogsPage() {
     >
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col min-h-[calc(100vh-8rem)] relative"
+        className="relative flex h-fit flex-col"
       >
         {/* ── TOP HEADER BAR ────────────────────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-5 mb-6 gap-4">
-          <div className="flex flex-col gap-1">
-            <span className="text-[11px] tracking-[0.22em] uppercase text-[#38FFF2] block font-bold">
-              {editingBlogId ? "Blog Editor" : "New Publication"}
-            </span>
-            <h1 className="text-2xl font-bold text-white leading-tight">
+        <div className="sticky top-0 z-20 -mx-1 mb-6 flex flex-col gap-4  px-1 backdrop-blur sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-xl md:text-2xl font-bold text-white tracking-tight">
               {editingBlogId ? "Edit Blog Post" : "Create Blog Post"}
             </h1>
+            <p className="text-zinc-400 text-sm mt-1">
+              Compose and publish your blog post
+            </p>
           </div>
-
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             {/* Cancel/Reset */}
             <button
               type="button"
@@ -296,11 +331,26 @@ export default function AddBlogsPage() {
                 }
                 resetForm();
               }}
-              className="flex items-center gap-2 px-4.5 py-2.5 border border-white/10 bg-white/3 hover:bg-white/8 hover:text-white text-zinc-300 rounded-xl text-sm font-semibold transition-colors cursor-pointer"
+              className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm font-semibold text-zinc-300 transition-colors hover:bg-white/[0.08] hover:text-white"
             >
               <RotateCcw className="w-4 h-4" />
               <span>{editingBlogId ? "Cancel" : "Reset"}</span>
             </button>
+
+            {/* Save as Draft */}
+            {/* <button
+              type="button"
+              onClick={() =>
+                setFeedback({
+                  type: "error",
+                  message: "Draft status is not connected in the API yet.",
+                })
+              }
+              className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm font-semibold text-zinc-300 transition-colors hover:bg-white/[0.08] hover:text-white"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Save as Draft</span>
+            </button> */}
 
             {/* Save/Publish */}
             <button
@@ -328,11 +378,11 @@ export default function AddBlogsPage() {
               className={`p-2.5 border rounded-xl transition-all duration-200 cursor-pointer ${
                 isSidebarOpen
                   ? "border-[#38FFF2]/30 bg-[#38FFF2]/10 text-[#38FFF2]"
-                  : "border-white/10 bg-white/3 text-zinc-400 hover:text-white"
+                  : "border-white/10 bg-white/[0.04] text-zinc-400 hover:text-white"
               }`}
               title="Toggle Sidebar Panel"
             >
-              <Settings className="w-4.5 h-4.5" />
+              <Settings className="h-[18px] w-[18px]" />
             </button>
           </div>
         </div>
@@ -340,35 +390,135 @@ export default function AddBlogsPage() {
         {/* Feedback Message */}
         {feedback.message && (
           <div
-            className={`mb-6 rounded-2xl border px-4 py-3 text-sm flex items-center gap-3 ${
+            className={`mb-6 border rounded-2xl  px-4 py-3 text-sm flex items-center justify-between ${
               feedback.type === "success"
                 ? "border-[#03B8B8]/20 bg-[#03B8B8]/10 text-[#38FFF2]"
                 : "border-red-500/20 bg-red-500/10 text-red-300"
             }`}
           >
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <span>{feedback.message}</span>
+            <div className="flex gap-3">
+              <AlertCircle className="w-5 h-5 shrink-0" />
+              <span>{feedback.message}</span>
+            </div>
+
+            {feedback.type === "success" && createdBlogSlug && (
+              <Link
+                href={`/blog/${createdBlogSlug}`}
+                className="flex items-center gap-2 text-white hover:text-[#38FFF2] transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                  View Blog
+                  <ArrowRight className="w-4 h-4" />
+              </Link>
+            )}
           </div>
         )}
 
         {/* ── MAIN WORKSPACE CONTAINER ────────────────────────────────── */}
-        <div className="flex-1 flex flex-col lg:flex-row gap-6 items-stretch relative overflow-x-hidden pb-12 ">
+        <div className="relative flex flex-1 flex-col items-stretch gap-6 overflow-x-hidden lg:flex-row ">
           {/* LEFT: WHITE BOARD EDITOR CANVAS */}
           <div className="flex-1 min-w-0">
-            <div className="bg-white text-zinc-900 rounded-2xl border border-zinc-200 shadow-xl p-6 md:p-10 w-full mx-auto h-[1000px] flex flex-col">
+            <div className="flex w-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-5 shadow-[0_8px_32px_rgba(0,0,0,0.32)] backdrop-blur-xl md:p-7">
+              <div className="flex items-center gap-3 mb-4">
+                <ImageIcon className="w-5 h-5 text-zinc-400" />
+                <div>
+                  <h2 className="text-white font-semibold text-sm">
+                    Cover Image
+                  </h2>
+                  <p className="text-zinc-500 text-xs mt-0.5">
+                    Recommended: 1200 x 630 pixels
+                  </p>
+                </div>
+              </div>
+
+              {/* Cover Image Upload (Prominent, first) */}
+              <div
+                onDrop={handleCoverDrop}
+                onDragOver={(event) => event.preventDefault()}
+                className="group relative mb-6 flex w-full items-center justify-center overflow-hidden rounded-2xl border border-dashed border-[#38FFF2]/20 bg-black/20 transition-all hover:border-[#38FFF2]/45 hover:bg-black/25"
+                style={{ minHeight: form.blogImage ? "auto" : "200px" }}
+              >
+                {form.blogImage ? (
+                  <>
+                    <img
+                      src={form.blogImage}
+                      alt="Cover"
+                      className="w-full h-48 md:h-72 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                      <label className="cursor-pointer bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-2">
+                        <ImageIcon className="w-4 h-4" /> Change Cover
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handleFeaturedImageUpload(file);
+                          }}
+                        />
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setForm((prev) => ({ ...prev, blogImage: "" }))
+                        }
+                        className="bg-red-500/80 hover:bg-red-500 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-2"
+                      >
+                        <X className="w-4 h-4" /> Remove
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center text-zinc-500 hover:text-[#03B8B8] transition-colors p-8 absolute inset-0">
+                    <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4 group-hover:bg-[#03B8B8]/10 group-hover:border-[#03B8B8]/30 transition-all">
+                      <Plus className="w-6 h-6 text-[#03B8B8]" />
+                    </div>
+                    <span className="text-sm font-bold text-white mb-1">
+                      Drag & drop image here
+                    </span>
+                    <span className="text-xs text-zinc-500">
+                      or click to browse
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleFeaturedImageUpload(file);
+                      }}
+                    />
+                  </label>
+                )}
+              </div>
+
               {/* Document Title Input */}
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="Add Title"
-                className="text-xl md:text-2xl font-bold font-montserrat text-zinc-950 placeholder-zinc-300 outline-none w-full border-b border-zinc-100 pb-1.5 mb-5 bg-transparent"
-                required
-              />
+              <div className="flex flex-col mb-6">
+                <div className="mb-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 text-sm">
+                  <span className="font-semibold text-zinc-300">Title</span>
+                  <span className="text-xs text-zinc-500">
+                    {form.name.length} / 120
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Enter blog post title..."
+                  maxLength={120}
+                  className="text-sm md:text-base font-medium text-white placeholder-zinc-600 outline-none w-full rounded-2xl px-4 py-3.5 border border-dashed border-[#38FFF2]/20 bg-black/20 transition-all hover:border-[#38FFF2]/45 hover:bg-black/25"
+                  required
+                />
+              </div>
 
               {/* Rich Text Editor */}
-              <div className="flex-1 min-h-0">
+              <div className="mb-2 text-sm">
+                <span className="font-semibold text-zinc-300">Content</span>
+              </div>
+              <div className="flex flex-col rounded-2xl overflow-hidden border border-dashed border-[#38FFF2]/20 bg-black/20 transition-all hover:border-[#38FFF2]/45 hover:bg-black/25">
                 <CustomTiptapEditor
                   value={form.description}
                   onChange={(content) => {
@@ -383,12 +533,12 @@ export default function AddBlogsPage() {
           </div>
 
           {/* RIGHT SIDEBAR CONTAINER (DESKTOP FLEX + SMOOTH COLLAPSE) */}
-          <div className="relative flex-shrink-0 flex items-stretch">
+          <div className="relative flex shrink-0 ">
             {/* Desktop Slide/Drag Toggle Bar */}
             <button
               type="button"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="hidden lg:flex items-center justify-center w-5 bg-[#0A0F1C] hover:bg-[#0E1528] border border-white/5 text-zinc-400 hover:text-[#38FFF2] transition-colors rounded-l-xl cursor-pointer absolute -left-5 top-1/2 -translate-y-1/2 h-20 shadow-lg z-20 outline-none"
+              className="absolute -left-5 top-1/2 z-20 hidden h-20 w-5 -translate-y-1/2 items-center justify-center rounded-l-xl border border-white/5 bg-[#0A0F1C] text-zinc-400 shadow-lg outline-none transition-colors hover:bg-[#0E1528] hover:text-[#38FFF2] lg:flex"
               title={isSidebarOpen ? "Hide Options" : "Show Options"}
             >
               {isSidebarOpen ? (
@@ -400,14 +550,14 @@ export default function AddBlogsPage() {
 
             {/* Sidebar Content Panel */}
             <div
-              className={`bg-[#0A0F1C] border border-white/5 rounded-2xl flex flex-col transition-all duration-300 ease-in-out ${
+              className={`hidden overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-[0_8px_32px_rgba(0,0,0,0.32)] backdrop-blur-xl transition-all duration-300 ease-in-out lg:flex lg:flex-col ${
                 isSidebarOpen
-                  ? "w-full lg:w-[300px] opacity-100 visible"
+                  ? "w-[300px] opacity-100 visible"
                   : "w-0 opacity-0 invisible overflow-hidden border-transparent"
               }`}
             >
               {/* Inner wrapper to lock content width during collapse transition */}
-              <div className="w-full lg:w-[300px] flex-1 flex flex-col h-full">
+              <div className="flex h-full w-[300px] flex-1 flex-col">
                 {/* Tabs (Post vs Block) */}
                 <div className="flex border-b border-white/5 flex-shrink-0">
                   <button
@@ -431,13 +581,6 @@ export default function AddBlogsPage() {
                     }`}
                   >
                     Block
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsSidebarOpen(false)}
-                    className="px-4 text-zinc-500 hover:text-white border-l border-white/5 cursor-pointer"
-                  >
-                    <X className="w-4 h-4" />
                   </button>
                 </div>
 
@@ -494,7 +637,7 @@ export default function AddBlogsPage() {
                           setCategoriesExpanded(!categoriesExpanded)
                         }
                       >
-                        <div className="space-y-2.5 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                        <div className="space-y-2.5 max-h-36 overflow-y-auto custom-scrollbar pr-1">
                           {categories.length === 0 ? (
                             <p className="text-zinc-500 text-xs italic">
                               No categories available.
@@ -541,7 +684,7 @@ export default function AddBlogsPage() {
                         isOpen={tagsExpanded}
                         onToggle={() => setTagsExpanded(!tagsExpanded)}
                       >
-                        <div className="space-y-2.5 max-h-48 overflow-y-auto custom-scrollbar pr-1">
+                        <div className="space-y-2.5 max-h-36 overflow-y-auto custom-scrollbar pr-1">
                           {tags.length === 0 ? (
                             <p className="text-zinc-500 text-xs italic">
                               No tags available.
@@ -580,20 +723,39 @@ export default function AddBlogsPage() {
                         </div>
                       </SidebarSection>
 
-                      {/* Section 4: Featured Image */}
                       <SidebarSection
                         title="Featured Image"
                         isOpen={imageExpanded}
                         onToggle={() => setImageExpanded(!imageExpanded)}
                       >
-                        <div className="border-2 border-dashed border-white/10 rounded-xl p-5 text-center hover:border-[#03B8B8]/30 transition-colors cursor-pointer group">
-                          <Image className="w-7 h-7 mx-auto mb-2 text-zinc-500 group-hover:text-[#38FFF2] transition-colors" />
-                          <span className="text-xs text-[#03B8B8] group-hover:text-[#38FFF2] transition-colors font-semibold">
+                        <div className="space-y-3">
+                          {form.blogImage ? (
+                            <img
+                              src={form.blogImage}
+                              alt="Featured preview"
+                              className="h-28 w-full rounded-xl object-cover"
+                            />
+                          ) : (
+                            <div className="rounded-xl border border-dashed border-white/10 p-5 text-center">
+                              <Image className="mx-auto mb-2 h-7 w-7 text-zinc-500" />
+                              <span className="text-xs font-semibold text-zinc-500">
+                                No image selected
+                              </span>
+                            </div>
+                          )}
+                          <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-[#38FFF2] transition-colors hover:bg-white/5">
+                            <Image className="h-4 w-4" />
                             Set featured image
-                          </span>
-                          <p className="text-[10px] text-zinc-600 mt-1">
-                            Recommended: 1200 x 630 pixels
-                          </p>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) handleFeaturedImageUpload(file);
+                              }}
+                            />
+                          </label>
                         </div>
                       </SidebarSection>
 
@@ -604,7 +766,7 @@ export default function AddBlogsPage() {
                         onToggle={() => setSeoExpanded(!seoExpanded)}
                       >
                         <div className="space-y-3.5">
-                          <div className="flex items-center gap-3">
+                          <div className="flex flex-wrap items-center gap-3">
                             <span className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.4)]" />
                             <div className="text-xs">
                               <span className="text-zinc-500">
@@ -615,7 +777,7 @@ export default function AddBlogsPage() {
                               </span>
                             </div>
                           </div>
-                          <div className="flex items-center gap-3">
+                          <div className="flex flex-wrap items-center gap-3">
                             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
                             <div className="text-xs">
                               <span className="text-zinc-500">

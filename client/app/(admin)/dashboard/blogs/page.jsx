@@ -240,15 +240,15 @@ export default function BlogsPage() {
         <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl p-3 mb-6 flex flex-col md:flex-row items-center gap-46">
           <div className="flex-1 relative w-full">
             <SearchIcon
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500"
-              size={18}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"
+              size={20}
             />
             <input
               type="text"
               placeholder="Search blog title or keywords..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 bg-white/3 border border-white/5 rounded-xl text-white placeholder-zinc-500 focus:outline-none focus:border-white/10 focus:bg-white/5 transition-all text-sm"
+              className="w-full pl-10 pr-4 py-2.5  placeholder-zinc-500 outline-none  transition-all text-[16px]"
             />
           </div>
 
@@ -371,9 +371,10 @@ export default function BlogsPage() {
                       <div className="relative h-48 bg-zinc-900 overflow-hidden">
                         <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent z-10" />
                         <Image
-                          src={blog.image || Assets.UIUX2}
+                          src={blog.blogImage || Assets.UIUX2}
                           alt={blog.name || "Blog Image"}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
                         />
                         <div className="absolute top-4 left-4 z-20">
                           {Array.isArray(blog.Categories) &&
@@ -385,10 +386,6 @@ export default function BlogsPage() {
                                 {cat.name}
                               </span>
                             ))}
-                        </div>
-                        {/* Placeholder content image */}
-                        <div className="w-full h-full flex items-center justify-center bg-zinc-800 group-hover:scale-105 transition-transform duration-500">
-                          <BookOpen size={48} className="text-white/5" />
                         </div>
                       </div>
 
@@ -412,7 +409,7 @@ export default function BlogsPage() {
                           {blog.title || "Untitled Blog Post"}
                         </h3>
 
-                        <p className="text-zinc-400 text-sm line-clamp-2 mb-6 leading-relaxed">
+                        <p className="text-zinc-400 text-[12px] line-clamp-3 mb-6 leading-relaxed">
                           {getExcerpt(blog.content) ||
                             "Exploring the boundaries of technology and design in this comprehensive guide."}
                         </p>

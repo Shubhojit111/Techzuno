@@ -14,7 +14,6 @@ import {
   Shield,
   Settings,
   LogOut,
-  Search,
   Bell,
   ChevronDown,
   Menu,
@@ -22,6 +21,8 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
   Sparkle,
+  Sun,
+  ArrowRight,
 } from "lucide-react";
 
 export default function DashboardShell({
@@ -37,6 +38,7 @@ export default function DashboardShell({
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [openMenus, setOpenMenus] = useState(new Set());
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   useEffect(() => {
     if (authLoading) return;
@@ -103,15 +105,32 @@ export default function DashboardShell({
     return userPermissions.includes(requiredPermission);
   }, [adminHeadOnly, requiredPermission, user]);
 
-  const currentItem = useMemo(() => {
-    return (
-      sidebarItems.find(
-        (item) =>
-          pathname === item.href ||
-          (item.children && pathname.startsWith(item.href)),
-      ) || { label: title, icon: LayoutGrid }
-    );
-  }, [sidebarItems, pathname, title]);
+  const breadcrumbs = useMemo(() => {
+    const normalizeLabel = (label) => {
+      const parts = label.replace("-", " ");
+      return parts
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(" ");
+    };
+
+    const pathParts = pathname.split("/").filter(Boolean); // Split path into segments, remove empty
+    const crumbs = [];
+    let currentPath = "";
+
+    crumbs.push({ label: "Dashboard", href: "/dashboard" });
+    currentPath = "/dashboard";
+
+    for (let i = 1; i < pathParts.length; i++) {
+      currentPath += `/${pathParts[i]}`;
+      crumbs.push({
+        label: normalizeLabel(pathParts[i]),
+        href: currentPath,
+      });
+    }
+
+    return crumbs;
+  }, [pathname]);
 
   const toggleSubmenu = (href, e) => {
     e.preventDefault();
@@ -150,7 +169,7 @@ export default function DashboardShell({
     );
   }
 
-  const sidebarW = isSidebarOpen ? "w-64" : "w-[72px]";
+  const sidebarW = isSidebarOpen ? "w-[240px]" : "w-16";
 
   const renderNavItems = (expanded) => (
     <nav className="space-y-0.5">
@@ -283,7 +302,7 @@ export default function DashboardShell({
         <div className="flex-1 min-h-0 flex flex-col">
           <div className="flex items-center justify-between px-4 h-16 border-b border-white/5 shrink-0">
             <div
-              className={`flex items-center gap-3 min-w-0 overflow-hidden transition-all duration-300 ${isSidebarOpen ? "opacity-100 max-w-[120px]" : "opacity-0 max-w-0 overflow-hidden"}`}
+              className={`flex items-center gap-3 min-w-0 overflow-hidden transition-all duration-300 ${isSidebarOpen ? "opacity-100 w-[160px]" : "opacity-0 max-w-0 overflow-hidden"}`}
             >
               {/* Icon mark */}
               <Sparkle className="w-5 h-5" />
@@ -369,24 +388,12 @@ export default function DashboardShell({
             className="relative w-72 bg-[#0A0F1C] border-r border-white/5 h-full flex flex-col justify-between py-0
             animate-in slide-in-from-left duration-300 shadow-2xl"
           >
-            {/* Header */}
+            {/* sidebar Header */}
             <div>
               <div className="flex items-center justify-between px-4 h-16 border-b border-white/5">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-[#38FFF2]/10 border border-[#38FFF2]/20 flex items-center justify-center">
-                    <svg className="w-4 h-4 fill-[#38FFF2]" viewBox="0 0 24 24">
-                      <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                      <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                      <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                      <rect
-                        x="14"
-                        y="14"
-                        width="7"
-                        height="7"
-                        rx="1.5"
-                        fillOpacity="0.4"
-                      />
-                    </svg>
+                    <Sparkle className="w-5 h-5" />
                   </div>
                   <span className="text-white font-bold text-sm tracking-[0.15em] uppercase">
                     Techzuno
@@ -438,111 +445,121 @@ export default function DashboardShell({
       {/* ── MAIN CONTENT AREA ──────────────────────────────────────────── */}
       <div
         className={`flex-1 min-w-0 flex flex-col transition-all duration-300 ${
-          isSidebarOpen ? "lg:pl-64" : "lg:pl-[72px]"
+          isSidebarOpen ? "lg:ml-[240px]" : "lg:pl-16"
         }`}
       >
         {/* ── TOP HEADER ─────────────────────────────────────────────── */}
         <header
-          className="sticky top-0 z-30 h-16 flex items-center justify-between px-5 lg:px-8
-          bg-[#080C14]/80 backdrop-blur-xl border-b border-white/5
-          shadow-[0_1px_0_rgba(255,255,255,0.04),0_4px_24px_rgba(0,0,0,0.3)]"
+          className={`fixed top-0 right-0 z-30 flex h-16 items-center border-b border-white/5 bg-[#080C14]/92 px-4 shadow-[0_1px_0_rgba(255,255,255,0.04),0_4px_24px_rgba(0,0,0,0.3)] backdrop-blur-xl transition-all duration-300 sm:px-5 lg:px-6 ${
+            isSidebarOpen ? "left-0 lg:left-[240px]" : "left-0 lg:left-16"
+          }`}
         >
-          {/* Left – mobile menu trigger */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsMobileOpen(true)}
-              className="lg:hidden p-2 rounded-lg border border-zinc-800 bg-[#0A0F1C] hover:bg-white/5 text-zinc-400 hover:text-white transition-all"
-            >
-              <Menu className="w-4 h-4" />
-            </button>
+          <div className="flex w-full items-center justify-between">
+            <div className="flex min-w-0 items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setIsMobileOpen(true)}
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-400 transition-all hover:bg-white/[0.07] hover:text-white lg:hidden"
+                aria-label="Open sidebar"
+              >
+                <Menu className="h-4 w-4" />
+              </button>
 
-            {/* Logo mark on mobile */}
-            <div className="lg:hidden flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-[#38FFF2]/10 border border-[#38FFF2]/20 flex items-center justify-center">
-                <svg className="w-3.5 h-3.5 fill-[#38FFF2]" viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                  <rect
-                    x="14"
-                    y="14"
-                    width="7"
-                    height="7"
-                    rx="1.5"
-                    fillOpacity="0.4"
-                  />
-                </svg>
-              </div>
-              <span className="text-white font-bold text-xs tracking-widest uppercase">
-                Techzuno
-              </span>
+              <nav className="flex min-w-0 items-center gap-2 text-[13px] font-medium" aria-label="Breadcrumb">
+                {breadcrumbs.map((crumb, index) => {
+                  const isLast = index === breadcrumbs.length - 1;
+                  return (
+                    <div key={crumb.href} className="flex min-w-0 items-center gap-1.5">
+                      {index > 0 ? <span className="text-zinc-400"><ArrowRight className="w-4 h-4" /></span> : null}
+                      {isLast ? (
+                        <span className="truncate text-[#38FFF2] tracking-[0.1em] text-[14px]">{crumb.label}</span>
+                      ) : (
+                        <Link
+                          href={crumb.href}
+                          className="truncate text-zinc-400 transition-colors hover:text-white hover:underline underline-offset-4"
+                        >
+                          {crumb.label}
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })}
+              </nav>
             </div>
-          </div>
 
-          {/* Centre – Primary nav tabs (image 2 style) */}
-          <nav className="hidden md:flex items-center bg-white/[0.04] border border-white/[0.07] backdrop-blur-sm rounded-xl px-1 py-1 gap-0.5">
-            {[
-              { href: "/dashboard", label: "Overview" },
-              { href: "/dashboard/blogs", label: "Blogs" },
-              { href: "/dashboard/admins", label: "Admins" },
-              { href: "/dashboard/users", label: "Users" },
-            ].map((tab) => {
-              const isActive =
-                tab.href === "/dashboard"
-                  ? pathname === "/dashboard"
-                  : pathname.startsWith(tab.href);
-              return (
-                <Link
-                  key={tab.href}
-                  href={tab.href}
-                  className={`relative px-4 py-1.5 rounded-lg text-sm font-medium tracking-wide transition-all duration-200 ${
-                    isActive
-                      ? "text-[#38FFF2] "
-                      : "text-zinc-400 hover:text-zinc-100 hover:bg-white/5"
-                  }`}
+            <div className="flex min-w-0 flex-1 items-center justify-end">
+              <button
+                type="button"
+                className="relative flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:bg-white/[0.07] hover:text-white"
+                aria-label="Notifications"
+              >
+                <Bell className="h-4 w-4" />
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#38FFF2] px-1 text-[10px] font-bold text-[#080C14] ring-2 ring-[#080C14]">
+                  3
+                </span>
+              </button>
+
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsUserMenuOpen((value) => !value)}
+                  className="flex items-center gap-3 rounded-xl px-1.5 py-1 transition-colors hover:bg-white/[0.04]"
+                  aria-expanded={isUserMenuOpen}
+                  aria-haspopup="menu"
                 >
-                  {tab.label}
-                  {/* Active underline glow */}
-                  {isActive && (
-                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-3/4 h-px bg-[#38FFF2]/60 rounded-full" />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#38FFF2]/25 bg-[#38FFF2]/10 text-sm font-bold text-[#38FFF2]">
+                    {user?.name ? user.name[0].toUpperCase() : "A"}
+                  </span>
+                  <span className="hidden min-w-0 text-left lg:block">
+                    <span className="block max-w-[150px] truncate text-[12px] font-semibold leading-4 text-white">
+                      {user?.name || "Techzuno Admin"}
+                    </span>
+                    <span className="block max-w-[150px] truncate text-[11px] leading-4 text-zinc-500">
+                      {user?.email || "admin@techzuno.com"}
+                    </span>
+                  </span>
+                  <ChevronDown className={`hidden h-4 w-4 text-zinc-500 transition-transform lg:block ${isUserMenuOpen ? "rotate-180" : ""}`} />
+                </button>
 
-          {/* Right – actions */}
-          <div className="flex items-center gap-2.5">
-            {/* User Panel */}
-            <Link
-              href="/"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium
-                text-zinc-400 hover:text-zinc-100 bg-white/[0.04] border border-white/[0.07]
-                hover:bg-white/[0.07] hover:border-white/10 transition-all"
-            >
-              <Globe className="w-3.5 h-3.5" />
-              <span>User Panel</span>
-            </Link>
-
-            {/* Notifications */}
-            <button
-              className="relative p-2 rounded-lg text-zinc-400 hover:text-white
-              bg-white/[0.04] border border-white/[0.07] hover:bg-white/[0.07] transition-all"
-            >
-              <Bell className="w-4 h-4" />
-              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#38FFF2] rounded-full ring-2 ring-[#080C14]" />
-            </button>
-
-            {/* Avatar */}
-            <div className="w-8 h-8 rounded-full bg-[#38FFF2]/10 border border-[#38FFF2]/25 flex items-center justify-center text-[#38FFF2] font-bold text-sm select-none cursor-pointer">
-              {user?.name ? user.name[0].toUpperCase() : "A"}
+                {isUserMenuOpen ? (
+                  <div
+                    role="menu"
+                    className="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-white/10 bg-[#0A0F1C] shadow-2xl shadow-black/40"
+                  >
+                    <Link
+                      href="/"
+                      role="menuitem"
+                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-zinc-300 transition-colors hover:bg-white/[0.05] hover:text-white"
+                    >
+                      <Globe className="h-4 w-4" />
+                      User Panel
+                    </Link>
+                    <Link
+                      href="/dashboard/settings"
+                      role="menuitem"
+                      className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-zinc-300 transition-colors hover:bg-white/[0.05] hover:text-white"
+                    >
+                      <Settings className="h-4 w-4" />
+                      Settings
+                    </Link>
+                    <Link
+                      href="/logout"
+                      role="menuitem"
+                      className="flex items-center gap-2 border-t border-white/5 px-4 py-3 text-sm font-medium text-rose-300 transition-colors hover:bg-rose-500/10 hover:text-rose-200"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Logout
+                    </Link>
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
         </header>
 
         {/* ── WORKSPACE AREA ─────────────────────────────────────────── */}
-        <main className="flex-1 overflow-y-auto">
-          <div className="p-6 md:p-8 max-w-[1400px] mx-auto w-full">
+        <main className="flex-1 overflow-y-auto pt-16">
+          <div className="p-5 md:p-6 max-w-[1400px] mx-auto w-full">
             {isPermitted ? (
               children
             ) : (

@@ -117,6 +117,8 @@ if (!blog) {
           <Image
             src={blog.blogImage || Assets.ServiceHeader}
             alt={blog.title || "Techzuno"}
+            width={1200}
+            height={800}
             className="object-cover h-full w-full"
             priority
           />

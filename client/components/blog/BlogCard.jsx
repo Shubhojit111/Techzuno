@@ -41,10 +41,12 @@ export default function BlogCard({ blog }) {
 
         {/* Cover Image */}
         <div className="mt-5 rounded-xl overflow-hidden border border-white/10 bg-black">
-          <div className="w-full h-[240px] sm:h-[420px] lg:h-[200px]">
+          <div className="w-full h-[240px] sm:h-[420px] lg:h-fit">
             <Image
-              src={blog.image || Assets.WebDev1}
+              src={blog.blogImage || Assets.WebDev1}
               alt={blog.title || "Blog Title"}
+              width={800}
+              height={500}
               className="w-full h-full object-cover"
             />
           </div>
