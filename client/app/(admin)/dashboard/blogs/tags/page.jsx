@@ -259,7 +259,7 @@ export default function BlogTagsPage() {
           {/* ── Right: Trending + Table ─────────────────────────── */}
           <div className="flex flex-col gap-4">
             {/* Trending Tags — sorted by count from real data */}
-            <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl px-5 py-4">
+            {/* <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl px-5 py-4">
               <div className="flex items-center gap-2 mb-3">
                 <TrendingUp size={15} className="text-[#38FFF2]" />
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-400">
@@ -296,7 +296,7 @@ export default function BlogTagsPage() {
                   ))
                 )}
               </div>
-            </div>
+            </div> */}
 
             {/* Tags Table — fixed height, real pagination */}
             <div className="bg-white/3 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-2xl overflow-hidden  flex flex-col">

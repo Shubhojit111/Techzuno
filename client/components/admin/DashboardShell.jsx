@@ -110,7 +110,9 @@ export default function DashboardShell({
       const parts = label.replace("-", " ");
       return parts
         .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+        )
         .join(" ");
     };
 
@@ -465,14 +467,26 @@ export default function DashboardShell({
                 <Menu className="h-4 w-4" />
               </button>
 
-              <nav className="flex min-w-0 items-center gap-2 text-[13px] font-medium" aria-label="Breadcrumb">
+              <nav
+                className="flex min-w-0 items-center gap-2 text-[13px] font-medium"
+                aria-label="Breadcrumb"
+              >
                 {breadcrumbs.map((crumb, index) => {
                   const isLast = index === breadcrumbs.length - 1;
                   return (
-                    <div key={crumb.href} className="flex min-w-0 items-center gap-1.5">
-                      {index > 0 ? <span className="text-zinc-400"><ArrowRight className="w-4 h-4" /></span> : null}
+                    <div
+                      key={crumb.href}
+                      className="flex min-w-0 items-center gap-1.5"
+                    >
+                      {index > 0 ? (
+                        <span className="text-zinc-400">
+                          <ArrowRight className="w-4 h-4" />
+                        </span>
+                      ) : null}
                       {isLast ? (
-                        <span className="truncate text-[#38FFF2] tracking-[0.1em] text-[14px]">{crumb.label}</span>
+                        <span className="truncate text-[#38FFF2] tracking-[0.1em] text-[14px]">
+                          {crumb.label}
+                        </span>
                       ) : (
                         <Link
                           href={crumb.href}
@@ -487,8 +501,17 @@ export default function DashboardShell({
               </nav>
             </div>
 
-            <div className="flex min-w-0 flex-1 items-center justify-end">
-              <button
+            <div className="flex min-w-0 flex-1 mr-2 items-center justify-end">
+                <Link
+                  href="/"
+                  role="menuitem"
+                  className="relative hidden md:flex p-2 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:bg-white/[0.07] hover:text-white">
+                  <Globe className="h-4 w-4 mr-2" />
+                  <span className="text-sm font-medium">
+                    User Panel
+                  </span>
+                </Link>
+              {/* <button
                 type="button"
                 className="relative flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:bg-white/[0.07] hover:text-white"
                 aria-label="Notifications"
@@ -497,7 +520,7 @@ export default function DashboardShell({
                 <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#38FFF2] px-1 text-[10px] font-bold text-[#080C14] ring-2 ring-[#080C14]">
                   3
                 </span>
-              </button>
+              </button> */}
 
               <div className="relative">
                 <button
@@ -518,7 +541,9 @@ export default function DashboardShell({
                       {user?.email || "admin@techzuno.com"}
                     </span>
                   </span>
-                  <ChevronDown className={`hidden h-4 w-4 text-zinc-500 transition-transform lg:block ${isUserMenuOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`hidden h-4 w-4 text-zinc-500 transition-transform lg:block ${isUserMenuOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
 
                 {isUserMenuOpen ? (
