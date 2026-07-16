@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import { toast } from "react-toastify";
 
 // export const metadata = {
 //   title: "Register - Techzuno | Create Your Account",
@@ -36,22 +37,16 @@ export default function RegisterPage() {
     e.preventDefault();
 
     if (!form.name || !form.email || !form.password) {
-      setMessage({ type: "error", text: "All fields are required." });
+      toast.error("All fields are required.");
       return;
     }
 
     if (form.password.length < 6) {
-      setMessage({
-        type: "error",
-        text: "Password must be at least 6 characters.",
-      });
+      toast.error("Password must be at least 6 characters.");
       return;
     }
 
     setLoading(true);
-    setMessage({ type: "", text: "" });
-
-    console.log(form);
 
     try {
       const res = await axios.post(
@@ -66,14 +61,9 @@ export default function RegisterPage() {
       );
 
       await getAuth();
-      // const { user } = res.data;
-
-      // console.log(user);
+      toast.success(res.data.message || "Account created successfully!");
     } catch (err) {
-      setMessage({
-        type: "error",
-        text: err.response?.data?.message || err.message,
-      });
+      toast.error(err.response?.data?.message || err.message);
     } finally {
       setLoading(false);
     }
@@ -186,18 +176,7 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            {/* Message */}
-            {message.text && (
-              <div
-                className={`mt-4 px-4 py-2.5 rounded-xl text-[13px] text-center tracking-wide ${
-                  message.type === "error"
-                    ? "bg-red-500/10 border border-red-500/30 text-red-400"
-                    : "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
-                }`}
-              >
-                {message.text}
-              </div>
-            )}
+
 
             {/* Submit */}
             <button

@@ -21,6 +21,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import Assets from "@/Assets/Assets";
+import { toast } from "react-toastify";
 
 const getExcerpt = (html = "") =>
   String(html)
@@ -83,10 +84,9 @@ export default function BlogsPage() {
         Array.isArray(tagsResponse.data.tags) ? tagsResponse.data.tags : [],
       );
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message: error.response?.data?.message || "Unable to load blog data",
-      });
+      toast.error(
+        error.response?.data?.message || "Unable to load blog data",
+      );
     } finally {
       setLoading(false);
     }
@@ -174,7 +174,6 @@ export default function BlogsPage() {
     if (!confirmed) return;
 
     setDeletingId(blogId);
-    setFeedback({ type: "", message: "" });
 
     try {
       const response = await axios.delete(
@@ -183,19 +182,15 @@ export default function BlogsPage() {
           withCredentials: true,
         },
       );
-      setFeedback({
-        type: "success",
-        message: response.data.message || "Blog deleted successfully",
-      });
+      toast.success(response.data.message || "Blog deleted successfully");
       if (editingBlogId === blogId) {
         resetForm();
       }
       await loadData();
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message: error.response?.data?.message || "Unable to delete blog",
-      });
+      toast.error(
+        error.response?.data?.message || "Unable to delete blog",
+      );
     } finally {
       setDeletingId(null);
     }
@@ -283,7 +278,7 @@ export default function BlogsPage() {
 
         {/* Blog Grid/List Container */}
         <div
-          className={`grid gap-4 "grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4" }`}
+          className={`grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4`}
         >
           {loading ? (
             Array(8)

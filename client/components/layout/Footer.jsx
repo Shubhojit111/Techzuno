@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-black text-white pb-16 border-t border-white/10">
-      {/* <div className="px-62 mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
+      <div className="px-62 mx-auto grid grid-cols-1 md:grid-cols-5 gap-8 pt-12">
         <div className="col-span-1 md:col-span-2">
           <div className="flex items-center gap-2 mb-6">
             <Image src={Assets.logo} alt="Techzuno" />
@@ -115,13 +115,13 @@ export default function Footer() {
       </div>
       <div className="px-62 mx-auto mt-12 pt-8 border-t border-white/10 text-center text-sm text-zinc-500">
         &copy; {new Date().getFullYear()} Techzuno. All rights reserved.
-      </div> */}
+      </div>
 
-      <div className="bg-white text-black border-t border-white/10 flex items-center justify-center w-full overflow-hidden px-4">
+      {/* <div className="bg-white text-black border-t border-white/10 flex items-center justify-center w-full overflow-hidden px-4">
         <h1 className="font-bold text-[clamp(56px,18vw,230px)] tracking-wider max-w-full leading-none whitespace-nowrap">
           TECHZUNO
         </h1>
-      </div>
+      </div> */}
     </footer>
   );
 }

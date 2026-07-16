@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 // export const metadata = {
 //   title: "Login - Techzuno | Sign In to Your Account",
@@ -32,15 +33,13 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
 
     if (!form.email || !form.password) {
-      setMessage({ type: "error", text: "All fields are required." });
+      toast.error("All fields are required.");
       return;
     }
 
     setLoading(true);
-    setMessage({ type: "", text: "" });
 
     try {
       const res = await axios.post(
@@ -55,16 +54,10 @@ export default function LoginPage() {
       );
 
       await getAuth();
-      // const { user } = res.data;
-
-      // console.log(user);
-
+      toast.success(res.data.message || "Logged in successfully!");
       
     } catch (err) {
-      setMessage({
-        type: "error",
-        text: err.response?.data?.message || err.message, 
-      });
+      toast.error(err.response?.data?.message || err.message);
     } finally {
       setLoading(false);
     }
@@ -162,18 +155,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Message */}
-            {message.text && (
-              <div
-                className={`mt-4 px-4 py-2.5 rounded-xl text-[13px] text-center tracking-wide ${
-                  message.type === "error"
-                    ? "bg-red-500/10 border border-red-500/30 text-red-400"
-                    : "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400"
-                }`}
-              >
-                {message.text}
-              </div>
-            )}
+
 
             {/* Submit */}
             <button

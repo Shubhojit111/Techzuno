@@ -20,6 +20,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { AuthContext } from "@/context/AuthContext";
+import { toast } from "react-toastify";
 
 // Dynamically import CustomTiptapEditor to avoid SSR issues in Next.js
 const CustomTiptapEditor = dynamic(
@@ -131,11 +132,9 @@ export default function AddBlogsPage() {
         });
       }
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message:
-          error.response?.data?.message || "Unable to load categories and tags",
-      });
+      toast.error(
+        error.response?.data?.message || "Unable to load categories and tags",
+      );
     } finally {
       setLoading(false);
     }
@@ -233,10 +232,7 @@ export default function AddBlogsPage() {
       { withCredentials: true },
     );
 
-    setFeedback({
-      type: "success",
-      message: response.data.message || "Blog updated successfully",
-    });
+    toast.success(response.data.message || "Blog updated successfully");
     // If response has blog data, set slug/id for view button
     if (response.data.blog) {
       setCreatedBlogSlug(response.data.blog.slug || response.data.blog.id);
@@ -250,10 +246,7 @@ export default function AddBlogsPage() {
       { withCredentials: true },
     );
 
-    setFeedback({
-      type: "success",
-      message: response.data.message || "Blog created successfully",
-    });
+    toast.success(response.data.message || "Blog created successfully");
     // If response has blog data, set slug/id for view button
     if (response.data.blog) {
       setCreatedBlogSlug(response.data.blog.slug || response.data.blog.id);
@@ -265,7 +258,6 @@ export default function AddBlogsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
-    setFeedback({ type: "", message: "" });
 
     try {
       if (editingBlogId) {
@@ -274,12 +266,10 @@ export default function AddBlogsPage() {
         await handleCreate();
       }
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message:
-          error.response?.data?.message ||
+      toast.error(
+        error.response?.data?.message ||
           (editingBlogId ? "Unable to update blog" : "Unable to create blog"),
-      });
+      );
     } finally {
       setSaving(false);
     }
@@ -737,14 +727,14 @@ export default function AddBlogsPage() {
                             />
                           ) : (
                             <div className="rounded-xl border border-dashed border-white/10 p-5 text-center">
-                              <Image className="mx-auto mb-2 h-7 w-7 text-zinc-500" />
+                              <ImageIcon className="mx-auto mb-2 h-7 w-7 text-zinc-500" />
                               <span className="text-xs font-semibold text-zinc-500">
                                 No image selected
                               </span>
                             </div>
                           )}
                           <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-[#38FFF2] transition-colors hover:bg-white/5">
-                            <Image className="h-4 w-4" />
+                            <ImageIcon className="h-4 w-4" />
                             Set featured image
                             <input
                               type="file"
@@ -968,7 +958,7 @@ export default function AddBlogsPage() {
                     onToggle={() => setImageExpanded(!imageExpanded)}
                   >
                     <div className="border-2 border-dashed border-white/10 rounded-xl p-5 text-center">
-                      <Image className="w-7 h-7 mx-auto mb-2 text-zinc-500" />
+                      <ImageIcon className="w-7 h-7 mx-auto mb-2 text-zinc-500" />
                       <span className="text-xs text-[#03B8B8] font-semibold">
                         Set featured image
                       </span>

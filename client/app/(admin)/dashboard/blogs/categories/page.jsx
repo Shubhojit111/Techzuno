@@ -4,6 +4,7 @@ import DashboardShell from "@/components/admin/DashboardShell";
 import axios from "axios";
 import { Edit3, Plus, Trash2, TrendingUp } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 
 const ROWS_PER_PAGE = 6;
 const MAX_TRENDING = 6;

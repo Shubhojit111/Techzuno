@@ -33,8 +33,8 @@ export default function UserLayout({ children }) {
         <Footer />
         <GoToTop />
 
-        <Footer />
         {/*
+        <Footer />
         <Footer />
         <Footer />
         <Footer />
