@@ -112,15 +112,14 @@ if (!blog) {
         </div>
       </section>
 
-      <div className="px-6 sm:px-10 lg:px-62 mx-auto relative z-10 w-full flex flex-col items-center max-w-[900px]  ">
-        <div className="w-[700px] h-[450px] rounded-3xl overflow-hidden ">
+      <div className="px-6 sm:px-10 lg:px-[320px] mx-auto relative z-10 w-full flex flex-col items-center h-fit ">
+        <div className="w-full h-auto border  max-w-[750px] overflow-hidden ">
           <Image
             src={blog.blogImage || Assets.ServiceHeader}
             alt={blog.title || "Techzuno"}
-            width={1200}
             height={800}
+            width={2000}
             className="object-cover h-full w-full"
-            priority
           />
         </div>
       </div>
@@ -242,7 +241,6 @@ if (!blog) {
 
           .techzuno-blog-content code {
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
             padding: 0.15em 0.4em;
             font-family: ui-monospace, monospace;
             font-size: 0.9em;
@@ -291,7 +289,6 @@ if (!blog) {
             max-width: 100%;
             height: auto;
             margin: 1.75rem auto;
-            border-radius: 18px;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
           }

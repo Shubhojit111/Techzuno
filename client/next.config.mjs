@@ -3,16 +3,17 @@ const nextConfig = {
   /* config options here */
   reactCompiler: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
+        protocol: 'http',
+        hostname: '**',
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'cloudsensy.techzuno.com',
+        hostname: '**',
         port: '',
         pathname: '/**',
       },

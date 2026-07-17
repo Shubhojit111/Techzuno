@@ -42,6 +42,7 @@ const createBlog = async (req, res) => {
       title: title.trim(),
       content: content.trim(),
       blogImage: blogImage?.trim() || null,
+      status: "published",
       userId: req.user.id,
     });
 
@@ -69,7 +70,6 @@ const createBlog = async (req, res) => {
       "One or more categories are invalid",
       "At least one category is required",
       "One or more tags are invalid",
-      "At least one tag is required",
     ];
 
     return res.status(400).json({

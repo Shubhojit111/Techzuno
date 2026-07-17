@@ -372,15 +372,14 @@ export default function BlogsPage() {
                           className="object-cover"
                         />
                         <div className="absolute top-4 left-4 z-20">
-                          {Array.isArray(blog.Categories) &&
-                            blog.Categories.slice(0, 1).map((cat) => (
-                              <span
-                                key={cat.id}
-                                className={`px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] rounded-lg border backdrop-blur-md bg-[#38FFF2]/20 text-[#38FFF2] border-[#38FFF2]/30`}
-                              >
-                                {cat.name}
-                              </span>
-                            ))}
+                          <span
+                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] rounded-lg border backdrop-blur-md ${blog.status === "draft" ? "bg-zinc-500/10 border-zinc-500/20 text-zinc-500" : "bg-[#38FFF2]/20 text-[#38FFF2] border-[#38FFF2]/30"}`}
+                          >
+                            <span
+                              className={`w-1 h-1 rounded-full ${blog.status === "draft" ? "bg-zinc-500" : "bg-[#38FFF2]"}`}
+                            />
+                            {blog.status || "Published"}
+                          </span>
                         </div>
                       </div>
 
@@ -390,14 +389,15 @@ export default function BlogsPage() {
                           <span className="text-[10px] font-bold text-zinc-500 tracking-wider">
                             {formatDate(blog.createdAt)}
                           </span>
-                          <span
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold border uppercase tracking-wider ${blog.status === "draft" ? "bg-zinc-500/10 border-zinc-500/20 text-zinc-500" : "bg-[#38FFF2]/10 border-[#38FFF2]/20 text-[#38FFF2]"}`}
-                          >
-                            <span
-                              className={`w-1 h-1 rounded-full ${blog.status === "draft" ? "bg-zinc-500" : "bg-[#38FFF2]"}`}
-                            />
-                            {blog.status || "Published"}
-                          </span>
+                          {Array.isArray(blog.Categories) &&
+                            blog.Categories.slice(0, 1).map((cat) => (
+                              <span
+                                key={cat.id}
+                                className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border backdrop-blur-md bg-[#38FFF2]/10 text-[#38FFF2] border-[#38FFF2]/20`}
+                              >
+                                {cat.name}
+                              </span>
+                            ))}
                         </div>
 
                         <h3 className="text-white font-bold text-lg leading-tight mb-3 line-clamp-2 group-hover:text-[#38FFF2] transition-colors">
