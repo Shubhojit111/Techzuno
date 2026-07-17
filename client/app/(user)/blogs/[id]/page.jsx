@@ -113,7 +113,7 @@ if (!blog) {
       </section>
 
       <div className="px-6 sm:px-10 lg:px-[320px] mx-auto relative z-10 w-full flex flex-col items-center h-fit ">
-        <div className="w-full h-auto border  max-w-[750px] overflow-hidden ">
+        <div className="w-full h-auto  max-w-[750px] overflow-hidden ">
           <Image
             src={blog.blogImage || Assets.ServiceHeader}
             alt={blog.title || "Techzuno"}

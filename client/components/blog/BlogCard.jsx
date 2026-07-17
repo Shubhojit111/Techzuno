@@ -18,7 +18,7 @@ export default function BlogCard({ blog }) {
 
   return (
     <Link href={`/blogs/${blog.id}`} className="group block w-full">
-      <article className="flex flex-col w-full mt-4 hover:border p-2 duration-300 rounded-xl border-white/50 hover:scale-105 ">
+      <article className="flex flex-col w-full mt-4  rounded-xl border-white/50">
         {/* Categories */}
         <p className="text-white font-normal tracking-[0.20em] text-[10px] uppercase mb-3 leading-relaxed line-clamp-2">
           {blog.Categories.map((cat, index) => {
@@ -40,7 +40,7 @@ export default function BlogCard({ blog }) {
         </h3>
 
         {/* Cover Image */}
-        <div className="mt-5 rounded-xl overflow-hidden border border-white/10 bg-black">
+        <div className="mt-5 overflow-hidden border border-white/10 bg-black">
           <div className="w-full h-[240px] sm:h-[420px] lg:h-fit">
             <Image
               src={blog.blogImage || Assets.WebDev1}
