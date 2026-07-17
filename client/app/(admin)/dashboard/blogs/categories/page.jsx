@@ -2,12 +2,19 @@
 
 import DashboardShell from "@/components/admin/DashboardShell";
 import axios from "axios";
-import { Edit3, Plus, Trash2, TrendingUp } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Edit3,
+  Plus,
+  Trash2,
+  TrendingUp,
+} from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-const ROWS_PER_PAGE = 6;
-const MAX_TRENDING = 6;
+const ROWS_PER_PAGE = 7;
+const MAX_TRENDING = 7;
 
 export default function BlogCategoriesPage() {
   const [categories, setCategories] = useState([]);
@@ -15,6 +22,7 @@ export default function BlogCategoriesPage() {
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  const [page, setPage] = useState(1);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [form, setForm] = useState({ name: "", slug: "", description: "" });
 
@@ -133,6 +141,13 @@ export default function BlogCategoriesPage() {
         .slice(0, MAX_TRENDING),
     [categories],
   );
+
+  const totalPages = Math.max(1, Math.ceil(categories.length / ROWS_PER_PAGE));
+
+  const paginatedCategories = useMemo(() => {
+    const start = (page - 1) * ROWS_PER_PAGE;
+    return categories.slice(start, start + ROWS_PER_PAGE);
+  }, [categories, page]);
 
   return (
     <DashboardShell title="Blog Categories" requiredPermission="blogs">
@@ -301,17 +316,19 @@ export default function BlogCategoriesPage() {
                           </td>
                         </tr>
                       ))
-                  ) : categories.length === 0 ? (
+                  ) : paginatedCategories.length === 0 ? (
                     <tr>
                       <td
                         colSpan={4}
                         className="px-6 py-16 text-center text-zinc-600 text-sm"
                       >
-                        "No categories yet. Create your first one"
+                        {categories.length === 0
+                          ? "No categories yet. Create your first one"
+                          : "No results on this page."}
                       </td>
                     </tr>
                   ) : (
-                    categories.map((category) => (
+                    paginatedCategories.map((category) => (
                       <tr
                         key={category.id}
                         className={`hover:bg-white/[0.02] transition-colors ${
@@ -365,6 +382,49 @@ export default function BlogCategoriesPage() {
                   )}
                 </tbody>
               </table>
+            </div>
+
+            {/* Pagination footer */}
+            <div className="flex items-center justify-between px-6 py-3.5 border-t border-white/5 text-xs text-zinc-500 bg-white/[0.01]">
+              <span>
+                {categories.length === 0
+                  ? "No categories"
+                  : `${(page - 1) * ROWS_PER_PAGE + 1}–${Math.min(
+                      page * ROWS_PER_PAGE,
+                      categories.length,
+                    )} of ${categories.length}`}
+              </span>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="p-1.5 rounded-lg border border-white/10 bg-white/[0.02] hover:bg-white/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <ChevronLeft size={13} />
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (pg) => (
+                    <button
+                      key={pg}
+                      onClick={() => setPage(pg)}
+                      className={`w-7 h-7 rounded-lg text-[11px] font-bold transition-colors ${
+                        pg === page
+                          ? "bg-[#38FFF2]/20 border border-[#38FFF2]/30 text-[#38FFF2]"
+                          : "border border-white/10 bg-white/[0.02] hover:bg-white/5 text-zinc-400"
+                      }`}
+                    >
+                      {pg}
+                    </button>
+                  ),
+                )}
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  className="p-1.5 rounded-lg border border-white/10 bg-white/[0.02] hover:bg-white/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <ChevronRight size={13} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
