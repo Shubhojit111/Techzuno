@@ -55,7 +55,7 @@ export default function DashboardShell({
     if (!user) return [];
 
     const all = [
-      // { href: "/dashboard", label: "Overview", icon: LayoutGrid },
+      { href: "/dashboard", label: "Overview", icon: LayoutGrid },
       {
         href: "/dashboard/blogs",
         label: "Blogs",
