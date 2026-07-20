@@ -10,7 +10,7 @@ export default function TellUs() {
   const [agree, setAgree] = useState(false);
 
   return (
-    <section className="bg-black pb-24">
+    <section className="bg-black pt-12">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           <div className="w-full lg:w-1/2 md:max-w-[80%] ">

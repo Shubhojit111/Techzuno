@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function PricingCards({ data = [] }) {
   return (
-    <div className="w-full relative z-10 px-6 md:px-10 lg:px-62 mx-auto">
+    <div className="w-full relative z-10 px-6 md:px-10 lg:px-62 mx-auto mb-24">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-8 place-items-center md:place-items-stretch">
         {data.map((plan, index) => (
           <div key={index} className="relative w-full max-w-[400px] md:max-w-none pt-8 md:pt-8 lg:pt-10">

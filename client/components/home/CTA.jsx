@@ -7,6 +7,7 @@ import SectionTitle from "../buttons/SectionTitle";
 import GlowBtn from "../buttons/GlowBtn";
 import { useState } from "react";
 import { X } from "lucide-react";
+import { showCustomToast } from "../common/CustomToast";
 
 const CTA_OPTIONS = [
   "Career",
@@ -78,10 +79,7 @@ export default function CTA() {
         throw new Error(data.message || "Unable to send message right now.");
       }
 
-      setStatus({
-        type: "success",
-        message: "Message sent successfully! We will contact you soon.",
-      });
+      showCustomToast("Message sent successful", "We will contact you soon.", "success");
       setForm({
         service: CTA_OPTIONS[0],
         name: "",
@@ -94,10 +92,7 @@ export default function CTA() {
       }, 3000);
       
     } catch (error) {
-      setStatus({
-        type: "error",
-        message: error.message || "Unable to send message right now.",
-      });
+      showCustomToast("Sending failed", error.message || "Unable to send message right now.", "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -198,17 +193,11 @@ export default function CTA() {
                       </select>
                     </div>
 
-                    {status.message && step === 1 ? (
-                      <p className={`mt-5 text-sm font-medium ${status.type === "success" ? "text-[#028383]" : "text-red-600"}`}>
-                        {status.message}
-                      </p>
-                    ) : null}
-
                     <div className="mt-10 flex items-center gap-8">
                       <button
                         type="button"
                         onClick={() => setStep(2)}
-                        className="rounded-[4px] bg-[#0aa7a7] px-10 py-3 text-[18px] font-bold text-white transition-colors hover:bg-[#078f8f] cursor-pointer"
+                        className="rounded-[4px] bg-[#0aa7a7] px-14 py-4 text-[18px] font-bold text-white transition-colors hover:bg-[#078f8f] cursor-pointer"
                       >
                         Next
                       </button>
@@ -266,17 +255,11 @@ export default function CTA() {
                       />
                     </div>
 
-                    {status.message && step === 2 ? (
-                      <p className={`mt-5 text-sm font-medium ${status.type === "success" ? "text-[#028383]" : "text-red-600"}`}>
-                        {status.message}
-                      </p>
-                    ) : null}
-
-                    <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-9">
+                    <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-9">
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="rounded-xl bg-[#e62b24] px-10 py-3 text-[16px] font-bold text-white transition-colors hover:bg-[#ca211b] disabled:opacity-60 cursor-pointer"
+                        className="rounded-[4px] bg-[#e62b24] px-14 py-4 text-[16px] font-bold text-white transition-colors hover:bg-[#ca211b] disabled:opacity-60 cursor-pointer"
                       >
                         {isSubmitting ? "Sending..." : "Send Message"}
                       </button>

@@ -77,24 +77,139 @@ router.post("/", async (req, res) => {
       message || "No message provided.",
     ].filter((line) => line !== null);
 
+    const emailHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Inquiry</title>
+        <style>
+          body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333333;
+          }
+          .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+          }
+          .header {
+            background-color: #03B8B8;
+            color: #ffffff;
+            padding: 30px 40px;
+            text-align: center;
+          }
+          .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+          }
+          .content {
+            padding: 40px;
+          }
+          .info-block {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eeeeee;
+          }
+          .info-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+          }
+          .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #888888;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            display: block;
+          }
+          .value {
+            font-size: 16px;
+            color: #222222;
+            margin: 0;
+          }
+          .message-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444444;
+            white-space: pre-wrap;
+          }
+          .footer {
+            background-color: #fcfcfc;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999999;
+            border-top: 1px solid #eeeeee;
+          }
+          .badge {
+            display: inline-block;
+            background-color: #e6f7f7;
+            color: #03B8B8;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>New Techzuno Inquiry</h1>
+            <span class="badge">${escapeHtml(source)}</span>
+          </div>
+          
+          <div class="content">
+            <div class="info-block">
+              <span class="label">Contact Details</span>
+              <p class="value"><strong>Name:</strong> ${escapeHtml(name)}</p>
+              <p class="value"><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}" style="color: #03B8B8; text-decoration: none;">${escapeHtml(email)}</a></p>
+              ${phone ? `<p class="value"><strong>Phone:</strong> ${escapeHtml(phone)}</p>` : ""}
+              ${company ? `<p class="value"><strong>Company:</strong> ${escapeHtml(company)}</p>` : ""}
+            </div>
+
+            <div class="info-block">
+              <span class="label">Inquiry Details</span>
+              <p class="value"><strong>Type:</strong> ${escapeHtml(inquiry)}</p>
+              ${service ? `<p class="value"><strong>Service:</strong> ${escapeHtml(service)}</p>` : ""}
+            </div>
+
+            <div class="info-block">
+              <span class="label">Message</span>
+              <div class="message-box">${escapeHtml(message || "No message provided.")}</div>
+            </div>
+          </div>
+          
+          <div class="footer">
+            <p>This email was automatically generated from the Techzuno website.</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
     await transporter.sendMail({
       from,
       to,
       replyTo: email,
       subject: `New Techzuno enquiry${service ? ` - ${service}` : ""}`,
       text: lines.join("\n"),
-      html: `
-        <h2>New Techzuno enquiry</h2>
-        <p><strong>Source:</strong> ${escapeHtml(source)}</p>
-        <p><strong>Inquiry:</strong> ${escapeHtml(inquiry)}</p>
-        ${service ? `<p><strong>Service:</strong> ${escapeHtml(service)}</p>` : ""}
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        ${phone ? `<p><strong>Phone:</strong> ${escapeHtml(phone)}</p>` : ""}
-        ${company ? `<p><strong>Company:</strong> ${escapeHtml(company)}</p>` : ""}
-        <p><strong>Message:</strong></p>
-        <p>${escapeHtml(message || "No message provided.")}</p>
-      `,
+      html: emailHtml,
     });
 
     return res.json({

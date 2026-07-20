@@ -4,8 +4,8 @@ export default function Marquee() {
   
   return (
     <div className="w-full overflow-hidden py-10 bg-black relative">
-      <div className="absolute left-0 top-0 w-16 sm:w-20 lg:w-32 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 w-60 sm:w-20 lg:w-32 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 w-16 sm:w-20 lg:w-32 h-full bg-linear-to-r from-black to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 w-60 sm:w-20 lg:w-32 h-full bg-linear-to-l from-black to-transparent z-10 pointer-events-none" />
       
       <div className="flex flex-col gap-8">
         <p className="text-[14px] uppercase text-center tracking-widest text-white">OUR ENGINEERING TECH STACK</p>

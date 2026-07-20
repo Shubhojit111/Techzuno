@@ -49,22 +49,22 @@ export default function WhyChooseUs() {
 
   const containerRef = useRef(null);
 
-  useGSAP(
-    () => {
-      gsap.from(".pop-icon", {
-        scale: 0,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "back.out(2)",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 70%",
-        },
-      });
-    },
-    { scope: containerRef },
-  );
+  // useGSAP(
+  //   () => {
+  //     gsap.from(".pop-icon", {
+  //       scale: 0,
+  //       opacity: 0,
+  //       duration: 0.6,
+  //       stagger: 0.15,
+  //       ease: "back.out(2)",
+  //       scrollTrigger: {
+  //         trigger: containerRef.current,
+  //         start: "top 70%",
+  //       },
+  //     });
+  //   },
+  //   { scope: containerRef },
+  // );
 
   return (
     <section

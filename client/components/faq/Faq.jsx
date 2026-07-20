@@ -67,7 +67,7 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-black py-20 min-h-screen  pt-20 md:pt-34 lg:pt-46">
+    <section className="bg-black py-20 min-h-screen  pt-20 md:pt-34 lg:mt-46">
       <div className="w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-16">
@@ -142,7 +142,7 @@ const FAQ = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className={`rounded-[12px] border border-white/5 overflow-hidden transition-all duration-300 bg-gradient-to-b ${
+              className={`rounded-xl border border-white/5 overflow-hidden transition-all duration-300 bg-linear-to-b ${
                 openIndex === index
                   ? "from-[#222222] to-[#111111]"
                   : "from-[#1a1a1a] to-[#0f0f0f]"

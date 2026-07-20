@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { SERVICE_OPTIONS } from "@/data/serviceOptions";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { showCustomToast } from "../common/CustomToast";
 
 const initialForm = {
   inquiry: "General Information Request",
@@ -73,16 +74,10 @@ export default function ContactFormSection() {
         throw new Error(data.message || "Unable to send message right now.");
       }
 
-      setStatus({
-        type: "success",
-        message: "Message sent successfully. We will contact you soon.",
-      });
+      showCustomToast("Message sent successful", "We will contact you soon.", "success");
       setForm(initialForm);
     } catch (error) {
-      setStatus({
-        type: "error",
-        message: error.message || "Unable to send message right now.",
-      });
+      showCustomToast("Sending failed", error.message || "Unable to send message right now.", "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -225,12 +220,6 @@ export default function ContactFormSection() {
                   </div>
                   <label className="text-white/60 text-[13px]">I Agree To Receive Communications From Techzuno</label>
                 </div>
-
-                {status.message ? (
-                  <p className={`text-sm font-medium ${status.type === "success" ? "text-[#03B8B8]" : "text-red-400"}`}>
-                    {status.message}
-                  </p>
-                ) : null}
 
                 <div className="mt-2 w-full">
                   <button

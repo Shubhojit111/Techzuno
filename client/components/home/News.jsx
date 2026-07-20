@@ -41,7 +41,7 @@ export default function News() {
           <SectionDescription className="text-center mx-auto" description="Insights, Trends And Updates From Our Tech Innovators & Industry" />
           
           <div className="mb-8">
-            <KnowMoreBtn text="View All Insights From Blog" />
+            <KnowMoreBtn text="View All Insights From Blog" link="/blogs" />
           </div>
         </div>
 
