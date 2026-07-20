@@ -112,7 +112,7 @@ export default function MilestonesSection() {
         <div className="mt-14 text-center">
           <p className="text-white/80 text-[13px]">
             Want To Accelerate In Web And App Development At Your Company?{" "}
-            <a href="#" className="text-[#00d4e0] underline hover:no-underline">
+            <a href="/contact" className="text-[#00d4e0] underline hover:no-underline">
               See How We Can Help
             </a>
           </p>

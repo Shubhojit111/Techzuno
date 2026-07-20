@@ -8,68 +8,6 @@ import axios from "axios";
 import { blogPosts } from "@/data/blogData";
 import { useEffect, useState } from "react";
 
-// const posts = [
-//   {
-//     id: 1,
-//     tag: "BLOG",
-//     title: "How Software Development Services Improve",
-//     content:
-//       "In today’s digital-driven world, businesses rely heavily on technology to stay competitive and efficient.",
-//     author: "souvik.naskar904@gmail.com",
-//     date: "February 27, 2026",
-//     image: Assets.NewsImage1,
-//   },
-//   {
-//     id: 2,
-//     tag: "BLOG",
-//     title: "How Software Development Services Improve",
-//     content:
-//       "In today’s digital-driven world, businesses rely heavily on technology to stay competitive and efficient.",
-//     author: "souvik.naskar904@gmail.com",
-//     date: "February 27, 2026",
-//     image: Assets.NewsImage2,
-//   },
-//   {
-//     id: 3,
-//     tag: "BLOG",
-//     title: "How Software Development Services Improve",
-//     content:
-//       "In today’s digital-driven world, businesses rely heavily on technology to stay competitive and efficient.",
-//     author: "Bishal",
-//     date: "February 27, 2026",
-//     image: Assets.NewsImage3,
-//   },
-//   {
-//     id: 4,
-//     tag: "BLOG",
-//     title: "How Software Development Services Improve",
-//     content:
-//       "In today’s digital-driven world, businesses rely heavily on technology to stay competitive and efficient.",
-//     author: "Bishal",
-//     date: "February 27, 2026",
-//     image: Assets.NewsImage4,
-//   },
-//   {
-//     id: 5,
-//     tag: "BLOG",
-//     title: "How Software Development Services Improve",
-//     content:
-//       "In today’s digital-driven world, businesses rely heavily on technology to stay competitive and efficient.",
-//     author: "Bishal",
-//     date: "February 27, 2026",
-//     image: Assets.Frame2,
-//   },
-//   {
-//     id: 6,
-//     tag: "BLOG",
-//     title: "How Software Development Services Improve",
-//     content:
-//       "In today’s digital-driven world, businesses rely heavily on technology to stay competitive and efficient.",
-//     author: "Bishal",
-//     date: "February 27, 2026",
-//     image: Assets.Frame4,
-//   },
-// ];
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);

@@ -63,20 +63,7 @@ export default function Testimonials() {
         "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been",
       rating: 5,
     },
-    // {
-    //   name: "Tina Bohme",
-    //   role: "Founder, Enzee",
-    //   image:Assets.Human1,
-    //   content: "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been",
-    //   rating: 5
-    // },
-    // {
-    //   name: "Tina Bohme",
-    //   role: "Founder, Enzee",
-    //   image:Assets.Human1,
-    //   content: "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been",
-    //   rating: 5
-    // }
+
   ];
 
   useGSAP(
@@ -126,7 +113,7 @@ export default function Testimonials() {
           trigger: triggerRef.current,
           pin: sectionRef.current,
           start: "top 0%", // Pinned a little lower for desktop
-          markers: true,
+          // markers: true,
           end: () =>
             `+=${Math.max(0, container.scrollWidth - window.innerWidth)}`,
           animation: tween,

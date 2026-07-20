@@ -1,19 +1,3 @@
-// const mongoose = require('mongoose');
-
-// const connectDb = () => {
-//     mongoose.connect(process.env.MONGO_URI)
-//     .then(()=>
-//     {
-//         console.log("Database successfully connected ",process.env.MONGO_URI)
-//     })
-//     .catch((error)=>{
-//         console.log(error);
-//     })
-
-// }
-
-// module.exports=connectDb;
-
 const { Sequelize } = require("sequelize");
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });

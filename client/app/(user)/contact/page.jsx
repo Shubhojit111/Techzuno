@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ContactHero from "@/components/contact/ContactHero";
 import ContactFormSection from "@/components/contact/ContactFormSection";
 import ContactServices from "@/components/contact/ContactServices";
@@ -12,8 +13,10 @@ export default function ContactPage() {
   return (
     <main className="flex flex-col bg-black min-h-screen">
       <ContactHero />
-      <ContactFormSection />
-      <ContactServices /> 
+      <Suspense fallback={null}>
+        <ContactFormSection />
+      </Suspense>
+      <ContactServices />
       <CTA />
     </main>
   );

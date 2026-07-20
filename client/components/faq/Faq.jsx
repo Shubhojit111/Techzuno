@@ -114,7 +114,7 @@ const FAQ = () => {
               +91 6290340824
             </a>{" "}
             Or{" "}
-            <a href="#" className="underline underline-offset-2">
+            <a href="mailto:info@techzuno.com" className="underline underline-offset-2">
               Email Us
             </a>{" "}
             With Your Question
@@ -154,7 +154,7 @@ const FAQ = () => {
                   e.stopPropagation();
                   toggleAccordion(index);
                 }}
-                className="w-full flex items-center justify-between p-5 md:p-6 text-left group"
+                className="w-full flex items-center justify-between p-5 md:p-6 text-left group cursor-pointer"
               >
                 <h3 className="text-white font-medium text-[16px] md:text-[20px] pr-4">
                   {faq.question}
@@ -190,7 +190,7 @@ const FAQ = () => {
             +91 6290340824
           </a>{" "}
           Or{" "}
-          <a href="#" className="underline underline-offset-2">
+          <a href="mailto:info@techzuno.com" className="underline underline-offset-2">
             Email Us
           </a>{" "}
           With Your Question
@@ -201,3 +201,4 @@ const FAQ = () => {
 };
 
 export default FAQ;
+

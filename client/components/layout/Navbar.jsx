@@ -4,45 +4,133 @@ import Link from "next/link";
 import Image from "next/image";
 import Assets from "@/Assets/Assets";
 import { useEffect, useState } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
-const primaryLinks = [
+const navItems = [
   { href: "/", label: "Home" },
   { href: "/pricing", label: "Pricing" },
-  // { href: "/learn-more", label: "Learn More" },
-  { href: "/works", label: "Works" },
-  { href: "/services", label: "Services" },
-  { href: "/blogs", label: "Blogs" },
+  {
+    label: "Services",
+    children: [
+      { href: "/services", label: "All Services" },
+      { href: "/web-development", label: "Web Development" },
+      { href: "/app-development", label: "App Development" },
+      { href: "/ui-ux-design", label: "UI/UX Design" },
+      { href: "/business-solutions", label: "Business Solutions" },
+      { href: "/ecom-integration", label: "Ecom Integration" },
+      { href: "/seo", label: "SEO" },
+    ],
+  },
+  { href: "/blogs", label: "Blog" },
+  {
+    label: "Learn More",
+    children: [
+      { href: "/contact", label: "Contact" },
+      { href: "/faq", label: "FAQ" },
+      { href: "/about", label: "About Us" },
+    ],
+  },
 ];
 
-const otherLinks = [
-  { href: "/contact", label: "Contact" },
-  { href: "/about", label: "About" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/business-solutions", label: "Business Solutions" },
-  { href: "/web-development", label: "Web Development" },
-  { href: "/ui-ux-design", label: "UI/UX Design" },
-  { href: "/app-development", label: "App Development" },
-  { href: "/ecom-integration", label: "Ecom Integration" },
-  { href: "/seo", label: "SEO" },
-];
+function DesktopDropdown({ item }) {
+  return (
+    <div className="relative group/dropdown">
+      <button
+        type="button"
+        className="hover:text-cyan-400 transition-colors flex items-center gap-1"
+      >
+        {item.label}
+        <svg
+          className="w-3 h-3 opacity-60 transition-transform duration-200 group-hover/dropdown:rotate-180"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {/* Invisible bridge — pointer-events-none so hovering in the gap does NOT trigger other items */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[240px] pointer-events-none group-hover/dropdown:pointer-events-auto">
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/85 backdrop-blur-md shadow-2xl opacity-0 translate-y-2 transition-all duration-300 group-hover/dropdown:opacity-100 group-hover/dropdown:translate-y-0">
+          <div className="max-h-0 group-hover/dropdown:max-h-[420px] transition-all duration-300 overflow-hidden">
+            <div className="p-3">
+              {item.children.map((child, idx) => (
+                <Link
+                  key={child.href}
+                  href={child.href}
+                  className="block px-3 py-2 rounded-xl text-white/90 hover:text-cyan-400 hover:bg-white/5 transition-all"
+                  style={{ transitionDelay: `${idx * 25}ms` }}
+                >
+                  {child.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileDropdown({ item, onNavigate }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setIsOpen((v) => !v)}
+        className="w-full flex items-center justify-between py-3 border-b border-white/10 text-white/90 hover:text-cyan-400 transition-colors"
+        aria-expanded={isOpen}
+      >
+        <span>{item.label}</span>
+        <span
+          className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+        >
+          ▾
+        </span>
+      </button>
+
+      <div
+        className={`overflow-hidden transition-all duration-300 ${
+          isOpen ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="pt-1 pb-1">
+          {item.children.map((child) => (
+            <Link
+              key={child.href}
+              href={child.href}
+              onClick={onNavigate}
+              className="block py-3 pl-4 border-b border-white/10 text-white/80 hover:text-cyan-400 transition-colors"
+            >
+              {child.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [othersOpen, setOthersOpen] = useState(false);
 
   const { user, authLoading } = useContext(AuthContext);
 
   const isAdmin = user?.role === "admin" || user?.role === "admin head";
 
+  const closeMobileMenu = () => setOpen(false);
+
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth >= 1024) { 
+      if (window.innerWidth >= 1024) {
         setOpen(false);
-        setOthersOpen(false);
       }
     };
     window.addEventListener("resize", onResize);
@@ -64,7 +152,7 @@ export default function Navbar() {
           <Link
             href="/"
             className="flex items-center gap-2"
-            onClick={() => setOpen(false)}
+            onClick={closeMobileMenu}
           >
             <Image
               src={Assets.logo}
@@ -73,44 +161,21 @@ export default function Navbar() {
             />
           </Link>
 
+          {/* ── Desktop nav ── */}
           <div className="hidden lg:flex items-center gap-8 text-[12px] font-normal tracking-wider">
-            {primaryLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="hover:text-cyan-400 transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-
-            <div className="relative group">
-              <button
-                type="button"
-                className="hover:text-cyan-400 transition-colors"
-              >
-                Others
-              </button>
-
-              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-5 w-[260px]">
-                <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/85 backdrop-blur-md shadow-2xl opacity-0 translate-y-2 pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
-                  <div className="max-h-0 group-hover:max-h-[420px] transition-all duration-300 overflow-hidden">
-                    <div className="p-3">
-                      {otherLinks.map((item, idx) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="block px-3 py-2 rounded-xl text-white/90 hover:text-cyan-400 hover:bg-white/5 transition-all"
-                          style={{ transitionDelay: `${idx * 25}ms` }}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {navItems.map((item) =>
+              item.children ? (
+                <DesktopDropdown key={item.label} item={item} />
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </div>
 
           {isAdmin ? (
@@ -145,77 +210,41 @@ export default function Navbar() {
           </button>
         </div>
 
+        {/* ── Mobile nav ── */}
         {open ? (
           <div className="lg:hidden px-6 sm:px-10 pb-6">
             <div className="border-t border-white/10 pt-4 text-[13px] tracking-wide">
-              {primaryLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => {
-                    setOpen(false);
-                    setOthersOpen(false);
-                  }}
-                  className="block py-3 border-b border-white/10 text-white/90 hover:text-cyan-400 transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ))}
-
-              <button
-                type="button"
-                onClick={() => setOthersOpen((v) => !v)}
-                className="w-full flex items-center justify-between py-3 border-b border-white/10 text-white/90 hover:text-cyan-400 transition-colors"
-                aria-expanded={othersOpen}
-              >
-                <span>Others</span>
-                <span
-                  className={`transition-transform ${othersOpen ? "rotate-180" : ""}`}
-                >
-                  ▾
-                </span>
-              </button>
-
-              <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  othersOpen ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                <div className="pt-2 pb-1">
-                  {otherLinks.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => {
-                        setOpen(false);
-                        setOthersOpen(false);
-                      }}
-                      className="block py-3 pl-4 border-b border-white/10 text-white/80 hover:text-cyan-400 transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              {navItems.map((item) =>
+                item.children ? (
+                  <MobileDropdown
+                    key={item.label}
+                    item={item}
+                    onNavigate={closeMobileMenu}
+                  />
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMobileMenu}
+                    className="block py-3 border-b border-white/10 text-white/90 hover:text-cyan-400 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
 
               {isAdmin ? (
                 <div className="flex gap-3 pt-5 mt-2">
                   <Link
                     href="/dashboard"
-                    onClick={() => {
-                      setOpen(false);
-                      setOthersOpen(false);
-                    }}
+                    onClick={closeMobileMenu}
                     className="flex-1 text-center py-2.5 border border-white/20 rounded-full text-white/90 hover:text-cyan-400 text-[13px] tracking-wide transition-colors"
                   >
                     Dashboard
                   </Link>
                   <Link
                     href="/logout"
-                    onClick={() => {
-                      setOpen(false);
-                      setOthersOpen(false);
-                    }}
+                    onClick={closeMobileMenu}
                     className="flex-1 text-center py-2.5 bg-[#03B8B8] rounded-full text-white text-[13px] tracking-wide hover:brightness-110 transition-all"
                   >
                     Logout
@@ -225,20 +254,14 @@ export default function Navbar() {
                 <div className="flex gap-3 pt-5 mt-2">
                   <Link
                     href="/login"
-                    onClick={() => {
-                      setOpen(false);
-                      setOthersOpen(false);
-                    }}
+                    onClick={closeMobileMenu}
                     className="flex-1 text-center py-2.5 border border-white/20 rounded-full text-white/90 hover:text-cyan-400 text-[13px] tracking-wide transition-colors"
                   >
                     Login
                   </Link>
                   <Link
                     href="/register"
-                    onClick={() => {
-                      setOpen(false);
-                      setOthersOpen(false);
-                    }}
+                    onClick={closeMobileMenu}
                     className="flex-1 text-center py-2.5 bg-[#03B8B8] rounded-full text-white text-[13px] tracking-wide hover:brightness-110 transition-all"
                   >
                     Sign Up
@@ -252,3 +275,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

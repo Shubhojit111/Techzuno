@@ -14,7 +14,7 @@ export default function Footer() {
           </div>
           <p className="text-zinc-400 text-sm mb-2">
             <span className="flex gap-1">
-              <Icon icon="lsicon:location-outline" classname="text-[#B8FAFF]" />
+              <Icon icon="lsicon:location-outline" className="text-[#16cfdc]" />
               12/1A SD Christopher Road
               <br /> Bidhannagar South Kolkata -<br /> 700010
             </span>
@@ -22,14 +22,14 @@ export default function Footer() {
           <p className="text-zinc-400 text-sm mb-2 flex items-center gap-1">
             <Icon
               icon="material-symbols-light:call-outline-sharp"
-              classname="text-[#B8FAFF]"
+              className="text-[#16cfdc]"
             />
             P. +91 6290345020
           </p>
           <p className="text-zinc-400 text-sm flex items-center gap-1">
             <Icon
               icon="material-symbols-light:mail-outline-sharp"
-              classname="text-[#B8FAFF]"
+              className="text-[#16cfdc]"
             />
             E. info@techzuno.com
           </p>

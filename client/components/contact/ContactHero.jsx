@@ -58,7 +58,7 @@ export default function ContactHero() {
         <div className="w-full mt-10 md:mt-16 text-center ">
           <p className="text-white/80 text-[12px] md:text-[13px]">
             Want To Accelerate Software Development At Your Company?{" "}
-            <a href="#" className="text-white underline underline-offset-2 hover:text-[#03B8B8] transition-colors">
+            <a href="/about" className="text-white underline underline-offset-2 hover:text-[#03B8B8] transition-colors">
               See How We Can Help.
             </a>
           </p>

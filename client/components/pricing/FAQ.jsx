@@ -63,7 +63,7 @@ export default function FAQ() {
             >
               <button
                 onClick={() => toggleOpen(index)}
-                className="w-full flex items-center justify-between py-6 text-left focus:outline-none"
+                className="w-full flex items-center justify-between py-6 text-left focus:outline-none cursor-pointer"
               >
                 <span className="text-white font-medium text-[15px] md:text-[16px] lg:text-[18px]">
                   {faq.question}
@@ -98,3 +98,4 @@ export default function FAQ() {
     </section>
   );
 }
+

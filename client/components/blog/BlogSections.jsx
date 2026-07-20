@@ -35,7 +35,7 @@ export default function BlogSections({ blogs }) {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-3 mt-16">
+          <div className="flex items-start justify-center gap-3 mt-16">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}

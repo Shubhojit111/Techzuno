@@ -55,7 +55,7 @@ export default function DashboardShell({
     if (!user) return [];
 
     const all = [
-      { href: "/dashboard", label: "Overview", icon: LayoutGrid },
+      // { href: "/dashboard", label: "Overview", icon: LayoutGrid },
       {
         href: "/dashboard/blogs",
         label: "Blogs",
@@ -80,15 +80,15 @@ export default function DashboardShell({
         permission: "users",
         icon: Users,
       },
-      {
-        href: "/dashboard/settings",
-        label: "Settings",
-        permission: "settings",
-        icon: Settings,
-      },
+      // {
+      //   href: "/dashboard/settings",
+      //   label: "Settings",
+      //   permission: "settings",
+      //   icon: Settings,
+      // },
     ];
 
-    // Filter admins section — only admin head sees it
+    // Filter admins section - only admin head sees it
     return user.role === "admin head"
       ? all
       : all.filter((item) => item.href !== "/dashboard/admins");
@@ -293,14 +293,14 @@ export default function DashboardShell({
 
   return (
     <div className="min-h-screen bg-[#080C14] text-zinc-100 font-sans flex overflow-hidden">
-      {/* ── DESKTOP SIDEBAR ────────────────────────────────────────────── */}
+      {/* DESKTOP SIDEBAR */}
       <aside
         className={`fixed top-0 left-0 z-40 h-screen hidden lg:flex flex-col justify-between
           bg-[#0A0F1C]/95 backdrop-blur-md border-r border-white/5
           transition-all duration-300 ease-in-out ${sidebarW}
           shadow-[4px_0_24px_rgba(0,0,0,0.4)]`}
       >
-        {/* Top – Logo + toggle */}
+        {/* Top - Logo + toggle */}
         <div className="flex-1 min-h-0 flex flex-col">
           <div className="flex items-center justify-between px-4 h-16 border-b border-white/5 shrink-0">
             <div
@@ -342,7 +342,7 @@ export default function DashboardShell({
           </div>
         </div>
 
-        {/* Bottom – user + logout */}
+        {/* Bottom - user + logout */}
         <div className="flex-shrink-0 border-t border-white/5 px-3 py-4">
           {/* User row */}
           <div
@@ -379,7 +379,7 @@ export default function DashboardShell({
         </div>
       </aside>
 
-      {/* ── MOBILE DRAWER ──────────────────────────────────────────────── */}
+      {/* MOBILE DRAWER */}
       {isMobileOpen && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
           <div
@@ -444,13 +444,13 @@ export default function DashboardShell({
         </div>
       )}
 
-      {/* ── MAIN CONTENT AREA ──────────────────────────────────────────── */}
+      {/* MAIN CONTENT AREA */}
       <div
         className={`flex-1 min-w-0 flex flex-col transition-all duration-300 ${
           isSidebarOpen ? "lg:ml-[240px]" : "lg:pl-16"
         }`}
       >
-        {/* ── TOP HEADER ─────────────────────────────────────────────── */}
+        {/* TOP HEADER */}
         <header
           className={`fixed top-0 right-0 z-30 flex h-16 items-center border-b border-white/5 bg-[#080C14]/92 px-4 shadow-[0_1px_0_rgba(255,255,255,0.04),0_4px_24px_rgba(0,0,0,0.3)] backdrop-blur-xl transition-all duration-300 sm:px-5 lg:px-6 ${
             isSidebarOpen ? "left-0 lg:left-[240px]" : "left-0 lg:left-16"
@@ -511,16 +511,7 @@ export default function DashboardShell({
                     User Panel
                   </span>
                 </Link>
-              {/* <button
-                type="button"
-                className="relative flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors hover:bg-white/[0.07] hover:text-white"
-                aria-label="Notifications"
-              >
-                <Bell className="h-4 w-4" />
-                <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#38FFF2] px-1 text-[10px] font-bold text-[#080C14] ring-2 ring-[#080C14]">
-                  3
-                </span>
-              </button> */}
+
 
               <div className="relative">
                 <button
@@ -559,14 +550,14 @@ export default function DashboardShell({
                       <Globe className="h-4 w-4" />
                       User Panel
                     </Link>
-                    <Link
+                    {/* <Link
                       href="/dashboard/settings"
                       role="menuitem"
                       className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-zinc-300 transition-colors hover:bg-white/[0.05] hover:text-white"
                     >
                       <Settings className="h-4 w-4" />
                       Settings
-                    </Link>
+                    </Link> */}
                     <Link
                       href="/logout"
                       role="menuitem"
@@ -582,7 +573,7 @@ export default function DashboardShell({
           </div>
         </header>
 
-        {/* ── WORKSPACE AREA ─────────────────────────────────────────── */}
+        {/* WORKSPACE AREA */}
         <main className="flex-1 overflow-y-auto pt-16">
           <div className="p-5 md:p-6 max-w-[1400px] mx-auto w-full">
             {isPermitted ? (
@@ -604,3 +595,4 @@ export default function DashboardShell({
     </div>
   );
 }
+

@@ -71,7 +71,7 @@ export default function ContactServices() {
           <p className="text-white/80 text-[13px]">
             Want To Accelerate Website And App Development At Your Company?{" "}
             <a
-              href="#"
+              href="/about"
               className="text-white underline hover:text-[#03B8B8] transition-colors underline-offset-2"
             >
               See How We Can Help.

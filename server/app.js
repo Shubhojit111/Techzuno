@@ -14,6 +14,7 @@ const blogCategoryRoutes = require("./routes/blogCategoryRoutes");
 const blogTagRoutes = require("./routes/blogTagRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 app.use(
   cors({
@@ -37,6 +38,7 @@ app.use("/api/blogs/tags", blogTagRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/contact", contactRoutes);
 
 const PORT = process.env.PORT || 3000;
 
