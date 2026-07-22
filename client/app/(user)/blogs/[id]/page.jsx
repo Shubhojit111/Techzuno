@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { ArrowBigDown } from "lucide-react";
 
 const getBlogHref = (blog) => `/blogs/${blog?.slug || blog?.id}`;
 
@@ -17,6 +18,8 @@ export default function BlogDetailPage() {
   const [blog, setBlog] = useState(null);
   const [similarBlogs, setSimilarBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [prevBlog, setPrevBlog] = useState(null);
+  const [nextBlog, setNextBlog] = useState(null);
 
   const categories = Array.isArray(blog?.Categories) ? blog.Categories : [];
   const tags = Array.isArray(blog?.Tags) ? blog.Tags : [];
@@ -71,6 +74,20 @@ export default function BlogDetailPage() {
         const blogs = Array.isArray(allBlogsRes.data.blogs)
           ? allBlogsRes.data.blogs
           : [];
+
+        const currentIndex = blogs.findIndex((b) => b.id === currentBlog.id);
+        if (currentIndex !== -1) {
+          if (currentIndex < blogs.length - 1) {
+            setPrevBlog(blogs[currentIndex + 1]);
+          } else {
+            setPrevBlog(null);
+          }
+          if (currentIndex > 0) {
+            setNextBlog(blogs[currentIndex - 1]);
+          } else {
+            setNextBlog(null);
+          }
+        }
 
         const currentCategoryIds =
           currentBlog.Categories?.map((category) => category.id) || [];
@@ -158,18 +175,33 @@ export default function BlogDetailPage() {
               </div>
             )}
 
-            <h1 className="text-white text-[32px] sm:text-[48px] lg:text-[95px] font-bold leading-[1.1] tracking-wide text-center uppercase line-clamp-">
+            <h1 className="text-white text-[32px] sm:text-[48px] lg:text-[95px] font-bold leading-[1.1] tracking-wide text-center uppercase line-clamp-4">
               {blog.title}
             </h1>
 
-            <span className="text-white absolute left-20 -bottom-20 text-sm pt-10">
+            <div className="text-white absolute left-20 -bottom-20 text-sm flex gap-2 leading-none ">
               SCROLL DOWN
-            </span>
+              <ArrowBigDown className="w-4 h-4 text-white animate-bounce" />
+            </div>
 
-            <div className="text-white absolute right-20 -bottom-20 text-sm pt-10 flex gap-3">
-              <span className="text-white">Previous</span>
-              {/* <br className="w-full" /> */}
-              <span className="text-white">Next</span>
+            <div className="text-white absolute right-6 sm:right-10 lg:right-20 -bottom-10 lg:-bottom-20 text-sm pt-10 flex gap-4">
+              {prevBlog && (
+                <Link
+                  href={getBlogHref(prevBlog)}
+                  className="text-white hover:-translate-x-2 transition-transform duration-300 inline-block font-medium tracking-wider"
+                >
+                  &larr; Previous
+                </Link>
+              )}
+              {prevBlog && nextBlog && <span className="text-white/30">|</span>}
+              {nextBlog && (
+                <Link
+                  href={getBlogHref(nextBlog)}
+                  className="text-white hover:translate-x-2 transition-transform duration-300 inline-block font-medium tracking-wider"
+                >
+                  Next &rarr;
+                </Link>
+              )}
             </div>
           </div>
         </div>
