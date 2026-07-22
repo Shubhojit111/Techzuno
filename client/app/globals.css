@@ -326,16 +326,6 @@ button:disabled {
   background: rgba(255, 255, 255, 0.025);
 }
 
-.techzuno-blog-content img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 2rem auto;
-  border: 1px solid rgba(56, 255, 242, 0.15);
-  /* border-radius: 10px; */
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
-}
-
 .techzuno-blog-content div[data-youtube-video] {
   display: flex;
   justify-content: center;

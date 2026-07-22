@@ -17,7 +17,7 @@ const getExcerpt = (html = "") =>
 export default function BlogCard({ blog }) {
 
   return (
-    <Link href={`/blogs/${blog.id}`} className="group block w-full">
+    <Link href={`/blogs/${blog.slug}`} className="group block w-full">
       <article className="flex flex-col w-full mt-4  rounded-xl border-white/50">
         {/* Categories */}
         <p className="text-white font-normal tracking-[0.20em] text-[10px] uppercase mb-3 leading-relaxed line-clamp-2">

@@ -150,7 +150,7 @@ export default function BlogDetailPage() {
                 {categories.map((category) => (
                   <span
                     key={category.id}
-                    className="text-white bg-gray-500 py-1 px-2 rounded-tr-md rounded-bl-md font-normal tracking-[0.20em] text-[12px] uppercase mb-5 leading-relaxed line-clamp-2"
+                    className="text-white bg-gray-500 py-1 px-3.5 rounded-tr-md rounded-bl-md font-normal tracking-[0.15em] text-[10px] uppercase mb-5 leading-relaxed line-clamp-2"
                   >
                     {category.name || category.slug}
                   </span>
@@ -205,17 +205,6 @@ export default function BlogDetailPage() {
             ))}
           </div>
         )}
-
-        {/* <div className="flex h-full w-full max-w-[950px] flex-col items-center justify-center">
-            {categories.length > 0 && (
-              <div className=" flex flex-wrap justify-center gap-3">
-                {categories.map((category) => (
-                  <span key={category.id} className="text-white bg-gray-500 py-1 px-2 rounded-tr-md rounded-bl-md font-normal tracking-[0.20em] text-[12px] uppercase mb-5 leading-relaxed line-clamp-2">
-                    {category.name || category.slug}
-                  </span>
-                ))}
-              </div>
-            )} */}
 
         <div className="mt-10 flex justify-center mb-20">
           <Link
