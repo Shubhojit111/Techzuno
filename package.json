@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "mysql2": "^3.22.5",
     "react-toastify": "^11.1.0"
   }
 }
