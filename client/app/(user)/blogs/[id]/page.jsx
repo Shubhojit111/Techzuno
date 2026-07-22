@@ -112,7 +112,7 @@ if (!blog) {
     <main className="flex flex-col bg-black min-h-screen text-white font-sans">
       <section className="relative w-full h-[400px] sm:h-[500px] lg:h-screen flex flex-col justify-center pt-40 md:pt-52 lg:pt-40 pb-10 md:pb-16 lg:pb-20 overflow-hidden">
         {/* Background full width image */}
-        <div className="absolute -top-5 left-0 w-full h-full z-0 ">
+        <div className="absolute -top-6 left-0 w-full h-full z-0 ">
           <Image
             src={Assets.BlogsBg}
             alt="Background"
@@ -136,28 +136,9 @@ if (!blog) {
                 );
               })}
             </div>
-            <p className="text-white px-12 text-[32px] sm:text-[48px] lg:text-[64px] xl:text-[72px] font-bold leading-[1.1] tracking-tight text-center line-clamp-4">
+            <p className="text-white px-12 text-[32px] sm:text-[48px] lg:text-[64px] xl:text-[72px] font-bold leading-[1.1] tracking-wide text-center line-clamp-4">
               {blog.title}
             </p>
-
-            <div className="mt-6 flex items-center gap-6 text-white/70 text-sm tracking-[0.15em] uppercase">
-              <span className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 flex items-center justify-center text-black font-bold text-xs">
-                  {authorName.charAt(0).toUpperCase()}
-                </div>
-                By {authorName}
-              </span>
-              {blog.createdAt ? (
-                <span className="flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-cyan-400/50" />
-                  {new Date(blog.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </span>
-              ) : null}
-            </div>
 
             <span className="text-white mx-auto text-sm pt-10">
               SCROLL DOWN
