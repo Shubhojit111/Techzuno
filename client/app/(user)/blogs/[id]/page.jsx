@@ -77,13 +77,13 @@ export default function BlogDetailPage() {
 
         const currentIndex = blogs.findIndex((b) => b.id === currentBlog.id);
         if (currentIndex !== -1) {
-          if (currentIndex < blogs.length - 1) {
-            setPrevBlog(blogs[currentIndex + 1]);
+          if (currentIndex > 0) {
+            setPrevBlog(blogs[currentIndex - 1]);
           } else {
             setPrevBlog(null);
           }
-          if (currentIndex > 0) {
-            setNextBlog(blogs[currentIndex - 1]);
+          if (currentIndex < blogs.length - 1) {
+            setNextBlog(blogs[currentIndex + 1]);
           } else {
             setNextBlog(null);
           }
