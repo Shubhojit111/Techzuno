@@ -6,6 +6,8 @@ const {
   syncCategoryCounts,
   syncTagCounts,
   fetchBlogById,
+  fetchBlogByIdentifier,
+  serializeBlog,
 } = require("../utils/blogHelpers");
 
 const createBlog = async (req, res) => {
@@ -87,7 +89,7 @@ const getAllBlogs = async (req, res) => {
 
     return res.status(200).json({
       message: "Blogs fetched successfully",
-      blogs,
+      blogs: blogs.map(serializeBlog),
     });
   } catch (error) {
     console.log(error);
@@ -99,7 +101,7 @@ const getAllBlogs = async (req, res) => {
 
 const getBlogById = async (req, res) => {
   try {
-    const blog = await fetchBlogById(req.params.id);
+    const blog = await fetchBlogByIdentifier(req.params.id);
 
     if (!blog) {
       return res.status(404).json({

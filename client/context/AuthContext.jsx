@@ -20,7 +20,9 @@ export function AuthProvider({ children }) {
       console.log(data.user);
     } 
     catch (error) {
-      console.error(error);
+      if (error.response?.status !== 401) {
+        console.error(error);
+      }
       setUser(null);
     } 
     finally {

@@ -1,4 +1,5 @@
 const { blogModel, categoryModel, tagModel, userModel } = require("../models");
+const { repairBrokenPunctuation, repairBlogHtml } = require("./textRepair");
 
 // Shared include config so every blog read returns its category, tags and author.
 const blogInclude = [
@@ -26,7 +27,6 @@ const toSlug = (value = "") =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
-// Blog form sends tag ids as an array. This makes sure they are numbers and unique.
 const normalizeTagIds = (tagIds) => {
   if (!Array.isArray(tagIds)) {
     return [];
@@ -35,7 +35,6 @@ const normalizeTagIds = (tagIds) => {
   return [...new Set(tagIds.map((id) => Number(id)).filter(Boolean))];
 };
 
-// The create/edit form can also send brand new tag names as raw strings.
 const normalizeStringList = (values) => {
   if (!Array.isArray(values)) {
     return [];
@@ -47,7 +46,6 @@ const normalizeStringList = (values) => {
     ),
   ];
 };
-
 
 const resolveCategories = async ({ categoryIds, newCategoryNames }) => {
   const normalizedCategoryIds = Array.isArray(categoryIds)
@@ -90,7 +88,7 @@ const resolveCategories = async ({ categoryIds, newCategoryNames }) => {
 
   const allCategories = [...existingCategories, ...createdCategories];
   const uniqueCategories = [
-    ...new Map(allCategories.map((c) => [c.id, c])).values(),
+    ...new Map(allCategories.map((category) => [category.id, category])).values(),
   ];
 
   if (uniqueCategories.length === 0) {
@@ -121,8 +119,6 @@ const resolveCategories = async ({ categoryIds, newCategoryNames }) => {
   return uniqueCategories;
 };
 
-// Blogs and tags connect through the "BlogTags" join table, so a blog never stores a single tagId.
-// Instead we gather all chosen/new tags here and later call blog.setTags(tags).
 const resolveTags = async ({ tagIds, newTagNames }) => {
   const normalizedTagIds = normalizeTagIds(tagIds);
   const normalizedNewTagNames = normalizeStringList(newTagNames);
@@ -157,7 +153,6 @@ const resolveTags = async ({ tagIds, newTagNames }) => {
   return uniqueTags;
 };
 
-// Category count comes from the BlogCategories many-to-many relation.
 const syncCategoryCounts = async (categoryIds) => {
   if (!categoryIds || categoryIds.length === 0) return;
 
@@ -172,11 +167,10 @@ const syncCategoryCounts = async (categoryIds) => {
       const count = await category.countBlogs();
 
       await category.update({ count });
-    })
+    }),
   );
 };
 
-// Tag count comes from the many-to-many relation in BlogTags.
 const syncTagCounts = async (tagIds) => {
   const uniqueIds = [...new Set((tagIds || []).filter(Boolean))];
   await Promise.all(
@@ -189,12 +183,45 @@ const syncTagCounts = async (tagIds) => {
   );
 };
 
-// Helper used after create/update so the frontend gets the fully populated blog object.
+const serializeBlog = (blog) => {
+  if (!blog) return null;
+
+  const plainBlog = typeof blog.get === "function" ? blog.get({ plain: true }) : blog;
+  const title = repairBrokenPunctuation(plainBlog.title || "");
+
+  return {
+    ...plainBlog,
+    slug: toSlug(plainBlog.slug || title || String(plainBlog.id || "")),
+    title,
+    content: repairBlogHtml(plainBlog.content || ""),
+  };
+};
+
 const fetchBlogById = async (id) => {
-  return blogModel.findByPk(id, {
+  const blog = await blogModel.findByPk(id, {
     include: blogInclude,
     order: [[tagModel, "name", "ASC"]],
   });
+
+  return serializeBlog(blog);
+};
+
+const fetchBlogByIdentifier = async (identifier) => {
+  const normalizedIdentifier = String(identifier || "").trim();
+  const numericId = Number(normalizedIdentifier);
+
+  if (Number.isInteger(numericId) && numericId > 0) {
+    return fetchBlogById(numericId);
+  }
+
+  const blogs = await blogModel.findAll({
+    include: blogInclude,
+    order: [["createdAt", "DESC"]],
+  });
+
+  return blogs
+    .map(serializeBlog)
+    .find((blog) => blog.slug === normalizedIdentifier) || null;
 };
 
 module.exports = {
@@ -204,5 +231,7 @@ module.exports = {
   resolveTags,
   syncCategoryCounts,
   syncTagCounts,
+  serializeBlog,
   fetchBlogById,
+  fetchBlogByIdentifier,
 };

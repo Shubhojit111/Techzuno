@@ -10,6 +10,7 @@ const OLD_DB_CONFIG = {
   password: process.env.OLD_DB_PASS || "",
   database: process.env.OLD_DB_NAME || "techzuno_old",
   multipleStatements: true,
+  charset: "utf8mb4",
 };
 
 const WP_PREFIX = "wpzg_";

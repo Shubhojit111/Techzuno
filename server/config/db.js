@@ -12,6 +12,10 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: "mysql",
+    define: {
+      charset: 'utf8mb4',
+      collate: 'utf8mb4_unicode_ci'
+    },
 
     /* 🔥 CONNECTION POOL (VERY IMPORTANT) */
     pool: {
