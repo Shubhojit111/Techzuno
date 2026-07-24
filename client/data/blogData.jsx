@@ -1,4 +1,5 @@
 import Assets from "@/Assets/Assets";
+// import React, { useEffect, useState } from "react";
 
 export const blogPosts = [
   {
@@ -108,3 +109,56 @@ export const blogPosts = [
     tags: ["AI", "Developer Tools", "Productivity", "Tech"],
   },
 ];
+
+// const blogData = () => {
+//   const [blogs, setBlogs] = useState([]);
+//   // const [loading, setLoading] = useState(true);
+
+//   const getData = async () => {
+//     try {
+//       const res = await axios.get("http://localhost:5000/api/blogs/");
+//       const data = await res.data;
+//       setBlogs(Array.isArray(data.blogs) ? data.blogs : []);
+//     } catch (error) {
+//       console.error(
+//         "Unable to load blogs",
+//         error.response?.data || error.message,
+//       );
+//       setBlogs([]);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     getData();
+//   }, []);
+
+//   return <div>{blogs}</div>;
+// };
+
+// export default blogData;
+
+
+// import blogPosts from "@/data/blogPosts";
+
+export async function getBlogs() {
+  try {
+    const res = await fetch("http://localhost:5000/api/blogs", {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch blogs");
+    }
+
+    const data = await res.json();
+
+    return Array.isArray(data.blogs) && data.blogs.length > 0
+      ? data.blogs
+      : blogPosts;
+  } catch (error) {
+    console.error("Using mock blogs:", error.message);
+    return blogPosts;
+  }
+}
