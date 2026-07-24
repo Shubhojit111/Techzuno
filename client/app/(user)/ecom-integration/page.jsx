@@ -12,7 +12,11 @@ import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
 import CommonHero from "@/components/common/CommonHero";
 
-
+export const metadata = {
+  title: "E-commerce Integration Services | Techzuno",
+  description: "Techzuno connects your store to the tools that run it — payments, inventory, CRM, and marketing platforms — so your data works for you, not against you.",
+  url: "https://techzuno.com/ecom-integration",
+};
 
 
 export default function EcomIntegrationPage() {

@@ -7,7 +7,7 @@ import CountUpNumber from "../buttons/CountUpNumber";
 export default function Hero() {
   return (
     <section className="relative w-full flex flex-col items-center justify-center text-left md:text-center overflow-hidden ">
-      <div className="w-full h-full absolute top-0 left-0">
+      <div className="w-full h-full absolute -top-6 left-0">
         <Image
           src={Assets.HomeBg}
           alt="Techzuno Home Background"
@@ -23,8 +23,9 @@ export default function Hero() {
           WHERE VISION MEETS INNOVATION <br className="hidden lg:flex"/>SOFTWARE SOLUTION
         </h1>
 
-        <p className="text-white mb-8 text-[16px] md:text-[18px] font-medium tracking-wide font-sans">
-          Now Is Always Right Time To Start
+        <p className="text-white mb-8 text-[16px] md:text-[16px] font-medium tracking-wide leading-[1.3] font-sans max-w-xl text-center">
+          Now is always the right time to start. Techzuno turns your idea into a fast, functional, beautifully designed product 
+           - from your first line of code to launch day and beyond.
         </p>
 
         {/* Central Graphic Area */}
@@ -62,8 +63,8 @@ export default function Hero() {
               <h3 className="text-5xl md:text-[50px] font-toxigenesis text-white mb-2 tracking-tight drop-shadow-md">
                 <CountUpNumber end={98} suffix="%" />
               </h3>
-              <p className="text-xs md:text-sm tracking-wide text-gray-300 max-w-[200px] leading-snug font-medium font-sans">
-                Delivering Result Proven 98% Client Success Rate
+              <p className="text-xs md:text-sm tracking-wide text-gray-300 max-w-[210px] leading-snug font-medium font-sans">
+                Delivering results with a proven 98% client success rate
               </p>
             </div>
 
@@ -73,13 +74,13 @@ export default function Hero() {
                 <CountUpNumber end={50} suffix="+" />
               </h3>
               <p className="text-xs md:text-sm tracking-wide text-gray-300 max-w-[200px] leading-snug font-medium font-sans">
-                Trusted Clients For Software Solutions
+                Trusted clients for software solutions
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 relative z-10 self-center md:self-auto">
+        <div className="mt-8 relative z-10 self-center md:self-auto">
           <GlowBtn text="Start Now" />
         </div>
       </div>

@@ -8,22 +8,22 @@ const stats = [
   {
     value: 730,
     label:
-      "Successfully Built And Deployed\nWeb And App Solutions Across\nIndustries.",
+      "Successfully built and deployed\nweb and app solutions across\nindustries",
   },
   {
     value: 120,
     label:
-      "Happy Clients, Long-Term\nPartnerships With Startups,\nSMEs, And Global Teams.",
+      "Happy clients, long-term\npartnerships with startups,\nSMEs, and global teams",
   },
   {
     value: 4,
-    label: "Years Of Experience In Design,\nDevelopment, And Digital\nGrowth.",
+    label: "Years of experience in design,\ndevelopment, and digital\ngrowth",
   },
 ];
 
 export default function CompanySection() {
   return (
-    <section className="relative bg-black pb-16 md:pb-24 overflow-hidden">
+    <section className="relative bg-black pb-16 md:pb-22  lg:pb-36 overflow-hidden">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto w-full">
         <div className="text-right md:text-center mx-auto flex flex-col items-end md:items-center justify-center w-full">
           <HeaderBtn text="WELCOME TO OUR COMPANY" />

@@ -12,21 +12,21 @@ export default function ContactServices() {
       icon: "iconoir:wifi",
       title: "Let's Chat",
       description:
-        "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialise In Building Modern",
+        "Have a quick question before you fill out the form? Reach us directly.",
       linkText: "Email us: info@techzuno.com",
     },
     {
       icon: "hugeicons:message-multiple-01",
       title: "FAQS",
       description:
-        "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialise In Building Modern",
+        "Check our most frequently asked questions about process, pricing, and support.",
       linkText: "Help Center",
     },
     {
       icon: "bytesize:clock",
       title: "Working Hours",
       description:
-        "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialise In Building Modern",
+        "Our team is available Monday-Saturday for calls, consultations, and support requests.",
       linkText: "Find Out More About Us",
     },
   ];
@@ -40,15 +40,15 @@ export default function ContactServices() {
             className="mb-4 md:mb-6 uppercase"
             title={
               <>
-                Stay Connected In {" "}
+                Stay Connected In{" "}
                 <span className="text-[#B8FAFF]">
-                  Your  <br className="hidden md:block" /> Counrtry
+                  Your <br className="hidden md:block" /> Counrtry
                 </span>{" "}
-                 Via <br className="hidden md:block lg:hidden" />Email.
+                Via <br className="hidden md:block lg:hidden" />
+                Email.
               </>
             }
           />
-          
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

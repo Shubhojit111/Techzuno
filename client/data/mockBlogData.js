@@ -1,8 +1,4 @@
 import Assets from "@/Assets/Assets";
-import axios from "axios";
-import { useEffect } from "react";
-
-
 
 export const blogPosts = [
   {

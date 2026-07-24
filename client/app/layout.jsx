@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <Navbar />
           <main className="">{children}</main>
-          {/* <Footer /> */}
+          <Footer />
           <GoToTop />
           <ToastContainer theme="dark" position="bottom-right" />
         </AuthProvider>

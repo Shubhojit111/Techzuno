@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import BusinessHero from "@/components/business-solutions/BusinessHero";
 import ServicesGrid from "@/components/business-solutions/ServicesGrid";
@@ -10,6 +8,12 @@ import FAQ from "@/components/pricing/FAQ";
 import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
+
+export const metadata = {
+  title: "Web Application Development Company | Techzuno",
+  description: "Techzuno builds fast, scalable web applications and websites for growing businesses — from custom ERP and CRM systems to full e-commerce platforms.",
+  url: "https://techzuno.com/web-development",
+};
 
 export default function WebDevelopmentPage() {
   return (

@@ -1,8 +1,5 @@
 import Assets from "@/Assets/Assets";
 import Image from "next/image";
-import HeaderBtn from "@/components/buttons/HeaderBtn";
-import SectionTitle from "@/components/buttons/SectionTitle";
-import SectionDescription from "@/components/buttons/SectionDescription";
 import { ChevronDown } from "lucide-react";
 
 export default function BlogHero() {
@@ -25,7 +22,9 @@ export default function BlogHero() {
             better.
           </p>
 
-          <span className="text-white mx-auto text-sm pt-10">SCROLL DOWN</span>
+          <span className="text-white mx-auto text-sm pt-10 max-w-[50%] text-center">
+            Scroll down for the latest posts, organised by topic — business insight, tech education, and emerging trends.
+          </span>
           <ChevronDown className="mt-2 w-4 h-4 mx-auto animate-bounce" />
         </div>
       </div>

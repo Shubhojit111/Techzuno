@@ -10,37 +10,37 @@ export default function WhatYouGet() {
     {
       title: "Project Documentation",
       description:
-        "We provide comprehensive documentation for every project, ensuring that you have all the information you need to manage and maintain your software.",
+        "Comprehensive documentation for every project, so your team always has what it needs to manage and maintain your software.",
       icon: "teenyicons:pdf-outline",
     },
     {
-      title: "Integration Tests Satisfaction",
+      title: "Integration Tests & Satisfaction",
       description:
-        "Our rigorous testing process ensures that your software is robust, reliable, and meets your exact requirements, giving you peace of mind.",
+        "Our rigorous testing process ensures your software is robust, reliable, and meets your exact requirements — before it ever reaches your users.",
       icon: "boxicons:plug-connect",
     },
     {
       title: "Added Business Value",
       description:
-        "We focus on delivering solutions that add real value to your business, helping you streamline operations and increase efficiency.",
+        "We focus on solutions that add real value to your business — streamlining operations and increasing efficiency, not just adding features.",
       icon: "solar:graph-broken",
     },
     {
       title: "Post-Launch Support",
       description:
-        "We provide ongoing support and maintenance after your project is launched, ensuring that your software continues to perform at its best.",
+        "Ongoing support and maintenance after launch, so your project keeps performing at its best.",
       icon: "gg:check-r",
     },
     {
       title: "Transparent & Detailed delivery",
       description:
-        "We believe in transparency and keep you informed at every stage of the project, providing detailed reports on progress and milestones.",
+        "Regular, detailed updates on progress and milestones — you always know exactly where your project stands.",
       icon: "humbleicons:sun",
     },
     {
       title: "Intellectual Property Protection",
       description:
-        "We take intellectual property protection seriously and ensure that your software and data are secure and protected at all times.",
+        "We take intellectual property protection seriously and keep your software and data secure at every stage.",
       icon: "material-symbols:lock-outline",
     },
   ];

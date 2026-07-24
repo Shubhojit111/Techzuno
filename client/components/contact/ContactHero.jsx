@@ -20,7 +20,7 @@ export default function ContactHero() {
         {/* Flex row: Left text, Right image */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 md:gap-10">
           <div className="w-full lg:w-1/2 flex flex-col items-start text-left md:max-w-[70%] lg:max-w-none md:mr-auto lg:mr-0">
-            <HeaderBtn text="GET IN TOUCH"  />
+            <HeaderBtn text="GET IN TOUCH" />
             <SectionTitle
               title={
                 <>
@@ -31,13 +31,11 @@ export default function ContactHero() {
               }
               className="mt-0"
             />
-            <SectionDescription 
-            className="mt-4 md:mt-2 lg:mt-2 lg:max-w-[90%]"
+            <SectionDescription
+              className="mt-4 md:mt-2 lg:mt-2 lg:max-w-[90%]"
               description={
                 <>
-                  Founded With A Passion For Digital Innovation, Techzuno Delivers High-
-                  Quality Web And Mobile App Solutions Tailored To Modern Business Needs.
-                  From Startups To Scaling Enterprises, We Help Brands Build Fast.
+                  Founded with a passion for digital innovation, Techzuno delivers high-quality web and mobile app solutions tailored to modern business needs. From startups to scaling enterprises, we help brands build fast.
                 </>
               }
             />
@@ -57,8 +55,11 @@ export default function ContactHero() {
         {/* Text beneath flex element */}
         <div className="w-full mt-10 md:mt-16 text-center ">
           <p className="text-white/80 text-[12px] md:text-[13px]">
-            Want To Accelerate Software Development At Your Company?{" "}
-            <a href="/about" className="text-white underline underline-offset-2 hover:text-[#03B8B8] transition-colors">
+            Want to accelerate software development at your company?{" "}
+            <a
+              href="/about"
+              className="text-white underline underline-offset-2 hover:text-[#03B8B8] transition-colors"
+            >
               See How We Can Help.
             </a>
           </p>

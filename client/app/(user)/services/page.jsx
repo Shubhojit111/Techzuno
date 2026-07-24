@@ -10,6 +10,12 @@ import TechStack from "@/components/home/TechStack";
 import FAQ from "@/components/pricing/FAQ";
 import React from "react";
 
+export const metadata = {
+  title: "Our Services | Web Design, App Development & IT Solutions — Techzuno",
+  description: "Explore Techzuno's full range of services: custom website design, mobile app development, UI/UX, SEO, and IT business solutions — all built in Kolkata for businesses worldwide.",
+  url: "https://techzuno.com/services",
+};
+
 export default function ServicesPage() {
   return (
     <div>
@@ -21,7 +27,7 @@ export default function ServicesPage() {
             trust unite.
           </>
         }
-        description="We provide a fully customised service, designed to meet your specific IT requirements, business set up and budget."
+        description="We provide a fully customised service, designed to meet your specific IT requirements, business setup and budget."
         image={Assets.ServiceHeader}
         buttonText={"Let's Discuss Your Needs"}
       />

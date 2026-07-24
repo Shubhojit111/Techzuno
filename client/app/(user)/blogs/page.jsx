@@ -5,6 +5,12 @@ import BlogSections from "@/components/blog/BlogSections";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+// export const metadata = {
+//   title: "Blog | Techzuno — Web Development, App Development & Design Insights",
+//   description: "Insights on web development, app development, UI/UX, and SEO from the Techzuno team - practical guidance for growing your business online.",
+//   url: "https://techzuno.com/blogs",
+// };
+
 export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);

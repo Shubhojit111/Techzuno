@@ -34,7 +34,7 @@ export default function PricingCards({ data = [] }) {
                 <h3 className="text-[#38FFF2] text-xl md:text-lg lg:text-2xl font-medium mb-3 leading-tight tracking-wide w-[70%]">
                   {plan.title}
                 </h3>
-                <p className="text-white/90 text-[12px] tracking-wider mb-4">
+                <p className="text-white/90 text-[12px] tracking-wider mb-4 line-clamp-3">
                   {plan.subtitle}
                 </p>
 

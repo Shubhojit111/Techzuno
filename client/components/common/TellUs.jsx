@@ -10,13 +10,13 @@ export default function TellUs() {
   const [agree, setAgree] = useState(false);
 
   return (
-    <section className="bg-black pt-12">
+    <section className="bg-black py-12">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           <div className="w-full lg:w-1/2 md:max-w-[80%] ">
             <h2 className="text-white font-semibold tracking-normal leading-tight text-[24px] sm:text-[32px] lg:text-[26px]">
-              Tell Us About Your Ideas, And We&apos;ll Offer The Most Fitting
-              Solution.
+              Tell us about your ideas, and we&apos;ll offer the most fitting
+              solution.
             </h2>
 
             <div className="mt-5 sm:mt-9 lg:mt-7 flex flex-col gap-4 sm:gap-6 lg:gap-4">
@@ -33,7 +33,7 @@ export default function TellUs() {
                   </p>
                   <SectionDescription
                     description={
-                      "We Deliver Complete Technical And User Documentation—Ensuring Your Team Can Maintain, Scale, Or Hand Off The Product Confidently."
+                      "We deliver complete technical and user documentation — ensuring your team can maintain, scale, or hand off the product confidently."
                     }
                     className="mt-2 mb-0!  text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
                   />
@@ -44,7 +44,7 @@ export default function TellUs() {
                 <div className="shrink-0 mt-1">
                   <Icon
                     icon="streamline-ultimate:human-resources-search-men"
-                    className="h-6 w-6 sm:h-6 sm:w-6 lg:h-6 lg:w-6 highlightedTextColor"
+                    className="h-6 w-6 sm:h-6 sm:w-6 lg:h-5 lg:w-5 highlightedTextColor"
                   />
                 </div>
                 <div className="min-w-0">
@@ -53,7 +53,7 @@ export default function TellUs() {
                   </p>
                   <SectionDescription
                     description={
-                      "We Deliver Complete Technical And User Documentation—Ensuring Your Team Can Maintain, Scale, Or Hand Off The Product Confidently."
+                      "We design with your existing systems in mind, so new tools plug into what you already run."
                     }
                     className="mt-2 mb-0!  text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
                   />
@@ -73,7 +73,7 @@ export default function TellUs() {
                   </p>
                   <SectionDescription
                     description={
-                      "We Deliver Complete Technical And User Documentation—Ensuring Your Team Can Maintain, Scale, Or Hand Off The Product Confidently."
+                      "Added Business Value — Every build is scoped to move a real business metric, not just tick a feature box"
                     }
                     className="mt-2 mb-0!  text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
                   />
@@ -87,7 +87,7 @@ export default function TellUs() {
               </p>
               <SectionDescription
                 description={
-                  "We Deliver Complete Technical And User Documentation—Ensuring Your Team Can Maintain, Scale, Or Hand Off The Product Confidently."
+                  "We'd love to hear about your challenge. Share a few details and we'll come back with a clear path forward."
                 }
                 className="mt-2 mb-0! text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
               />

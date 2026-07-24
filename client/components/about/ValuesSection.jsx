@@ -12,37 +12,37 @@ const values = [
     icon: "mage:dashboard-4",
     title: "Flexibility",
     description:
-      "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialize In Building Modern Digital Experiences.",
+      "Requirements change mid-project — that's normal. We build processes that can absorb a pivot without derailing the timeline.",
   },
   {
     icon: "mynaui:sun",
     title: "Cultural Awareness",
     description:
-      "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialize In Building Modern Digital Experiences.",
+      "We work with clients across India and abroad, and we design and communicate with that range of audiences in mind.",
   },
   {
     icon: "ion:open-outline",
     title: "Open Collaboration",
     description:
-      "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialize In Building Modern Digital Experiences.",
+      "You get visibility into the build, not just the finished product. Regular check-ins, shared boards, and no surprise invoices",
   },
   {
     icon: "mdi:tick-circle-outline",
     title: "Reliability",
     description:
-      "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialize In Building Modern Digital Experiences.",
+      "Deadlines we set are deadlines we hit. When something's at risk, we tell you early — not the day before delivery",
   },
   {
     icon: "mingcute:head-ai-line",
     title: "Honesty & Integrity",
     description:
-      "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialize In Building Modern Digital Experiences.",
+      "If a feature isn't worth the cost, we'll say so. Our job is to build the right product, not just the one that's easiest to sell.",
   },
   {
     icon: "iconamoon:profile",
     title: "Client Success",
     description:
-      "Looking For Professional Website Design Services In Kolkata? At Techzuno, We Specialize In Building Modern Digital Experiences.",
+      "A launched site isn't the goal — a site that grows your business is. We measure our work by your results, not just our delivery.",
   },
 ];
 

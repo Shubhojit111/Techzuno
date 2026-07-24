@@ -9,6 +9,12 @@ import CTA from "@/components/home/CTA";
 import TechStack from "@/components/home/TechStack";
 import React from "react";
 
+export const metadata = {
+  title: "About Techzuno | India's Web & App Development Company",
+  description: "Meet the team behind Techzuno — a Kolkata-founded web and app development company delivering fast, functional, beautifully designed digital products since 2022.",
+  url: "https://techzuno.com/about",
+};
+
 export default function AboutPage() {
   return (
     <div className="flex flex-col h-full pt-16 md:pt-24 lg:pt-24 ">
@@ -18,14 +24,14 @@ export default function AboutPage() {
         image={Assets.Aboutimg}
         title={
           <>
-            THE INDIA&apos;S <br /> LEADING{" "}
+            INDIA&apos;S <br /> LEADING{" "}
             <span className="text-[#38FFF2]">
               WEB & <br /> APP{" "}
             </span>
-            DEVELOPMENT <br /> COMPANY.
+            DEVELOPMENT <br /> COMPANY
           </>
         }
-        description={`Founded with a passion for digital innovation, Techzuno delivers high-quality web and mobile app solutions tailored to modern business needs. From startups to scaling enterprises, we help brands build fast, functional, and beautifully designed digital products We specialize in technologies like Next.js, React, Python, WordPress, and Shopify, crafting every solution with precision and care. With a focus on performance, clean design, and scalability, our work is built to grow with you — not around you. At Techzuno, we don&apos;t just write code — we help you turn ideas into impact through smart development and honest collaboration`}
+        description={`Founded with a passion for digital innovation, Techzuno delivers high-quality web and mobile app solutions tailored to modern business needs. From startups to scaling enterprises, we help brands build fast, functional, and beautifully designed digital products. We specialise in technologies like Next.js, React, Python, WordPress, and Shopify — crafting every solution with precision and care. With a focus on performance, clean design, and scalability, our work is built to grow with you, not around you. At Techzuno, we don't just write code — we help you turn ideas into impact through smart development and honest collaboration.`}
         buttonText="Download Company Profile"
       />
       

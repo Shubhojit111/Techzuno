@@ -10,19 +10,19 @@ import Assets from "@/Assets/Assets";
 const milestones = [
   {
     year: "2022",
-    text: "Started As A Group Of Freelance Professionals Collaborating On Web Development And Design Projects.",
+    text: "Techzuno began as a small group of freelance professionals collaborating on web development and design projects.",
   },
   {
     year: "2023",
-    text: "Started As A Group Of Freelance Professionals Collaborating On Web Development And Design Projects.",
+    text: "Formalised as a studio, expanded into mobile app development, and took on our first longterm retainer clients.",
   },
   {
     year: "2024",
-    text: "Started As A Group Of Freelance Professionals Collaborating On Web Development And Design Projects.",
+    text: " Grew the team, added UI/UX and SEO as dedicated service lines, and crossed 500+ projects delivered.",
   },
   {
     year: "2025",
-    text: "Started As A Group Of Freelance Professionals Collaborating On Web Development And Design Projects.",
+    text: "Reached 730+ projects and 120+ clients, with a 5.0 average rating across 50+ reviews.",
   },
 ];
 
@@ -45,16 +45,21 @@ export default function MilestonesSection() {
               className="mb-4 md:mb-6 uppercase"
               title={
                 <>
-                 some of the <span className="text-[#38FFF2]">biggest <br /> milestones</span> we’ve <span className="md:whitespace-nowrap">crossed along the way</span> 
+                  some of the{" "}
+                  <span className="text-[#38FFF2]">
+                    biggest <br /> milestones
+                  </span>{" "}
+                  we’ve{" "}
+                  <span className="md:whitespace-nowrap">
+                    crossed along the way
+                  </span>
                 </>
               }
             />
             <SectionDescription
               description={
                 <>
-                  We Go Beyond Maintaining Operations We Empower Businesses With
-                  Data, Insights, And Best Practices To Stay Ahead In An
-                  Ever-Evolving Digital Landscape.
+                  We go beyond maintaining operations we empower businesses with data, insights, and best practices to stay ahead in an ever-evolving digital landscape.
                 </>
               }
             />
@@ -66,7 +71,11 @@ export default function MilestonesSection() {
         <div className="flex flex-col lg:flex-row gap-12 items-start w-full h-auto lg:h-[550px]">
           {/* Left - Image Gallery */}
           <div className="relative w-full lg:w-[55%] shrink-0">
-            <Image src={Assets.Milestone} alt="Milestone" className="w-full h-auto object-cover rounded-2xl" />
+            <Image
+              src={Assets.Milestone}
+              alt="Milestone"
+              className="w-full h-auto object-cover rounded-2xl"
+            />
           </div>
 
           {/* Right - Timeline */}
@@ -112,7 +121,10 @@ export default function MilestonesSection() {
         <div className="mt-14 text-center">
           <p className="text-white/80 text-[13px]">
             Want To Accelerate In Web And App Development At Your Company?{" "}
-            <a href="/contact" className="text-[#00d4e0] underline hover:no-underline">
+            <a
+              href="/contact"
+              className="text-[#00d4e0] underline hover:no-underline"
+            >
               See How We Can Help
             </a>
           </p>

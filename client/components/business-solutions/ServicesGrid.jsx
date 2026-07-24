@@ -35,14 +35,14 @@ export default function ServicesGrid() {
   const serviceData = {
   services: [
     { title: "Custom ERP Solutions" },
-    { title: "CRM Development" },
-    { title: "E-Commerce Solutions" },
-    { title: "Inventory & Warehouse Management Systems" },
-    { title: "SaaS Product Development" },
     { title: "Project Management Platforms" },
+    { title: "CRM Development" },
     { title: "Booking & Appointment Systems" },
+    { title: "E-Commerce Solutions" },
     { title: "Learning Management Systems (LMS)" },
+    { title: "Inventory & Warehouse Management Systems" },
     { title: "Billing & Invoicing Systems" },
+    { title: "SaaS Product Development" },
     { title: "Job Portals & Marketplace Solutions" },
   ],
   quickLinks: [
@@ -53,9 +53,9 @@ export default function ServicesGrid() {
   ],
   saying: {
     quote:
-      "At Techzuno, Diverse Experiences And A Passion For Innovation Shape Everything We Build — And That's Something We're Truly Proud Of.",
+      "At Techzuno, diverse experiences and a passion for innovation shape everything we build — and that's something we're truly proud of.",
     author: "Bishal Kayal",
-    role: "CEO",
+    role: "CEO & Founder",
     avatar: Assets.CEO,
   },
 };

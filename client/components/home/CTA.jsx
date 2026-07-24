@@ -127,21 +127,21 @@ export default function CTA() {
                 : "opacity-0 -translate-y-12 scale-95 pointer-events-none"
             }`}
           >
-            <HeaderBtn text="Let's make great things" />
+            <HeaderBtn text="Let's Make Great Things" />
             <SectionTitle
               title={
                 <>
-                  Have a project? Speak
+                  Have A Project? Speak
                   <br className="hidden md:block" />
-                  With our <span className="text-[#03B8B8]">experts</span>
+                  With Our <span className="text-[#03B8B8]">Experts</span>
                 </>
               }
               className="uppercase text-center mt-0 md:mt-4 lg:mt-0"
             />
             <p className="text-[14px] sm:text-[18px] lg:text-[26px] mt-4 lg:mt-6 leading-tight text-center">
-              Leave Your Contact Details To Get A Free
+              Leave your contact details to get a free
               <br />
-              Consultation With A Techzuno Expert.
+              consultation with a Techzuno expert.
             </p>
             <GlowBtn
               text="Get Started"

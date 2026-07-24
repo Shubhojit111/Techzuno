@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import SectionTitle from "../buttons/SectionTitle";
+import { FAQData } from "@/data/FAQData";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
@@ -10,29 +11,6 @@ export default function FAQ() {
   const toggleOpen = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-
-  const data = [
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "The timeline depends on the scope and complexity of the project. A standard website might take 2-4 weeks, while complex applications can take several months. We will provide a detailed timeline during the consultation.",
-    },
-    {
-      question: "Do you provide post-launch support and maintenance?",
-      answer:
-        "Yes, we offer comprehensive post-launch support and maintenance packages to ensure your digital product remains secure, updated, and performs optimally over time.",
-    },
-    {
-      question: "Can I customize my package or combine multiple services?",
-      answer:
-        "Absolutely! We understand that every business has unique needs. You can mix and match services to create a custom package that perfectly aligns with your goals.",
-    },
-    {
-      question: "Can I customize my package or combine multiple services?",
-      answer:
-        "Absolutely! We understand that every business has unique needs. You can mix and match services to create a custom package that perfectly aligns with your goals.",
-    },
-  ];
 
   return (
     <section className="w-full relative z-10 pb-20 px-6 md:px-10 lg:px-62 mx-auto">
@@ -54,7 +32,7 @@ export default function FAQ() {
         <div className="absolute top-0 right-0 w-8 h-4 border-t border-r border-white/30 rounded-tr-xl"></div>
 
         <div className="py-2 px-2 md:px-6">
-          {data.map((faq, index) => (
+          {FAQData.map((faq, index) => (
             <div
               key={index}
               className={`border-b border-white/10 ${

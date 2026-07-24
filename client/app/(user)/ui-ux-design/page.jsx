@@ -11,6 +11,12 @@ import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
 
+export const metadata = {
+  title: "UI/UX Design Services | Techzuno",
+  description: "Research-led UI/UX design from Techzuno — wireframes, prototypes, and interfaces built around how your users actually behave, not guesswork.",
+  url: "https://techzuno.com/ui-ux-design",
+};
+
 
 export default function UiUxDesignPage() {
   return (

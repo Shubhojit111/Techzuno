@@ -87,7 +87,7 @@ export default function Testimonials() {
         ScrollTrigger.create({
           trigger: triggerRef.current,
           pin: sectionRef.current,
-          start: "top 30%", // Pin lower on tablet
+          start: "-top 30%", // Pin lower on tablet
           // markers: true,
           end: () =>
             `+=${Math.max(0, container.scrollWidth - window.innerWidth)}`,
@@ -126,12 +126,12 @@ export default function Testimonials() {
   );
 
   return (
-    <div ref={triggerRef} className="w-full shrink-0 ">
+    <div ref={triggerRef} className="w-full shrink-0">
       <section
-        className="bg-black overflow-hidden w-full relative my-6 md:my-16 lg:mt-24"
+        className="bg-black overflow-hidden w-full relative mb-6 md:mb-16 lg:mb-14 "
         ref={sectionRef}
       >
-        <div className="mx-auto px-6 md:px-10 lg:px-62  relative z-[60]">
+        <div className="mx-auto px-6 md:px-10 lg:px-62 relative z-[60]">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
             <HeaderBtn text="CLIENT TESTIMONIALS" />
             <SectionTitle className="mb-4 md:mb-6" title={<>
@@ -139,9 +139,7 @@ export default function Testimonials() {
               <span className="text-[#38FFF2]">TECHZUNO</span>
             </>} />
             <SectionDescription description={<>
-              We Go Beyond Maintaining Operations We Empower Businesses With
-              Data, Insights, And Best Practices To Stay Ahead In An
-              Ever-Evolving Digital Landscape.
+              We go beyond maintaining operations — we empower businesses with data, insights, and best practices to stay ahead in an ever-evolving digital landscape.
             </>} />
           </div>
         </div>

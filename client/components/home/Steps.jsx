@@ -12,8 +12,6 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-
-
 export default function Steps() {
   const steps = [
     {
@@ -51,8 +49,6 @@ export default function Steps() {
             end: "top 10%",
             // markers: true,
             scrub: 2,
-            
-            
           },
         });
 
@@ -135,39 +131,39 @@ export default function Steps() {
           },
           0,
         )
-        .from(
-          ".step-number",
-          {
-            y: 100,
-            opacity: 0,
-            duration: 1.5,
-            stagger: 0.3,
-            ease: "power3.out",
-          },
-          0,
-        )
-        .from(
-          ".step-title",
-          {
-            x: -30,
-            opacity: 0,
-            duration: 0.4,
-            stagger: 0.3,
-            ease: "power3.out",
-          },
-          0.4,
-        )
-        .from(
-          ".step-plus",
-          {
-            scale: 0,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.3,
-            ease: "back.out(2)",
-          },
-          0.6,
-        );
+          .from(
+            ".step-number",
+            {
+              y: 100,
+              opacity: 0,
+              duration: 1.5,
+              stagger: 0.3,
+              ease: "power3.out",
+            },
+            0,
+          )
+          .from(
+            ".step-title",
+            {
+              x: -30,
+              opacity: 0,
+              duration: 0.4,
+              stagger: 0.3,
+              ease: "power3.out",
+            },
+            0.4,
+          )
+          .from(
+            ".step-plus",
+            {
+              scale: 0,
+              opacity: 0,
+              duration: 0.6,
+              stagger: 0.3,
+              ease: "back.out(2)",
+            },
+            0.6,
+          );
       });
 
       // Mobile: Individual triggers with alternating directions

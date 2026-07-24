@@ -139,7 +139,7 @@ export default function ContactFormSection() {
               <div className="mt-1">
                 <h4 className="text-white text-[15px] font-bold mb-2">Discover How Techzuno Can Elevate Your Business.</h4>
                 <p className="text-white/70 text-[13px] leading-tight">
-                  We&apos;re Here To Explore Opportunities And Would Be Delighted To Discuss How Our Solutions Can Support Your Growth At A Time That Works Best For You.
+                  We're here to explore opportunities and would be delighted to discuss how our solutions can support your growth, at a time that works best for you.
                 </p>
               </div>
             </div>

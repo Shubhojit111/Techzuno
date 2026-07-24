@@ -28,7 +28,7 @@ export default function ServiceCard({
         <h3 className="text-[22px] sm:text-[16px] lg:text-[24px] font-bold text-[#38FFF2] mb-3 md:mb-2 lg:mb-3 relative z-10">
           {title}
         </h3>
-        <p className="text-[#E5E5E5] leading-tight text-[14px] sm:text-[12px] lg:text-[14px] relative z-10 md:max-w-[280px]">
+        <p className="text-[#E5E5E5] leading-tight text-[14px] sm:text-[12px] lg:text-[13px] relative z-10 md:w-[260px] ">
           {description}
         </p>
 

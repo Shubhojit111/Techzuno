@@ -10,7 +10,7 @@ export default function SliderSection() {
     <>
       <section className="bg-black h-full w-full mb-10 lg:mb-10">
         <div className="flex justify-start w-full h-full px-6 sm:px-10 lg:px-62 mx-auto">
-          <div className="flex flex-col lg:flex-row items-start lg:items-end w-full md:w-full lg:max-w-[90%] gap-8 lg:gap-14 text-left ">
+          <div className="flex flex-col lg:flex-row items-start w-full md:w-full lg:max-w-[90%] gap-8 lg:gap-14 text-left ">
             {/* Left Image */}
             <div className="w-full md:w-[70%] lg:w-[45%] h-[250px] lg:h-full rounded-2xl overflow-hidden shrink-0">
               <Image
@@ -35,11 +35,11 @@ export default function SliderSection() {
                 className="max-w-full leading-tight"
                 description={
                   <>
-                    Founded with a passion for digital innovation, Techzuno delivers high-quality web and mobile app solutions tailored to modern business needs. From startups to scaling enterprises, we help brands build fast, functional, and beautifully designed digital products.
-                    <br className="hidden lg:block" /> 
-                    We specialize in technologies like Next.js, React, Python, WordPress, and Shopify, crafting every solution with precision and care. With a focus on performance, clean design, and scalability, our work is built to grow with you — not around you.
-                    <br className="hidden lg:block" /> 
-                    At Techzuno, we don’t just write code — we help you turn ideas into impact through smart development and honest collaboration.
+                    To be the outsourcing partner businesses actually trust —the
+                    team you call when the deadline is real and the product has
+                    to work. We want every brand we build for, from a first-time
+                    founder to a scaling enterprise, to see their idea handled
+                    with the same care we'd give our own.
                   </>
                 }
               />
@@ -49,7 +49,7 @@ export default function SliderSection() {
       </section>
       <section className="bg-black h-full w-full mb-6 lg:mb-10">
         <div className="flex justify-end w-full h-full px-6 sm:px-10 lg:px-62 mx-auto">
-          <div className="flex flex-col lg:flex-row items-end lg:items-end w-full md:w-full lg:max-w-[90%] gap-8 lg:gap-14 text-right lg:text-left">
+          <div className="flex flex-col lg:flex-row items-end lg:items-start w-full md:w-full lg:max-w-[90%] gap-8 lg:gap-14 text-right lg:text-left">
             {/* Left Image */}
             <div className="w-full md:w-[70%] lg:w-[45%] h-[250px] lg:h-full rounded-2xl overflow-hidden shrink-0">
               <Image
@@ -74,11 +74,7 @@ export default function SliderSection() {
                 className="text-right lg:text-left max-w-full leading-tight"
                 description={
                   <>
-                    Founded with a passion for digital innovation, Techzuno delivers high-quality web and mobile app solutions tailored to modern business needs. From startups to scaling enterprises, we help brands build fast, functional, and beautifully designed digital products.
-                    <br className="hidden lg:block" /> 
-                    We specialize in technologies like Next.js, React, Python, WordPress, and Shopify, crafting every solution with precision and care. With a focus on performance, clean design, and scalability, our work is built to grow with you — not around you.
-                    <br className="hidden lg:block" /> 
-                    At Techzuno, we don’t just write code — we help you turn ideas into impact through smart development and honest collaboration.
+                    To deliver web and mobile products that are fast, functional, and built to grow — using the right technology for the job, not the trendiest one, and staying honest about timelines, costs, and trade-offs at every stage of the project.
                   </>
                 }
               />

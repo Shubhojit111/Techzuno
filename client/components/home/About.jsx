@@ -24,7 +24,7 @@ export default function About({image, title,  description, buttonText}) {
 
   return (
     <section
-      className="py-16 md:py-22 w-full relative overflow-x-clip z-20 bg-black"
+      className="py-16 md:py-22 lg:py-36 w-full relative overflow-x-clip z-20 bg-black"
       ref={containerRef}
     >
       <div className="px-6 sm:px-10 lg:px-62 w-full mx-auto flex flex-col lg:flex-row justify-center gap-6 md:gap-10 lg:gap-18 items-end relative  h-[500px]">

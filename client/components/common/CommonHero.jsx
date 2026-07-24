@@ -18,7 +18,7 @@ export default function CommonHero({ headerbtn,title,description,buttonText,imag
           <HeaderBtn text={headerbtn} className="w-1/2 sm:w-full" />
 
           <SectionTitle
-            className="mt-3 uppercase"
+            className="mt-3 uppercase lg:text-[40px]!"
             title={title}
           />
 

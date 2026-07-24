@@ -13,6 +13,12 @@ import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import AboutHome from "@/components/home/AboutHome";
 
+export const metadata = {
+  title: "Techzuno | Web & App Development Company in Kolkata",
+  description: "Techzuno is Kolkata's leading web design, app development and IT solutions company. Custom, SEO-friendly websites and software built to grow your business.",
+  url: "https://techzuno.com/",
+};
+
 export default function HomePage() {
   return (
     <div className="flex flex-col h-full ">
@@ -23,15 +29,15 @@ export default function HomePage() {
         image={Assets.RoboticHead}
         title={
           <>
-            THE{" "}
+            KOLKATA'S{" "}
             <span className="text-[#38FFF2]">
-              KOLKATA&apos;S <br /> LEADING{" "}
+              LEADING{" "}
             </span>
-            WEBSITE <br /> DEVELOPMENT & <br /> DESIGN COMPANY.
+            WEBSITE <br /> DEVELOPMENT & <br /> DESIGN COMPANY
           </>
         }
         description={
-          "Searching for the top web development company in Kolkata? Our expert team delivers modern, responsive and user-friendly websites tailored to your business needs. From e-commerce stores to corporate sites, we provide complete website design services in Kolkata that boost your brand presence. Partner with us today to build a powerful online identity and reach more customers."
+          "Searching for the top web development company in Kolkata? Our team of designers, developers and strategists builds modern, responsive, user-friendly websites tailored to your business — from e-commerce stores to full corporate platforms. We combine clean design with solid engineering, so your site doesn't just look good, it performs: fast load times, mobile-first layouts, and SEO built in from day one. Partner with Techzuno to build an online identity that brings in more of the right customers."
         }
         buttonText="Find More About Techzuno"
       />

@@ -11,7 +11,11 @@ import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
 
-
+export const metadata = {
+  title: "SEO & Performance Optimization Services | Techzuno",
+  description: "Techzuno's SEO and performance team helps your site rank higher, load faster, and convert more — technical SEO, content, and AEO/GEO readiness included.",
+  url: "https://techzuno.com/seo",
+};
 
 
 export default function SeoPage() {

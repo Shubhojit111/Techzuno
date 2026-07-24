@@ -11,6 +11,12 @@ import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
 
+export const metadata = {
+  title: "Mobile App Development Company | Techzuno",
+  description: "Techzuno designs and builds native and cross-platform mobile apps — from first wireframe to App Store launch — for startups and growing businesses.",
+  url: "https://techzuno.com/app-development",
+};
+
 export default function AppDevelopmentPage() {
   return (
     <main className="flex flex-col bg-black min-h-screen text-white overflow-">

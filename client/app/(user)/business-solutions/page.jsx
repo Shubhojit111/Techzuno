@@ -11,7 +11,11 @@ import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
 import TechStack from "@/components/home/TechStack";
 
-
+export const metadata = {
+  title: "IT Business Solutions | Custom ERP, CRM & SaaS Development - Techzuno",
+  description: "Techzuno builds custom ERP, CRM, LMS, and SaaS solutions tailored to your business setup and budget — your local IT specialist in Kolkata.",
+  url: "https://techzuno.com/business-solutions",
+};
 
 
 export default function BusinessSolutionsPage() {

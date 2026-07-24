@@ -13,17 +13,17 @@ export default function Services() {
     {
       icon: "mynaui:mobile",
       title: "Web Development",
-      description: "Looking for professional website design services in Kolkata? At Techzuno, we specialise in building modern",
+      description: "Custom, responsive websites engineered for speed, search visibility, and conversions — built on modern stacks like Next.js, React, and WordPress.",
     },
     {
       icon: "simple-icons:civicrm",
       title: "App Development",
-      description: "Looking for professional website design services in Kolkata? At Techzuno, we specialise in building modern",
+      description: "Native and cross-platform mobile apps that keep users coming back, from first wireframe to App Store launch.",
     },
     {
       icon: "streamline-plump:web",
       title: "UI/UX Design",
-      description: "Looking for professional website design services in Kolkata? At Techzuno, we specialise in building modern",
+      description: "Interfaces people actually enjoy using — researched, wireframed, and tested before a single line of code is written.",
     },
   ];
 

@@ -5,8 +5,9 @@ import ContactServices from "@/components/contact/ContactServices";
 import CTA from "@/components/home/CTA";
 
 export const metadata = {
-  title: "Contact Us - Techzuno",
-  description: "Get in touch with Techzuno for professional web and app development solutions.",
+  title: "Contact Techzuno | Web & App Development, Kolkata",
+  description: " Get in touch with Techzuno for a free consultation on your web development, app development, or IT solutions project. Based in Kolkata, working worldwide.",
+  url: "https://techzuno.com/contact",
 };
 
 export default function ContactPage() {
