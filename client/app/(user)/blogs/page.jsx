@@ -1,6 +1,9 @@
+"use client";
+
 import BlogHero from "@/components/blog/BlogHero";
 import BlogSections from "@/components/blog/BlogSections";
-import blogs, { getBlogs } from "@/data/blogData";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 // export const metadata = {
 //   title: "Blog | Techzuno — Web Development, App Development & Design Insights",
@@ -8,15 +11,31 @@ import blogs, { getBlogs } from "@/data/blogData";
 //   url: "https://techzuno.com/blogs",
 // };
 
-export default async function BlogPage() {
+export default function BlogPage() {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  const getData = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/blogs/");
+      const data = await res.data;
+      setBlogs(Array.isArray(data.blogs) ? data.blogs : []);
+    } catch (error) {
+      console.error("Unable to load blogs", error.response?.data || error.message);
+      setBlogs([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const blogs = await getBlogs()
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <main className="flex flex-col bg-black min-h-screen">
       <BlogHero />
-      <BlogSections blogs={blogs} />
+      <BlogSections blogs={blogs} loading={loading} />
     </main>
   );
 }
