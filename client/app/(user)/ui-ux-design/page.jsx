@@ -20,7 +20,7 @@ export default function UiUxDesignPage() {
   return (
     <main className="flex flex-col bg-black min-h-screen text-white overflow-">
       <BusinessHero
-        headerbtn={"Ui/UX Design"}
+        headerbtn={"UI/UX Design"}
         title={  
           <>
             Designing{" "}

@@ -3,6 +3,7 @@ import Image from "next/image";
 import HeaderBtn from "../buttons/HeaderBtn";
 import SectionTitle from "../buttons/SectionTitle";
 import SectionDescription from "../buttons/SectionDescription";
+import Link from "next/link";
 
 export default function ContactHero() {
   return (
@@ -56,12 +57,12 @@ export default function ContactHero() {
         <div className="w-full mt-10 md:mt-16 text-center ">
           <p className="text-white/80 text-[12px] md:text-[13px]">
             Want to accelerate software development at your company?{" "}
-            <a
-              href="/about"
+            <Link
+              href="/contact"
               className="text-white underline underline-offset-2 hover:text-[#03B8B8] transition-colors"
             >
               See How We Can Help.
-            </a>
+            </Link>
           </p>
         </div>
       </div>

@@ -1,21 +1,79 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useMemo, useState } from "react";
 import HeaderBtn from "@/components/buttons/HeaderBtn";
 import SectionTitle from "@/components/buttons/SectionTitle";
 import { Icon } from "@iconify/react";
 import { FAQData } from "@/data/FAQData";
 
 const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openQuestion, setOpenQuestion] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const faqs = FAQData;
+  const filteredFaqs = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
 
-  const toggleAccordion = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
+    if (!query) return FAQData;
+
+    return FAQData.filter((faq) =>
+      `${faq.question} ${faq.answer}`.toLowerCase().includes(query),
+    );
+  }, [searchQuery]);
+
+  const faqColumns = useMemo(
+    () => [
+      filteredFaqs.filter((_, index) => index % 2 === 0),
+      filteredFaqs.filter((_, index) => index % 2 !== 0),
+    ],
+    [filteredFaqs],
+  );
+
+  const toggleAccordion = (question) => {
+    setOpenQuestion((currentQuestion) =>
+      currentQuestion === question ? null : question,
+    );
+  };
+
+  const renderFaqCard = (faq) => {
+    const isOpen = openQuestion === faq.question;
+
+    return (
+      <div
+        key={faq.question}
+        className={`rounded-xl border border-white/5 overflow-hidden transition-colors duration-300 bg-linear-to-b ${
+          isOpen ? "from-[#222222] to-[#111111]" : "from-[#1a1a1a] to-[#0f0f0f]"
+        }`}
+      >
+        <button
+          type="button"
+          onClick={() => toggleAccordion(faq.question)}
+          className="w-full flex min-h-[100px] items-center justify-between p-5 md:p-6 text-left group cursor-pointer"
+          aria-expanded={isOpen}
+        >
+          <h3 className="text-white font-medium text-[16px] md:text-[20px] leading-snug pr-4">
+            {faq.question}
+          </h3>
+          <Icon
+            icon={isOpen ? "mdi:minus" : "mdi:plus"}
+            className="text-white text-2xl shrink-0 transition-colors"
+          />
+        </button>
+
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="px-5 md:px-6 pb-6 max-w-[95%] text-white/80 text-[14px] md:text-[14px] leading-relaxed mx-0">
+            {faq.answer}
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
-    <section className="bg-black py-20 min-h-screen  pt-20 md:pt-18 lg:mt-26">
+    <section className="bg-black py-20 min-h-screen pt-20 md:pt-18 lg:mt-26">
       <div className="w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-16">
@@ -30,7 +88,10 @@ const FAQ = () => {
           </p>
 
           {/* Search Bar */}
-          <div className="w-full mb-12 flex flex-col md:block gap-4">
+          <form
+            className="w-full mb-12 flex flex-col md:block gap-4"
+            onSubmit={(event) => event.preventDefault()}
+          >
             <div
               className="relative w-full p-2 md:p-3 bg-[#121919] rounded-full
              border-linear-to-b from-white/30 md:from-[#0be4e4] to-transparent border-2"
@@ -39,7 +100,9 @@ const FAQ = () => {
                 <div className="w-full flex items-center justify-center pl-6 md:pl-8 ">
                   <Icon icon="mdi:magnify" className="text-white/50 h-6 w-6" />
                   <input
-                    type="text"
+                    type="search"
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
                     placeholder="Search"
                     className="w-full bg-transparent border-none outline-none text-white text-lg px-2 placeholder-white/50"
                   />
@@ -53,7 +116,7 @@ const FAQ = () => {
             <button className="md:hidden w-full bg-[#03B8B8] hover:bg-cyan-400 transition-colors text-white py-3.5 rounded-full text-xl tracking-widest font-bold">
               Search
             </button>
-          </div>
+          </form>
 
           <p className="text-white/60 text-xs">
             Please Call Our Office At{" "}
@@ -75,7 +138,7 @@ const FAQ = () => {
         </div>
 
         {/* Section Title */}
-        <div className="flex flex-col items-center  text-left lg:text-center mb-12">
+        <div className="flex flex-col items-center text-left lg:text-center mb-12">
           <HeaderBtn text="FREQUENTLY ASKED QUESTIONS" className="mb-0" />
           <SectionTitle
             className="mt-2"
@@ -91,50 +154,25 @@ const FAQ = () => {
         </div>
 
         {/* FAQ Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-16 w-full mx-auto">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className={`rounded-xl border border-white/5 overflow-hidden transition-all duration-300 bg-linear-to-b ${
-                openIndex === index
-                  ? "from-[#222222] to-[#111111]"
-                  : "from-[#1a1a1a] to-[#0f0f0f]"
-              }`}
-            >
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleAccordion(index);
-                }}
-                className="w-full flex items-center justify-between p-5 md:p-6 text-left group cursor-pointer"
-              >
-                <h3 className="text-white font-medium text-[16px] md:text-[20px] pr-4">
-                  {faq.question}
-                </h3>
-                <Icon
-                  icon={openIndex === index ? "mdi:minus" : "mdi:plus"}
-                  className="text-white text-2xl shrink-0 transition-colors"
-                />
-              </button>
-
-              <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  openIndex === index
-                    ? "max-h-96 opacity-100"
-                    : "max-h-0 opacity-0"
-                }`}
-              >
-                <div
-                  onClick={(e) => e.stopPropagation()}
-                  className="px-5 md:px-6 pb-6 max-w-[95%] text-white/80 text-[14px] md:text-[14px] leading-relaxed mx-0"
-                >
-                  {faq.answer}
-                </div>
-              </div>
+        {filteredFaqs.length > 0 ? (
+          <>
+            <div className="flex flex-col gap-4 mb-16 w-full md:hidden">
+              {filteredFaqs.map(renderFaqCard)}
             </div>
-          ))}
-        </div>
+
+            <div className="hidden md:grid md:grid-cols-2 gap-4 lg:gap-6 mb-16 w-full mx-auto items-start">
+              {faqColumns.map((columnFaqs, columnIndex) => (
+                <div key={columnIndex} className="flex flex-col gap-4 lg:gap-6">
+                  {columnFaqs.map(renderFaqCard)}
+                </div>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className="py-12 text-center text-sm uppercase tracking-[0.25em] text-white/50">
+            No FAQs found
+          </p>
+        )}
 
         {/* Bottom Contact Text */}
         <div className="text-center text-white/60 text-xs pb-20">

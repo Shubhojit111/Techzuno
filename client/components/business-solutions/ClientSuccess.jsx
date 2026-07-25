@@ -5,6 +5,7 @@ import SectionTitle from "../buttons/SectionTitle";
 import Image from "next/image";
 import Assets from "@/Assets/Assets";
 import SectionDescription from "../buttons/SectionDescription";
+import Link from "next/link";
 
 export default function ClientSuccess() {
   const logos = Array.from({ length: 30 }, (_, index) => ({
@@ -35,7 +36,7 @@ export default function ClientSuccess() {
         </div>
         
         <SectionDescription 
-          description={<>Want to accelerate website and app development at your company? <span className="highlightedTextColor underline">See how we can help.</span> 
+          description={<>Want to accelerate website and app development at your company? <Link href="/contact" className="highlightedTextColor underline">See how we can help.</Link> 
           </>}
           className="mt-14 md:mt-8 font-bold"
         />

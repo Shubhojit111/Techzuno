@@ -277,7 +277,7 @@ export default function ContactFormSection() {
                       onChange={(event) =>
                         updateField("consent", event.target.checked)
                       }
-                      className="w-5 h-5 appearance-none bg-[#03B8B8] rounded-[4px] flex-shrink-0 cursor-pointer checked:bg-[#03B8B8]"
+                      className="w-5 h-5 appearance-none rounded-[4px] flex-shrink-0 cursor-pointer"
                     />
                     <Icon
                       icon="mdi:check"
