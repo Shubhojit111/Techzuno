@@ -104,7 +104,7 @@ export default function WhyChooseUs() {
           {reasons.map((reason, idx) => (
             <div
               key={idx}
-              className="group h-auto lg:h-80 w-full flex flex-col items-center lg:items-center justify-center relative rounded-[10px] transition-all duration-300 overflow-hidden text-left lg:text-center"
+              className="group h-auto lg:h-80 w-full flex flex-col items-center lg:items-center justify-center relative rounded-[10px] transition-all duration-300 overflow-hidden text-left lg:text-center border-t"
             >
               <div className="w-full h-full absolute top-0 left-0">
                 <Image

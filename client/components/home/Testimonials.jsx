@@ -112,7 +112,7 @@ export default function Testimonials() {
         ScrollTrigger.create({
           trigger: triggerRef.current,
           pin: sectionRef.current,
-          start: "top 0%", // Pinned a little lower for desktop
+          start: "top 43%", // Pinned a little lower for desktop
           // markers: true,
           end: () =>
             `+=${Math.max(0, container.scrollWidth - window.innerWidth)}`,
@@ -126,7 +126,7 @@ export default function Testimonials() {
   );
 
   return (
-    <div ref={triggerRef} className="w-full shrink-0">
+    <div className="w-full shrink-0">
       <section
         className="bg-black overflow-hidden w-full relative mb-6 md:mb-16 lg:mb-14 "
         ref={sectionRef}
@@ -145,7 +145,7 @@ export default function Testimonials() {
         </div>
 
         {/* Cards Container */}
-        <div className="overflow-hidden  w-full relative z-10 ">
+        <div ref={triggerRef} className="overflow-hidden w-full relative z-10">
           <SectionArrowBtn sliderRef={mobileSliderRef} />
           <div
             ref={mobileSliderRef}
