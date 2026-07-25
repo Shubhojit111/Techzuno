@@ -158,6 +158,7 @@ export default function ContactFormSection() {
                       </a>
                     </p>
                   </div>
+
                   <div className="flex items-center gap-3">
                     <Icon
                       icon="mdi:email-outline"
@@ -169,7 +170,21 @@ export default function ContactFormSection() {
                         href="mailto:info@techzuno.com"
                         className="underline hover:text-[#03B8B8] transition-colors"
                       >
-                        Info@Techzuno.Com
+                        info@techzuno.com
+                      </a>
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon
+                      icon="tabler:tax"
+                      className="text-[#03B8B8] text-xl shrink-0"
+                    />
+                    <p className="text-white/70 text-[13px]">
+                      GST No:{" "}
+                      <a
+                        className="hover:text-[#03B8B8] transition-colors"
+                      >
+                        19AAMCT8152B1Z5
                       </a>
                     </p>
                   </div>
