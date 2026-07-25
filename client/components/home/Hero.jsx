@@ -81,7 +81,7 @@ export default function Hero() {
         </div>
 
         <div className="mt-8 relative z-10 self-center md:self-auto">
-          <GlowBtn text="Start Now" />
+          <GlowBtn text="Start Now" link="/pricing"/>
         </div>
       </div>
     </section>

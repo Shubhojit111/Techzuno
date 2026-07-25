@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import Assets from "@/Assets/Assets";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import KnowMoreBtn from "../buttons/KnowMoreBtn";
 import HeaderBtn from "../buttons/HeaderBtn";
 import SectionTitle from "../buttons/SectionTitle";
@@ -11,16 +9,13 @@ import SectionDescription from "../buttons/SectionDescription";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export default function About({image, title,  description, buttonText}) {
+export default function About({ image, title, description, buttonText }) {
   const containerRef = useRef(null);
-
-
 
   return (
     <section
@@ -45,12 +40,16 @@ export default function About({image, title,  description, buttonText}) {
         <div className="about-content-wrapper  w-full lg:w-1/2 z-40">
           <HeaderBtn text="OUR COMPANY" className="mb-4 md:mb-2" />
           <SectionTitle className="mb-4 md:mb-6" title={title} />
-          <SectionDescription description={description || "Searching for the top web development company in Kolkata? Our expert team delivers modern, responsive and user-friendly websites tailored to your business needs. From e-commerce stores to corporate sites, we provide complete website design services in Kolkata that boost your brand presence. Partner with us today to build a powerful online identity and reach more customers."} />
+          <SectionDescription
+            description={
+              description ||
+              "Searching for the top web development company in Kolkata? Our expert team delivers modern, responsive and user-friendly websites tailored to your business needs. From e-commerce stores to corporate sites, we provide complete website design services in Kolkata that boost your brand presence. Partner with us today to build a powerful online identity and reach more customers."
+            }
+          />
 
           <KnowMoreBtn text={buttonText || "Find More About Techzuno"} />
         </div>
       </div>
-     
     </section>
   );
 }

@@ -24,7 +24,7 @@ export default function AboutPage() {
         image={Assets.Aboutimg}
         title={
           <>
-            INDIA&apos;S <br /> LEADING{" "}
+            INDIA&apos;S TOP <br /> LEADING{" "}
             <span className="text-[#38FFF2]">
               WEB & <br /> APP{" "}
             </span>

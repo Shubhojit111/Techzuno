@@ -79,7 +79,7 @@ export default function ServicesGrid() {
             />
 
             <div className="mt-10 md:mt-8 flex flex-col lg:flex-row items-start justify-between w-full ">
-              <div className="flex flex-col sm:flex-row w-fit gap-x-10 lg:gap-x-8 ">
+              <div className="flex flex-col sm:flex-row w-fit gap-x-10 lg:gap-x-16 ">
                 <div className="flex flex-col">
                   {leftColumn.map((service, index) => (
                     <ServiceItem key={index} title={service.title} />

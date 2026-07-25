@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import Assets from "@/Assets/Assets";
+import Link from "next/link";
 
 export default function ServiceCard({
   icon,
   title,
   description,
   linkText,
+  url
 }) {
   return (
     <div className="group h-auto lg:h-[400px] w-full flex flex-col items-center justify-center relative rounded-[10px] transition-all duration-300 hover:-translate-y-2 overflow-hidden text-center">
@@ -32,9 +34,11 @@ export default function ServiceCard({
           {description}
         </p>
 
-        <button className="text-[#38FFF2] font-medium mt-10 md:mt-6 lg:mt-10 text-[14px] sm:text-[12px] lg:text-[14px] tracking-wider group-hover:text-cyan-300 relative cursor-pointer z-10 flex items-center justify-center w-full gap-2">
+        <Link 
+        href={url} 
+        className="text-[#38FFF2] font-medium mt-10 md:mt-6 lg:mt-10 text-[14px] sm:text-[12px] lg:text-[14px] tracking-wider group-hover:text-cyan-300 relative cursor-pointer z-10 flex items-center justify-center w-full gap-2">
           {linkText} <span>→</span>
-        </button>
+        </Link>
       </div>
     </div>
   );

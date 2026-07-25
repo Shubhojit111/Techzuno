@@ -1,5 +1,5 @@
 import Hero from "@/components/home/Hero";
-import About from "@/components/home/About";
+import AboutHome from "@/components/home/AboutHome";
 import Steps from "@/components/home/Steps";
 import Services from "@/components/home/Services";
 import Newsletter from "@/components/home/Newsletter";
@@ -11,11 +11,11 @@ import News from "@/components/home/News";
 import TechStack from "@/components/home/TechStack";
 import CTA from "@/components/home/CTA";
 import Assets from "@/Assets/Assets";
-import AboutHome from "@/components/home/AboutHome";
 
 export const metadata = {
   title: "Techzuno | Web & App Development Company in Kolkata",
-  description: "Techzuno is Kolkata's leading web design, app development and IT solutions company. Custom, SEO-friendly websites and software built to grow your business.",
+  description:
+    "Techzuno is Kolkata's leading web design, app development and IT solutions company. Custom, SEO-friendly websites and software built to grow your business.",
   url: "https://techzuno.com/",
 };
 
@@ -23,16 +23,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col h-full ">
       <Hero />
-      {/*
-       */}
       <AboutHome
         image={Assets.RoboticHead}
         title={
           <>
-            KOLKATA'S{" "}
-            <span className="text-[#38FFF2]">
-              LEADING{" "}
-            </span>
+            KOLKATA'S <span className="text-[#38FFF2]">LEADING </span>
             WEBSITE <br /> DEVELOPMENT & <br /> DESIGN COMPANY
           </>
         }

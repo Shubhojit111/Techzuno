@@ -42,11 +42,11 @@ export default function BlogSections({ blogs, loading = false }) {
         </div>
 
         {totalPages > 1 && !loading && (
-          <div className="flex items-start justify-center gap-3 mt-16">
+          <div className="flex items-center justify-center gap-3 mt-16">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="p-2 rounded-lg border border-white/10 bg-white/[0.02] hover:bg-white/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="p-2 rounded-lg border border-white/20 bg-white/[0.02] hover:bg-white/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ChevronLeft size={16} className="text-zinc-400" />
             </button>
@@ -60,7 +60,7 @@ export default function BlogSections({ blogs, loading = false }) {
                     ? "bg-[#38FFF2]/20 border border-[#38FFF2]/30 text-[#38FFF2]"
                     : pg === "..."
                       ? "cursor-default text-zinc-500"
-                      : "border border-white/10 bg-white/[0.02] hover:bg-white/5 text-zinc-400"
+                      : "border border-white/20 bg-white/[0.02] hover:bg-white/5 text-zinc-400"
                 }`}
               >
                 {pg}
@@ -69,7 +69,7 @@ export default function BlogSections({ blogs, loading = false }) {
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
-              className="p-2 rounded-lg border border-white/10 bg-white/[0.02] hover:bg-white/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="p-2 rounded-lg border border-white/20 bg-white/[0.02] hover:bg-white/5 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
             >
               <ChevronRight size={16} className="text-zinc-400" />
             </button>

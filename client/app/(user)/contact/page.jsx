@@ -17,7 +17,7 @@ export default function ContactPage() {
       <Suspense fallback={null}>
         <ContactFormSection />
       </Suspense>
-      <ContactServices />
+      {/* <ContactServices /> */}
       <CTA />
     </main>
   );

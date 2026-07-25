@@ -27,7 +27,7 @@ export default function BusinessHero({ headerbtn,title,description,buttonText,im
             className="mt-4 mb-6 md:mb-8 text-white/70 w-[450px] "
           />
 
-          <KnowMoreBtnSmall text={buttonText || "Let's Discuss Your Needs"} />
+          <KnowMoreBtnSmall text={buttonText || "Let's Discuss Your Needs"} link="/contact#contact-form-section"/>
         </div>
 
         <div className="h-full w-full sm:w-1/2 lg:min-w-[45%]">

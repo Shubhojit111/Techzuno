@@ -4,8 +4,9 @@ import Assets from "@/Assets/Assets";
 import Image from "next/image";
 import SectionTitle from "../buttons/SectionTitle";
 import SectionDescription from "../buttons/SectionDescription";
+import { getBlogs } from "@/utils/getBlogs";
 
-export default function News() {
+export default async function News() {
   const news = [
     {
       id: 1,
@@ -33,6 +34,8 @@ export default function News() {
     },
   ];
 
+  const blogs = await getBlogs();
+
   return (
     <section className="pb-24 pt-12 bg-black relative">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
@@ -52,24 +55,26 @@ export default function News() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-4">
-          {news.map((item, idx) => (
+          {blogs?.slice(0, 4).map((blog, idx) => (
             <div
-              key={item.id}
+              key={blog.id}
               className={`flex flex-col md:h-[280px] md:h-auto overflow-hidden text-left group hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-shadow ${idx % 2 === 0 ? "rounded-tl-4xl" : "rounded-tr-4xl"}`}
             >
               <div className="h-[60%] md:h-[65%] overflow-hidden">
                 <Image
-                  src={item.image}
-                  alt={item.title || "Techzuno News"}
+                  src={blog.blogImage || Assets.WebDev1}
+                  alt={blog.title || "Techzuno Blog"}
+                  height={800}
+                  width={2000}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="flex-1 w-full p-3 md:p-4 pb-6 md:pb-8 bg-cyan-50">
                 <h3 className="w-full md:w-[85%] font-medium text-gray-900 text-[12px] md:text-[18px] lg:text-[14px] leading-tight underline underline-offset-[1.5px] mb-2 line-clamp-2 md:line-clamp-2 hover:text-cyan-600 transition-colors cursor-pointer">
-                  {item.title}
+                  {blog.title}
                 </h3>
                 <p className="text-cyan-800 text-[10px] md:text-[14px] lg:text-xs">
-                  {item.date}
+                  {blog.date}
                 </p>
               </div>
             </div>

@@ -65,10 +65,10 @@ export default function ValuesSection() {
             }
           />
           <div className="hidden md:block w-full ">
-            <KnowMoreBtn className="mt-4 md:mt-6" text="Always Ready To Craft Your Next Big Idea" />
+            <KnowMoreBtn className="mt-4 md:mt-6" text="Always Ready To Craft Your Next Big Idea" link="/contact#contact-form-section"/>
           </div>
           <div className=" md:hidden w-full justify-end flex" >
-            <KnowMoreBtn className="mt-4" text="Ready To Craft?" />
+            <KnowMoreBtn className="mt-4" text="Ready To Craft?" link="/contact#contact-form-section"/>
           </div>
         </div>
 

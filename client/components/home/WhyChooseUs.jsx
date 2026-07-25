@@ -22,54 +22,34 @@ export default function WhyChooseUs() {
       icon: "carbon:settings-edit",
       title: "Customised",
       description:
-        "We don’t use one-size-fits-all. Every website or app is tailored specifically to your business goals, user needs, and long-term scalability.",
+        "We don't use one-size-fits-all. Every website or app is tailored specifically to your business goals, user needs, and long-term scalability.",
     },
     {
       index: 2,
       icon: "mdi:cloud-check-outline",
       title: "High-Quality",
       description:
-        "We don’t use one-size-fits-all. Every website or app is tailored specifically to your business goals, user needs, and long-term scalability.",
+        "We don't use one-size-fits-all. Every website or app is tailored specifically to your business goals, user needs, and long-term scalability.",
     },
     {
       index: 3,
       icon: "carbon:star-review",
       title: "Experience",
       description:
-        "We don’t use one-size-fits-all. Every website or app is tailored specifically to your business goals, user needs, and long-term scalability.",
+        "We don't use one-size-fits-all. Every website or app is tailored specifically to your business goals, user needs, and long-term scalability.",
     },
     {
       index: 4,
       icon: "streamline-plump:customer-support-7",
       title: "Support",
       description:
-        "We don’t use one-size-fits-all. Every website or app is tailored specifically to your business goals, user needs, and long-term scalability.",
+        "We don't use one-size-fits-all. Every website or app is tailored specifically to your business goals, user needs, and long-term scalability.",
     },
   ];
-
-  const containerRef = useRef(null);
-
-  // useGSAP(
-  //   () => {
-  //     gsap.from(".pop-icon", {
-  //       scale: 0,
-  //       opacity: 0,
-  //       duration: 0.6,
-  //       stagger: 0.15,
-  //       ease: "back.out(2)",
-  //       scrollTrigger: {
-  //         trigger: containerRef.current,
-  //         start: "top 70%",
-  //       },
-  //     });
-  //   },
-  //   { scope: containerRef },
-  // );
 
   return (
     <section
       className="py-16 md:py-24 bg-black relative overflow-hidden"
-      ref={containerRef}
     >
       {/* Decorative background elements */}
       <div className="absolute -left-4 top-8 md:-left-10 md:top-1/2 md:-translate-y-1/2 w-24 h-24 sm:w-32 sm:h-32 md:w-64 md:h-64 pointer-events-none">
@@ -104,7 +84,7 @@ export default function WhyChooseUs() {
           {reasons.map((reason, idx) => (
             <div
               key={idx}
-              className="group h-auto lg:h-80 w-full flex flex-col items-center lg:items-center justify-center relative rounded-[10px] transition-all duration-300 overflow-hidden text-left lg:text-center border-t"
+              className="group h-auto lg:h-80 w-full flex flex-col items-center lg:items-center justify-center relative rounded-[10px] transition-all duration-300 hover:-translate-y-2 overflow-hidden text-left lg:text-center border-t"
             >
               <div className="w-full h-full absolute top-0 left-0">
                 <Image
@@ -115,7 +95,7 @@ export default function WhyChooseUs() {
               </div>
 
               <div className="h-full w-full flex flex-col items-left lg:items-center justify-center text-center px-4 pt-6 pb-8 md:pt-6 md:pb-10 lg:px-8 lg:pt-6 lg:pb-10 ">
-                <div className="pop-icon w-14 h-14 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center text-4xl mb-4 md:mb-3 lg:mb-4 relative">
+                <div className="pop-icon w-14 h-14 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center text-4xl mb-4 md:mb-3 lg:mb-4 relative ">
                   <Icon
                     icon={reason.icon}
                     className="text-[#03B8B8] w-8 h-8 sm:w-8 sm:h-8 lg:w-10 lg:h-10  "

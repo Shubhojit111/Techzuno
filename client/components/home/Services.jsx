@@ -1,11 +1,8 @@
 "use client";
 
-import Assets from "@/Assets/Assets";
-import Image from "next/image";
 import HeaderBtn from "../buttons/HeaderBtn";
 import SectionTitle from "../buttons/SectionTitle";
 import SectionDescription from "../buttons/SectionDescription";
-import { Icon } from "@iconify/react";
 import ServiceCard from "../cards/ServiceCard";
 
 export default function Services() {
@@ -14,16 +11,20 @@ export default function Services() {
       icon: "mynaui:mobile",
       title: "Web Development",
       description: "Custom, responsive websites engineered for speed, search visibility, and conversions — built on modern stacks like Next.js, React, and WordPress.",
+      url:"/web-development"
     },
     {
       icon: "simple-icons:civicrm",
       title: "App Development",
       description: "Native and cross-platform mobile apps that keep users coming back, from first wireframe to App Store launch.",
+      url:"/app-development"
+      
     },
     {
       icon: "streamline-plump:web",
       title: "UI/UX Design",
       description: "Interfaces people actually enjoy using — researched, wireframed, and tested before a single line of code is written.",
+      url:"/ui-ux-design"
     },
   ];
 
@@ -39,7 +40,7 @@ export default function Services() {
             </span> DESIGN SERVICES IN <br className="hidden md:block" />
             KOLKATA.
           </>} />
-          <SectionDescription className="md:mx-auto" description="Looking for professional website design services in Kolkata? At Techzuno, we specialise in building modern, responsive and SEO-friendly websites that help your business grow online. Being a reputable website design company in Kolkata, we are aware that every company is different. For this reason, whether it’s an e-commerce store, personal portfolio, or corporate website, our talented designers develop custom solutions. To make sure your website works well and ranks higher on Google, we concentrate on search engine optimization, mobile compatibility, clean layouts, and quick loading times." />
+          <SectionDescription className="md:mx-auto" description="Looking for professional website design services in Kolkata? At Techzuno, we specialise in building modern, responsive and SEO-friendly websites that help your business grow online. Being a reputable website design company in Kolkata, we are aware that every company is different. For this reason, whether it's an e-commerce store, personal portfolio, or corporate website, our talented designers develop custom solutions. To make sure your website works well and ranks higher on Google, we concentrate on search engine optimization, mobile compatibility, clean layouts, and quick loading times." />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -51,6 +52,7 @@ export default function Services() {
               title={service.title}
               description={service.description}
               linkText="Explore Our Services"
+              url={service.url}
             >
               
             </ServiceCard>
