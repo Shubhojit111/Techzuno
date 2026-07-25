@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import BusinessHero from "@/components/business-solutions/BusinessHero";
 import ServicesGrid from "@/components/business-solutions/ServicesGrid";
@@ -16,7 +14,6 @@ export const metadata = {
   description: "Techzuno builds custom ERP, CRM, LMS, and SaaS solutions tailored to your business setup and budget — your local IT specialist in Kolkata.",
   url: "https://techzuno.com/business-solutions",
 };
-
 
 export default function BusinessSolutionsPage() {
   return (
@@ -47,7 +44,7 @@ export default function BusinessSolutionsPage() {
       <ServicesGrid />
       <WhatYouGet />
       <WhyChoose />
-      <FAQ  />
+      <FAQ />
       <ClientSuccess />
       <CTA />
       {/*

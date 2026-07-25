@@ -9,7 +9,7 @@ export default function ServiceCard({
   linkText,
 }) {
   return (
-    <div className="group h-auto lg:h-[400px] w-full flex flex-col items-center justify-center relative rounded-[10px] transition-all duration-300 overflow-hidden text-center">
+    <div className="group h-auto lg:h-[400px] w-full flex flex-col items-center justify-center relative rounded-[10px] transition-all duration-300 hover:-translate-y-2 overflow-hidden text-center">
       <div className="w-full h-full absolute top-0 left-0">
         <Image
           src={Assets.Group491}
@@ -18,7 +18,7 @@ export default function ServiceCard({
         />
       </div>
       <div className="h-full w-full flex flex-col items-center justify-center text-center px-6 sm:px-8 py-10 md:py-8 lg:py-10 ">
-        <div className="pop-icon w-14 h-14 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center text-4xl mb-4 md:mb-3 lg:mb-4 relative">
+        <div className="pop-icon w-14 h-14 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white rounded-full flex items-center justify-center text-4xl mb-4 md:mb-3 lg:mb-4 relative transition-transform duration-300 group-hover:scale-112 group-hover:rotate-12">
           <Icon
             icon={icon}
             className="text-[#03B8B8] w-8 h-8 sm:w-8 sm:h-8 lg:w-10 lg:h-10  "

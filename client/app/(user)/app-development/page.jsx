@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import BusinessHero from "@/components/business-solutions/BusinessHero";
 import ServicesGrid from "@/components/business-solutions/ServicesGrid";

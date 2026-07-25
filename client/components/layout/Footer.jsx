@@ -5,23 +5,25 @@ import Link from "next/link";
 
 const companyLinks = [
   { title: "About", href: "/about" },
-  { title: "Careers", href: "/careers" },
-  { title: "Blog", href: "/blog" },
+  { title: "Careers", href: "/contact" },
+  { title: "Blog", href: "/blogs" },
 ];
 
 const serviceLinks = [
-  { title: "Web Development", href: "/services/web" },
-  { title: "App Development", href: "/services/app" },
-  { title: "UI/UX Design", href: "/services/design" },
-  { title: "SEO Optimization", href: "/services/seo" },
+  { title: "Web Development", href: "/web-development" },
+  { title: "App Development", href: "/app-development" },
+  { title: "UI/UX Design", href: "/ui-ux-design" },
+  { title: "SEO Optimization", href: "/seo" },
+  { title: "Business Solutions", href: "/business-solutions" },
+  { title: "Ecommerce Integration", href: "/ecom-integration" },
 ];
 
 const supportLinks = [
-  { title: "Help and FAQ", href: "/services/web" },
-  { title: "Contact us", href: "/services/app" },
-  { title: "Privacy Policy", href: "/services/design" },
-  { title: "Terms and Conditions", href: "/services/seo" },
-  { title: "Refund Policy", href: "/services/seo" },
+  { title: "Help and FAQ", href: "/faq" },
+  { title: "Contact us", href: "/contact" },
+  { title: "Privacy Policy", href: "/privacy-policy" },
+  { title: "Terms and Conditions", href: "/terms-and-conditions" },
+  { title: "Refund Policy", href: "/refund-policy" },
 ];
 
 function FooterSection({ title, links }) {

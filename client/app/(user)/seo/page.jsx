@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import BusinessHero from "@/components/business-solutions/BusinessHero";
 import ServicesGrid from "@/components/business-solutions/ServicesGrid";
@@ -49,10 +47,6 @@ export default function SeoPage() {
       <FAQ  />
       <ClientSuccess />
       <CTA />
-      {/*
-
-      <h1 className="mx-auto text-center text-7xl mt-32">SEO & Performance Optimization Page</h1>
-      */}
     </main>
   );
 }

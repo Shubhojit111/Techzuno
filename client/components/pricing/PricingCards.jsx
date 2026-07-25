@@ -20,16 +20,16 @@ export default function PricingCards({ data = [] }) {
             )}
 
             <div
-              className={`relative h-full bg-gradient-to-b from-[#1c272a] to-[#121617] border-2 flex flex-col shadow-2xl transition-all duration-300 ${
+              className={`relative h-full bg-gradient-to-b from-[#1c272a] to-[#121617] border-2 flex flex-col shadow-2xl transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(3,184,184,0.15)] ${
                 plan.isPopular ? "border-[#03B8B8] rounded-b-[14px]" : "border-white/5 rounded-[14px]"
               }`}
             >
               <div className="p-6 md:p-6 lg:px-6 lg:py-8 flex-1 flex flex-col pt-8 md:pt-8 lg:pt-10">
                 {/* Icon */}
-                <div className="mb-6">
+                <div className="mb-6 transition-transform duration-300 group-hover:scale-112 group-hover:rotate-12 w-fit">
                   <Icon icon={plan.icon} className="text-[#5BFFFF] w-10 h-10 opacity-80" />
                 </div>
-
+ 
                 {/* Title & Subtitle */}
                 <h3 className="text-[#38FFF2] text-xl md:text-lg lg:text-2xl font-medium mb-3 leading-tight tracking-wide w-[70%]">
                   {plan.title}
@@ -37,15 +37,15 @@ export default function PricingCards({ data = [] }) {
                 <p className="text-white/90 text-[12px] tracking-wider mb-4 line-clamp-3">
                   {plan.subtitle}
                 </p>
-
+ 
                 {/* Price */}
                 <div className="flex items-start text-white font-toxigenesis mb-6">
                   <span className="text-3xl md:text-2xl lg:text-4xl">Rs. {plan.price}</span>
                 </div>
-
+ 
                 {/* Button */}
                 <Link
-                  href={`/contact?inquiry=Services&service=${encodeURIComponent(plan.title)}`}
+                  href={`/contact?inquiry=Services&service=${encodeURIComponent(plan.title)}#contact-form-section`}
                   className={`w-full py-2 font-bold text-sm md:text-xs lg:text-[18px] text-white tracking-widest transition-all shadow-lg ${
                     plan.isPopular
                       ? "bg-[#e60000] hover:bg-[#cc0000] shadow-[#e60000]/30 rounded-full"

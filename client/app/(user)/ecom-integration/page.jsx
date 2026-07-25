@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import BusinessHero from "@/components/business-solutions/BusinessHero";
 import ServicesGrid from "@/components/business-solutions/ServicesGrid";
@@ -17,7 +15,6 @@ export const metadata = {
   description: "Techzuno connects your store to the tools that run it — payments, inventory, CRM, and marketing platforms — so your data works for you, not against you.",
   url: "https://techzuno.com/ecom-integration",
 };
-
 
 export default function EcomIntegrationPage() {
   return (
@@ -48,14 +45,9 @@ export default function EcomIntegrationPage() {
       <ServicesGrid />
       <WhatYouGet />
       <WhyChoose cardImage1={Assets.Ecom2} cardImage2={Assets.Ecom3} cardImage3={Assets.Ecom4}/>
-      <FAQ  />
+      <FAQ />
       <ClientSuccess />
       <CTA />
-      {/*
-
-      <h1 className="mx-auto text-center text-7xl mt-32">Ecommerce Integration Page</h1>
-       */}
-       
     </main>
   );
 }

@@ -35,11 +35,23 @@ export default function ContactFormSection() {
         inquiry: "Services",
         service: SERVICE_OPTIONS.includes(service) ? service : current.service,
       }));
-      return;
-    }
-
-    if (inquiry) {
+    } else if (inquiry) {
       setForm((current) => ({ ...current, inquiry }));
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.location.hash === "#contact-form-section"
+    ) {
+      const element = document.getElementById("contact-form-section");
+      if (element) {
+        const timer = setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+        return () => clearTimeout(timer);
+      }
     }
   }, [searchParams]);
 
@@ -92,7 +104,10 @@ export default function ContactFormSection() {
   };
 
   return (
-    <section className="relative w-full pt-20 pb-10 md:pt-32 md:pb-16 lg:pt-40 lg:pb-20 bg-black overflow-hidden">
+    <section
+      id="contact-form-section"
+      className="relative w-full pt-20 pb-10 md:pt-32 md:pb-16 lg:pt-40 lg:pb-20 bg-black overflow-hidden"
+    >
       {/* Background Text */}
       <div className="about-bg-text absolute top-12 lg:top-20 z-0 w-full mx-auto text-center pointer-events-none">
         <h2 className="text-[48px] sm:text-4xl md:text-[105px] font-montserrat font-black tracking-wider uppercase mb-6 opacity-80 leading-tight bg-linear-to-r from-[#2e3330] to-[#171717] bg-clip-text text-transparent">
@@ -101,112 +116,10 @@ export default function ContactFormSection() {
       </div>
 
       <div className="px-6 sm:px-10 lg:px-62 mx-auto relative z-10 w-full mt-6">
-        <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-10">
-          {/* Right Half (Now top in flex-col): Image and Texts */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-between h-full">
-            <div className="w-full h-[200px] md:h-[400px] lg:h-[300px] rounded-2xl overflow-hidden mb-6">
-              <Image
-                src={Assets.ContactFormRight}
-                alt="Contact Person"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <div className="flex flex-col gap-5 w-full md:w-[60%]">
-              <div>
-                <h3 className="text-white text-[20px] font-bold mb-2">
-                  Thank You For Reaching Out!
-                </h3>
-                <p className="text-white/70 text-[13px] leading-tight mb-3">
-                  Please Fill Out The Form On The Left, And Our Team Will Get
-                  Back To You As Soon As Possible.
-                </p>
-                <p className="text-white/70 text-[13px] leading-tight">
-                  If You&apos;d Prefer To Connect With Us Directly, Feel Free To
-                  Reach Out Via:
-                </p>
-              </div>
-
-              <div>
-                <h4 className="text-white text-[16px] font-medium mb-3">
-                  Owner: Techzuno Solutions OPC PVT LTD
-                </h4>
-                <div className="flex flex-col gap-2.5">
-                  <div className="flex items-start gap-3">
-                    <Icon
-                      icon="mdi:map-marker-outline"
-                      className="text-[#03B8B8] text-xl shrink-0 mt-0.5"
-                    />
-                    <p className="text-white/70 text-[13px] leading-relaxed">
-                      12/1A/3D Chowbagha Road
-                      <br />
-                      Bidhan Nagar South Kolkata - 700039
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon
-                      icon="mdi:phone-outline"
-                      className="text-[#03B8B8] text-xl shrink-0"
-                    />
-                    <p className="text-white/70 text-[13px]">
-                      P:{" "}
-                      <a
-                        href="tel:+916291815773"
-                        className="underline hover:text-[#03B8B8] transition-colors"
-                      >
-                        +91 6291815773
-                      </a>
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <Icon
-                      icon="mdi:email-outline"
-                      className="text-[#03B8B8] text-xl shrink-0"
-                    />
-                    <p className="text-white/70 text-[13px]">
-                      M:{" "}
-                      <a
-                        href="mailto:info@techzuno.com"
-                        className="underline hover:text-[#03B8B8] transition-colors"
-                      >
-                        info@techzuno.com
-                      </a>
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Icon
-                      icon="tabler:tax"
-                      className="text-[#03B8B8] text-xl shrink-0"
-                    />
-                    <p className="text-white/70 text-[13px]">
-                      GST No:{" "}
-                      <a
-                        className="hover:text-[#03B8B8] transition-colors"
-                      >
-                        19AAMCT8152B1Z5
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-1">
-                <h4 className="text-white text-[15px] font-bold mb-2">
-                  Discover How Techzuno Can Elevate Your Business.
-                </h4>
-                <p className="text-white/70 text-[13px] leading-tight">
-                  We're here to explore opportunities and would be delighted to
-                  discuss how our solutions can support your growth, at a time
-                  that works best for you.
-                </p>
-              </div>
-            </div>
-          </div>
-
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
           {/* Left Half: Form */}
           <div className="w-full lg:w-1/2">
-            <div className="bg-gradient-to-b from-[#1a2121] to-[#121414] rounded-[16px] p-6 md:px-20 md:py-16 lg:px-8 lg:py-14 border border-[#2f3b3b] shadow-2xl h-full flex flex-col">
+            <div className="bg-linear-to-b from-[#1a2121] to-[#121414] rounded-[16px] p-6 md:px-20 md:py-16 lg:px-8 lg:py-10 border border-[#2f3b3b] shadow-2xl h-full flex flex-col">
               <form
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-5 h-full"
@@ -386,6 +299,106 @@ export default function ContactFormSection() {
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+
+          {/* Right Half (Now top in flex-col): Image and Texts */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-between h-full">
+            <div className="w-full h-[200px] md:h-[400px] lg:h-[300px] rounded-2xl overflow-hidden mb-6">
+              <Image
+                src={Assets.ContactFormRight}
+                alt="Contact Person"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="flex flex-col gap-5 w-full md:w-[60%]">
+              <div>
+                <h3 className="text-white text-[20px] font-bold mb-2">
+                  Thank You For Reaching Out!
+                </h3>
+                <p className="text-white/70 text-[13px] leading-tight mb-3">
+                  Please Fill Out The Form On The Left, And Our Team Will Get
+                  Back To You As Soon As Possible.
+                </p>
+                <p className="text-white/70 text-[13px] leading-tight">
+                  If You&apos;d Prefer To Connect With Us Directly, Feel Free To
+                  Reach Out Via:
+                </p>
+              </div>
+
+              <div>
+                <h4 className="text-white text-[16px] font-medium mb-3">
+                  Owner: Techzuno Solutions OPC PVT LTD
+                </h4>
+                <div className="flex flex-col gap-2.5">
+                  <div className="flex items-start gap-3">
+                    <Icon
+                      icon="mdi:map-marker-outline"
+                      className="text-[#03B8B8] text-xl shrink-0 mt-0.5"
+                    />
+                    <p className="text-white/70 text-[13px] leading-relaxed">
+                      12/1A/3D Chowbagha Road
+                      <br />
+                      Bidhan Nagar South Kolkata - 700039
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon
+                      icon="mdi:phone-outline"
+                      className="text-[#03B8B8] text-xl shrink-0"
+                    />
+                    <p className="text-white/70 text-[13px]">
+                      P:{" "}
+                      <a
+                        href="tel:+916291815773"
+                        className="underline hover:text-[#03B8B8] transition-colors"
+                      >
+                        +91 6291815773
+                      </a>
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Icon
+                      icon="mdi:email-outline"
+                      className="text-[#03B8B8] text-xl shrink-0"
+                    />
+                    <p className="text-white/70 text-[13px]">
+                      M:{" "}
+                      <a
+                        href="mailto:info@techzuno.com"
+                        className="underline hover:text-[#03B8B8] transition-colors"
+                      >
+                        info@techzuno.com
+                      </a>
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Icon
+                      icon="tabler:tax"
+                      className="text-[#03B8B8] text-xl shrink-0"
+                    />
+                    <p className="text-white/70 text-[13px]">
+                      GST No:{" "}
+                      <a className="hover:text-[#03B8B8] transition-colors">
+                        19AAMCT8152B1Z5
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-1">
+                <h4 className="text-white text-[15px] font-bold mb-2">
+                  Discover How Techzuno Can Elevate Your Business.
+                </h4>
+                <p className="text-white/70 text-[13px] leading-tight">
+                  We're here to explore opportunities and would be delighted to
+                  discuss how our solutions can support your growth, at a time
+                  that works best for you.
+                </p>
+              </div>
             </div>
           </div>
         </div>
