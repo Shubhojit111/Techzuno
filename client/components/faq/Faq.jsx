@@ -3,71 +3,19 @@ import React, { useState } from "react";
 import HeaderBtn from "@/components/buttons/HeaderBtn";
 import SectionTitle from "@/components/buttons/SectionTitle";
 import { Icon } from "@iconify/react";
-import Image from "next/image";
-import Assets from "@/Assets/Assets";
+import { FAQData } from "@/data/FAQData";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
-  const faqs = [
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "Yes, We Offer Reliable And Secure Website Hosting Solutions Tailored To Your Business Needs. Our Hosting Includes Regular Backups, High Uptime, And Technical Support To Ensure Your Website Runs Smoothly At All Times.",
-    },
-  ];
+  const faqs = FAQData;
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="bg-black py-20 min-h-screen  pt-20 md:pt-34 lg:mt-46">
+    <section className="bg-black py-20 min-h-screen  pt-20 md:pt-18 lg:mt-26">
       <div className="w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-16">
@@ -75,8 +23,10 @@ const FAQ = () => {
             FAQS
           </h1>
           <p className="text-white/70 text-xl lg:text-xs mx-auto mb-16">
-            An FAQ Page Is A Webpage Of The Questions Most Often Asked <span className="">By Your{" "}
-            <br /> Prospective And Current Customers</span>
+            An FAQ Page Is A Webpage Of The Questions Most Often Asked{" "}
+            <span className="">
+              By Your <br /> Prospective And Current Customers
+            </span>
           </p>
 
           {/* Search Bar */}
@@ -99,7 +49,7 @@ const FAQ = () => {
                 </button>
               </div>
             </div>
-            
+
             <button className="md:hidden w-full bg-[#03B8B8] hover:bg-cyan-400 transition-colors text-white py-3.5 rounded-full text-xl tracking-widest font-bold">
               Search
             </button>
@@ -108,13 +58,16 @@ const FAQ = () => {
           <p className="text-white/60 text-xs">
             Please Call Our Office At{" "}
             <a
-              href="tel:+916290340824"
+              href="tel:+916291815773"
               className="underline underline-offset-2"
             >
-              +91 6290340824
+              +91 6291815773
             </a>{" "}
             Or{" "}
-            <a href="mailto:info@techzuno.com" className="underline underline-offset-2">
+            <a
+              href="mailto:info@techzuno.com"
+              className="underline underline-offset-2"
+            >
               Email Us
             </a>{" "}
             With Your Question
@@ -125,7 +78,7 @@ const FAQ = () => {
         <div className="flex flex-col items-center  text-left lg:text-center mb-12">
           <HeaderBtn text="FREQUENTLY ASKED QUESTIONS" className="mb-0" />
           <SectionTitle
-            className="mt-6"
+            className="mt-2"
             title={
               <>
                 THE TOP 10 MOST FAQS{" "}
@@ -186,11 +139,14 @@ const FAQ = () => {
         {/* Bottom Contact Text */}
         <div className="text-center text-white/60 text-xs pb-20">
           Please Call Our Office At{" "}
-          <a href="tel:+916290340824" className="underline underline-offset-2">
-            +91 6290340824
+          <a href="tel:+916291815773" className="underline underline-offset-2">
+            +91 6291815773
           </a>{" "}
           Or{" "}
-          <a href="mailto:info@techzuno.com" className="underline underline-offset-2">
+          <a
+            href="mailto:info@techzuno.com"
+            className="underline underline-offset-2"
+          >
             Email Us
           </a>{" "}
           With Your Question
@@ -201,4 +157,3 @@ const FAQ = () => {
 };
 
 export default FAQ;
-

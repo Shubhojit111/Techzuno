@@ -32,7 +32,7 @@ export default function FAQ() {
         <div className="absolute top-0 right-0 w-8 h-4 border-t border-r border-white/30 rounded-tr-xl"></div>
 
         <div className="py-2 px-2 md:px-6">
-          {FAQData.map((faq, index) => (
+          {FAQData.slice(0,4).map((faq, index) => (
             <div
               key={index}
               className={`border-b border-white/10 ${
