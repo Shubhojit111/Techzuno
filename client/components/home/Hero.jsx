@@ -14,12 +14,12 @@ export default function Hero() {
           className="w-full h-full object-cover "
         />
       </div>
-      <div className="relative z-10 w-full mx-auto flex flex-col items-start md:items-center pt-20 md:pt-34 lg:pt-34 px-6 sm:px-10 md:px-0">
+      <div className="relative z-10 w-full mx-auto flex flex-col items-center md:items-center pt-20 md:pt-34 lg:pt-34 px-6 sm:px-10 md:px-0 border text-center">
         <p className="text-[#B8FAFF] font-medium mb-4 text-[15px] sm:text-[16px] md:text-[18px] tracking-wide font-sans">
           Elevating Outsourcing — Where Craftsmanship Meets Commitment.
         </p>
 
-        <h1 className="max-w-[320px] sm:max-w-[520px] md:max-w-none text-[40px] sm:text-[44px] md:text-[42px] lg:text-[50px] font-toxigenesis font-bold mb-4 leading-[1.1] tracking-tight text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] uppercase">
+        <h1 className="w-full sm:max-w-[520px] md:max-w-none text-[40px] sm:text-[44px] md:text-[42px] lg:text-[50px] font-toxigenesis font-bold mb-4 leading-[1.1] tracking-tight text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] uppercase">
           WHERE VISION MEETS INNOVATION <br className="hidden lg:flex"/>SOFTWARE SOLUTION
         </h1>
 

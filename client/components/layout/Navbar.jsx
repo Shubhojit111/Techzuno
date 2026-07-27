@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Assets from "@/Assets/Assets";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
@@ -120,6 +120,7 @@ function MobileDropdown({ item, onNavigate }) {
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const navRef = useRef(null);
 
   const { user, authLoading } = useContext(AuthContext);
 
@@ -137,6 +138,24 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    const handleScroll = () => {
+      setOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [open]);
+
   if (authLoading) {
     return null;
   }
@@ -146,7 +165,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 w-full z-[9999] ">
+    <nav ref={navRef} className="fixed top-0 w-full z-[9999] ">
       <div className="mx-auto bg-black/60 backdrop-blur-md pointer-events-auto">
         <div className="px-6 sm:px-10 lg:px-60 py-3 sm:py-6 lg:pt-4 lg:pb-4 flex items-center justify-between">
           <Link
@@ -197,16 +216,28 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="lg:hidden cursor-pointer h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-white/10 border border-white/15 flex items-center justify-center pointer-events-auto"
+            className="lg:hidden cursor-pointer h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center pointer-events-auto"
             aria-label="Menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            <div className="flex flex-col gap-1.5">
-              <span className="block h-[2px] w-5 bg-white/80" />
-              <span className="block h-[2px] w-5 bg-white/80" />
-              <span className="block h-[2px] w-5 bg-white/80" />
-            </div>
+            {open ? (
+              <svg
+                className="w-4 h-4 sm:w-5 sm:h-5 text-white/90"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <div className="flex flex-col gap-1">
+                <span className="block h-[2px] w-4 sm:w-5 bg-white/80" />
+                <span className="block h-[2px] w-4 sm:w-5 bg-white/80" />
+                <span className="block h-[2px] w-4 sm:w-5 bg-white/80" />
+              </div>
+            )}
           </button>
         </div>
 
@@ -251,20 +282,13 @@ export default function Navbar() {
                   </Link>
                 </div>
               ) : (
-                <div className="flex gap-3 pt-5 mt-2">
+                <div className="pt-5 mt-2">
                   <Link
                     href="/login"
                     onClick={closeMobileMenu}
-                    className="flex-1 text-center py-2.5 border border-white/20 rounded-full text-white/90 hover:text-cyan-400 text-[13px] tracking-wide transition-colors"
+                    className="block w-full text-center py-2.5 bg-[#03B8B8] rounded-full text-white text-[13px] tracking-wide hover:brightness-110 transition-all"
                   >
                     Login
-                  </Link>
-                  <Link
-                    href="/register"
-                    onClick={closeMobileMenu}
-                    className="flex-1 text-center py-2.5 bg-[#03B8B8] rounded-full text-white text-[13px] tracking-wide hover:brightness-110 transition-all"
-                  >
-                    Sign Up
                   </Link>
                 </div>
               )}
