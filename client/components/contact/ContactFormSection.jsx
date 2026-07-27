@@ -313,7 +313,7 @@ export default function ContactFormSection() {
             </div>
 
             <div className="flex flex-col gap-5 w-full md:w-[60%]">
-              <div>
+              <div className="text-center sm:text-left">
                 <h3 className="text-white text-[20px] font-bold mb-2">
                   Thank You For Reaching Out!
                 </h3>
@@ -389,11 +389,11 @@ export default function ContactFormSection() {
                 </div>
               </div>
 
-              <div className="mt-1">
+              <div className="mt-1 text-center sm:text-left">
                 <h4 className="text-white text-[15px] font-bold mb-2">
                   Discover How Techzuno Can Elevate Your Business.
                 </h4>
-                <p className="text-white/70 text-[13px] leading-tight">
+                <p className="text-white/70 text-[13px] leading-tight ">
                   We're here to explore opportunities and would be delighted to
                   discuss how our solutions can support your growth, at a time
                   that works best for you.

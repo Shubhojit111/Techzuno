@@ -51,10 +51,10 @@ export default function ValuesSection() {
     <section className="bg-black pb-16 md:py-20">
       <div className="h-full w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header */}
-        <div className="text-left md:text-center mb-10 md:mb-14 flex flex-col items-start md:items-center">
-          <HeaderBtn text="Welcome to our company" />
+        <div className="mb-10 md:mb-14 flex flex-col items-center">
+          <HeaderBtn text="Welcome to our company" className="sm:text-left"/>
           <SectionTitle
-            className="text-[28px] md:text-[32px] lg:text-[38px] font-black mt-3 leading-tight text-left md:text-center w-full"
+            className="text-[28px] md:text-[32px] lg:text-[38px] font-black mt-3 leading-tight text-center w-full"
             title={
               <>
                 CULTURE &amp; VALUES BASED
@@ -64,10 +64,10 @@ export default function ValuesSection() {
               </>
             }
           />
-          <div className="hidden md:block w-full ">
+          <div className="hidden md:block w-full border flex justify-center items-center">
             <KnowMoreBtn className="mt-4 md:mt-6" text="Always Ready To Craft Your Next Big Idea" link="/contact#contact-form-section"/>
           </div>
-          <div className=" md:hidden w-full justify-end flex" >
+          <div className=" md:hidden w-full justify-center flex" >
             <KnowMoreBtn className="mt-4" text="Ready To Craft?" link="/contact#contact-form-section"/>
           </div>
         </div>

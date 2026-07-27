@@ -105,9 +105,9 @@ const pricingData = [
 
 export default function PricingPage() {
   return (
-    <main className="bg-black min-h-screen pt-32 md:pt-40 pb-0">
+    <main className="bg-black min-h-screen pt-28 md:pt-40 pb-0">
       {/* Page Header */}
-      <div className="px-6 md:px-10 lg:px-62 mx-auto flex flex-col items-center text-center mb-16 md:mb-20 relative z-20">
+      <div className="px-6 md:px-10 lg:px-62 mx-auto flex flex-col items-center text-center mb-10 md:mb-20 relative z-20">
         <HeaderBtn text="PRICING AND PLANS" />
         <SectionTitle
           title={
@@ -127,7 +127,7 @@ export default function PricingPage() {
       <FAQ/>
 
       {/* CTA Section */}
-      <div className="mt-10">
+      <div className="sm:mt-10">
         <CTA />
       </div>
     </main>

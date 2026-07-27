@@ -14,7 +14,7 @@ export default function TellUs() {
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
           <div className="w-full lg:w-1/2 md:max-w-[80%] ">
-            <h2 className="text-white font-semibold tracking-normal leading-tight text-[24px] sm:text-[32px] lg:text-[26px]">
+            <h2 className="text-white text-center sm:text-left font-semibold tracking-normal leading-tight text-[24px] sm:text-[32px] lg:text-[26px]">
               Tell us about your ideas, and we&apos;ll offer the most fitting
               solution.
             </h2>
@@ -35,7 +35,7 @@ export default function TellUs() {
                     description={
                       "We deliver complete technical and user documentation — ensuring your team can maintain, scale, or hand off the product confidently."
                     }
-                    className="mt-2 mb-0!  text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
+                    className="mt-2 mb-0! text-left text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
                   />
                 </div>
               </div>        
@@ -55,7 +55,7 @@ export default function TellUs() {
                     description={
                       "We design with your existing systems in mind, so new tools plug into what you already run."
                     }
-                    className="mt-2 mb-0!  text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
+                    className="mt-2 mb-0! text-left text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
                   />
                 </div>
               </div>
@@ -75,21 +75,21 @@ export default function TellUs() {
                     description={
                       "Added Business Value — Every build is scoped to move a real business metric, not just tick a feature box"
                     }
-                    className="mt-2 mb-0!  text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
+                    className="mt-2 mb-0! text-left text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
                   />
                 </div>
               </div>
             </div>
 
             <div className="mt-7 sm:mt-9 lg:mt-11">
-              <p className="text-white leading-tight w-full sm:max-w-[90%] font-semibold text-[22px] sm:text-[20px] lg:text-[17px]">
+              <p className="text-white text-center sm:text-left leading-tight w-full sm:max-w-[90%] font-semibold text-[22px] sm:text-[20px] lg:text-[17px]">
                 Discover How Techzuno Can Help Your Business Reach New Heights.
               </p>
               <SectionDescription
                 description={
                   "We'd love to hear about your challenge. Share a few details and we'll come back with a clear path forward."
                 }
-                className="mt-2 mb-0! text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
+                className="mt-2 mb-0! sm:text-left text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
               />
             </div>
           </div>

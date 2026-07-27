@@ -18,8 +18,8 @@ export default function FAQ() {
         <SectionTitle
           title={
             <>
-              FREQUENTLY <span className="highlightedTextColor">ASKED</span>
-              <br />
+              FREQUENTLY <span className="highlightedTextColor">ASKED {" "}</span>
+              <br className="hidden sm:block"/>
               <span className="text-[#03B8B8]">QUESTIONS</span> ABOUT PRICES
             </>
           }

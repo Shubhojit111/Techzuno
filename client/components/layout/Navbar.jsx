@@ -167,7 +167,7 @@ export default function Navbar() {
   return (
     <nav ref={navRef} className="fixed top-0 w-full z-[9999] ">
       <div className="mx-auto bg-black/60 backdrop-blur-md pointer-events-auto">
-        <div className="px-6 sm:px-10 lg:px-60 py-3 sm:py-6 lg:pt-4 lg:pb-4 flex items-center justify-between">
+        <div className="px-6 sm:px-10 lg:px-60 py-4 sm:py-6 lg:pt-4 lg:pb-4 flex items-center justify-between">
           <Link
             href="/"
             className="flex items-center gap-2"
@@ -175,7 +175,7 @@ export default function Navbar() {
           >
             <Image
               src={Assets.logo}
-              className="h-10 sm:h-14 lg:h-16 w-auto object-contain"
+              className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
               alt="Techzuno Logo"
             />
           </Link>
@@ -216,7 +216,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="lg:hidden cursor-pointer h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center pointer-events-auto"
+            className="lg:hidden cursor-pointer h-12 w-auto sm:h-10 sm:w-10 pointer-events-auto"
             aria-label="Menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}

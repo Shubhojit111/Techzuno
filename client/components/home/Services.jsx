@@ -29,14 +29,14 @@ export default function Services() {
   ];
 
   return (
-    <section className="pb-24 relative">
+    <section className="sm:pb-24 relative">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="text-left md:text-center mx-auto mb-12 md:mb-16">
           <HeaderBtn text="OUR SERVICES" />
           <SectionTitle className="mb-4 md:mb-6" title={<>
             PROVIDES FULL-CYCLE{" "}
             <span className="text-[#B8FAFF]">
-              CUSTOM <br /> WEBSITE
+              CUSTOM <br className="hidden sm:block"/> WEBSITE
             </span> DESIGN SERVICES IN <br className="hidden md:block" />
             KOLKATA.
           </>} />

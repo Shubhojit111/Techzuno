@@ -17,7 +17,7 @@ const KnowMoreBtn = ({ text, className, link }) => {
           {letters.map((char, idx) => (
             <span
               key={idx}
-              className="inline-block transition-all duration-300 group-hover:-translate-y-0.5 group-hover:text-[#38FFF2] transform-gpu"
+              className="inline-block transition-all duration-200 group-hover:-translate-y-0.5 group-hover:text-[#38FFF2] transform-gpu"
               style={{
                 transitionDelay: `${idx * 20}ms`,
               }}

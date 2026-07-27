@@ -146,7 +146,7 @@ const FAQ = () => {
               <>
                 THE TOP 10 MOST FAQS{" "}
                 <span className="text-[#38FFF2]">ABOUT</span>
-                <br className="hidden md:block" />
+                <br className="hidden md:block" />{" "}
                 <span className="text-[#38FFF2]">CUSTOMER</span> EXPERIENCE
               </>
             }
@@ -175,7 +175,7 @@ const FAQ = () => {
         )}
 
         {/* Bottom Contact Text */}
-        <div className="text-center text-white/60 text-xs pb-20">
+        <div className="text-center text-white/60 text-xs pb-6 sm:pb-20">
           Please Call Our Office At{" "}
           <a href="tel:+916291815773" className="underline underline-offset-2">
             +91 6291815773

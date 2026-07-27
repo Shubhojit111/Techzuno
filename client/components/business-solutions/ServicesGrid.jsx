@@ -27,9 +27,6 @@ function ServiceItem({ title }) {
   );
 }
 
-
-
-
 export default function ServicesGrid() {
 
   const serviceData = {
@@ -69,10 +66,10 @@ export default function ServicesGrid() {
         <div className="flex flex-col gap-10 lg:gap-14 items-start">
           <div className="w-full">
             <SectionTitle
-              className="uppercase"
+              className="uppercase sm:text-left"
               title={
                 <>
-                  SERVICES <br className="hidden lg:block" />
+                  SERVICES <br />
                   <span className="highlightedTextColor">WE PROVIDE</span>
                 </>
               }
@@ -92,8 +89,8 @@ export default function ServicesGrid() {
                 </div>
               </div>
 
-              <div className="w-fit ">
-                <HeaderBtn text="QUICK LINKS" />
+              <div className="w-full sm:w-fit mt-4">
+                <HeaderBtn text="QUICK LINKS" className="w-full sm:text-left mb-2" />
                 <ol className="flex flex-col gap-2">
                   {serviceData.quickLinks.map((link, index) => (
                     <li key={index}>

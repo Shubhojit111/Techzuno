@@ -26,11 +26,11 @@ export default function EcomIntegrationPage() {
             Make{" "}
             <span className="highlightedTextColor">
               Data-
-              <br />
+              <br className="hidden sm:block"/>
               Driven
             </span>{" "}
-            And
-            <br />
+            And{" "}
+            <br className="hidden sm:block"/>
             Drives Hi
           </>
         }

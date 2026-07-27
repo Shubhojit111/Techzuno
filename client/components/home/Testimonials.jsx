@@ -160,7 +160,7 @@ export default function Testimonials() {
             {testimonials.map((testimonial, idx) => (
               <div
                 key={idx}
-                className={`snap-center bg-[#daf2f8] border rounded-[16px] p-6 md:p-8 pb-8 md:pb-10 relative overflow-hidden flex flex-col justify-between h-[380px] md:h-[420px] w-[calc(100vw-48px)] md:w-[500px] lg:w-[440px] shrink-0 shadow-lg ${idx === 0 ? "md:ml-10 lg:ml-62" : ""}`}
+                className={`snap-center bg-[#daf2f8] border rounded-[16px] p-6 md:p-8 pb-8 md:pb-10 relative overflow-hidden flex flex-col justify-between h-[380px] md:h-[420px] w-[calc(100vw-40px)] md:w-[500px] lg:w-[440px] shrink-0 shadow-lg ${idx === 0 ? "md:ml-10 lg:ml-62" : ""}`}
               >
                 <div className="absolute top-0 left-0 h-full w-full">
                   <Image

@@ -99,7 +99,7 @@ export default function CTA() {
   };
 
   return (
-    <section className="h-[450px] md:h-[550px] lg:h-[600px] relative overflow-hidden">
+    <section className="h-[450px] md:h-[550px] lg:h-[600px] relative overflow-hidden pb-10 sm:pb-0">
       <div className="absolute top-0 left-0 w-full h-full z-0">
         <Image
           src={Assets.CTABG}
@@ -108,12 +108,12 @@ export default function CTA() {
         />
       </div>
 
-      <div className="px-6 sm:px-10 lg:px-62 mx-auto flex flex-col md:flex-row items-end h-full justify-center gap-6 md:gap-12 relative z-10 w-full">
+      <div className="px-6 sm:px-10  lg:px-62 mx-auto flex flex-col md:flex-row items-end h-full justify-center gap-6 md:gap-12 relative z-10 w-full">
         <div className="h-full border-0 w-full p-4 sm:p-6 lg:p-10 absolute top-0 left-0 flex justify-center items-start lg:items-start">
           <Image
             src={Assets.CTAImage}
             alt="Comma"
-            className="object-contain w-full h-[60%] sm:h-[70%] lg:h-[80%]"
+            className="object-contain w-full h-[60%] sm:h-[70%] lg:h-[90%]"
           />
         </div>
 
@@ -131,7 +131,7 @@ export default function CTA() {
             <SectionTitle
               title={
                 <>
-                  Have A Project? Speak
+                  Have A Project? Speak {" "}
                   <br className="hidden md:block" />
                   With Our <span className="text-[#03B8B8]">Experts</span>
                 </>

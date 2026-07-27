@@ -14,7 +14,7 @@ export default function Hero() {
           className="w-full h-full object-cover "
         />
       </div>
-      <div className="relative z-10 w-full mx-auto flex flex-col items-center md:items-center pt-20 md:pt-34 lg:pt-34 px-6 sm:px-10 md:px-0 border text-center">
+      <div className="relative z-10 w-full mx-auto flex flex-col items-center md:items-center pt-20 md:pt-34 lg:pt-34 px-6 sm:px-10 md:px-0 text-center">
         <p className="text-[#B8FAFF] font-medium mb-4 text-[15px] sm:text-[16px] md:text-[18px] tracking-wide font-sans">
           Elevating Outsourcing — Where Craftsmanship Meets Commitment.
         </p>
