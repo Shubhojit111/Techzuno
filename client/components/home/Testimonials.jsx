@@ -133,12 +133,14 @@ export default function Testimonials() {
       >
         <div className="mx-auto px-6 md:px-10 lg:px-62 relative z-[60]">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
-            <HeaderBtn text="CLIENT TESTIMONIALS" />
-            <SectionTitle className="mb-4 md:mb-6" title={<>
+            <HeaderBtn text="CLIENT TESTIMONIALS" className="sm:text-left" />
+            <SectionTitle className="mb-4 md:mb-6 sm:text-left" 
+            title={<>
               WHAT OUR CLIENT <br /> SAY ABOUT{" "}
               <span className="text-[#38FFF2]">TECHZUNO</span>
             </>} />
-            <SectionDescription description={<>
+            <SectionDescription className="sm:text-left" 
+            description={<>
               We go beyond maintaining operations — we empower businesses with data, insights, and best practices to stay ahead in an ever-evolving digital landscape.
             </>} />
           </div>

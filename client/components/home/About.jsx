@@ -38,13 +38,14 @@ export default function About({ image, title, description, buttonText }) {
         </div>
 
         <div className="about-content-wrapper  w-full lg:w-1/2 z-40">
-          <HeaderBtn text="OUR COMPANY" className="mb-4 md:mb-2" />
-          <SectionTitle className="mb-4 md:mb-6" title={title} />
+          <HeaderBtn text="OUR COMPANY" className="mb-4 md:mb-2 sm:text-left" />
+          <SectionTitle className="mb-4 md:mb-6 sm:text-left" title={title} />
           <SectionDescription
             description={
               description ||
               "Searching for the top web development company in Kolkata? Our expert team delivers modern, responsive and user-friendly websites tailored to your business needs. From e-commerce stores to corporate sites, we provide complete website design services in Kolkata that boost your brand presence. Partner with us today to build a powerful online identity and reach more customers."
             }
+            className="sm:text-left"
           />
 
           <KnowMoreBtn text={buttonText || "Find More About Techzuno"} />

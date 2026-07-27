@@ -34,9 +34,6 @@ export default function AboutPage() {
         description={`Founded with a passion for digital innovation, Techzuno delivers high-quality web and mobile app solutions tailored to modern business needs. From startups to scaling enterprises, we help brands build fast, functional, and beautifully designed digital products. We specialise in technologies like Next.js, React, Python, WordPress, and Shopify — crafting every solution with precision and care. With a focus on performance, clean design, and scalability, our work is built to grow with you, not around you. At Techzuno, we don't just write code — we help you turn ideas into impact through smart development and honest collaboration.`}
         buttonText="Download Company Profile"
       />
-      
-      {/* 
-      */}
       <CompanySection /> 
       <SliderSection/> 
       <ValuesSection />

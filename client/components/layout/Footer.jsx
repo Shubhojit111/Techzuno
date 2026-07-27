@@ -56,15 +56,10 @@ export default function Footer() {
 
           <p className="text-zinc-400 mb-2 text-lg lg:text-sm">
             <span className="flex gap-1">
-              <Icon
-                icon="lsicon:location-outline"
-                className="text-[#16cfdc]"
-              />
-              12/1A SD Christopher Road
+              <Icon icon="lsicon:location-outline" className="text-[#16cfdc]" />
+              12/1A/3D Chowbagha Road
               <br />
-              Bidhannagar South Kolkata -
-              <br />
-              700010
+              Bidhan Nagar South Kolkata - 700039
             </span>
           </p>
 
@@ -73,15 +68,22 @@ export default function Footer() {
               icon="material-symbols-light:call-outline-sharp"
               className="text-[#16cfdc]"
             />
-            P. +91 6290345020
+            P. +91 6291815773
           </p>
 
-          <p className="text-zinc-400 flex items-center gap-1 text-lg lg:text-sm">
+          <p className="text-zinc-400 flex mb-2 items-center gap-1 text-lg lg:text-sm">
             <Icon
               icon="material-symbols-light:mail-outline-sharp"
               className="text-[#16cfdc]"
             />
             E. info@techzuno.com
+          </p>
+
+          <p className="text-zinc-400 flex items-center gap-1 text-lg lg:text-sm">
+            GST No:{" "}
+            <a className="hover:text-[#03B8B8] transition-colors">
+              19AAMCT8152B1Z5
+            </a>
           </p>
         </div>
 

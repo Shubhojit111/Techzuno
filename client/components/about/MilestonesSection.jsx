@@ -40,9 +40,9 @@ export default function MilestonesSection() {
         {/* Header */}
         <div className="mx-auto relative mb-10">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
-            <HeaderBtn text="OUR HISTORY" />
+            <HeaderBtn text="OUR HISTORY" className="sm:text-left" />
             <SectionTitle
-              className="mb-4 md:mb-6 uppercase"
+              className="mb-4 md:mb-6 uppercase sm:text-left"
               title={
                 <>
                   some of the{" "}
@@ -62,6 +62,7 @@ export default function MilestonesSection() {
                   We go beyond maintaining operations we empower businesses with data, insights, and best practices to stay ahead in an ever-evolving digital landscape.
                 </>
               }
+              className="sm:text-left"
             />
             <KnowMoreBtn text="Download Company Profile" />
           </div>

@@ -13,18 +13,18 @@ import Assets from "@/Assets/Assets";
 export default function CommonHero({ headerbtn,title,description,buttonText,image }) {
   return (
     <section className="relative pt-28 md:pt-36 lg:pt-40 ">
-      <div className="relative z-10 px-6 sm:px-10 lg:px-62 mx-auto flex flex-col sm:flex-row justify-between  items-center">
+      <div className="relative z-10 px-6 sm:px-10 lg:px-62 mx-auto flex flex-col sm:flex-row justify-between items-center">
         <div className="w-full  sm:w-1/2 lg:min-w-[50%]">
-          <HeaderBtn text={headerbtn} className="w-1/2 sm:w-full" />
+          <HeaderBtn text={headerbtn} className="w-1/2 sm:w-full sm:text-left" />
 
           <SectionTitle
-            className="mt-3 uppercase lg:text-[40px]!"
+            className="mt-3 uppercase lg:text-[40px]! sm:text-left!"
             title={title}
           />
 
           <SectionDescription
             description={description || "We provide a fully customised service, designed to meet your specific IT requirements, business set up and budget."}
-            className="mt-4 mb-6 md:mb-8 text-white/70 w-[450px] "
+            className="mt-4 mb-6 md:mb-8 text-white/70 w-[450px] sm:text-left"
           />
 
           <KnowMoreBtnSmall text={buttonText || "Let's Discuss Your Needs"} link={`/contact?enquiry=Services&service=${encodeURIComponent(headerbtn)}#contact-form-section`}/>

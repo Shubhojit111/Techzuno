@@ -28,11 +28,11 @@ export default function SliderSection() {
                     OUR <span className="text-[#38FFF2]">VISION</span>
                   </>
                 }
-                className="mb-4"
+                className="mb-4 sm:text-left"
               />
 
               <SectionDescription
-                className="max-w-full leading-tight"
+                className="max-w-full leading-tight sm:text-left"
                 description={
                   <>
                     To be the outsourcing partner businesses actually trust —the

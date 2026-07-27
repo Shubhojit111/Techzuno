@@ -21,7 +21,7 @@ export default function ContactHero() {
         {/* Flex row: Left text, Right image */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 md:gap-10">
           <div className="w-full lg:w-1/2 flex flex-col items-start text-left md:max-w-[70%] lg:max-w-none md:mr-auto lg:mr-0">
-            <HeaderBtn text="GET IN TOUCH" />
+            <HeaderBtn text="GET IN TOUCH" className="sm:text-left" />
             <SectionTitle
               title={
                 <>
@@ -30,10 +30,10 @@ export default function ContactHero() {
                   <span className="text-[#38FFF2]">DREAMS</span> REALIZED
                 </>
               }
-              className="mt-0"
+              className="mt-0 sm:text-left!"
             />
             <SectionDescription
-              className="mt-4 md:mt-2 lg:mt-2 lg:max-w-[90%]"
+              className="mt-4 md:mt-2 lg:mt-2 lg:max-w-[90%] sm:text-left"
               description={
                 <>
                   Founded with a passion for digital innovation, Techzuno delivers high-quality web and mobile app solutions tailored to modern business needs. From startups to scaling enterprises, we help brands build fast.
