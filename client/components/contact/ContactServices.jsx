@@ -14,6 +14,7 @@ export default function ContactServices() {
       description:
         "Have a quick question before you fill out the form? Reach us directly.",
       linkText: "Email us: info@techzuno.com",
+      url: "/contact?#contact-form-section",
     },
     {
       icon: "hugeicons:message-multiple-01",
@@ -21,6 +22,7 @@ export default function ContactServices() {
       description:
         "Check our most frequently asked questions about process, pricing, and support.",
       linkText: "Help Center",
+      url: "/faq",
     },
     {
       icon: "bytesize:clock",
@@ -28,6 +30,7 @@ export default function ContactServices() {
       description:
         "Our team is available Monday-Saturday for calls, consultations, and support requests.",
       linkText: "Find Out More About Us",
+      url: "/about",
     },
   ];
 
@@ -63,6 +66,7 @@ export default function ContactServices() {
               titleColor="text-white"
               buttonColor="text-white"
               buttonHoverColor="hover:text-cyan-300"
+              url={service.url}
             />
           ))}
         </div>

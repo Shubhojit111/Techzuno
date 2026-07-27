@@ -8,7 +8,7 @@ export default function ServiceCard({
   title,
   description,
   linkText,
-  url="www.google.com",
+  url,
 }) {
   return (
     <div className="group h-auto lg:h-[400px] w-full flex flex-col items-center justify-center relative rounded-[10px] transition-all duration-300 hover:-translate-y-2 overflow-hidden text-center">
