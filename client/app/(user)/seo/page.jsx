@@ -45,7 +45,7 @@ export default function SeoPage() {
       <WhatYouGet />
       <WhyChoose cardImage1={Assets.SEO2} cardImage2={Assets.SEO3} cardImage3={Assets.SEO4}/>
       <FAQ  />
-      <ClientSuccess />
+      {/* <ClientSuccess /> */}
       <CTA />
     </main>
   );

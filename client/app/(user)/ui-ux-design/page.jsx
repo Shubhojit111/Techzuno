@@ -42,7 +42,7 @@ export default function UiUxDesignPage() {
       <WhatYouGet />
       <WhyChoose cardImage1={Assets.UIUX2} cardImage2={Assets.UIUX3} cardImage3={Assets.UIUX4}/>
       <FAQ />
-      <ClientSuccess />
+      {/* <ClientSuccess /> */}
       <CTA />
     </main>
   );

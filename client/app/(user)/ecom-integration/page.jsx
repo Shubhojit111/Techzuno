@@ -46,7 +46,7 @@ export default function EcomIntegrationPage() {
       <WhatYouGet />
       <WhyChoose cardImage1={Assets.Ecom2} cardImage2={Assets.Ecom3} cardImage3={Assets.Ecom4}/>
       <FAQ />
-      <ClientSuccess />
+      {/* <ClientSuccess /> */}
       <CTA />
     </main>
   );

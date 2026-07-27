@@ -38,7 +38,7 @@ export default function WebDevelopmentPage() {
       <WhatYouGet />
       <WhyChoose cardImage1={Assets.WebDev2} cardImage2={Assets.WebDev3} cardImage3={Assets.WebDev4}/>
       <FAQ />
-      <ClientSuccess />
+      {/* <ClientSuccess /> */}
       <CTA />
 
       {/*

@@ -38,12 +38,8 @@ export default function AppDevelopmentPage() {
       <WhatYouGet />
       <WhyChoose cardImage1={Assets.AppDev2} cardImage2={Assets.AppDev3} cardImage3={Assets.AppDev4}/>
       <FAQ />
-      <ClientSuccess />
+      {/* <ClientSuccess /> */} 
       <CTA />
-      {/*
-
-      <h1 className="mx-auto text-center text-7xl mt-32">App Development Page</h1>
-       */}
     </main>
   );
 }

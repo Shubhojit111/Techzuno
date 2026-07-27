@@ -35,8 +35,6 @@ export default function ServicesPage() {
       <TellUs />
       <ValuesSection />
       <FAQ />
-
-      {/* <h1 className="mx-auto text-center text-7xl mt-32">Services Page</h1> */}
     </div>
   );
 }

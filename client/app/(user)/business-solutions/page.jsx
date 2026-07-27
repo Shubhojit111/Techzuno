@@ -45,10 +45,8 @@ export default function BusinessSolutionsPage() {
       <WhatYouGet />
       <WhyChoose />
       <FAQ />
-      <ClientSuccess />
+      {/* <ClientSuccess /> */} 
       <CTA />
-      {/*
-       */}
     </main>
   );
 }
