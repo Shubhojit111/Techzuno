@@ -24,45 +24,46 @@ export default function Testimonials() {
 
   const testimonials = [
     {
-      name: "Tina Bohme",
-      role: "Founder, Enzee",
+      name: "Rajesh Sharma",
+      role: "Founder, Sharma Electronics",
       image: Assets.Human1,
       content:
-        "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been",
+        "Techzuno completely transformed our online presence. Our new website is fast, modern, and easy for customers to navigate. We've noticed a significant increase in enquiries since the launch. Their team was professional, responsive, and delivered everything on time.",
       rating: 5,
     },
     {
-      name: "Tina Bohme",
-      role: "Founder, Enzee",
-      image: Assets.Human1,
+      name: "Priya Mehta",
+      role: "Owner, Mehta Boutique",
+      image: Assets.Testimonial1,
       content:
-        "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been",
+        "Working with Techzuno was one of the best decisions for my business. They understood exactly what I wanted and built a beautiful website that truly reflects my brand. The entire process was smooth and hassle-free.",
       rating: 5,
     },
     {
-      name: "Tina Bohme",
-      role: "Founder, Enzee",
+      name: "Amit Verma",
+      role: "Managing Director, Spice Garden Restaurant",
       image: Assets.Human1,
       content:
-        "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been",
+        "We wanted a website that looked premium and worked perfectly on mobile devices. Techzuno exceeded our expectations. The design, speed, and user experience are outstanding, and customer bookings have increased noticeably.",
       rating: 5,
     },
     {
-      name: "Tina Bohme",
-      role: "Founder, Enzee",
+      name: "Neha Kapoor",
+      role: " Founder, FitZone Fitness Studio",
       image: Assets.Human1,
       content:
-        "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been",
+        "The Techzuno team was highly professional from start to finish. They kept us updated throughout the project and delivered exactly what they promised. Our website now looks premium and builds trust with our clients.",
       rating: 5,
     },
     {
-      name: "Tina Bohme",
-      role: "Founder, Enzee",
+      name: " Vikram Patel",
+      role: "Owner, Patel Industrial Solutions",
       image: Assets.Human1,
       content:
-        "Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Has Been",
+        "We were looking for a reliable web development company, and Techzuno delivered beyond our expectations. The website is secure, responsive, and incredibly fast. Their support after launch has been exceptional, and we highly recommend them.",
       rating: 5,
     },
+    
 
   ];
 
@@ -205,7 +206,7 @@ export default function Testimonials() {
                 </div>
 
                 {/* Large Circular Profile Image */}
-                <div className="absolute overflow-hidden z-10 bottom-0 right-0 h-48 md:h-56 w-[200px] sm:w-[250px] md:w-[auto]">
+                <div className="absolute overflow-hidden rounded-tl-[76px]  rounded-tr-none z-10 bottom-0 right-0 h-48 md:h-56 w-[200px] sm:w-[250px] md:w-[auto]">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.name || "Testimonials"}

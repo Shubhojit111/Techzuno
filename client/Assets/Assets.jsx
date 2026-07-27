@@ -15,6 +15,13 @@ import Frame3 from "./images/Frame3.png";
 import Frame4 from "./images/Frame4.png";
 import Frame5 from "./images/Frame5.png";
 import Human1 from "./images/Human1.png";
+import Testimonial1 from "./images/Testimonial1.jpeg";
+// import Testimonial2 from "./images/Testimonial2.jpeg";
+// import Testimonial3 from "./images/Testimonial3.jpeg";
+// import Testimonial4 from "./images/Testimonial4.jpeg";
+// import Testimonial5 from "./images/Testimonial5.jpeg";
+
+
 import CommaIcon from "./images/CommaIcon.png";
 import CommaIconSharp from "./images/CommaIconSharp.png";
 
@@ -158,6 +165,8 @@ const Assets = {
   SEO2,
   SEO3,
   SEO4,
+
+  Testimonial1,
   
   ServiceHeader,
   WorksHeader,
