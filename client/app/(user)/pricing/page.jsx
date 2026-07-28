@@ -3,6 +3,7 @@ import FAQ from "@/components/pricing/FAQ";
 import CTA from "@/components/home/CTA";
 import HeaderBtn from "@/components/buttons/HeaderBtn";
 import SectionTitle from "@/components/buttons/SectionTitle";
+import SectionTitleSmall from "@/components/buttons/SectionTitleSmall";
 
 export const metadata = {
   title: "Pricing & Plans | Techzuno Web & App Development",
@@ -109,11 +110,10 @@ export default function PricingPage() {
       {/* Page Header */}
       <div className="px-6 md:px-10 lg:px-62 mx-auto flex flex-col items-center text-center mb-10 md:mb-20 relative z-20">
         <HeaderBtn text="PRICING AND PLANS" />
-        <SectionTitle
+        <SectionTitleSmall
           title={
             <>
-              FLEXIBLE,{" "}
-              <span className="text-[#03B8B8]">TRANSPARENT PRICING</span>
+              FLEXIBLE,{" "} <span className="text-[#03B8B8]">TRANSPARENT PRICING</span>
               <br className="hidden md:block" /> THAT ADAPTS TO YOUR NEEDS
             </>
           }

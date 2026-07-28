@@ -13,8 +13,8 @@ export default function FAQ() {
   };
 
   return (
-    <section className="w-full relative z-10 pb-20 px-6 md:px-10 lg:px-62 mx-auto">
-      <div className="flex flex-col items-center mb-16 text-center">
+    <section className="w-full relative z-10 pt-10 pb-20 px-6 md:px-10 lg:px-62 mx-auto">
+      <div className="flex flex-col items-center mb-10 text-center">
         <SectionTitle
           title={
             <>

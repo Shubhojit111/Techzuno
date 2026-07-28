@@ -4,6 +4,7 @@ import HeaderBtn from "../buttons/HeaderBtn";
 import SectionTitle from "../buttons/SectionTitle";
 import SectionDescription from "../buttons/SectionDescription";
 import ServiceCard from "../cards/ServiceCard";
+import SectionTitleSmall from "../buttons/SectionTitleSmall";
 
 export default function Services() {
   const services = [
@@ -33,7 +34,7 @@ export default function Services() {
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="text-left md:text-center mx-auto mb-12 md:mb-16">
           <HeaderBtn text="OUR SERVICES" />
-          <SectionTitle className="mb-4 md:mb-6" title={<>
+          <SectionTitleSmall className="mb-4 md:mb-6" title={<>
             PROVIDES FULL-CYCLE{" "}
             <span className="text-[#B8FAFF]">
               CUSTOM <br className="hidden sm:block"/> WEBSITE

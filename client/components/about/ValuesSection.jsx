@@ -6,6 +6,7 @@ import SectionArrowBtn from "../buttons/SectionArrowBtn";
 import Assets from "@/Assets/Assets";
 import Image from "next/image";
 import KnowMoreBtn from "../buttons/KnowMoreBtn";
+import SectionTitleSmall from "../buttons/SectionTitleSmall";
 
 const values = [
   {
@@ -48,12 +49,12 @@ const values = [
 
 export default function ValuesSection() {
   return (
-    <section className="bg-black mb-10 md:py-20">
+    <section className="bg-black py-12 md:py-20">
       <div className="h-full w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header */}
         <div className="mb-10 md:mb-14 flex flex-col items-center">
           <HeaderBtn text="Welcome to our company" className="sm:text-left"/>
-          <SectionTitle
+          <SectionTitleSmall
             className="text-[28px] md:text-[32px] lg:text-[38px] font-black mt-3 leading-tight text-center w-full"
             title={
               <>

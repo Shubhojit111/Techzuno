@@ -81,7 +81,7 @@ export default function TellUs() {
               </div>
             </div>
 
-            <div className="mt-7 sm:mt-9 lg:mt-11">
+            <div className="mt-16 sm:mt-9 lg:mt-11">
               <p className="text-white text-center sm:text-left leading-tight w-full sm:max-w-[90%] font-semibold text-[22px] sm:text-[20px] lg:text-[17px]">
                 Discover How Techzuno Can Help Your Business Reach New Heights.
               </p>
@@ -89,7 +89,7 @@ export default function TellUs() {
                 description={
                   "We'd love to hear about your challenge. Share a few details and we'll come back with a clear path forward."
                 }
-                className="mt-2 mb-0! sm:text-left text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
+                className="mt-3 mb-0! sm:text-left text-white/55 md:text-[14px] lg:text-[13px] leading-[1.35]"
               />
             </div>
           </div>
