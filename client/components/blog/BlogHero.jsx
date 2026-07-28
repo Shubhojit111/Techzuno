@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 
 export default function BlogHero() {
   return (
-    <section className="relative w-full h-[400px] sm:h-[500px] lg:h-screen flex flex-col justify-center pt-40 md:pt-52 lg:pt-42 pb-10 md:pb-16 lg:pb-20 overflow-hidden">
+    <section className="relative w-full h-[440px] sm:h-[500px] lg:h-screen flex flex-col justify-center pt-40 md:pt-52 lg:pt-42 pb-10 md:pb-16 lg:pb-20 overflow-hidden">
       {/* Background full width image */}
       <div className="absolute top-0 left-0 w-full h-full z-0 ">
         <Image

@@ -151,7 +151,7 @@ export default function BlogDetailPage() {
 
   return (
     <main className="flex flex-col bg-black min-h-screen text-white font-sans">
-      <section className="relative w-full h-[400px] sm:h-[500px] lg:h-screen flex flex-col justify-center pt-6 md:pt-20 lg:pt-26 pb-0 md:pb-16 lg:pb-20 overflow-hidden">
+      <section className="relative w-full h-[400px] sm:h-[500px] lg:h-screen flex flex-col justify-center pt-26 md:pt-20 lg:pt-26 pb-0 md:pb-16 lg:pb-20 overflow-hidden">
         <div className="absolute -top-10 left-0 w-full h-full z-0">
           <Image
             src={Assets.BlogsBg}
@@ -163,11 +163,11 @@ export default function BlogDetailPage() {
         <div className="px-6 sm:px-10 lg:px-62 mx-auto relative z-10 w-full flex flex-col items-center">
           <div className="flex h-full w-full max-w-[950px] flex-col items-center justify-center">
             {categories.length > 0 && (
-              <div className=" flex flex-wrap justify-center gap-3">
+              <div className=" flex flex-wrap justify-center gap-3 mb-5">
                 {categories.map((category) => (
                   <span
                     key={category.id}
-                    className="text-white bg-gray-500 py-1 px-3.5 rounded-tr-md rounded-bl-md font-normal tracking-[0.15em] text-[10px] uppercase mb-5 leading-relaxed line-clamp-2"
+                    className="text-white bg-gray-500 py-1 px-3.5 rounded-tr-md rounded-bl-md font-normal tracking-[0.15em] text-[10px] uppercase  leading-relaxed line-clamp-2"
                   >
                     {category.name || category.slug}
                   </span>
@@ -219,18 +219,18 @@ export default function BlogDetailPage() {
         </div>
       </div>
 
-      <article className="w-full mx-auto px-6 sm:px-10 pt-4 pb-10 md:pt-6 md:pb-18">
+      <article className="w-full mx-auto px-6 sm:px-10 ">
         <div
           className="techzuno-blog-content mx-auto w-full max-w-[800px]"
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         />
 
         {tags.length > 0 && (
-          <div className="mt-14 flex flex-wrap w-full justify-center items-center gap-3">
+          <div className="mt-0 flex flex-wrap w-full justify-center items-center gap-3 mb-5">
             {tags.map((tag) => (
               <span
                 key={tag.id}
-                className="text-white bg-gray-500 py-1 px-3 rounded-tr-md rounded-bl-md font-normal tracking-[0.20em] text-[10px] uppercase mb-5 leading-relaxed line-clamp-2"
+                className="text-white bg-gray-500 py-1 px-3 rounded-tr-md rounded-bl-md font-normal tracking-[0.20em] text-[10px] uppercase leading-relaxed line-clamp-2"
               >
                 <span className="text-gray-800">#</span> {tag.name || tag.slug}
               </span>
@@ -238,7 +238,7 @@ export default function BlogDetailPage() {
           </div>
         )}
 
-        <div className="mt-10 flex justify-center mb-20">
+        <div className="flex justify-center my-20">
           <Link
             href="/blogs"
             className="inline-flex items-center gap-2 border border-cyan-400/20 text-white/40 px-6 py-2.5 rounded-full text-[11px] tracking-[0.25em] uppercase hover:border-cyan-400/50 hover:text-cyan-300 transition-all duration-300"
@@ -252,9 +252,9 @@ export default function BlogDetailPage() {
         <section className="w-full px-6 sm:px-10 lg:px-62 pb-24 bg-linear-to-b from-black/50 to-black">
           <div className="mx-auto">
             <h2 className="text-white/80 text-sm tracking-[0.2em] uppercase mb-8">
-              MAY BE YOU WANT TO READ
+              YOU MAY WANT TO READ
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
               {similarBlogs.map((similarBlog) => (
                 <Link
                   key={similarBlog.id}

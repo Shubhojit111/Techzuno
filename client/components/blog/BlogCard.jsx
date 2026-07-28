@@ -53,7 +53,7 @@ export default function BlogCard({ blog }) {
         </div>
 
         {/* content */}
-        <p className="mt-4 text-white/80 text-[14px] leading-[1.75] tracking-wider line-clamp-3">
+        <p className="mt-4 text-white/80 text-[14px] leading-[1.5] tracking-wider line-clamp-3">
           {getExcerpt(blog.content)}
         </p>
       </article>
