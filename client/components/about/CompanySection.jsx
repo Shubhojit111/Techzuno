@@ -23,11 +23,11 @@ const stats = [
 
 export default function CompanySection() {
   return (
-    <section className="relative bg-black pb-16 md:pb-22  lg:pb-36 overflow-hidden">
+    <section className="relative bg-black pb-16 md:pb-24 lg:pb-36 overflow-hidden">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto w-full">
         <div className="text-right md:text-center mx-auto flex flex-col items-end md:items-center justify-center w-full">
           <HeaderBtn text="WELCOME TO OUR COMPANY" />
-          <SectionTitle className="mb-4 md:mb-6 text-right md:text-center w-full" title={<>
+          <SectionTitle className="mb-4 md:mb-6 text-center w-full" title={<>
             BUILD PROFESSIONAL<br className="block md:hidden"/> <span className="text-[#38FFF2]">WEB</span>
             <br className="hidden md:block"/>{" "}
             <span className="text-[#38FFF2]">AND APPS</span> WITH PASSION

@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function SliderSection() {
   return (
     <>
-      <section className="bg-black h-full w-full mb-10 lg:mb-10">
+      <section className="bg-black h-full w-full mb-14 lg:mb-10">
         <div className="flex justify-start w-full h-full px-6 sm:px-10 lg:px-62 mx-auto">
           <div className="flex flex-col lg:flex-row items-start w-full md:w-full lg:max-w-[90%] gap-8 lg:gap-14 text-left ">
             {/* Left Image */}
@@ -47,7 +47,7 @@ export default function SliderSection() {
           </div>
         </div>
       </section>
-      <section className="bg-black h-full w-full mb-16 lg:mb-10">
+      <section className="bg-black h-full w-full mb-10 lg:mb-10">
         <div className="flex justify-end w-full h-full px-6 sm:px-10 lg:px-62 mx-auto">
           <div className="flex flex-col lg:flex-row items-end lg:items-start w-full md:w-full lg:max-w-[90%] gap-8 lg:gap-14 text-right lg:text-left">
             {/* Left Image */}

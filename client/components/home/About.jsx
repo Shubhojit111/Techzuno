@@ -9,6 +9,7 @@ import SectionDescription from "../buttons/SectionDescription";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SectionTitleBig from "../buttons/SectionTitleBig";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -19,17 +20,17 @@ export default function About({ image, title, description, buttonText }) {
 
   return (
     <section
-      className="py-16 md:py-22 lg:py-36 w-full relative overflow-x-clip z-20 bg-black"
+      className="py-16 md:py-22 lg:pt-36 lg:pb-24 w-full relative overflow-x-clip z-20 bg-black"
       ref={containerRef}
     >
-      <div className="px-6 sm:px-10 lg:px-62 w-full mx-auto flex flex-col lg:flex-row justify-center gap-6 md:gap-10 lg:gap-18 items-end relative  h-full">
-        <div className="about-bg-text  absolute top-2 z-40 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <h2 className="text-[56px] sm:text-4xl md:text-[105px] font-montserrat font-black tracking-wider uppercase mb-6 opacity-80 leading-tight bg-linear-to-r from-[#2e3330] to-[#171717] bg-clip-text text-transparent">
+      <div className="px-8 sm:px-10 lg:px-62 w-full mx-auto flex flex-col lg:flex-row justify-center gap-6 md:gap-10 lg:gap-18 items-end relative  h-full">
+        <div className="about-bg-text absolute top-2 z-40 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <h2 className="text-[52px] sm:text-4xl md:text-[105px] font-montserrat font-black tracking-wider uppercase mb-6 opacity-80 leading-tight bg-linear-to-r from-[#2e3330] to-[#171717] bg-clip-text text-transparent">
             Techzuno
           </h2>
         </div>
 
-        <div className="about-image w-full md:w-2/3 lg:w-1/2  relative">
+        <div className="about-image w-full pt-8 sm:pt-0 md:w-2/3 lg:w-1/2  relative">
           <Image
             src={image || Assets.RoboticHead}
             alt="Techzuno Robotic Head"
@@ -39,7 +40,7 @@ export default function About({ image, title, description, buttonText }) {
 
         <div className="about-content-wrapper  w-full lg:w-1/2 z-40">
           <HeaderBtn text="OUR COMPANY" className="mb-4 md:mb-2 sm:text-left" />
-          <SectionTitle className="mb-4 md:mb-6 sm:text-left" title={title} />
+          <SectionTitleBig className="mb-4 md:mb-6 sm:text-left" title={title} />
           <SectionDescription
             description={
               description ||
