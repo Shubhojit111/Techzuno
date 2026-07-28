@@ -116,7 +116,7 @@ export default function ContactFormSection() {
       </div>
 
       <div className="px-6 sm:px-10 lg:px-62 mx-auto relative z-10 w-full mt-6">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
+        <div className="flex flex-col lg:flex-row gap-20 lg:gap-10">
           {/* Left Half: Form */}
           <div className="w-full lg:w-1/2">
             <div className="bg-linear-to-b from-[#1a2121] to-[#121414] rounded-[16px] p-6 md:px-20 md:py-16 lg:px-8 lg:py-10 border border-[#2f3b3b] shadow-2xl h-full flex flex-col">
@@ -312,23 +312,23 @@ export default function ContactFormSection() {
               />
             </div>
 
-            <div className="flex flex-col gap-5 w-full md:w-[60%]">
-              <div className="text-center sm:text-left">
-                <h3 className="text-white text-[20px] font-bold mb-2">
+            <div className="flex flex-col gap-8 sm:gap-5 w-full md:w-[60%]">
+              <div>
+                <h3 className="text-white text-[20px] font-bold mb-4 sm:text-left text-center">
                   Thank You For Reaching Out!
                 </h3>
-                <p className="text-white/70 text-[13px] leading-tight mb-3">
+                <p className="text-white/70 text-[14px] sm:text-[13px] leading-tight mb-3">
                   Please Fill Out The Form On The Left, And Our Team Will Get
                   Back To You As Soon As Possible.
                 </p>
-                <p className="text-white/70 text-[13px] leading-tight">
+                <p className="text-white/70 text-[14px] sm:text-[13px] leading-tight">
                   If You&apos;d Prefer To Connect With Us Directly, Feel Free To
                   Reach Out Via:
                 </p>
               </div>
 
               <div>
-                <h4 className="text-white text-[16px] font-medium mb-3">
+                <h4 className="text-white text-[18px] sm:text-[16px] font-medium mb-3">
                   Owner: Techzuno Solutions OPC PVT LTD
                 </h4>
                 <div className="flex flex-col gap-2.5">
@@ -337,7 +337,7 @@ export default function ContactFormSection() {
                       icon="mdi:map-marker-outline"
                       className="text-[#03B8B8] text-xl shrink-0 mt-0.5"
                     />
-                    <p className="text-white/70 text-[13px] leading-relaxed">
+                    <p className="text-white/70 text-[14px] sm:text-[13px] leading-relaxed">
                       12/1A/3D Chowbagha Road
                       <br />
                       Bidhan Nagar South Kolkata - 700039
@@ -348,7 +348,7 @@ export default function ContactFormSection() {
                       icon="mdi:phone-outline"
                       className="text-[#03B8B8] text-xl shrink-0"
                     />
-                    <p className="text-white/70 text-[13px]">
+                    <p className="text-white/70 text-[14px] sm:text-[13px]">
                       P:{" "}
                       <a
                         href="tel:+916291815773"
@@ -364,7 +364,7 @@ export default function ContactFormSection() {
                       icon="mdi:email-outline"
                       className="text-[#03B8B8] text-xl shrink-0"
                     />
-                    <p className="text-white/70 text-[13px]">
+                    <p className="text-white/70 text-[14px] sm:text-[13px]">
                       M:{" "}
                       <a
                         href="mailto:info@techzuno.com"
@@ -379,7 +379,7 @@ export default function ContactFormSection() {
                       icon="tabler:tax"
                       className="text-[#03B8B8] text-xl shrink-0"
                     />
-                    <p className="text-white/70 text-[13px]">
+                    <p className="text-white/70 text-[14px] sm:text-[13px]">
                       GST No:{" "}
                       <a className="hover:text-[#03B8B8] transition-colors">
                         19AAMCT8152B1Z5
@@ -390,10 +390,10 @@ export default function ContactFormSection() {
               </div>
 
               <div className="mt-1 text-center sm:text-left">
-                <h4 className="text-white text-[15px] font-bold mb-2">
+                <h4 className="text-white text-[18px] sm:text-[16px] sm:font-medium font-bold mb-2">
                   Discover How Techzuno Can Elevate Your Business.
                 </h4>
-                <p className="text-white/70 text-[13px] leading-tight ">
+                <p className="text-white/70 text-[14px] sm:text-[13px] leading-tight ">
                   We're here to explore opportunities and would be delighted to
                   discuss how our solutions can support your growth, at a time
                   that works best for you.

@@ -35,7 +35,7 @@ export default function ContactServices() {
   ];
 
   return (
-    <section className="pb-12 relative">
+    <section className="relative my-10 sm:my-16">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="text-center mx-auto mb-12 md:mb-16">
           <HeaderBtn text="Get In Touch" />

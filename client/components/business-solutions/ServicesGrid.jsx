@@ -62,7 +62,7 @@ export default function ServicesGrid() {
   const rightColumn = serviceData.services.slice(midpoint);
 
   return (
-    <section id="services-we-provide" className="pb-20">
+    <section id="services-we-provide" className="pb-20 sm:my-10">
       <div className="px-6 md:px-10 lg:px-62 mx-auto">
         <div className="flex flex-col gap-10 lg:gap-14 items-start">
           <div className="w-full">
@@ -76,7 +76,7 @@ export default function ServicesGrid() {
               }
             />
 
-            <div className="mt-10 md:mt-8 flex flex-col lg:flex-row items-start justify-between w-full ">
+            <div className="mt-10 md:mt-14 flex flex-col lg:flex-row items-start justify-between w-full ">
               <div className="flex flex-col sm:flex-row w-fit gap-x-10 lg:gap-x-16 ">
                 <div className="flex flex-col">
                   {leftColumn.map((service, index) => (

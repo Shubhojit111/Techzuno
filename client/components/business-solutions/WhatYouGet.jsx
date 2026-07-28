@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import SectionTitle from "../buttons/SectionTitle";
 import { Icon } from "@iconify/react";
 import SectionDescription from "../buttons/SectionDescription";
+import SectionTitle from "../buttons/SectionTitle";
 
 export default function WhatYouGet() {
   const whatYouGetData = [
@@ -45,7 +45,7 @@ export default function WhatYouGet() {
     },
   ];
   return (
-    <section className="pb-14">
+    <section className="pb-14 sm:mb-10">
       <div className="px-6 md:px-10 lg:px-62 mx-auto">
         <SectionTitle
           title={
@@ -54,7 +54,7 @@ export default function WhatYouGet() {
               <span className="highlightedTextColor">YOU GET</span>
             </>
           }
-          className="mb-8 md:mb-10 uppercase"
+          className="mb-12 md:mb-10 uppercase"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 md:gap-y-4 ">
