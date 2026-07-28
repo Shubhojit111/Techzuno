@@ -22,7 +22,7 @@ export default function About({ image, title, description, buttonText }) {
       className="py-16 md:py-22 lg:py-36 w-full relative overflow-x-clip z-20 bg-black"
       ref={containerRef}
     >
-      <div className="px-6 sm:px-10 lg:px-62 w-full mx-auto flex flex-col lg:flex-row justify-center gap-6 md:gap-10 lg:gap-18 items-end relative  h-[500px]">
+      <div className="px-6 sm:px-10 lg:px-62 w-full mx-auto flex flex-col lg:flex-row justify-center gap-6 md:gap-10 lg:gap-18 items-end relative  h-full">
         <div className="about-bg-text  absolute top-2 z-40 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <h2 className="text-[56px] sm:text-4xl md:text-[105px] font-montserrat font-black tracking-wider uppercase mb-6 opacity-80 leading-tight bg-linear-to-r from-[#2e3330] to-[#171717] bg-clip-text text-transparent">
             Techzuno
