@@ -194,7 +194,7 @@ export default function Testimonials() {
                       />
                     </div>
 
-                    <p className="text-[#00aeb6] w-[75%]  md:w-[70%] text-[16px] md:text-[20px] font-medium italic leading-[22px] md:leading-[24px] mb-4 md:pr-0 z-99">
+                    <p className="text-[#00aeb6] w-[75%] md:w-[70%] text-[16px] md:text-[20px] font-medium italic leading-[22px] md:leading-[24px] mb-4 md:pr-0 z-99">
                       {testimonial.content}
                     </p>
 
@@ -210,11 +210,11 @@ export default function Testimonials() {
                       ))}
                     </div>
 
-                    <div className="flex flex-col gap-0.5 absolute -bottom-2 left-0">
+                    <div className="flex flex-col gap-0.5 absolute -bottom-4 left-0 w-full">
                       <h4 className="font-bold text-[#1e293b] tracking-wide text-[14px] md:text-[15px]">
                         {testimonial.name}
                       </h4>
-                      <p className="text-[#475569] tracking-wide text-xs max-w-[60%]">
+                      <p className="text-[#475569] tracking-wide text-xs max-w-[60%] sm:max-w-[55%]">
                         {testimonial.role}
                       </p>
                     </div>
