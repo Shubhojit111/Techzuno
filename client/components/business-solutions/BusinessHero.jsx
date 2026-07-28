@@ -7,6 +7,7 @@ import SectionDescription from "../buttons/SectionDescription";
 import SectionTitle from "../buttons/SectionTitle";
 import KnowMoreBtnSmall from "../buttons/KnowMoreBtnSmall";
 import Assets from "@/Assets/Assets";
+import SectionTitleBig from "../buttons/SectionTitleBig";
 
 
 export default function BusinessHero({ headerbtn,title,description,buttonText,image }) {
@@ -16,8 +17,8 @@ export default function BusinessHero({ headerbtn,title,description,buttonText,im
         <div className="w-full justify-start flex flex-col sm:w-1/2 lg:min-w-[50%] ">
           <HeaderBtn text={headerbtn} className="w-full sm:text-left" />
 
-          <SectionTitle
-            className="mt-3 uppercase sm:text-left"
+          <SectionTitleBig
+            className="mt-3 uppercase sm:text-left "
             title={title}
           />
 
@@ -43,8 +44,6 @@ export default function BusinessHero({ headerbtn,title,description,buttonText,im
                 alt="Business Solutions"
                 className="w-full h-full object-cover rounded-[18px] md:rounded-[24px] absolute sm:top-3 top-0 sm:-left-3.5 left-0 z-10"
               />
-              
-
             </div>
           </div>
         </div>

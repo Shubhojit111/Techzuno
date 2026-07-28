@@ -40,10 +40,6 @@ export default function WebDevelopmentPage() {
       <FAQ />
       {/* <ClientSuccess /> */}
       <CTA />
-
-      {/*
-      <h1 className="mx-auto text-center text-7xl mt-32">Web Development Page</h1>
-       */}
     </main>
   );
 }

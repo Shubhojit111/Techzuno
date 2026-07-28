@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import SectionTitle from "../buttons/SectionTitle";
 import Assets from "@/Assets/Assets";
 import CardSliderComponent from "./CardSliderComponent";
+import SectionTitleBig from "../buttons/SectionTitleBig";
 
 export default function WhyChoose({ cardImage1, cardImage2, cardImage3 }) {
   const whyChooseData = [
@@ -37,7 +38,7 @@ export default function WhyChoose({ cardImage1, cardImage2, cardImage3 }) {
     <section className="pb-20">
       <div className="px-6 md:px-10 lg:px-62 mx-auto">
         <div className="flex justify-center">
-          <SectionTitle
+          <SectionTitleBig
             title={
               <>
                 WHY CHOOSE <br className="hidden lg:block" />

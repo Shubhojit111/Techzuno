@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import SectionTitle from "../buttons/SectionTitle";
 import Assets from "@/Assets/Assets";
 import HeaderBtn from "../buttons/HeaderBtn";
+import SectionTitleBig from "../buttons/SectionTitleBig";
 
 function ServiceItem({ title }) {
   return (
@@ -15,7 +16,7 @@ function ServiceItem({ title }) {
           icon="teenyicons:clipboard-tick-outline"
           className=" lg:w-5 lg:h-5 shrink-0 text-[#38FFF2]"
         />
-        <h3 className="text-white text-[15px] leading-none sm:text-[16px]  tracking-wide lg:whitespace-nowrap ">
+        <h3 className="text-white text-[15px] sm:text-[16px] tracking-wide lg:whitespace-nowrap ">
           {title}
         </h3>
       </div>
@@ -65,7 +66,7 @@ export default function ServicesGrid() {
       <div className="px-6 md:px-10 lg:px-62 mx-auto">
         <div className="flex flex-col gap-10 lg:gap-14 items-start">
           <div className="w-full">
-            <SectionTitle
+            <SectionTitleBig
               className="uppercase sm:text-left"
               title={
                 <>
@@ -89,8 +90,8 @@ export default function ServicesGrid() {
                 </div>
               </div>
 
-              <div className="w-full sm:w-fit mt-4">
-                <HeaderBtn text="QUICK LINKS" className="w-full sm:text-left mb-2" />
+              <div className="w-full sm:w-fit mt-6">
+                <HeaderBtn text="QUICK LINKS" className="w-full sm:text-left mb-3" />
                 <ol className="flex flex-col gap-2">
                   {serviceData.quickLinks.map((link, index) => (
                     <li key={index}>

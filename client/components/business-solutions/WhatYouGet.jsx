@@ -57,17 +57,17 @@ export default function WhatYouGet() {
           className="mb-8 md:mb-10 uppercase"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12  md:gap-y-4 ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 md:gap-y-4 ">
           {whatYouGetData.map((item, index) => (
             <div key={index} className="flex flex-col items-start group">
               <div className=" flex items-start gap-4 w-full max-w-[95%] sm:max-w-[85%]">
                 <Icon
                   icon={item.icon}
-                  className="w-10 h-10 md:h-8 md:w-8 text-[#03B8B8]"
+                  className="w-8 h-8 md:h-8 md:w-8 text-[#03B8B8]"
                 />
 
                 <div className="flex flex-col gap-2 w-full sm:max-w-[80%]">
-                  <h3 className="text-white font-semibold tracking-wide text-[18px] md:text-[22px] lg:text-[20px] group-hover:text-[#03B8B8] transition-colors">
+                  <h3 className="text-white font-semibold tracking-wide text-[18px] md:text-[22px] lg:text-[20px] group-hover:text-[#03B8B8] transition-colors leading-[1.2]">
                     {item.title}
                   </h3>
                   <SectionDescription
