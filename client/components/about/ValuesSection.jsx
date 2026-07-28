@@ -48,7 +48,7 @@ const values = [
 
 export default function ValuesSection() {
   return (
-    <section className="bg-black pb-16 md:py-20">
+    <section className="bg-black mb-10 md:py-20">
       <div className="h-full w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header */}
         <div className="mb-10 md:mb-14 flex flex-col items-center">
@@ -64,10 +64,10 @@ export default function ValuesSection() {
               </>
             }
           />
-          <div className="hidden md:block w-full border flex justify-center items-center">
+          <div className="hidden md:flex w-full justify-center items-center">
             <KnowMoreBtn className="mt-4 md:mt-6" text="Always Ready To Craft Your Next Big Idea" link="/contact#contact-form-section"/>
           </div>
-          <div className=" md:hidden w-full justify-center flex" >
+          <div className="flex md:hidden w-full justify-center">
             <KnowMoreBtn className="mt-4" text="Ready To Craft?" link="/contact#contact-form-section"/>
           </div>
         </div>
