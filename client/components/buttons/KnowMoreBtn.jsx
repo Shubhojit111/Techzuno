@@ -11,7 +11,7 @@ const KnowMoreBtn = ({ text, className, link }) => {
     <div>
       <Link
         href={link || "/about"}
-        className={`${className} group inline-flex gap-2 border-2 tracking-widest border-[#03B8B8] hover:border-[#03B8B8] hover:text-[#03B8B8] hover:shadow-[0_0_20px_rgba(3,184,184,0.6)] items-center w-full text-center px-5 md:px-8 py-2 text-[20px] sm:text-[24px] lg:text-[20px] rounded-full font-medium transition-all duration-300`}
+        className={`${className} group inline-flex gap-2 border-2 tracking-widest border-[#03B8B8] hover:border-[#03B8B8] hover:text-[#03B8B8] hover:shadow-[0_0_20px_rgba(3,184,184,0.6)] items-center px-5 md:px-8 py-2 text-[16px] sm:text-[24px] lg:text-[20px] rounded-full font-medium transition-all duration-300`}
       >
         <span className="inline-flex">
           {letters.map((char, idx) => (

@@ -28,7 +28,7 @@ export default function HomePage() {
         title={
           <>
             KOLKATA'S <span className="text-[#38FFF2]">LEADING </span>
-            WEBSITE <br /> DEVELOPMENT & <br /> DESIGN COMPANY
+            WEBSITE <br className="hidden sm:flex" /> DESIGN & <br className="hidden sm:flex" /> DEVELOPMENT COMPANY
           </>
         }
         description={

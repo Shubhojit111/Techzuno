@@ -4,7 +4,7 @@ import SectionDescription from "../buttons/SectionDescription";
 
 export default function Newsletter() {
   return (
-    <section className="bg-black text-center px-6 sm:px-10 lg:px-62 pb-10 mx-auto ">
+    <section className="bg-black text-center px-6 sm:px-10 lg:px-62 py-10 mx-auto ">
       <div className=" mx-auto text-left  md:text-center ">
         <HeaderBtn text="OUR EXPERTISE" />
         <SectionTitle className="mb-4 md:mb-6" title={<>

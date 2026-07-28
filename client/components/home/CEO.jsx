@@ -3,7 +3,7 @@
 import Assets from "@/Assets/Assets";
 import Image from "next/image";
 
-export default function FounderQuoteSection() {
+export default function CEOSection() {
   return (
     <section className="relative w-full h-auto md:h-[480px] lg:h-[620px] bg-black overflow-hidden flex items-center py-16 md:py-1 px-6 sm:px-10 lg:px-62">
       <div className="absolute top-0 left-0 w-full h-full z-0 ">
@@ -18,14 +18,14 @@ export default function FounderQuoteSection() {
         <div className="flex flex-col md:flex-row items-center justify-center w-full gap-10 md:gap-6 lg:gap-8">
           {/* LEFT IMAGE BLOCK */}
           <div className="w-full md:w-[40%] lg:w-[40%] relative flex justify-center lg:justify-start z-30">
-            <div className="relative w-[300px] sm:w-[340px] md:w-[360px] lg:w-full max-w-[400px] h-[360px] md:h-[380px] lg:h-[500px]">
+            <div className="relative max-sm:w-[340px] max-sm:h-[400px] w-[300px] sm:w-[340px] md:w-[360px] lg:w-full max-w-[400px] h-[360px] md:h-[380px] lg:h-[500px]">
               {/* White Frame Top + Right */}
               <div className="hidden md:block absolute top-0 md:right-[6px] lg:right-3 w-[120px] lg:w-[180px] h-[calc(100%+20px)] lg:h-[calc(100%+30px)] border-t-[3px] border-r-[3px] border-white pointer-events-none z-20" />
 
               {/* White Frame Bottom */}
               <div className="hidden md:block absolute bottom-[-20px] lg:bottom-[-30px] right-[6px] lg:right-3 w-[200px] lg:w-[300px] h-[3px] bg-white z-20" />
 
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-0 w-[260px] sm:w-[300px] md:w-[250px] lg:w-[360px] h-[280px] sm:h-[320px] md:h-[320px] lg:h-[400px] rounded-[18px] border border-cyan-100/20 bg-gradient-to-br from-[#24363d] via-[#1a2328] to-[#111111] overflow-hidden shadow-[0_0_60px_rgba(56,255,242,0.08)]" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-0 max-sm:w-[300px] max-sm:h-[340px] w-[260px] sm:w-[300px] md:w-[250px] lg:w-[360px] h-[280px] sm:h-[320px] md:h-[320px] lg:h-[400px] rounded-[18px] border border-cyan-100/20 bg-gradient-to-br from-[#24363d] via-[#1a2328] to-[#111111] overflow-hidden shadow-[0_0_60px_rgba(56,255,242,0.08)]" />
 
               {/* Main Portrait Card */}
               <div className="relative w-full h-full flex justify-center">

@@ -72,7 +72,7 @@ export default function WhyChooseUs() {
           }
         />
         <SectionDescription
-          className="mx-auto"
+          className="text-center! w-full "
           description="Below are 4 reasons that make us different"
         />
 

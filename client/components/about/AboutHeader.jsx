@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function AboutHeader() {
   return (
-    <div className="relative h-40 sm:h-56 md:h-72 border">
+    <div className="relative h-40 sm:h-56 md:h-72">
       <div className="absolute inset-0">
         <Image src={Assets.AboutBg} alt="Background" className="h-full w-full object-cover" />
       </div>
