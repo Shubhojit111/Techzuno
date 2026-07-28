@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function ContactHero() {
   return (
-    <section className="relative w-full h-screen flex flex-col justify-center pt-14 sm:pt-52 lg:pt-42 pb-10 md:pb-16 lg:pb-20 overflow-hidden">
+    <section className="relative w-full h-screen flex flex-col justify-center pt-24 sm:pt-52 lg:pt-42 pb-10 md:pb-16 lg:pb-20 overflow-hidden">
       {/* Background full width image */}
       <div className="absolute top-0 left-0 w-full h-full z-0 ">
         <Image
