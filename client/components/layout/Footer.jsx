@@ -59,7 +59,9 @@ export default function Footer() {
               <Icon icon="lsicon:location-outline" className="text-[#16cfdc] h-auto w-4" />
               12/1A/3D Chowbagha Road
               <br />
-              Bidhan Nagar South Kolkata - 700039
+              Bidhan Nagar South 
+              <br />
+              Kolkata - 700039
             </span>
           </p>
 
