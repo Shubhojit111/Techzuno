@@ -77,13 +77,13 @@ const FAQ = () => {
       <div className="w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-16">
-          <h1 className="text-white text-[70px] md:text-[72px] lg:text-[96px] font-bold tracking-widest">
+          <h1 className="text-white text-[64px] md:text-[72px] lg:text-[96px] font-bold tracking-widest">
             FAQS
           </h1>
-          <p className="text-white/70 text-xl lg:text-xs mx-auto mb-16">
+          <p className="text-white/70 text-[16px] sm:text-[14px]  mx-auto mb-16 px-2">
             An FAQ Page Is A Webpage Of The Questions Most Often Asked{" "}
             <span className="">
-              By Your <br /> Prospective And Current Customers
+              By Your <br className="hidden sm:block"/> Prospective And Current Customers
             </span>
           </p>
 
