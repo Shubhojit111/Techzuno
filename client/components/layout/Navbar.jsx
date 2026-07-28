@@ -167,7 +167,7 @@ export default function Navbar() {
   return (
     <nav ref={navRef} className="fixed top-0 w-full z-[9999] ">
       <div className="mx-auto bg-black/60 backdrop-blur-md pointer-events-auto">
-        <div className="px-6 sm:px-10 lg:px-60 py-4 sm:py-6 lg:pt-4 lg:pb-4 flex items-center justify-between">
+        <div className="px-6 sm:px-10 lg:px-60 py-3 sm:py-6 lg:pt-4 lg:pb-4 flex items-center justify-between">
           <Link
             href="/"
             className="flex items-center gap-2"
@@ -243,8 +243,8 @@ export default function Navbar() {
 
         {/* ── Mobile nav ── */}
         {open ? (
-          <div className="lg:hidden px-6 sm:px-10 pb-6">
-            <div className="border-t border-white/10 pt-4 text-[13px] tracking-wide">
+          <div className="lg:hidden px-6 sm:px-10">
+            <div className="border-t border-white/10 text-[13px] tracking-wide">
               {navItems.map((item) =>
                 item.children ? (
                   <MobileDropdown
