@@ -19,11 +19,11 @@ export default function Hero() {
           Elevating Outsourcing — Where Craftsmanship Meets Commitment.
         </p>
 
-        <h1 className="w-full sm:max-w-[520px] md:max-w-none text-[36px] sm:text-[44px] md:text-[42px] lg:text-[50px] font-toxigenesis font-bold mb-4 leading-[1.1] tracking-tight text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] uppercase">
-          WHERE VISION MEETS INNOVATION <br className="hidden lg:flex"/>SOFTWARE SOLUTION
+        <h1 className="w-full sm:max-w-[520px] md:max-w-none text-[24px] sm:text-[44px] md:text-[42px] lg:text-[50px] font-toxigenesis font-bold mb-4 leading-[1.1] tracking-tight text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] uppercase">
+          WHERE VISION <br /> MEETS INNOVATION <br className="hidden lg:flex"/>SOFTWARE SOLUTION
         </h1>
 
-        <p className="text-white mb-8 text-[16px] md:text-[16px] font-medium tracking-wide leading-[1.3] font-sans max-w-xl text-center">
+        <p className="text-white mb-8 text-[14px] md:text-[16px] font-medium tracking-wide leading-[1.3] font-sans max-w-xl text-center">
           Now is always the right time to start. Techzuno turns your idea into a fast, functional, beautifully designed product 
            - from your first line of code to launch day and beyond.
         </p>
