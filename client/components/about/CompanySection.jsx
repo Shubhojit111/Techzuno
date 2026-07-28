@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import CountUpNumber from "../buttons/CountUpNumber";
 import HeaderBtn from "../buttons/HeaderBtn";
 import SectionTitle from "../buttons/SectionTitle";
+import SectionTitleSmall from "../buttons/SectionTitleSmall";
 
 const stats = [
   {
@@ -25,9 +26,9 @@ export default function CompanySection() {
   return (
     <section className="relative bg-black pb-16 md:pb-24 lg:pb-36 overflow-hidden">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto w-full">
-        <div className="text-right md:text-center mx-auto flex flex-col items-end md:items-center justify-center w-full">
+        <div className="text-right md:text-center mx-auto flex flex-col items-center md:items-center justify-center w-full">
           <HeaderBtn text="WELCOME TO OUR COMPANY" />
-          <SectionTitle className="mb-4 md:mb-6 text-center w-full" title={<>
+          <SectionTitleSmall className="mb-4 md:mb-6 text-center w-full" title={<>
             BUILD PROFESSIONAL<br className="block md:hidden"/> <span className="text-[#38FFF2]">WEB</span>
             <br className="hidden md:block"/>{" "}
             <span className="text-[#38FFF2]">AND APPS</span> WITH PASSION

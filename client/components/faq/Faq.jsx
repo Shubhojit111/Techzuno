@@ -73,7 +73,7 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-black py-20 min-h-screen pt-20 md:pt-18 lg:mt-26">
+    <section className="bg-black py-20 min-h-screen pt-28 md:pt-18 lg:mt-26">
       <div className="w-full mx-auto px-6 sm:px-10 lg:px-62">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center text-center mb-16">
@@ -94,7 +94,7 @@ const FAQ = () => {
           >
             <div
               className="relative w-full p-2 md:p-3 bg-[#121919] rounded-full
-             border-linear-to-b from-white/30 md:from-[#0be4e4] to-transparent border-2"
+             border-linear-to-b from-white/30 md:from-[#0be4e4] to-transparent border"
             >
               <div className="flex items-center w-full bg-linear-to-b from-[#2F4545] to-[#282C2C] border border-white/10 rounded-full py-3 md:py-0">
                 <div className="w-full flex items-center justify-center pl-6 md:pl-8 ">

@@ -6,6 +6,7 @@ import HeaderBtn from "../buttons/HeaderBtn";
 import KnowMoreBtn from "../buttons/KnowMoreBtn";
 import Image from "next/image";
 import Assets from "@/Assets/Assets";
+import SectionTitleSmall from "../buttons/SectionTitleSmall";
 
 const milestones = [
   {
@@ -41,8 +42,8 @@ export default function MilestonesSection() {
         <div className="mx-auto relative mb-10">
           <div className="max-w-full md:max-w-[70%] lg:max-w-[60%]">
             <HeaderBtn text="OUR HISTORY" className="sm:text-left" />
-            <SectionTitle
-              className="mb-4 md:mb-6 uppercase sm:text-left"
+            <SectionTitleSmall
+              className="mb-4 md:mb-6 uppercase sm:text-left text-[26px]! sm:text-[34px]! md:text-[34px]! lg:text-[46px]!"
               title={
                 <>
                   some of the{" "}

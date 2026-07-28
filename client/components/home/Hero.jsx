@@ -15,7 +15,7 @@ export default function Hero() {
         />
       </div>
       <div className="relative z-10 w-full mx-auto flex flex-col items-center md:items-center pt-26 md:pt-34 lg:pt-34 px-6 sm:px-10 md:px-0 text-center">
-        <p className="text-[#B8FAFF] font-medium mb-4 text-[15px] sm:text-[16px] md:text-[18px] tracking-wide font-sans">
+        <p className="text-[#B8FAFF] font-medium mb-4 text-[14px] sm:text-[16px] md:text-[18px] tracking-wide font-sans">
           Elevating Outsourcing — Where Craftsmanship Meets Commitment.
         </p>
 
