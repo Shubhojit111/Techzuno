@@ -175,7 +175,7 @@ export default function Navbar() {
           >
             <Image
               src={Assets.logo}
-              className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
+              className="h-10 sm:h-14 lg:h-16 w-auto object-contain"
               alt="Techzuno Logo"
             />
           </Link>

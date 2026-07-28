@@ -29,9 +29,9 @@ const supportLinks = [
 function FooterSection({ title, links }) {
   return (
     <div>
-      <h4 className="font-semibold text-xl lg:text-md mb-4">{title}</h4>
+      <h4 className="font-semibold text-[17px] lg:text-md mb-4">{title}</h4>
 
-      <ul className="space-y-2 text-lg lg:text-sm text-zinc-400">
+      <ul className="space-y-2 text-[15px] lg:text-sm text-zinc-400">
         {links.map((link) => (
           <li key={link.title}>
             <Link href={link.href} className="hover:text-cyan-400">
@@ -51,19 +51,19 @@ export default function Footer() {
         {/* Company Info */}
         <div>
           <div className="flex items-center gap-2 mb-6">
-            <Image src={Assets.logo} alt="Techzuno" />
+            <Image src={Assets.logo} alt="Techzuno" className="h-16 sm:h-22 w-auto"/>
           </div>
 
-          <p className="text-zinc-400 mb-2 text-lg lg:text-sm">
-            <span className="flex gap-1">
-              <Icon icon="lsicon:location-outline" className="text-[#16cfdc]" />
+          <p className="text-zinc-400 mb-2 text-[15px] lg:text-sm">
+            <span className="flex gap-1 items-start">
+              <Icon icon="lsicon:location-outline" className="text-[#16cfdc] h-auto w-4" />
               12/1A/3D Chowbagha Road
               <br />
               Bidhan Nagar South Kolkata - 700039
             </span>
           </p>
 
-          <p className="text-zinc-400 mb-2 flex items-center gap-1 text-lg lg:text-sm">
+          <p className="text-zinc-400 mb-2 flex items-center gap-1 text-[15px] lg:text-sm">
             <Icon
               icon="material-symbols-light:call-outline-sharp"
               className="text-[#16cfdc]"
@@ -71,7 +71,7 @@ export default function Footer() {
             P. +91 6291815773
           </p>
 
-          <p className="text-zinc-400 flex mb-2 items-center gap-1 text-lg lg:text-sm">
+          <p className="text-zinc-400 flex mb-2 items-center gap-1 text-[15px] lg:text-sm">
             <Icon
               icon="material-symbols-light:mail-outline-sharp"
               className="text-[#16cfdc]"
@@ -79,7 +79,7 @@ export default function Footer() {
             E. info@techzuno.com
           </p>
 
-          <p className="text-zinc-400 flex items-center gap-1 text-lg lg:text-sm">
+          <p className="text-zinc-400 flex items-center gap-1 text-[15px] lg:text-sm">
             GST No:{" "}
             <a className="hover:text-[#03B8B8] transition-colors">
               19AAMCT8152B1Z5
