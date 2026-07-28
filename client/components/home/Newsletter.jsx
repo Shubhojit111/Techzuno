@@ -10,7 +10,7 @@ export default function Newsletter() {
         <SectionTitle className="mb-4 md:mb-6" title={<>
           RELIABLE <span className="text-[#38FFF2]">WEBSITE DESIGN </span>COMPANY <br />IN KOLKATA
         </>} />
-        <SectionDescription className="md:mx-auto" description="Whether you need a sleek brand website, a robust e-commerce store, or a full-stack web application, our Kolkata-based team has the design instincts and engineering depth to deliver it — on time and built to last." />
+        <SectionDescription className="md:mx-auto sm:text-center!" description="Whether you need a sleek brand website, a robust e-commerce store, or a full-stack web application, our Kolkata-based team has the design instincts and engineering depth to deliver it — on time and built to last." />
       </div>
     </section>
   );

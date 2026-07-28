@@ -29,7 +29,7 @@ export default function Services() {
   ];
 
   return (
-    <section className="sm:mb-24 relative">
+    <section className="sm:my-16 relative">
       <div className="px-6 sm:px-10 lg:px-62 mx-auto">
         <div className="text-left md:text-center mx-auto mb-12 md:mb-16">
           <HeaderBtn text="OUR SERVICES" />
@@ -40,7 +40,7 @@ export default function Services() {
             </span> DESIGN SERVICES IN <br className="hidden md:block" />
             KOLKATA.
           </>} />
-          <SectionDescription className="md:mx-auto" description="Looking for professional website design services in Kolkata? At Techzuno, we specialise in building modern, responsive and SEO-friendly websites that help your business grow online. Being a reputable website design company in Kolkata, we are aware that every company is different. For this reason, whether it's an e-commerce store, personal portfolio, or corporate website, our talented designers develop custom solutions. To make sure your website works well and ranks higher on Google, we concentrate on search engine optimization, mobile compatibility, clean layouts, and quick loading times." />
+          <SectionDescription className="md:mx-auto sm:text-center!" description="Looking for professional website design services in Kolkata? At Techzuno, we specialise in building modern, responsive and SEO-friendly websites that help your business grow online. Being a reputable website design company in Kolkata, we are aware that every company is different. For this reason, whether it's an e-commerce store, personal portfolio, or corporate website, our talented designers develop custom solutions. To make sure your website works well and ranks higher on Google, we concentrate on search engine optimization, mobile compatibility, clean layouts, and quick loading times." />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

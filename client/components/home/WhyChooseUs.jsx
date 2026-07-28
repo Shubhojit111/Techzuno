@@ -72,12 +72,12 @@ export default function WhyChooseUs() {
           }
         />
         <SectionDescription
-          className="text-center! w-full "
+          className="mx-auto text-center!"
           description="Below are 4 reasons that make us different"
         />
 
         <div className="mb-10 md:mb-16">
-          <KnowMoreBtn text="Find More About Techzuno" />
+          <KnowMoreBtn text="Find More About Techzuno" className="w-fit mx-auto" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

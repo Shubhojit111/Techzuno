@@ -45,7 +45,7 @@ export default async function News() {
             title="NEWS"
           />
           <SectionDescription
-            className="text-center mx-auto"
+            className="mx-auto text-center!"
             description="Insights, Trends And Updates From Our Tech Innovators & Industry"
           />
 
