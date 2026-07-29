@@ -1,12 +1,11 @@
 "use client";
 import { Icon } from "@iconify/react";
 import HeaderBtn from "../buttons/HeaderBtn";
-import SectionTitle from "../buttons/SectionTitle";
-import SectionArrowBtn from "../buttons/SectionArrowBtn";
 import Assets from "@/Assets/Assets";
 import Image from "next/image";
 import KnowMoreBtn from "../buttons/KnowMoreBtn";
 import SectionTitleSmall from "../buttons/SectionTitleSmall";
+import Reveal from "../common/Reveal";
 
 const values = [
   {
@@ -74,11 +73,17 @@ export default function ValuesSection() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-7">
+        <Reveal
+          stagger={0.1}
+          y={40}
+          duration={0.85}
+          start="top 88%"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-7"
+        >
           {values.map((value, idx) => (
             <div
               key={idx}
-              className="group h-auto lg:h-[300px] w-full flex flex-col items-center md:items-center justify-center relative rounded-[10px] transition-all duration-300 overflow-hidden text-left md:text-center"
+              className="group card-shine h-auto lg:h-[300px] w-full flex flex-col items-center md:items-center justify-center relative rounded-[10px] transition-all duration-500 overflow-hidden text-left md:text-center hover:-translate-y-1.5 hover:[transform:perspective(900px)_rotateX(1.5deg)_rotateY(-2.5deg)_translateZ(0)]"
             >
               <div className="w-full h-full absolute top-0 left-0">
                 <Image
@@ -87,11 +92,12 @@ export default function ValuesSection() {
                   className=" w-full object-cover"
                 />
               </div>
-              <div className="h-full w-full flex flex-col items-center justify-center text-center px-6 sm:px-8 py-10 md:py-8 lg:py-10 ">
-                <div className="pop-icon p-3 bg-white rounded-full flex items-center justify-center text-4xl mb-4 md:mb-3 lg:mb-4 relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-[#03B8B8]/5 group-hover:to-[#03B8B8]/15 transition-all duration-700 pointer-events-none" />
+              <div className="h-full w-full flex flex-col items-center justify-center text-center px-6 sm:px-8 py-10 md:py-8 lg:py-10 relative z-10">
+                <div className="pop-icon p-3 bg-white rounded-full flex items-center justify-center text-4xl mb-4 md:mb-3 lg:mb-4 relative shadow-[0_0_0_0_rgba(3,184,184,0)] transition-all duration-500 group-hover:scale-104 group-hover:rotate-12 group-hover:shadow-[0_0_0_4px_rgba(3,184,184,0.12)]">
                   <Icon
                     icon={value.icon}
-                    className="text-[#03B8B8] w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12  "
+                    className="text-[#03B8B8] w-8 h-8 sm:w-8 sm:h-8 lg:w-12 lg:h-12 transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
                 <h3 className="text-[22px] sm:text-[16px] lg:text-[18px] tracking-wider font-bold text-[#38FFF2] mb-3 md:mb-2 lg:mb-3 relative z-10">
@@ -100,13 +106,11 @@ export default function ValuesSection() {
                 <p className="text-[#E5E5E5] leading-tight text-[14px] sm:text-[12px] lg:text-[13px] relative z-10 md:max-w-[280px]">
                   {value.description}
                 </p>
-                
               </div>
             </div>
           ))}
-        </div>
+        </Reveal>
       </div>
-      
     </section>
   );
 }

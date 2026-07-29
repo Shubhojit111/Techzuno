@@ -225,15 +225,19 @@ export default function CTA() {
                 @keyframes formStepIn {
                   from {
                     opacity: 0;
-                    transform: translateX(calc(28px * var(--dir, 1)));
+                    transform: translateX(calc(36px * var(--dir, 1))) skewX(calc(-8deg * var(--dir, 1)));
+                  }
+                  60% {
+                    opacity: 1;
+                    transform: translateX(calc(-4px * var(--dir, 1))) skewX(calc(2deg * var(--dir, 1)));
                   }
                   to {
                     opacity: 1;
-                    transform: translateX(0);
+                    transform: translateX(0) skewX(0);
                   }
                 }
                 .form-step-anim {
-                  animation: formStepIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+                  animation: formStepIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
                 }
 
                 @keyframes formCheckPop {

@@ -33,7 +33,7 @@ export default function ContactHero() {
               className="mt-0 sm:text-left!"
             />
             <SectionDescription
-              className="mt-4 md:mt-2 lg:mt-2 lg:max-w-[90%] sm:text-left text-center!"
+              className="mt-4 md:mt-2 lg:mt-2 lg:max-w-[90%] sm:text-left"
               description={
                 <>
                   Founded with a passion for digital innovation, Techzuno delivers high-quality web and mobile app solutions tailored to modern business needs. From startups to scaling enterprises, we help brands build fast.

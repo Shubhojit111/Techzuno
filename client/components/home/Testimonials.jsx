@@ -185,7 +185,7 @@ export default function Testimonials() {
                   </div>
 
                   <div className="relative z-10 flex-1">
-                    <div className="mb-6 md:mb-8">
+                    <div className="mb-6 md:mb-6">
                       {/* Custom 99 Quotes SVG */}
                       <Image
                         src={Assets.CommaIcon}
@@ -221,7 +221,7 @@ export default function Testimonials() {
                   </div>
 
                   {/* Large Circular Profile Image */}
-                  <div className="absolute overflow-hidden rounded-tl-[76px]  rounded-tr-none z-10 bottom-0 right-0 h-40 md:h-56 w-auto sm:w-[250px] md:w-[auto]">
+                  <div className="absolute overflow-hidden z-10 bottom-0 right-0 h-40 md:h-54 w-auto sm:w-[250px] md:w-[auto]">
                     <Image
                       src={testimonial.image}
                       alt={testimonial.name || "Testimonials"}

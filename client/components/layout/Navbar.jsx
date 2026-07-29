@@ -34,14 +34,18 @@ const navItems = [
   },
 ];
 
-function DesktopDropdown({ item }) {
+function DesktopDropdown({ item, pathname }) {
   return (
     <div className="relative group/dropdown">
       <button
         type="button"
-        className="hover:text-cyan-400 transition-colors flex items-center gap-1"
+        className="group/navlink relative hover:text-cyan-400 transition-colors flex items-center gap-1 py-1"
       >
         {item.label}
+        <span
+          className="pointer-events-none absolute left-0 -bottom-0.5 h-[2px] w-0 bg-gradient-to-r from-[#03B8B8] to-[#38FFF2] transition-all duration-300 ease-out group-hover/navlink:w-full"
+          aria-hidden="true"
+        />
         <svg
           className="w-3 h-3 opacity-60 transition-transform duration-200 group-hover/dropdown:rotate-180"
           fill="none"
@@ -62,7 +66,11 @@ function DesktopDropdown({ item }) {
                 <Link
                   key={child.href}
                   href={child.href}
-                  className="block px-3 py-2 rounded-xl text-white/90 hover:text-cyan-400 hover:bg-white/5 transition-all"
+                  className={`block px-3 py-2 rounded-xl transition-all ${
+                    pathname === child.href
+                      ? "text-[#38FFF2] bg-white/5"
+                      : "text-white/90 hover:text-cyan-400 hover:bg-white/5"
+                  }`}
                   style={{ transitionDelay: `${idx * 25}ms` }}
                 >
                   {child.label}
@@ -184,13 +192,22 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-8 text-[12px] font-normal tracking-wider">
             {navItems.map((item) =>
               item.children ? (
-                <DesktopDropdown key={item.label} item={item} />
+                <DesktopDropdown key={item.label} item={item} pathname={pathname} />
               ) : (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="hover:text-cyan-400 transition-colors"
+                  aria-current={pathname === item.href ? "page" : undefined}
+                  className="group/navlink relative py-1 transition-colors hover:text-cyan-400"
                 >
+                  <span
+                    className={`pointer-events-none absolute left-0 -bottom-0.5 h-[2px] bg-gradient-to-r from-[#03B8B8] to-[#38FFF2] transition-all duration-300 ease-out ${
+                      pathname === item.href
+                        ? "w-full"
+                        : "w-0 group-hover/navlink:w-full"
+                    }`}
+                    aria-hidden="true"
+                  />
                   {item.label}
                 </Link>
               )
@@ -216,7 +233,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="lg:hidden cursor-pointer h-12 w-auto sm:h-10 sm:w-10 pointer-events-auto"
+            className="lg:hidden cursor-pointer h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center pointer-events-auto"
             aria-label="Menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -233,9 +250,9 @@ export default function Navbar() {
               </svg>
             ) : (
               <div className="flex flex-col gap-1">
-                <span className="block h-[2px] w-4 sm:w-5 bg-white/80" />
-                <span className="block h-[2px] w-4 sm:w-5 bg-white/80" />
-                <span className="block h-[2px] w-4 sm:w-5 bg-white/80" />
+                <span className="block h-[2px] w-4 sm:w-5 bg-white/80 rounded-full" />
+                <span className="block h-[2px] w-4 sm:w-5 bg-white/80 rounded-full" />
+                <span className="block h-[2px] w-4 sm:w-5 bg-white/80 rounded-full" />
               </div>
             )}
           </button>
@@ -244,7 +261,7 @@ export default function Navbar() {
         {/* ── Mobile nav ── */}
         {open ? (
           <div className="lg:hidden px-6 sm:px-10">
-            <div className="border-t border-white/10 text-[13px] tracking-wide">
+            <div className="border-t border-white/10 text-[13px] tracking-wide max-h-[calc(100svh-80px)] overflow-y-auto overscroll-contain">
               {navItems.map((item) =>
                 item.children ? (
                   <MobileDropdown
@@ -257,7 +274,10 @@ export default function Navbar() {
                     key={item.href}
                     href={item.href}
                     onClick={closeMobileMenu}
-                    className="block py-3 border-b border-white/10 text-white/90 hover:text-cyan-400 transition-colors"
+                    aria-current={pathname === item.href ? "page" : undefined}
+                    className={`block py-3 border-b border-white/10 transition-colors hover:text-cyan-400 ${
+                      pathname === item.href ? "text-[#38FFF2]" : "text-white/90"
+                    }`}
                   >
                     {item.label}
                   </Link>

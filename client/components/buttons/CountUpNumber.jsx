@@ -12,12 +12,16 @@ export default function CountUp({
 }) {
   const ref = useRef(null);
   const [count, setCount] = useState(start);
+  const animatedRef = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (animatedRef.current) return;
 
     const animate = () => {
+      if (animatedRef.current) return;
+      animatedRef.current = true;
       let startTime;
 
       const update = (time) => {
@@ -34,6 +38,16 @@ export default function CountUp({
       requestAnimationFrame(update);
     };
 
+    const rect = el.getBoundingClientRect();
+    const isVisibleNow =
+      rect.bottom > 0 &&
+      rect.top < (typeof window !== "undefined" ? window.innerHeight : 900);
+
+    if (isVisibleNow) {
+      animate();
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -41,7 +55,7 @@ export default function CountUp({
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     observer.observe(el);
