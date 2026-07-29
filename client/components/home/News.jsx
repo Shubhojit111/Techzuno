@@ -58,7 +58,7 @@ export default async function News() {
           {blogs?.slice(0, 4).map((blog, idx) => (
             <div
               key={blog.id}
-              className={`flex flex-col md:h-[280px] md:h-auto overflow-hidden text-left group hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition-shadow ${idx % 2 === 0 ? "rounded-tl-4xl" : "rounded-tr-4xl"}`}
+              className={`flex flex-col md:h-[280px] md:h-auto overflow-hidden text-left group hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] cursor-pointer  transition-shadow ${idx % 2 === 0 ? "rounded-tl-4xl" : "rounded-tr-4xl"}`}
             >
               <div className="h-[60%] md:h-[65%] overflow-hidden">
                 <Image

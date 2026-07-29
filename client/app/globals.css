@@ -469,3 +469,89 @@ button:disabled {
     color: #5bffff;
   }
 }
+
+
+.tech-slider-wrapper {
+  --tech-slider-gap: clamp(1rem, 2.2vw, 2rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-slider-wrapper::before,
+.tech-slider-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: clamp(48px, 10vw, 120px);
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.tech-slider-wrapper::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    #000 0%,
+    rgba(0, 0, 0, 0.9) 24%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.tech-slider-wrapper::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    #000 0%,
+    rgba(0, 0, 0, 0.9) 24%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.tech-slider {
+  display: flex;
+  width: max-content;
+  animation: techScroll 24s linear infinite;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.tech-slider-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--tech-slider-gap);
+  padding-right: var(--tech-slider-gap);
+}
+
+.tech-logo {
+  backface-visibility: hidden;
+  transform-origin: center;
+}
+
+.tech-slider-wrapper:hover .tech-slider {
+  animation-play-state: paused;
+}
+
+@media (max-width: 640px) {
+  .tech-slider-wrapper::before,
+  .tech-slider-wrapper::after {
+    width: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-slider {
+    animation: none;
+  }
+}
+
+@keyframes techScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}

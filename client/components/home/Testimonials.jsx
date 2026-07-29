@@ -1,6 +1,5 @@
 "use client";
 
-import { Icon } from "@iconify/react";
 import HeaderBtn from "../buttons/HeaderBtn";
 import Assets from "@/Assets/Assets";
 import Image from "next/image";
@@ -21,6 +20,7 @@ export default function Testimonials() {
   const sectionRef = useRef(null);
   const cardsContainerRef = useRef(null);
   const mobileSliderRef = useRef(null);
+  const [mobileProgress, setMobileProgress] = useState(0);
 
   const testimonials = [
     {
@@ -64,6 +64,45 @@ export default function Testimonials() {
       rating: 5,
     },
   ];
+
+  useEffect(() => {
+    const slider = mobileSliderRef.current;
+
+    if (!slider) return;
+
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+    let frameId;
+
+    const updateProgress = () => {
+      if (!mobileQuery.matches) {
+        setMobileProgress(0);
+        return;
+      }
+
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
+      const nextProgress = maxScroll > 0 ? slider.scrollLeft / maxScroll : 1;
+
+      setMobileProgress(Math.min(Math.max(nextProgress, 0), 1));
+    };
+
+    const requestProgressUpdate = () => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+
+    slider.addEventListener("scroll", requestProgressUpdate, { passive: true });
+    window.addEventListener("resize", requestProgressUpdate);
+    mobileQuery.addEventListener("change", requestProgressUpdate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      slider.removeEventListener("scroll", requestProgressUpdate);
+      window.removeEventListener("resize", requestProgressUpdate);
+      mobileQuery.removeEventListener("change", requestProgressUpdate);
+    };
+  }, []);
 
   useGSAP(
     () => {
@@ -124,6 +163,9 @@ export default function Testimonials() {
     { scope: triggerRef },
   );
 
+  const mobileProgressScale =
+    1 / testimonials.length + mobileProgress * (1 - 1 / testimonials.length);
+
   return (
     <div className="w-full shrink-0">
       <section
@@ -160,12 +202,10 @@ export default function Testimonials() {
           ref={triggerRef}
           className="overflow-hidden w-full relative z-10"
         >
-          <SectionArrowBtn
-          sliderRef={mobileSliderRef}
-          />
+          <SectionArrowBtn sliderRef={mobileSliderRef} />
           <div
             ref={mobileSliderRef}
-            className="overflow-x-auto md:overflow-visible scrollbar-hide scroll-smooth snap-x snap-mandatory"
+            className="no-scrollbar overflow-x-auto scroll-smooth snap-x snap-mandatory md:overflow-visible"
           >
             <div
               ref={cardsContainerRef}
@@ -230,6 +270,15 @@ export default function Testimonials() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="px-6 md:hidden" aria-hidden="true">
+            <div className="h-1 w-full overflow-hidden rounded-full bg-white/10">
+              <div
+                className="h-full origin-left rounded-full bg-[#38FFF2] shadow-[0_0_14px_rgba(56,255,242,0.45)] transition-transform duration-200 ease-out"
+                style={{ transform: `scaleX(${mobileProgressScale})` }}
+              />
             </div>
           </div>
         </div>
