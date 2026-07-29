@@ -12,6 +12,7 @@ if (typeof window !== "undefined") {
 
 export default function TechStack() {
   const sectionRef = useRef(null);
+  const sliderRef = useRef(null);
 
   const techs = [
     { name: "React.js", icon: "logos:react" },
@@ -48,6 +49,46 @@ export default function TechStack() {
           toggleActions: "play none none none",
         },
       });
+
+      const slider = sliderRef.current;
+      const wrapper = sectionRef.current?.querySelector(".tech-slider-wrapper");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!slider || !wrapper || reduceMotion) return;
+
+      const marquee = gsap.to(slider, {
+        xPercent: -20,
+        duration: 56,
+        ease: "none",
+        repeat: -1,
+      });
+
+      const slowDown = () => {
+        gsap.to(marquee, {
+          timeScale: 0.32,
+          duration: 0.45,
+          ease: "power2.out",
+          overwrite: true,
+        });
+      };
+
+      const speedUp = () => {
+        gsap.to(marquee, {
+          timeScale: 1,
+          duration: 0.45,
+          ease: "power2.out",
+          overwrite: true,
+        });
+      };
+
+      wrapper.addEventListener("mouseenter", slowDown);
+      wrapper.addEventListener("mouseleave", speedUp);
+
+      return () => {
+        wrapper.removeEventListener("mouseenter", slowDown);
+        wrapper.removeEventListener("mouseleave", speedUp);
+        marquee.kill();
+      };
     },
     { scope: sectionRef },
   );
@@ -58,8 +99,8 @@ export default function TechStack() {
         <h3 className="w-full text-center text-[16px] font-normal tracking-wide text-white/70 md:w-auto md:text-left md:text-[14px] lg:text-[18px]">
           Tools We Master To Build Digital Excellence
         </h3>
-        <div className="tech-slider-wrapper w-full md:max-w-[55%]">
-          <div className="tech-slider" aria-label="Technologies we use">
+        <div className="tech-slider-wrapper w-full md:max-w-[50%]">
+          <div ref={sliderRef} className="tech-slider" aria-label="Technologies we use">
             {[0, 1].map((group) => (
               <div
                 key={group}

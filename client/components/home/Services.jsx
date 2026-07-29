@@ -62,7 +62,7 @@ export default function Services() {
             PROVIDES FULL-CYCLE{" "}
             <span className="text-[#B8FAFF]">
               CUSTOM <br className="hidden sm:block"/> WEBSITE
-            </span> DESIGN SERVICES IN <br className="hidden md:block" />
+            </span> DESIGN SERVICES IN <br className="hidden md:block text-[24px]! sm:text-[34px]! md:text-[34px]! lg:text-[46px]!" />
             KOLKATA.
           </>} />
           <SectionDescription className="md:mx-auto sm:text-center!" description="Looking for professional website design services in Kolkata? At Techzuno, we specialise in building modern, responsive and SEO-friendly websites that help your business grow online. Being a reputable website design company in Kolkata, we are aware that every company is different. For this reason, whether it's an e-commerce store, personal portfolio, or corporate website, our talented designers develop custom solutions. To make sure your website works well and ranks higher on Google, we concentrate on search engine optimization, mobile compatibility, clean layouts, and quick loading times." />

@@ -511,7 +511,6 @@ button:disabled {
 .tech-slider {
   display: flex;
   width: max-content;
-  animation: techScroll 24s linear infinite;
   transform: translate3d(0, 0, 0);
   will-change: transform;
 }
@@ -529,9 +528,6 @@ button:disabled {
   transform-origin: center;
 }
 
-.tech-slider-wrapper:hover .tech-slider {
-  animation-play-state: paused;
-}
 
 @media (max-width: 640px) {
   .tech-slider-wrapper::before,
@@ -543,15 +539,5 @@ button:disabled {
 @media (prefers-reduced-motion: reduce) {
   .tech-slider {
     animation: none;
-  }
-}
-
-@keyframes techScroll {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(-50%, 0, 0);
   }
 }

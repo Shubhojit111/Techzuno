@@ -16,9 +16,9 @@ const CardSliderComponent = ({ index, title, description, icon, image }) => {
           isEven ? "sm:flex-row-reverse " : ""
         }`}
       >
-        <div className="textCard min-h-64 h-full w-full sm:w-[45%] lg:w-[35%] px-6 py-8  rounded-xl card-bg-gradient flex flex-col justify-between  ">
+        <div className="card-shine relative overflow-hidden textCard min-h-64 h-full w-full sm:w-[45%] lg:w-[35%] px-6 py-8  rounded-xl card-bg-gradient flex flex-col justify-between  ">
           <div className="flex justify-between">
-            <Icon icon={icon} className="highlightedTextColor h-9 w-9 md:h-10 md:w-10 lg:w-13 lg:h-13" />
+            <Icon icon={icon} className=" highlightedTextColor h-9 w-9 md:h-10 md:w-10 lg:w-13 lg:h-13" />
             <span className="text-[36px] md:text-[40px] lg:text-[52px] highlightedTextColor leading-none font-bold font-montserrat">
               {index}
             </span>

@@ -35,7 +35,7 @@ export default function WhyChoose({ cardImage1, cardImage2, cardImage3 }) {
   ];
 
   return (
-    <section className="pb-20 sm:my-10">
+    <section className="pb-14 sm:my-10">
       <div className="px-6 md:px-10 lg:px-62 mx-auto">
         <div className="flex justify-center mb-12 sm:mb-8">
           <SectionTitleBig
