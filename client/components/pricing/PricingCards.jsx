@@ -9,7 +9,7 @@ export default function PricingCards({ data = [] }) {
     <div className="w-full relative z-10 px-6 md:px-10 lg:px-62 mx-auto mb-24">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-8 place-items-center md:place-items-stretch">
         {data.map((plan, index) => (
-          <div key={index} className="relative w-full max-w-[400px] md:max-w-none pt-8 md:pt-8 lg:pt-10">
+          <div key={index} className="relative w-full max-w-[400px] md:max-w-none pt-8 md:pt-8">
             {/* MOST POPULAR RIBBON */}
             {plan.isPopular && (
               <div
@@ -20,7 +20,7 @@ export default function PricingCards({ data = [] }) {
             )}
 
             <div
-              className={`relative h-full bg-gradient-to-b from-[#1c272a] to-[#121617] border-2 flex flex-col shadow-2xl transition-all duration-300 group hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(3,184,184,0.15)] ${
+              className={`relative h-full card-shine overflow-hidden bg-linear-to-b from-[#1c272a] to-[#121617] border-2 flex flex-col shadow-2xl transition-all duration-300 group hover:shadow-[0_20px_40px_rgba(3,184,184,0.15)] ${
                 plan.isPopular ? "border-[#03B8B8] rounded-b-[14px]" : "border-white/5 rounded-[14px]"
               }`}
             >
