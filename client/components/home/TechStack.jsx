@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
-import Assets from "@/Assets/Assets";
+import { Icon } from "@iconify/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -15,11 +14,20 @@ export default function TechStack() {
   const sectionRef = useRef(null);
 
   const techs = [
-    { name: "PHP", image: Assets.Frame1 },
-    { name: "MySQL", image: Assets.Frame2 },
-    { name: "Python", image: Assets.Frame3 },
-    { name: "WordPress", image: Assets.Frame4 },
-    { name: "Node.js", image: Assets.Frame5 },
+    { name: "React.js", icon: "logos:react" },
+    { name: "React Native", icon: "logos:react" },
+    { name: "Next.js", icon: "logos:nextjs-icon" },
+    { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
+    { name: "Node.js", icon: "logos:nodejs-icon" },
+    { name: "Express.js", icon: "skill-icons:expressjs-dark" },
+    { name: "MySQL", icon: "logos:mysql-icon" },
+    { name: "JavaScript", icon: "logos:javascript" },
+    { name: "Python", icon: "logos:python" },
+    { name: "WordPress", icon: "logos:wordpress-icon" },
+    { name: "PHP", icon: "logos:php" },
+    { name: "Laravel", icon: "logos:laravel" },
+    { name: "Figma", icon: "logos:figma" },
+    { name: "Git", icon: "logos:git-icon" },
   ];
 
   const sliderTechs = [...techs, ...techs];
@@ -61,12 +69,13 @@ export default function TechStack() {
                 {sliderTechs.map((tech, index) => (
                   <div
                     key={`${group}-${tech.name}-${index}`}
-                    className="tech-logo flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full md:h-12 md:w-12 lg:h-16 lg:w-16"
+                    className="tech-logo flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden md:h-12 md:w-12 lg:h-16 lg:w-16"
                   >
-                    <Image
-                      src={tech.image}
-                      alt={group === 0 ? tech.name : ""}
-                      className="h-full w-full rounded-full border border-white/10 object-cover grayscale transition-all duration-300 hover:scale-110 hover:grayscale-0"
+                    <Icon
+                      icon={tech.icon}
+                      aria-label={group === 0 ? tech.name : undefined}
+                      aria-hidden={group === 1}
+                      className="h-full w-full rounded-full border border-white/10 object-cover p-2 grayscale transition-all duration-300 hover:scale-110 hover:grayscale-0"
                     />
                   </div>
                 ))}
