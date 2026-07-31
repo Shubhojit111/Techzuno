@@ -175,7 +175,7 @@ export default function BlogDetailPage() {
               </div>
             )}
 
-            <h1 className="text-white text-[34px] sm:text-[56px] lg:text-[95px] font-bold leading-[1.2] sm:leading-[1.1] tracking-wide text-center uppercase line-clamp-4">
+            <h1 className="text-white text-[32px] sm:text-[56px] lg:text-[95px] font-bold leading-[1.2] sm:leading-[1.1] tracking-wide text-center uppercase line-clamp-4">
               {blog.title}
             </h1>
 
@@ -219,7 +219,7 @@ export default function BlogDetailPage() {
         </div>
       </div>
 
-      <article className="w-full mx-auto px-6 sm:px-10 ">
+      <article className="mt-6 lg:mt-22 w-full mx-auto px-6 sm:px-10 ">
         <div
           className="techzuno-blog-content mx-auto w-full max-w-[800px]"
           dangerouslySetInnerHTML={{ __html: sanitizedContent }}
