@@ -275,7 +275,8 @@ button:disabled {
 .techzuno-blog-content p {
   margin: 0 0 1.4rem;
   color: rgba(255, 255, 255, 0.85);
-  line-height: 2rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.035em;
 }
 
 .techzuno-blog-content p:empty {
@@ -499,7 +500,7 @@ button:disabled {
 .techzuno-blog-content img {
   max-width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-radius: 0px;
   border: 1px solid rgba(56, 255, 242, 0.18);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
   margin: 2rem auto;
