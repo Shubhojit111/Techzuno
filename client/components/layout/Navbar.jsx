@@ -23,7 +23,7 @@ const navItems = [
       { href: "/seo", label: "SEO" },
     ],
   },
-  { href: "/blogs", label: "Blog" },
+  { href: "/blogs", label: "Blogs" },
   {
     label: "Learn More",
     children: [

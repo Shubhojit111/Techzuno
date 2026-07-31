@@ -226,7 +226,7 @@ export default function BlogDetailPage() {
         />
 
         {tags.length > 0 && (
-          <div className="mt-0 flex flex-wrap w-full justify-center items-center gap-3 mb-5">
+          <div className="mt-10 sm:mt-12 flex flex-wrap w-full justify-center items-center gap-2.5 mb-8">
             {tags.map((tag) => (
               <span
                 key={tag.id}

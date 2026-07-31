@@ -145,10 +145,11 @@ button:disabled {
 }
 
 .techzuno-blog-content {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.85) !important;
   font-size: 16px;
-  line-height: 1.82;
-  letter-spacing: 0;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  word-break: break-word;
 }
 
 @media (min-width: 768px) {
@@ -158,36 +159,104 @@ button:disabled {
 }
 
 .techzuno-blog-content > * + * {
-  margin-top: 1.5rem;
+  margin-top: 1.8rem;
 }
 
+/* Override any remaining light background inline styles */
+.techzuno-blog-content [style*="background-color: rgb(255, 255, 255)"],
+.techzuno-blog-content [style*="background-color:#fff"],
+.techzuno-blog-content [style*="background-color: #fff"],
+.techzuno-blog-content [style*="background-color:#ffffff"],
+.techzuno-blog-content [style*="background-color: #ffffff"],
+.techzuno-blog-content [style*="background-color: #f8f9fa"],
+.techzuno-blog-content [style*="background-color: #f1f5f9"],
+.techzuno-blog-content [style*="background-color: #f3f4f6"],
+.techzuno-blog-content [style*="background-color: #e5e7eb"],
+.techzuno-blog-content [style*="background:#fff"],
+.techzuno-blog-content [style*="background: #fff"],
+.techzuno-blog-content [style*="background:#ffffff"],
+.techzuno-blog-content [style*="background: #ffffff"] {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(3, 184, 184, 0.04)) !important;
+  border: 1px solid rgba(56, 255, 242, 0.2) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.techzuno-blog-content [style*="#d4edda"],
+.techzuno-blog-content [style*="#e6f4ea"],
+.techzuno-blog-content [style*="#f0fdf4"],
+.techzuno-blog-content [style*="212, 237, 218"] {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 78, 59, 0.25)) !important;
+  border: 1px solid rgba(52, 211, 153, 0.35) !important;
+  border-left: 4px solid #10b981 !important;
+  color: #f0fdf4 !important;
+  border-radius: 12px !important;
+}
+
+.techzuno-blog-content [style*="#e6f7ff"],
+.techzuno-blog-content [style*="#e3f2fd"],
+.techzuno-blog-content [style*="#f0f9ff"],
+.techzuno-blog-content [style*="#e0f2fe"],
+.techzuno-blog-content [style*="230, 247, 255"] {
+  background: linear-gradient(135deg, rgba(3, 184, 184, 0.12), rgba(15, 23, 42, 0.6)) !important;
+  border: 1px solid rgba(56, 255, 242, 0.3) !important;
+  border-left: 4px solid #38fff2 !important;
+  color: #f8fafc !important;
+  border-radius: 12px !important;
+}
+
+.techzuno-blog-content [style*="color: #000"],
+.techzuno-blog-content [style*="color:#000"],
+.techzuno-blog-content [style*="color: #000000"],
+.techzuno-blog-content [style*="color:#000000"],
+.techzuno-blog-content [style*="color: #111"],
+.techzuno-blog-content [style*="color: #222"],
+.techzuno-blog-content [style*="color: #333"],
+.techzuno-blog-content [style*="color: rgb(0, 0, 0)"],
+.techzuno-blog-content [style*="color: rgb(51, 51, 51)"],
+.techzuno-blog-content [style*="color: black"] {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Headings */
 .techzuno-blog-content h1,
 .techzuno-blog-content h2,
 .techzuno-blog-content h3,
-.techzuno-blog-content h4 {
-  color: #ffffff;
-  line-height: 1.25;
-  letter-spacing: 0;
+.techzuno-blog-content h4,
+.techzuno-blog-content h5,
+.techzuno-blog-content h6 {
+  color: #ffffff !important;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .techzuno-blog-content h1 {
-  font-size: clamp(2.1rem, 5vw, 3.4rem);
-  font-weight: 800;
-  margin-top: 3rem;
+  font-size: clamp(2.1rem, 5vw, 3rem);
+  margin-top: 3.2rem;
   margin-bottom: 1.2rem;
 }
 
 .techzuno-blog-content h2 {
-  font-size: clamp(1.55rem, 3vw, 2rem);
-  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 1.95rem);
   margin-top: 3rem;
-  margin-bottom: 1.15rem;
+  margin-bottom: 1.2rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(56, 255, 242, 0.16);
+  position: relative;
+  border-bottom: 1px solid rgba(56, 255, 242, 0.2);
+}
+
+.techzuno-blog-content h2::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #38fff2, transparent);
 }
 
 .techzuno-blog-content h3 {
-  color: #b8faff;
+  color: #b8faff !important;
   font-size: clamp(1.2rem, 2vw, 1.45rem);
   font-weight: 750;
   margin-top: 2.2rem;
@@ -195,137 +264,207 @@ button:disabled {
 }
 
 .techzuno-blog-content h4 {
-  font-size: 1.12rem;
+  font-size: 1.15rem;
   font-weight: 700;
   margin-top: 1.8rem;
   margin-bottom: 0.75rem;
+  color: #ffffff !important;
 }
 
+/* Paragraphs */
 .techzuno-blog-content p {
-  margin: 0 0 1.35rem;
-  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 1.4rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 2rem;
 }
 
 .techzuno-blog-content p:empty {
-  min-height: 1.35rem;
+  display: none;
 }
 
 .techzuno-blog-content p:last-child {
   margin-bottom: 0;
 }
 
-.techzuno-blog-content strong {
-  color: #ffffff;
+/* Strong / Bold Text */
+.techzuno-blog-content strong,
+.techzuno-blog-content b {
+  color: #ffffff !important;
   font-weight: 700;
 }
 
-.techzuno-blog-content em {
-  color: rgba(255, 255, 255, 0.9);
+/* Italics / Emphasis */
+.techzuno-blog-content em,
+.techzuno-blog-content i {
+  color: rgba(255, 255, 255, 0.92);
   font-style: italic;
 }
 
+/* Links */
 .techzuno-blog-content a {
-  color: #38fff2;
+  color: #38fff2 !important;
   text-decoration: none;
   border-bottom: 1px solid rgba(56, 255, 242, 0.35);
+  transition: all 0.2s ease-in-out;
 }
 
 .techzuno-blog-content a:hover {
-  color: #03b8b8;
-  border-bottom-color: #03b8b8;
+  color: #a5f3fc !important;
+  border-bottom-color: #38fff2;
+  text-shadow: 0 0 8px rgba(56, 255, 242, 0.4);
 }
 
-.techzuno-blog-content ul,
+/* Unordered Lists */
+.techzuno-blog-content ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 1.5rem 0;
+}
+
+.techzuno-blog-content ul > li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin: 0.75rem 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.techzuno-blog-content ul > li::before {
+  content: "•";
+  position: absolute;
+  left: 0.35rem;
+  top: 0;
+  color: #38fff2;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  text-shadow: 0 0 8px rgba(56, 255, 242, 0.6);
+}
+
+/* Ordered Lists (Numbered Card Lists) */
 .techzuno-blog-content ol {
   padding-left: 1.75rem;
-  margin-top: 1.1rem;
-  margin-bottom: 1.6rem;
-}
-
-.techzuno-blog-content ul {
-  list-style: disc;
-}
-
-.techzuno-blog-content ol {
+  margin: 1.5rem 0;
   list-style: decimal;
 }
 
-.techzuno-blog-content li {
-  margin: 0.55rem 0;
-  color: rgba(255, 255, 255, 0.8);
+.techzuno-blog-content ol > li {
+  margin: 0.75rem 0;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.techzuno-blog-content li::marker {
+.techzuno-blog-content ol > li::marker {
   color: #38fff2;
+  font-weight: 700;
 }
 
+/* Blockquotes & Callout Boxes */
 .techzuno-blog-content blockquote {
   margin: 2rem 0;
-  padding: 1.2rem 1.45rem;
-  border-left: 4px solid #38fff2;
-  border-radius: 0 10px 10px 0;
-  background: rgba(3, 184, 184, 0.09);
-  color: rgba(255, 255, 255, 0.9);
-  font-style: italic;
-}
-
-.techzuno-blog-content code {
-  padding: 0.18em 0.45em;
-  border-radius: 6px;
-  background: rgba(56, 255, 242, 0.1);
-  color: #38fff2;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.88em;
-}
-
-.techzuno-blog-content pre {
-  margin: 2rem 0;
   padding: 1.5rem 1.75rem;
-  overflow-x: auto;
-  border: 1px solid rgba(56, 255, 242, 0.15);
-  /* border-radius: 10px; */
-  background: #050809;
+  border-left: 4px solid #38fff2 !important;
+  border-radius: 0 14px 14px 0;
+  background: linear-gradient(90deg, rgba(3, 184, 184, 0.12) 0%, rgba(3, 184, 184, 0.02) 100%) !important;
+  color: #f1f5f9 !important;
+  font-style: italic;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
-.techzuno-blog-content pre code {
-  padding: 0;
-  background: none;
-  color: #e4e4e7;
+.techzuno-blog-content blockquote p {
+  margin-bottom: 0;
+  color: #f1f5f9 !important;
 }
 
-.techzuno-blog-content hr {
-  margin: 2.5rem 0;
-  border: none;
-  border-top: 1px solid rgba(56, 255, 242, 0.15);
-}
-
+/* Tables */
 .techzuno-blog-content table {
   width: 100%;
-  margin: 2rem 0;
-  border-collapse: collapse;
+  margin: 2.2rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
   overflow: hidden;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 255, 242, 0.2) !important;
+  background: #070c0e !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
 }
 
 .techzuno-blog-content th,
 .techzuno-blog-content td {
-  border: 1px solid rgba(56, 255, 242, 0.12);
-  padding: 0.8rem 1rem;
+  padding: 1rem 1.25rem;
   text-align: left;
   vertical-align: top;
+  border-bottom: 1px solid rgba(56, 255, 242, 0.12) !important;
+  border-right: 1px solid rgba(56, 255, 242, 0.08) !important;
+}
+
+.techzuno-blog-content th:last-child,
+.techzuno-blog-content td:last-child {
+  border-right: none !important;
 }
 
 .techzuno-blog-content th {
-  background: rgba(3, 184, 184, 0.18);
-  color: #ffffff;
-  font-weight: 700;
+  background: linear-gradient(180deg, rgba(3, 184, 184, 0.25), rgba(3, 184, 184, 0.12)) !important;
+  color: #b8faff !important;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
+
+.techzuno-blog-content tr:last-child td {
+  border-bottom: none !important;
 }
 
 .techzuno-blog-content tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.025) !important;
 }
 
+.techzuno-blog-content tr:hover td {
+  background: rgba(56, 255, 242, 0.04) !important;
+}
+
+/* Stat Cards & Grid Layouts (WordPress Columns / Multi-box grids) */
+.techzuno-blog-content .wp-block-columns {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 1.25rem !important;
+  margin: 2.2rem 0 !important;
+}
+
+.techzuno-blog-content .wp-block-column {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(3, 184, 184, 0.05)) !important;
+  border: 1px solid rgba(56, 255, 242, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 1.5rem 1.25rem !important;
+  text-align: center !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+  transition: transform 0.3s ease, border-color 0.3s ease !important;
+}
+
+.techzuno-blog-content .wp-block-column:hover {
+  transform: translateY(-3px) !important;
+  border-color: rgba(56, 255, 242, 0.4) !important;
+}
+
+.techzuno-blog-content .wp-block-column h1,
+.techzuno-blog-content .wp-block-column h2,
+.techzuno-blog-content .wp-block-column h3,
+.techzuno-blog-content .wp-block-column p strong {
+  color: #38fff2 !important;
+  font-size: 2.25rem !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Callout groups & divs */
+.techzuno-blog-content div.wp-block-group,
+.techzuno-blog-content div.has-background {
+  border-radius: 12px !important;
+  padding: 1.5rem 1.75rem !important;
+  margin: 1.8rem 0 !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Media, Embeds & Code */
 .techzuno-blog-content div[data-youtube-video] {
   display: flex;
   justify-content: center;
@@ -351,11 +490,63 @@ button:disabled {
 .techzuno-blog-content [data-type="mention"] {
   display: inline-flex;
   align-items: center;
-  /* border-radius: 999px; */
   background: rgba(56, 255, 242, 0.18);
   color: #38fff2;
   padding: 0.1rem 0.6rem;
   font-weight: 700;
+}
+
+.techzuno-blog-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 255, 242, 0.18);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+  margin: 2rem auto;
+  display: block;
+}
+
+.techzuno-blog-content figure {
+  margin: 2.2rem 0;
+  text-align: center;
+}
+
+.techzuno-blog-content figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.techzuno-blog-content code {
+  padding: 0.2em 0.5em;
+  border-radius: 6px;
+  background: rgba(56, 255, 242, 0.12) !important;
+  color: #38fff2 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.techzuno-blog-content pre {
+  margin: 2rem 0;
+  padding: 1.5rem 1.75rem;
+  overflow-x: auto;
+  border: 1px solid rgba(56, 255, 242, 0.2) !important;
+  border-radius: 12px !important;
+  background: #06090b !important;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.techzuno-blog-content pre code {
+  padding: 0;
+  background: transparent !important;
+  color: #e4e4e7 !important;
+}
+
+.techzuno-blog-content hr {
+  margin: 2.8rem 0;
+  border: none;
+  border-top: 1px solid rgba(56, 255, 242, 0.2);
 }
 
 .highlightedTextColor {
